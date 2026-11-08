@@ -1,0 +1,705 @@
+{
+  "briefs": [
+    {
+      "tag": "Seçim",
+      "text": "OpenAI ve Anthropic, 3 Kasım ABD ara seçimleri öncesinde kötüye kullanımı ve yanıltıcı oy bilgisini izlemek için özel ekipler kurdu.",
+      "url": "https://www.semafor.com/article/11/02/2026/election-war-rooms-enter-the-ai-age"
+    },
+    {
+      "tag": "WIRED",
+      "text": "Sıradan görünen ama kötüye kullanım amaçlı deepfake özellikleri gizleyen 400'den fazla uygulama ve site tespit edildi. Apple 19 uygulamayı kaldırdı.",
+      "url": "https://www.wired.com/story/hundreds-of-mundane-ai-apps-are-hiding-abusive-deepfake-features/"
+    },
+    {
+      "tag": "Hukuk",
+      "text": "New York Times ve diğer yayıncılar, içerik kazıma ve paywall aşma iddialarıyla Brave Software'e dava açtı. İddialar henüz yargı önünde.",
+      "url": "https://www.theverge.com/tech/1024588/brave-lawsuit-ai-scraping-new-york-times"
+    },
+    {
+      "tag": "OpenAI",
+      "text": "Grid Protectors programıyla acil durumlarda veri merkezi elektrik tüketimi azaltılacak; Georgia'daki tesis 1.000 MW'a kadar yük boşaltabilecek.",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1024604/openai-data-center-grid-protection-program"
+    },
+    {
+      "tag": "Anthropic",
+      "text": "Akademisyenler, kurucular ve kıdemli mühendisler için ücretli AI safety araştırma programı açıldı; başvurular 22 Kasım'da kapanıyor.",
+      "url": "https://x.com/AnthropicAI/status/2117343929960112486"
+    },
+    {
+      "tag": "Y Combinator",
+      "text": "Garry Tan, AI agent'ları için yılda 100–200 bin dolar token harcadığını söyledi.",
+      "url": "https://techcrunch.com/2026/11/02/y-combinators-garry-tan-uses-ai-agents-so-much-he-spends-up-to-200k-a-year-on-tokens/"
+    },
+    {
+      "tag": "Çin",
+      "text": "Ulusal finans düzenleyicisinin başkan yardımcısı, AI yatırımlarının aşırı yoğunlaştığı ve geleneksel sektörlerin borçlanma maliyetini artırabileceği uyarısında bulundu.",
+      "url": "https://www.reuters.com/business/finance/ai-investment-is-becoming-overly-concentrated-chinese-official-says-2026-11-03/"
+    },
+    {
+      "tag": "Starbucks",
+      "text": "Drive-thru'larda AI destekli sipariş ve kişiselleştirilmiş menü araştırılıyor; testler 2027 mali yılında.",
+      "url": "https://www.cnet.com/tech/starbucks-drive-thru-ai-customer-recognition/"
+    },
+    {
+      "tag": "Avrupa",
+      "text": "Veriff kurucularının AI kariyer agent'ı Roleo, Avrupa'ya açılmak için 2,9 milyon euro topladı.",
+      "url": "https://tech.eu/2026/11/02/veriff-co-founders-roleo-raises-eur29m-to-expand-ai-career-agent-across-europe/"
+    },
+    {
+      "tag": "Parola",
+      "text": "mSecure, şüpheli aktivite sonrası kullanıcılardan parolalarını, 2FA ve passkey'lerini sıfırlamalarını istedi; neden henüz açıklanmadı.",
+      "url": "https://thehackernews.com/2026/11/msecure-warns-users-to-change-passwords.html"
+    },
+    {
+      "tag": "Fidye",
+      "text": "Saldırganlar 2024 sonunda yamalanmış bir DSM açığını kullanarak güncellenmemiş Synology NAS cihazlarını şifreliyor.",
+      "url": "https://thehackernews.com/2026/11/synology-nas-devices-targeted-in.html"
+    },
+    {
+      "tag": "Altyapı",
+      "text": "Chainstack, üçüncü taraf bir bileşen üzerinden üretim sistemlerine sızıldığını ve müşteri verileri ile parola hash'lerinin açığa çıktığını duyurdu.",
+      "url": "https://thehackernews.com/2026/11/chainstack-reports-production-systems.html"
+    }
+  ],
+  "date": "2026-11-04",
+  "dateLabel": "Çarşamba, 4 Kasım 2026",
+  "figures": [
+    {
+      "l": "Binance'ten çalınan varlık; zincir trojanlı bir AI aracı installer'ıyla başladı",
+      "n": "$6,43 mr"
+    },
+    {
+      "l": "Message Threads ile 500k–1M token'lık isteklerde medyan TTFT düşüşü",
+      "n": "%35"
+    },
+    {
+      "l": "Linux 4.4'ten beri var olan IPv4 TCP use-after-free açığı",
+      "n": "CVSS 9,8"
+    },
+    {
+      "l": "LLMjacking'in bazı kurumlara çıkardığı bulut faturası",
+      "n": "$1 mn"
+    },
+    {
+      "l": "Inference platformu fal'ın yeni değerlemesi (Nisan'da $8 mr)",
+      "n": "$16 mr"
+    }
+  ],
+  "lead": {
+    "alert": true,
+    "box": {
+      "items": [
+        "AI CLI'larını ve geliştirici araçlarını (Homebrew, npm, IDE extension) yalnızca resmi kaynaklardan ve kurum içi allowlist üzerinden kurun; arama sonucundan gelen installer'lara güvenmeyin.",
+        "İşe alım ödevi, PoC ya da yabancı bir repo çalıştırılacaksa bunu kurumsal laptop yerine tek kullanımlık bir VM veya devcontainer içinde yapın.",
+        "Dahili AI agent'larının ve MCP sunucularının diğer geliştirici makinelerine veya CI/CD'ye erişimini least privilege ile sınırlayın, her çağrıyı audit log'a yazın.",
+        "Container deploy ve registry token'larını kısa ömürlü (OIDC tabanlı) yapın; geliştirici diskinde uzun ömürlü token bırakmayın, kullanım dışı makinelerden gelen deploy'lara alarm kurun."
+      ],
+      "kicker": "Pratik çıkarım",
+      "note": "Bu kutu editoryal öneridir, haberin parçası değildir.",
+      "title": "Geliştirici makinesi artık prod'a giden yol"
+    },
+    "deck": "6,43 milyar dolarlık hırsızlığın zinciri bir geliştiricinin Homebrew ile kurduğu sahte AI aracı installer'ıyla başladı; saldırgan sonra şirketin kendi AI aracını kullanarak makineler arasında ilerledi.",
+    "headline": "Binance soygunu: trojanlı AI aracı, sahte iş görüşmesi ve dahili bir AI tool'u",
+    "kicker": "Manşet · Güvenlik",
+    "paragraphs": [
+      "Binance, 29 Ekim'deki 6,43 milyar dolarlık hırsızlığın nasıl gerçekleştiğini 3 Kasım'da kamuoyuyla paylaştı. Şirketin anlatımına göre bu tek bir açık değil, aylara yayılan çok aşamalı bir kampanyaydı. Haziran'da Wallet DevOps ekibinden bir mühendis popüler bir AI aracını aratıp trojanlı bir Homebrew installer'ı indirdi. Hangi AI aracının taklit edildiği açıklanmadı.",
+      "Eylül'de ikinci bir mühendise iş arama platformunda sahte bir “proje direktörü” ulaştı. HR görüşmesi ve var olmayan bir şirketin “CEO”suyla yapılan ikinci turun sonunda adaydan bir ödev reposunu indirmesi istendi. Reponun kurulum adımı, meşru bir geliştirme aracı bileşenini zehirli bir sürümle değiştiren, saldırganın sunucusuyla konuşan ve izlerini silen bir malware çalıştırdı.",
+      "Kritik an 20 Ekim'de geldi: saldırgan ikinci mühendisin makinesinden şirketin dahili bir AI aracını kötüye kullanarak iki mühendisin daha sistemlerine erişti. İlk mühendisin makinesinde bulunan bir container deployment token'ı, 29 Ekim'de üçüncü mühendisin bilgisayarından container deploy etmek için kullanıldı. Ardından dahili cüzdan imzalama servisine yetkisiz erişimle olağan çekim akışının dışında transferler başlatıldı.",
+      "Binance cüzdan sistemini yeni bir ortamda yeniden kurduğunu, dahili AI aracını ve erişim kontrollerini baştan inşa ettiğini, cihazları ve token'ları değiştirdiğini söylüyor. Şirket bu yıl Kuzey Kore bağlantılı olduğundan şüphelendiği 57 vakayı engellediğini belirtse de bu saldırı için resmi bir atıf yapmadı. Ders net: AI araçları artık hem giriş kapısı hem de lateral movement kanalı."
+    ],
+    "sources": [
+      {
+        "label": "The Hacker News",
+        "url": "https://thehackernews.com/2026/11/binance-reveals-how-fake-job-interviews.html"
+      }
+    ]
+  },
+  "number": 2,
+  "readingMinutes": 15,
+  "repos": {
+    "items": [
+      {
+        "meta": "Rust · Computer use",
+        "name": "vercel-labs/agent-desktop",
+        "stars": "10.833",
+        "url": "https://github.com/vercel-labs/agent-desktop",
+        "why": "AI agent'larının masaüstü uygulamalarını işletim sisteminin accessibility tree'si üzerinden görüp kullanmasını sağlayan bir CLI ve C kütüphanesi; günün en hızlı yükselen reposu."
+      },
+      {
+        "meta": "TypeScript · Agent belleği",
+        "name": "thedotmack/claude-mem",
+        "stars": "111.060",
+        "url": "https://github.com/thedotmack/claude-mem",
+        "why": "Coding agent oturumlarını yakalayıp özetleyen ve sonraki oturumlara ilgili bağlamı geri enjekte eden kalıcı bellek katmanı."
+      },
+      {
+        "meta": "TypeScript · Agent arayüzü",
+        "name": "pingdotgg/t3code",
+        "stars": "42.540",
+        "url": "https://github.com/pingdotgg/t3code",
+        "why": "AI coding agent'larını telefondan, web'den ya da masaüstünden, uzaktan da yönetmeye yarayan birleşik bir yerel konsol."
+      },
+      {
+        "meta": "Rust · Git / CLI",
+        "name": "max-sixty/worktrunk",
+        "stars": "10.159",
+        "url": "https://github.com/max-sixty/worktrunk",
+        "why": "Paralel çalışan agent'lar için git worktree yönetimini kolaylaştıran CLI; büyük monorepo'larda aynı anda birden fazla agent çalıştıranlar için pratik."
+      },
+      {
+        "meta": "Shell · Skill",
+        "name": "mattpocock/skills",
+        "stars": "310.533",
+        "url": "https://github.com/mattpocock/skills",
+        "why": "Gerçek mühendislik işlerine yönelik küçük ve birleştirilebilir agent skill'leri koleksiyonu; ekip içi skill kütüphanesi kurarken iyi bir referans."
+      },
+      {
+        "meta": "C · Yerel inference",
+        "name": "JustVugg/colibri",
+        "stars": "46.764",
+        "url": "https://github.com/JustVugg/colibri",
+        "why": "Büyük MoE modellerini sıradan bilgisayarlarda çalıştırmayı hedefleyen, bağımlılıksız saf C inference motoru."
+      },
+      {
+        "meta": "Python · Yerel inference",
+        "name": "FlashML-org/FreeToken",
+        "stars": "16.282",
+        "url": "https://github.com/FlashML-org/FreeToken",
+        "why": "290B+ parametreli MoE modellerini yerelde etkileşimli hızda çalıştırmayı amaçlayan edge-native inference motoru."
+      },
+      {
+        "meta": "Python · Scraping",
+        "name": "D4Vinci/Scrapling",
+        "stars": "93.369",
+        "url": "https://github.com/D4Vinci/Scrapling",
+        "why": "Tek istekten büyük ölçekli crawl'a kadar tüm web scraping hattını kapsayan Python framework'ü."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending, 3 Kasım",
+        "url": "https://github.com/OnClickListener2048/github-trending-daily/issues/6"
+      },
+      {
+        "label": "Trending 2026-11-03",
+        "url": "https://github.com/caige6666/github-trending-daily/issues/26"
+      }
+    ],
+    "subtitle": "3 Kasım günlük trending listesinden seçme · yıldız sayıları kaynak tarihindeki değerlerdir"
+  },
+  "sections": [
+    {
+      "articles": [
+        {
+          "big": true,
+          "headline": "Anthropic: RSP'deki “AI kaynaklı dramatik hızlanma” eşiğine yakında ulaşabiliriz",
+          "kicker": "Güvenlik politikası",
+          "paragraphs": [
+            "Anthropic'in güncellenmiş S-1/A başvurusundaki risk faktörlerine göre şirket, iç tahminlere dayanarak Responsible Scaling Policy'deki “AI'a atfedilebilen dramatik hızlanma” tanımına yakında ulaşabileceğini öngörüyor. Şirket şu an hiçbir modelini bu eşiği aşmış olarak sınıflandırmadığını ve verileri değerlendirmeye devam ettiğini söylüyor.",
+            "Başvuruda geçmişte bazı yetenek sıçramalarının ancak gerçekleştikten sonra fark edildiği de kabul ediliyor. Anthropic, Claude'un ardışık frontier model nesillerini anlamlı insan denetimi olmadan tasarlamasına güvenle izin vermeyi beklemediğini ve RSP güncellemelerini değerlendirdiğini belirtiyor. Eleştirmenler ise bir S-1'in aynı zamanda pazarlama belgesi olduğunu hatırlatıyor."
+          ],
+          "size": 8,
+          "sources": [
+            {
+              "label": "TechCrunch",
+              "url": "https://techcrunch.com/2026/11/02/anthropic-warns-that-its-very-close-to-rsi-capability-aka-self-building-ai/"
+            }
+          ]
+        },
+        {
+          "headline": "Gemini 4 Carbon, Intelligence Index'te bir puan farkla önde",
+          "kicker": "Benchmark",
+          "paragraphs": [
+            "Artificial Analysis ölçümünde Gemini 4 Carbon 59 puan aldı; Claude Opus 5.5 58, GPT-6 Astra 57'de. Programlamada ise Opus 5.5 ile Claude Code önde kalıyor. Model şimdilik kademeli erişimde; önce siber savunma ekiplerine açılıyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "Tom's Hardware",
+              "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/google-reveals-new-gemini-4-carbon-ai-model-narrowly-beating-claude-opus-5-5-frontier-ai-model-is-also-the-least-likely-to-hallucinate-benchmarks-claim"
+            }
+          ]
+        },
+        {
+          "headline": "Sarvam Prism: 44 ms'de yanıt veren karar modeli",
+          "kicker": "Açık ağırlık",
+          "paragraphs": [
+            "Hindistanlı Sarvam AI, 105B tabanlı Prism'i Apache 2.0 lisansıyla yayımladı. Model routing, doküman analizi ve agent değerlendirmesi gibi yapılandırılmış kararlara odaklanıyor. Rakamlar şirketin kendi testlerine dayanıyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "Punjab Kesari / ANI",
+              "url": "https://english.punjabkesari.com/business/sarvam-launches-ai-decision-model-with-44-millisecond-response-time-open-weights-for-enterprises"
+            }
+          ]
+        },
+        {
+          "headline": "CoworkOS: strateji ile yürütmeyi ayıran agent harness'ı",
+          "kicker": "Araştırma · Agent",
+          "paragraphs": [
+            "Renmin Üniversitesi'nin çalışmasında model eylem ve delegasyonu seçiyor, runtime state ve geri bildirimi yönetiyor. Beş tur otomatik post-training ile Qwen3.6-35B-A3B'nin sekiz benchmark ortalaması 33,19'dan 42,95'e çıktı."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "Hugging Face Papers",
+              "url": "https://huggingface.co/papers/2611.03178"
+            }
+          ]
+        },
+        {
+          "headline": "SWE-Trail: geçmiş trajectory'ler veri toplamayı yönlendiriyor",
+          "kicker": "Araştırma · Kodlama",
+          "paragraphs": [
+            "Ant Group kaynaklı çalışma, coding agent eğitiminde önceki denemeleri hangi duruma daha fazla emek harcanacağını seçmek için kullanıyor. 124B'lik öğrenci modelde SWE-bench Multilingual'da +2,33, SWE-bench Pro'da +1,60 puan artış raporlanıyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "Hugging Face Papers",
+              "url": "https://huggingface.co/papers/2611.02074"
+            }
+          ]
+        },
+        {
+          "headline": "ElevenLabs: uzun konuşmalarda ses, metinden daha başarılı",
+          "kicker": "Ses",
+          "paragraphs": [
+            "ElevenLabs'in verilerine göre iki dakikayı aşan etkileşimlerde voice agent'ların göreli başarı oranı metin sohbetten %31,7 daha yüksek. Sesli konuşmalar ortalama 4,6 dakika sürerken sohbetler 7 dakikayı buluyor. Müşteri destek ya da operasyon akışı tasarlayanlar için ilginç bir veri noktası; çalışma şirketin kendi ölçümü."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "ElevenLabs",
+              "url": "https://elevenlabs.io/blog/voice-wins-complex-stressful-conversations"
+            }
+          ]
+        },
+        {
+          "headline": "Isomorphic Labs: bir gün tüm ilaçları AI tasarlayacak",
+          "kicker": "Bilim",
+          "paragraphs": [
+            "DeepMind kökenli Isomorphic Labs'in başkanı Max Jaderberg, ilaç keşfinin zamanla tamamen AI tarafından yürütüleceğini öngördü. Klinik denemeler ve düzenleyici onay süreçlerinin yine de gerekeceğini vurguladı. Bu bir öngörü; somut bir ürün duyurusu değil."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Bloomberg",
+              "url": "https://www.bloomberg.com/news/articles/2026-11-02/isomorphic-labs-president-says-ai-will-design-all-drugs-one-day"
+            }
+          ]
+        }
+      ],
+      "id": "ai",
+      "subtitle": "Modeller, benchmark'lar, araştırma",
+      "title": "Yapay Zeka & LLM"
+    },
+    {
+      "articles": [
+        {
+          "big": true,
+          "headline": "AMD'nin veri merkezi geliri ikiye katlandı, Q4 beklentisi 17 milyar dolar",
+          "kicker": "Bilanço",
+          "paragraphs": [
+            "AMD üçüncü çeyrekte yıllık %45 artışla 13,38 milyar dolar gelir açıkladı; veri merkezi segmenti toplam gelirin %64'üne ulaştı. Şirket dördüncü çeyrek için yaklaşık 17 milyar dolar öngörüyor ve 2027'de sunucu gelirinin ikiye katlanmasını bekliyor. Lisa Su talebin agentic AI ile hızlandığını söylüyor; PC ve oyun tarafı ise geriledi."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "SiliconANGLE",
+              "url": "https://siliconangle.com/2026/11/03/amd-beats-expectations-as-agentic-ai-sparks-its-data-center-revenue-growth-engines/"
+            },
+            {
+              "label": "CNBC",
+              "url": "https://www.cnbc.com/2026/11/03/amd-amd-q3-earnings-report-2026-.html"
+            }
+          ]
+        },
+        {
+          "headline": "fal, 1,3 milyar dolar toplayarak değerini 16 milyar dolara çıkardı",
+          "kicker": "Yatırım",
+          "paragraphs": [
+            "Görüntü, video ve ses modellerini tek bir API üzerinden sunan inference platformu fal'ın Series F turuna Bessemer liderlik etti; Nvidia da katılımcılar arasında. Değerleme Nisan'daki 8 milyar dolardan ikiye katlandı. CEO Burkay Gür, yazın talebin kapasiteyi aştığını ve rate limit uygulamak zorunda kaldıklarını söyledi."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "SiliconANGLE",
+              "url": "https://siliconangle.com/2026/11/03/generative-media-inference-startup-fal-raises-1-3b-at-a-16b-valuation/"
+            },
+            {
+              "label": "TechCrunch",
+              "url": "https://techcrunch.com/2026/11/03/ai-inference-startup-fal-doubles-its-valuation-to-16b-as-demand-surges/"
+            }
+          ]
+        },
+        {
+          "headline": "Nvidia yeniden dünyanın en değerli şirketi",
+          "kicker": "Borsa",
+          "paragraphs": [
+            "Hisse yaklaşık %3 yükselerek piyasa değerini 5,03 trilyon dolara taşıdı. Aynı gün Reflection AI CEO'su Misha Laskin, Çin'in açık modellerini kendi çip ve veri merkezlerinin “Truva atı” olarak nitelendirdi."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "24/7 Wall St.",
+              "url": "https://247wallst.com/investing/2026/11/03/nvidia-rises-3-despite-ai-ceos-warning-on-chinese-chip-competition-amd-climbs-5-broadcom-gains-3/"
+            }
+          ]
+        },
+        {
+          "headline": "Goldman Sachs, AI kodlama araçlarını mühendislere sınırladı",
+          "kicker": "Kurumsal AI",
+          "paragraphs": [
+            "Bloomberg'e göre banka, Claude Code ve GitHub Copilot'u trader ve bankacıların çoğundan geri çekti. Sözcü “verimlilik ve risk yönetimi” gerekçesini öne sürüyor ve deneme döneminin bittiğini söylüyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "The Decoder",
+              "url": "https://the-decoder.com/goldman-sachs-pulls-ai-coding-tools-from-traders-and-bankers/"
+            }
+          ]
+        },
+        {
+          "headline": "Schwarz Digits ve Bull'dan Avrupa yargı yetkisinde AI compute",
+          "kicker": "Avrupa",
+          "paragraphs": [
+            "Lidl'in sahibi grubun dijital kolu ile Bull, STACKIT bulutu ve Bull sunucu tasarımını birleştiren bir ön anlaşma imzaladı. Mali şartlar açıklanmadı. Veri egemenliği arayan Avrupalı kurumlar için takip edilecek bir seçenek."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "Global AI Infrastructure Watch",
+              "url": "https://michaelmyrick2.substack.com/p/global-ai-infrastructure-watch-november-516"
+            }
+          ]
+        },
+        {
+          "headline": "Blackstone destekli QTS borç piyasasına geri döndü",
+          "kicker": "Finansman",
+          "paragraphs": [
+            "Veri merkezi operatörü QTS, yılın başında geri çektiği yapıya benzer bir finansmanla yeniden piyasaya çıktı. Semafor bu adımı, AI altyapısına yönelik borç iştahının bir testi olarak yorumluyor."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Semafor",
+              "url": "https://www.semafor.com/article/11/02/2026/blackstone-backed-data-center-operator-tests-ai-debt-fears"
+            }
+          ]
+        },
+        {
+          "headline": "Veri merkezlerine muhalefet sandığa taşındı",
+          "kicker": "Yerel direnç",
+          "paragraphs": [
+            "Semafor'a göre ABD'de eyalet ve yerel düzeyde yüzlerce moratoryum girişimi var; bazıları 3 Kasım'da yerel oylamalarda yer aldı. Finlandiya'da Google'ın Muhos sahasındaki arazi çalışmaları da inceleniyor. Enerji talebi ve çevresel etki, kapasite planlarının önündeki ana engel haline geliyor."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Semafor",
+              "url": "https://www.semafor.com/article/11/02/2026/political-opposition-to-data-centers-mounts-in-us-and-abroad"
+            }
+          ]
+        }
+      ],
+      "id": "is",
+      "subtitle": "Bilançolar, fonlar, veri merkezleri",
+      "title": "Şirketler & Altyapı"
+    },
+    {
+      "articles": [
+        {
+          "big": true,
+          "headline": "Message Threads: uzun agent oturumlarında her turda yalnızca yeni mesajı gönderin",
+          "kicker": "Claude API",
+          "paragraphs": [
+            "Anthropic, Messages API için Message Threads'i public beta olarak açtı. İlk istek tüm konuşmayı gönderip bir thread başlatıyor; sonraki istekler yalnızca yeni mesajları ve bir önceki yanıtın ID'sini taşıyor. Ekran görüntüleri gibi ağır içerikler sunucu tarafında kalıyor, böylece her turda yeniden yüklenmiyor.",
+            "Şirket, Claude Code kullanıcılarının çoğunda varsayılan olarak açık olan özellikle 500k–1M token'lık isteklerde medyan time-to-first-token'ın yaklaşık %35 düştüğünü söylüyor. Token faturası değişmiyor, çünkü model her turda yine tüm konuşmayı işliyor. Thread'ler son istekten 5 dakika sonra sona eriyor, aradaki sürede şifreli olarak bellekte tutuluyor ve diske yazılmıyor. Thread süresi dolunca istemcinin konuşmayı baştan göndermesi gerekiyor; uzun tool çağrıları olan agent'larda bunu hesaba katın. ZDR uygunluğu için dokümantasyona bakmak gerekiyor."
+          ],
+          "size": 8,
+          "sources": [
+            {
+              "label": "Claude blog",
+              "url": "https://claude.com/resources/articles/message-threads"
+            },
+            {
+              "label": "Dokümantasyon",
+              "url": "https://platform.claude.com/docs/en/build-with-claude/message-threads"
+            }
+          ]
+        },
+        {
+          "headline": "Copilot connector'ları: 26 servis, tek oturum açma",
+          "kicker": "GitHub",
+          "paragraphs": [
+            "GitHub tarafından doğrulanmış MCP sunucuları public preview'da. Slack, Figma, Notion, Sentry, Linear ve Atlassian Rovo bir kez bağlanınca Copilot app, CLI, VS Code ve cloud'da çalışıyor. MCP allowlist kullanan kurumların bu sunucuları listeye eklemesi gerekiyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "GitHub Changelog",
+              "url": "https://github.blog/changelog/2026-10-28-connect-your-tools-to-copilot-without-all-the-setup"
+            }
+          ]
+        },
+        {
+          "headline": "2.1.316: Opus 4.8 fast mode 30 Kasım'da kalkıyor",
+          "kicker": "Claude Code",
+          "paragraphs": [
+            "Son sürümlerde `permissions.blockWritesOutsideWorkingDirectories` ayarı ve `CLAUDE_CODE_SUBAGENT_EFFORT` gibi yeni env değişkenleri geldi. Opus 4.8 fast mode kaldırıldıktan sonra istekler hata dönecek; geçiş önerisi Opus 5.5."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "DEV Community",
+              "url": "https://dev.to/aicoding-guide/this-week-in-claude-code-codex-and-gemini-cli-week-of-november-1-2026-15pn"
+            },
+            {
+              "label": "Changelog",
+              "url": "https://code.claude.com/docs/en/changelog"
+            }
+          ]
+        },
+        {
+          "headline": "Codex 0.166: `codex doctor` ve thread kuyruğu",
+          "kicker": "Codex CLI",
+          "paragraphs": [
+            "Yeni sürüm ağ ve WebSocket teşhisi için `codex doctor --network-only` ile yüklenmemiş thread'leri sürdüren `codex queue --resume` komutunu getiriyor. GPT-6.1 Terra, Vertex AI ve Bedrock kataloglarına eklendi."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "DEV Community",
+              "url": "https://dev.to/aicoding-guide/this-week-in-claude-code-codex-and-gemini-cli-week-of-november-1-2026-15pn"
+            }
+          ]
+        },
+        {
+          "headline": "Gemini CLI 0.66: yalnızca düzeltmeler ve bir uyarı",
+          "kicker": "Gemini CLI",
+          "paragraphs": [
+            "26 maddelik sürümde yeni özellik yok; `.env` sonrası ayar çözümleme ve git ortamında kimlik bilgisi istemlerinin kapatılması gibi düzeltmeler var. Yeni bir banner, CLI'ın Gemini 4 için optimize edilmediğini belirtiyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "DEV Community",
+              "url": "https://dev.to/aicoding-guide/this-week-in-claude-code-codex-and-gemini-cli-week-of-november-1-2026-15pn"
+            }
+          ]
+        },
+        {
+          "headline": "Antigravity Marketplace'e guardrail'li Google Cloud plugin'i",
+          "kicker": "Google Cloud",
+          "paragraphs": [
+            "`google-cloud-developer` plugin'i seçilmiş skill'ler, önceden yetkilendirilmiş bir Developer Knowledge MCP sunucusuyla canlı doküman desteği ve IAM kontrolleri sunuyor. Yıkıcı CLI komutlarını engelleyen guardrail'ler de pakete dahil. Agent'lara bulut erişimi verirken guardrail'lerin pakete gömülü gelmesi giderek standart hale geliyor."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "AI Agent Store",
+              "url": "https://aiagentstore.ai/ai-agent-news/this-week"
+            }
+          ]
+        },
+        {
+          "headline": "AWS'ten çok agent'lı mühendislik asistanı için referans mimari",
+          "kicker": "AWS",
+          "paragraphs": [
+            "AWS, bir planner ile üç uzman agent'tan (Catalog, Evaluation, Knowledge) oluşan bir blueprint yayımladı. Mimari Nova Multimodal Embeddings ve Bedrock AgentCore üzerine kurulu; spesifikasyon ve tolerans kuralları için deterministik Python kontrolleri ve AgentCore Evaluations ile sürekli puanlama içeriyor. Beş Jupyter notebook ve bir GitHub reposuyla geliyor."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "AI Agent Store",
+              "url": "https://aiagentstore.ai/ai-agent-news/this-week"
+            }
+          ]
+        }
+      ],
+      "id": "gelistirme",
+      "subtitle": "API'ler, CLI'lar, agent harness'ları",
+      "title": "Geliştirme & Araçlar"
+    },
+    {
+      "articles": [
+        {
+          "big": true,
+          "headline": "Message Parts: reasoning blokları artık round-trip'te kaybolmuyor",
+          "kicker": "Spring AI 2.1",
+          "paragraphs": [
+            "Spring AI 2.1'de bir mesaj artık metin, reasoning, tool call, tool result ve medya gibi parçaların sıralı bir `MessagePart` listesi. Claude'un imzalı thinking blokları ve OpenAI Responses'ın şifreli reasoning öğeleri gibi verilerin sağlayıcıya aynı sırayla ve değiştirilmeden geri gönderilmesi gerekiyordu; önceki model bunu yapamıyordu.",
+            "Sağlayıcıya özgü opak veriler yalnızca onları üreten modele geri gönderiliyor, tanınmayan bloklar ham JSON olarak saklanıyor. Yeni `OpenAiResponsesChatModel` ve oturumlar arası reasoning'i koruyan session memory de bu değişiklikle geliyor. Mevcut kod çalışmaya devam ediyor; ancak 2.1 öncesi kaydedilmiş geçmişlerde reasoning parçası yok."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Spring Blog",
+              "url": "https://spring.io/blog/2026/10/28/spring-ai-message-parts-reasoning-replay"
+            }
+          ]
+        },
+        {
+          "headline": "Boot 3.5'in desteği bitti; 4.2 RC startup performansına odaklanıyor",
+          "kicker": "Spring Boot",
+          "paragraphs": [
+            "3 Kasım tarihli This Week in Spring, açık kaynak desteği sona eren Spring Boot 3.5'ten 4'e adım adım geçiş rehberine ve startup performansı ile upgrade kontrollerini öne çıkaran Boot 4.2 release candidate'ına dikkat çekti. Bültende Java ve Spring Boot için harness engineering ile spec-driven development videoları da var. 3.5 üzerinde kalan multimodule projeler için güvenlik yamaları artık yalnızca ticari destekle geliyor."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "This Week in Spring",
+              "url": "https://spring.io/blog/2026/11/03/this-week-in-spring-november-3rd-2026"
+            }
+          ]
+        },
+        {
+          "headline": "InfoQ özeti: JNoSQL, JReleaser, JBang, LangChain4j ve Quarkus Almanac",
+          "kicker": "Ekosistem",
+          "paragraphs": [
+            "2 Kasım tarihli Java özeti TornadoVM 8.0 GA'nın yanı sıra JNoSQL, Endive, JReleaser, JBang ve LangChain4j point release'lerini ve yeni Quarkus Almanac'ı kapsıyor. Haftanın ekosistem tarafı sakin; büyük bir GA ya da kırıcı değişiklik yok."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "InfoQ",
+              "url": "https://www.infoq.com/news/2026/11/java-news-roundup-oct26-2026/"
+            }
+          ]
+        },
+        {
+          "headline": "Spring Boot 4.0.9 ve 4.1.2 yayında",
+          "kicker": "Bakım sürümleri",
+          "paragraphs": [
+            "23 Ekim'de iki bakım sürümünün yanında Spring Cloud 2025.1.4, Spring Cloud 2026.0.0-RC1 ve Spring LDAP 4.2.0-RC1 de çıktı. 4.x hattındaki projeler için dependency bump zamanı; RC'ler ise ayrı bir CI dalında denenebilir."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Spring Blog",
+              "url": "https://spring.io/blog/2026/10/23/spring-boot-4-1-2-available-now"
+            }
+          ]
+        }
+      ],
+      "id": "java",
+      "subtitle": "Spring AI, Boot, ekosistem",
+      "title": "Java & Spring"
+    },
+    {
+      "articles": [
+        {
+          "alert": true,
+          "big": true,
+          "headline": "IPv4 TCP'de kimlik doğrulamasız RCE riski: CVE-2026-98432",
+          "kicker": "Linux kernel",
+          "paragraphs": [
+            "Linux 4.4'ten beri var olan bir use-after-free açığı, dinlemedeki herhangi bir TCP portuna Record Route veya Timestamp seçenekli bağlantı istekleri gönderilerek tetiklenebiliyor. Kernel CVE ekibi 9,8 puan verdi; Red Hat başta 5,9 dediği puanı sonradan 9,8'e çıkardı, Amazon Linux ise 8,1 ile daha temkinli.",
+            "Red Hat 1 Kasım'da RHEL 8.10, 9.8 ve 10.2 için yama yayımladı; Debian, Oracle Linux, SUSE ve Amazon Linux Ekim'de güncelledi. Ubuntu düzeltmeleri şimdilik `-proposed` kanalında. Vahşi doğada istismar raporu yok, ancak Anthropic yayımlanmamış bir araştırma modelinin MPTCP listener'lı sunucularda çalışan bir root exploit yazdığını açıklamıştı. MPTCP'yi kapatmak yeterli değil; kernel güncellemesi ve reboot gerekiyor. Container host'larınızı unutmayın."
+          ],
+          "pill": "CVSS 9,8",
+          "size": 8,
+          "sources": [
+            {
+              "label": "The Hacker News",
+              "url": "https://thehackernews.com/2026/11/red-hat-patches-98-rated-linux-tcp-rce.html"
+            }
+          ]
+        },
+        {
+          "alert": true,
+          "headline": "Google: çalınan LLM erişimi bazı şirketlere 1 milyon dolara mal oldu",
+          "kicker": "LLMjacking",
+          "paragraphs": [
+            "GTIG ve Mandiant'a göre saldırganlar sızdırılmış IAM kimlik bilgileri, servis hesabı anahtarları ve GitHub PAT'leriyle LLM API'lerine erişip tek günde 100 bin doları aşan fatura çıkarıyor. LiteLLM'deki CVE-2026-40217 de bir yol olarak anılıyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "The Hacker News",
+              "url": "https://thehackernews.com/2026/11/google-warns-llmjacking-attacks-are.html"
+            }
+          ]
+        },
+        {
+          "headline": "WSO2 API Manager'da yetkisiz System REST API erişimi",
+          "kicker": "API gateway",
+          "paragraphs": [
+            "CVE-2026-4052, Identity Server'ın paylaşımlı veritabanıyla Resident Key Manager olarak kullanıldığı 4.1.0–4.6.0 kurulumlarını etkiliyor. Çözüm Key Manager Connector 1.8.8 ve vendor yamaları; bilinen public exploit yok."
+          ],
+          "pill": "CVSS 9,8",
+          "size": 4,
+          "sources": [
+            {
+              "label": "CVE Brief",
+              "url": "https://cvebrief.com/cve/cve-2026-4052/"
+            }
+          ]
+        },
+        {
+          "headline": "kaniko, sahte registry'ye Azure token'ı sızdırabiliyor",
+          "kicker": "CI/CD",
+          "paragraphs": [
+            "Chainguard kaniko'nun ACR credential helper'ındaki hatalı hostname doğrulaması (CVE-2026-105769), hazırlanmış bir Dockerfile ile Entra ID token'ının saldırgana gitmesine yol açabiliyor. 1.25.20'ye yükseltip binary'leri kaynaktan yeniden derleyin."
+          ],
+          "pill": "CVSS 9,3",
+          "size": 4,
+          "sources": [
+            {
+              "label": "CVE Brief",
+              "url": "https://cvebrief.com/cve/cve-2026-105769/"
+            }
+          ]
+        },
+        {
+          "headline": "cPGuard güncelleme kanalı ele geçirildi",
+          "kicker": "Tedarik zinciri",
+          "paragraphs": [
+            "Kurcalanmış bir güncelleme Linux sunuculara backdoor kurup parola hash'lerini topladı. Etkilenen sunucularda tüm parolaların ve anahtarların yenilenmesi öneriliyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "The Hacker News",
+              "url": "https://thehackernews.com/2026/11/cpguard-update-channel-hijacked-to.html"
+            }
+          ]
+        },
+        {
+          "headline": "Barracuda ESG'de zincirlenebilen iki açık root'a götürüyor",
+          "kicker": "E-posta güvenliği",
+          "paragraphs": [
+            "CVE-2026-116606 (CVSS 9,3) ve CVE-2026-111560 (8,6) birlikte kullanıldığında yetkilendirme atlanıp cihazda root erişimi elde edilebiliyor. Barracuda Email Security Gateway kullanan kurumların vendor bildirimini kontrol etmesi gerekiyor."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "The Hacker News",
+              "url": "https://thehackernews.com/2026/11/barracuda-flaws-could-be-chained-to.html"
+            }
+          ]
+        },
+        {
+          "headline": "Çaldığı verileri LLM'e puanlatan Windows infostealer",
+          "kicker": "AI destekli malware",
+          "paragraphs": [
+            "Araştırmacıların bulduğu zararlı, kurbanın kişisel ve finansal verilerini bir AI modeline gönderip değerini sıralatıyor. Model reddederse başka modele geçiyor; AI adımı başarısız olursa çalmaya devam ediyor ve sonunda kendini siliyor. Kurumsal API anahtarlarının bu tür kötüye kullanımı, LLMjacking haberiyle birlikte düşünülmeli."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Tom's Hardware",
+              "url": "https://www.tomshardware.com/tech-industry/cyber-security/new-ai-driven-windows-malware-feeds-stolen-data-to-claude-to-rank-victims-assets-by-value-then-deletes-itself-payload-builds-custom-target-assessment-can-switch-models-if-one-refuses-or-skip-the-ai-step-entirely"
+            }
+          ]
+        }
+      ],
+      "id": "guvenlik",
+      "subtitle": "Kritik açıklar, tedarik zinciri, AI kötüye kullanımı",
+      "title": "Güvenlik"
+    }
+  ]
+}

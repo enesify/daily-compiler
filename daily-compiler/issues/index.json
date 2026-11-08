@@ -1,0 +1,32 @@
+[
+ {
+  "date": "2026-11-08",
+  "number": 6,
+  "headline": "Amadeus ihlali Avrupa'ya ulaştı: Norveç güvenlik otoritesi uyardı, rezervasyon verisine yıllarca bir sistem hesabıyla erişilmiş"
+ },
+ {
+  "date": "2026-11-07",
+  "number": 5,
+  "headline": "Botpress ihlali: iç araç proxy'sindeki açıkla 16 müşterinin bot yapılandırmaları ve saklı anahtarları okundu"
+ },
+ {
+  "date": "2026-11-06",
+  "number": 4,
+  "headline": "OpenAI, GPT-6 Cyber'ı sınırlı erişimle açtı: Firefox'ta 81 yeni yüksek önemli açık"
+ },
+ {
+  "date": "2026-11-05",
+  "number": 3,
+  "headline": "OpenAI'ın agent pipeline'ı Linux kernel'de 948 root yolu buldu, hepsine yama taslağı yazdı"
+ },
+ {
+  "date": "2026-11-04",
+  "number": 2,
+  "headline": "Binance soygunu: trojanlı AI aracı, sahte iş görüşmesi ve dahili bir AI tool'u"
+ },
+ {
+  "date": "2026-11-03",
+  "number": 1,
+  "headline": "AI kodlama araçları yeni tedarik zinciri cephesi oldu"
+ }
+]

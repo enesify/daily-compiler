@@ -1,0 +1,744 @@
+{
+  "briefs": [
+    {
+      "tag": "Kadro",
+      "text": "Claude Code ve Cowork'ün ürün lideri Cat Wu, OpenAI'da Core Products PM ekibinin başına geçti; Anthropic'teki son günü 30 Ekim'di.",
+      "url": "https://www.businessinsider.com/cat-wu-joins-openai-from-anthropic-product-lead-coup-2026-11"
+    },
+    {
+      "tag": "CrowdStrike",
+      "text": "Falcon Guardian'a eklenen AI Kill Switch, yöneticilerin agent'ları durdurmasına, yeniden başlatılmalarını engellemesine ve ağ erişimlerini kısıtlamasına izin veriyor.",
+      "url": "https://www.cnbc.com/2026/11/03/crowdstrikes-new-kill-switch-can-stop-rogue-ai-agents-in-their-tracks-ceo-says.html"
+    },
+    {
+      "tag": "OpenAI",
+      "text": "Şirket, ChatGPT'deki arama benzeri sorguların Google'ın arama hacminin yaklaşık %20'si kadar olduğunu tahmin ediyor; rakam bağımsız olarak doğrulanmadı.",
+      "url": "https://www.bigtechnology.com/p/openai-chatgpt-search-is-about-20"
+    },
+    {
+      "tag": "Google",
+      "text": "Öğrenci hesaplarında Google'ın AI araçlarını kapatan okullar Google Search'ü de kaybediyor.",
+      "url": "https://www.cnet.com/tech/services-and-software/google-forcing-schools-choose-between-search-engine-ai/"
+    },
+    {
+      "tag": "DeepMind",
+      "text": "Çalışanlar ayrılık sonrası eleştiriyi kısıtlıyor gibi görünen sözleşme maddesine itiraz etti; Google maddeyi yeni sözleşmelerden çıkardığını söylüyor.",
+      "url": "https://www.washingtonpost.com/technology/2026/11/03/google-deepmind-staff-protest-lifetime-ban-criticizing-company/"
+    },
+    {
+      "tag": "Çin",
+      "text": "Huawei, Alibaba, Tencent ve Xiaomi dahil 20 kurum, Dünya İnternet Konferansı'nda AI agent yönetişimi için sekiz alanı kapsayan bir öz-düzenleme sözleşmesi imzaladı.",
+      "url": "https://www.chinatechnews.com/2026/11/04/132062-chinese-tech-giants-and-state-academy-issue-national-self-discipline-pact-to-govern-ai-agents"
+    },
+    {
+      "tag": "Arm",
+      "text": "Çeyrek geliri yıllık %27 artışla rekor 1,44 milyar dolar; veri merkezi royalty gelirleri ikiye katlandı.",
+      "url": "https://newsroom.arm.com/news/arm-q2-fye27-results"
+    },
+    {
+      "tag": "Qualcomm",
+      "text": "Mali Q4 geliri 10,44 milyar dolar; şirket 2027 mali yılında 5 milyar dolar veri merkezi geliri öngörüyor, zayıf rehberlikle hisse mesai sonrası düştü.",
+      "url": "https://www.cnbc.com/2026/11/04/qualcomm-qcom-earnings-report-q4-2026.html"
+    },
+    {
+      "tag": "Figma",
+      "text": "Q3 geliri yıllık %43 artışla 391,4 milyon dolar; 2026 beklentisi yükseltildi.",
+      "url": "https://www.marketbeat.com/earnings/reports/2026-11-4-figma-inc-stock/"
+    },
+    {
+      "tag": "Apple",
+      "text": "iOS 27.3 ile “linke sahip herkes” seçeneğiyle paylaşılan iCloud dosyaları zararlı içerik açısından taranacak.",
+      "url": "https://9to5mac.com/2026/11/04/with-ios-27-3-apple-will-start-checking-icloud-public-links-for-harmful-content/"
+    },
+    {
+      "tag": "Ses",
+      "text": "Soniox STT v6, 60'tan fazla dilde konuşma tanıma sunuyor ve voice agent'ın kendi sesini filtreleyebiliyor.",
+      "url": "https://soniox.com/blog/soniox-stt-v6"
+    },
+    {
+      "tag": "Oyun",
+      "text": "AI ile üretilmiş eklenti klonları World of Warcraft eklenti ekosistemini doldurdu; Warcraft Logs yükü kaldırmak için API'sini yeniliyor.",
+      "url": "https://404media.co/world-of-warcraft-forever-is-already-overrun-with-ai-slop"
+    }
+  ],
+  "date": "2026-11-05",
+  "dateLabel": "Perşembe, 5 Kasım 2026",
+  "figures": [
+    {
+      "l": "OpenAI pipeline'ının tek koşuda doğruladığı ayrı Linux kernel LPE açığı",
+      "n": "948"
+    },
+    {
+      "l": "Bu koşunun toplam API maliyeti; açık başına yaklaşık 1.279 dolar",
+      "n": "$1,21 mn"
+    },
+    {
+      "l": "Revolut'un self-hosted modellere geçerek AI kodlama maliyetinde sağladığı düşüş",
+      "n": "%90"
+    },
+    {
+      "l": "Google'ın TeraWulf–Anthropic Kentucky kirasına verdiği kredi güvencesi",
+      "n": "$19 mr"
+    },
+    {
+      "l": "Ohio'da veri merkezi yasağı veya kısıtlaması onaylayan belediye sayısı (en az)",
+      "n": "14"
+    }
+  ],
+  "lead": {
+    "alert": true,
+    "box": {
+      "items": [
+        "Kubernetes node'ları ve container host'ları için kernel güncellemesini otomatik, düzenli bir rolling reboot döngüsüne bağlayın; LPE açıkları container escape'in ikinci adımı olarak kullanılıyor.",
+        "Paylaşımlı CI runner'larında ve build agent'larında yabancı kod çalıştırıyorsanız, bunları kısa ömürlü VM'lere taşıyın; “yerel erişim gerekli” bir açık, multi-tenant runner'da pratikte uzaktan gelir.",
+        "Kendi Java servislerinizi AI destekli taramaya sokarken bulguları yalnızca “exploit çalıştı mı” diye değil, “doğru açık üzerinden mi çalıştı” diye de doğrulayın; AI'ın yazdığı yamaları taslak kabul edip kod incelemesinden geçirin.",
+        "Base image'larınızı (Debian/Ubuntu) bu haftaki APT düzeltmesiyle birlikte yeniden build edin ve image tarama hattınızın kernel dışı paketleri de kapsadığından emin olun."
+      ],
+      "kicker": "Pratik çıkarım",
+      "note": "Bu kutu editoryal öneridir, haberin parçası değildir.",
+      "title": "Kernel yaması artık çeyreklik iş değil"
+    },
+    "deck": "Yayımlanmamış bir siber modelle çalışan otonom bir boru hattı, kernel kodunu tarayıp 1.724 açığı yeniden üretti ve 948 ayrı yetki yükseltme açığını çalışan exploit'lerle doğruladı. Toplam fatura 1,21 milyon dolar.",
+    "headline": "OpenAI'ın agent pipeline'ı Linux kernel'de 948 root yolu buldu, hepsine yama taslağı yazdı",
+    "kicker": "Manşet · Güvenlik & AI",
+    "paragraphs": [
+      "OpenAI, 4 Kasım'da “A thousand fewer paths to root” başlıklı raporunda Ekim ortasında yaptığı bir deneyi anlattı. Henüz yayımlanmamış bir siber modelle çalışan otonom bir pipeline; keşif, KASAN etkin VM'lerde dinamik doğrulama, istismar edilebilirlik değerlendirmesi, yama üretimi ve insan incelemesinden oluşan beş aşamada Linux kernel'i taradı. Sonuç: 1.724 açık yeniden üretildi, 948 ayrı local privilege escalation (LPE) açığı doğrulandı ve her biri için bir aday yama yazıldı.",
+      "Raporu özetleyen analizlere göre “scout” agent'lar 40 milyonu aşkın satırı yaklaşık 2,8 milyon satırlık 5.034 denetim hedefine indirdi; analizciler 12 saatte 2.308 aday bulgu çıkardı. Toplam maliyet 1.213.430 dolar, yani açık başına yaklaşık 1.279 dolar. OpenAI aynı setin Pwn2Own benzeri bounty değerinin 18,9–66,3 milyon dolar olacağını söylüyor; bu karşılaştırma ve maliyet hesabı şirketin kendi muhasebesi. Temmuz'da daha eski bir modelle yapılan koşu 513.690 dolara 166 LPE bulmuştu.",
+      "Rakamları doğru okumak önemli: 948, birleştirilmiş kernel düzeltmesi değil, aday yamaya göre gruplanmış benzersiz açık sayısı. Hepsi sistemde önceden düşük yetkili bir yerel erişim gerektiriyor, yani uzaktan doğrudan ele geçirme değil. Test VM'lerinde SMEP, SMAP ve KASLR gibi standart korumalar açıktı. Raporun ilginç bir dürüstlük notu da var: erken bir koşuda agent'ların raporladığı 200 başarının 20'si, kendisine atanan açık yerine başka bir 0-day üzerinden root'a ulaşmıştı; başarı kontrolü sadece “root shell alındı mı” diye baktığı için bu kaçmıştı.",
+      "Disclosure süreci kernel maintainer'larıyla koordineli yürüyor: on gün sonra 61 LPE upstream'de yamalanmış, 43'ü staging'de, 299'u açık tartışmadaydı. Savunma tarafı için mesaj iki yönlü. Eski kodu yeni modellerle yeniden taramak, önceki modellerin kaçırdığı hataları buluyor. Ama aynı yetenek, bir kernel commit'i ile çalışan bir root exploit arasındaki süreyi saldırganlar için de kısaltabilir. Önümüzdeki aylarda kernel güvenlik güncellemelerinin sıklığının artmasını beklemek gerçekçi."
+    ],
+    "sources": [
+      {
+        "label": "RuntimeWire",
+        "url": "https://runtimewire.com/article/openai-agents-948-linux-kernel-flaws"
+      },
+      {
+        "label": "DEV Community analizi",
+        "url": "https://dev.to/yehechuhai/948-linux-root-exploits-in-one-run-what-openais-kernel-pipeline-actually-proves-and-what-it-47a"
+      },
+      {
+        "label": "OpenAI",
+        "url": "https://openai.com/index/a-thousand-fewer-paths-to-root/"
+      }
+    ]
+  },
+  "number": 3,
+  "readingMinutes": 15,
+  "repos": {
+    "items": [
+      {
+        "meta": "Java · Yerel AWS emülatörü",
+        "name": "floci-io/floci",
+        "stars": "28.749",
+        "url": "https://github.com/floci-io/floci",
+        "why": "Hesap veya token gerektirmeden `localhost:4566` üzerinde 100'den fazla AWS servisini taklit eden, Maven ile build edilen ücretsiz bir LocalStack alternatifi; Spring Boot servislerinin entegrasyon testleri için doğrudan ilgi çekici."
+      },
+      {
+        "meta": "Go · Test",
+        "name": "keploy/keploy",
+        "stars": "19.280",
+        "url": "https://github.com/keploy/keploy",
+        "why": "Trafiği eBPF ile ağ katmanında yakalayıp API ve entegrasyon testleri için izole, prod benzeri sandbox'lar kuruyor; SDK gerektirmediği için Java servislerinde de çalışıyor."
+      },
+      {
+        "meta": "Python · Kod bilgi grafiği",
+        "name": "Graphify-Labs/graphify",
+        "stars": "141.842",
+        "url": "https://github.com/Graphify-Labs/graphify",
+        "why": "Kod tabanını, dokümanları, SQL şemalarını ve config'leri yerel AST analiziyle sorgulanabilir bir bilgi grafiğine çeviren, coding agent'lara skill olarak bağlanan araç; büyük multimodule projelerde bağlam vermek için."
+      },
+      {
+        "meta": "Go / TypeScript · Token tasarrufu",
+        "name": "JuliusBrussee/caveman",
+        "stars": "117.211",
+        "url": "https://github.com/JuliusBrussee/caveman",
+        "why": "Agent yanıtlarını kısaltan, log ve JSON çıktılarını modele vermeden sıkıştıran bir skill ve proxy; iddia edilen tasarruf rakamları büyük ölçüde projenin kendi ölçümü."
+      },
+      {
+        "meta": "Rust · Headless browser",
+        "name": "lexmount/moli",
+        "stars": "22.439",
+        "url": "https://github.com/lexmount/moli",
+        "why": "Chromium sarmalayıcısı değil, AI agent'ları için sıfırdan yazılmış hafif bir tarayıcı çekirdeği; browser otomasyonunun kaynak maliyetini düşürmeyi hedefliyor."
+      },
+      {
+        "meta": "Python · Ontoloji / RAG",
+        "name": "NVIDIA/auto-ontology",
+        "stars": "3.767",
+        "url": "https://github.com/NVIDIA/auto-ontology",
+        "why": "Kurumsal veri üzerine graf tabanlı semantik bir akıl yürütme katmanı kurarak agent'ların veri sorularını yanıtlamasına yardım eden açık bir context katmanı."
+      },
+      {
+        "meta": "Python · Zaman serisi modeli",
+        "name": "shiyu-coder/Kronos",
+        "stars": "46.504",
+        "url": "https://github.com/shiyu-coder/Kronos",
+        "why": "Mum grafiği (K-line) dizileri üzerinde ön eğitilmiş açık bir foundation model; finans dışı zaman serisi tahmini denemeleri için de ilham verici."
+      }
+    ],
+    "sources": [
+      {
+        "label": "AI Open Source Trends 2026-11-04",
+        "url": "https://github.com/Chestnuts-Sisyphus/gittok/issues/1877"
+      },
+      {
+        "label": "AI Trending 2026-11-04",
+        "url": "https://github.com/huiyishalou/ai-trending-hub/issues/210"
+      },
+      {
+        "label": "Trendshift",
+        "url": "https://trendshift.io/"
+      }
+    ],
+    "subtitle": "4 Kasım günlük trending listelerinden seçme · yıldız sayıları kaynak tarihindeki değerlerdir"
+  },
+  "sections": [
+    {
+      "articles": [
+        {
+          "big": true,
+          "headline": "GPT-6 Astra bir donanım cihazını bir haftadan kısa sürede baştan tasarladı",
+          "kicker": "Mühendislik",
+          "paragraphs": [
+            "OpenAI'da iki çalışanın yan projesi olarak başlayan deneyde GPT-6 Astra, Codex ile konuşmayı sağlayan bir cihazın kasasını, PCB yerleşimini (bileşen seçimi ve hat yönlendirme dahil), firmware'ini ve arayüzünü tasarladı. Şirkete göre tasarım bir haftadan kısa sürdü; bir kontrat üretici küçük bir prototip partisini bir aydan kısa sürede çıkardı.",
+            "Hikayenin daha öğretici kısmı sorunlar: model üretim kısıtlarını, toleransları ve montaj ayrıntılarını her zaman hesaba katmadığı için üretimden önce birkaç revizyon gerekti. OpenAI ayrıca 3D parça ve PCB bağlantılarını ölçen BenchCAD 2.0'da Astra'nın en yüksek reasoning seviyesinde 0,594, yayımlanmamış bir iç modelin ise 0,875 aldığını paylaştı. İç model hakkında ayrıntı verilmedi."
+          ],
+          "size": 8,
+          "sources": [
+            {
+              "label": "The Decoder",
+              "url": "https://the-decoder.com/openai-says-gpt-6-astra-designed-a-hardware-device-from-scratch-in-under-a-week/"
+            },
+            {
+              "label": "OpenAI",
+              "url": "https://openai.com/index/accelerating-engineering-for-the-physical-world/"
+            }
+          ]
+        },
+        {
+          "headline": "StateBench: frontier modeller değişen durumu izlerken %13'e düşüyor",
+          "kicker": "Benchmark",
+          "paragraphs": [
+            "Ai2'nin dört seviyeli benchmark'ı, uzun dokümanlarda yeniden atanan değişkenleri ve zincirlenen bağımlılıkları takip etmeyi ölçüyor. Claude Opus 5.5, GPT-6 Sol ve Gemini 3.8 Flash kolay seviyelerde iyi; en zor ve en uzun vakalarda doğruluk %13 veya altına iniyor. Doğrudan eğitilen Gated DeltaNet modelleri ise eğitim uzunluğunun 10 katına kadar neredeyse kusursuz kalıyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "Ai2",
+              "url": "https://allenai.org/blog/statebench"
+            }
+          ]
+        },
+        {
+          "headline": "Tencent Hy4 çıktı: ilk kez görsel anlama ve bilgisayar kullanımı",
+          "kicker": "Model",
+          "paragraphs": [
+            "Ağustos'taki 770B parametreli, 1M context'li açık ağırlıklı Hy4 Preview'ın halefi; daha büyük ön ve son eğitim verisi, daha iyi talimat takibi ve uzun metin anlama getiriyor. Tencent Cloud, CodeBuddy ve OpenRouter üzerinden erişilebilir. Final sürümün ağırlıklarının açılıp açılmadığı kaynakta net değil."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "ChainCatcher",
+              "url": "https://www.chaincatcher.com/en/article/2301641"
+            },
+            {
+              "label": "Hy4 Preview incelemesi",
+              "url": "https://www.eesel.ai/blog/tencent-hy4-review"
+            }
+          ]
+        },
+        {
+          "headline": "FlashProve: yanıtın hangi modelden geldiğini kriptografik olarak kanıtlamak",
+          "kicker": "Araştırma",
+          "paragraphs": [
+            "Anthropic'in açık kaynak spesifikasyon ve kodu, her model için ağırlıkları ifşa etmeyen bir “parmak izi” yayımlanmasını ve çıktıların buna karşı doğrulanmasını öneriyor. Amaç, sağlayıcının modeli gizlice daha ucuzuyla değiştirmesini tespit edebilmek. Şimdilik araştırma aşamasında; üretim planı yok."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "TechCrunch",
+              "url": "https://techcrunch.com/2026/11/03/anthropic-is-working-on-a-system-to-prove-ai-models-identity/"
+            },
+            {
+              "label": "Anthropic",
+              "url": "https://www.anthropic.com/research/provable-inference"
+            }
+          ]
+        },
+        {
+          "headline": "ChatGPT Images 2.6: animasyonlu GIF ve yeniden kullanılabilir referanslar",
+          "kicker": "Görüntü",
+          "paragraphs": [
+            "OpenAI yeni sürümle doğrudan animasyonlu GIF üretimi ve tekrar kullanılabilen referans görselleri ekledi. API'ye GPT-Image-2.6 Flare ve Sunburst adlı iki model geldi. Şirket haftada 4 milyardan fazla görsel ürettiğini söylüyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "OpenAI Community",
+              "url": "https://community.openai.com/t/images-upgraded-introducing-chatgpt-images-2-6/1412901"
+            }
+          ]
+        },
+        {
+          "headline": "Ricursive'den 65B'lik Ripple Preview: TerminalBench 2.1'de 80,52",
+          "kicker": "İddia · Açık ağırlık",
+          "paragraphs": [
+            "Ricursive, 65 milyar parametreli açık ağırlıklı Ripple-65B Preview'ı yayımladı ve modelin TerminalBench 2.1'de 80,52 puana ulaştığını, eğitim maliyetinin yaklaşık 32 milyon dolar olduğunu açıkladı. Rakamlar laboratuvarın kendi beyanı; bağımsız bir doğrulama henüz yok. Doğrulanırsa, self-hosted kodlama agent'ları için orta boy bir seçenek olarak dikkat çekebilir."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Ricursive",
+              "url": "https://www.ricursive.com/ripple"
+            }
+          ]
+        },
+        {
+          "headline": "Anthropic ile AP arasında ilk ücretli haber lisansı",
+          "kicker": "Lisanslama",
+          "paragraphs": [
+            "Anlaşmayla Claude, Associated Press'in seçim verilerine gerçek zamanlı ve kaynak gösterilerek erişiyor. Adweek'e göre bu, Anthropic'in dijital bir haber yayıncısıyla yaptığı ilk ücretli içerik lisansı; şartlar açıklanmadı. Aynı hafta AB Adalet Divanı'nda bir Genel Avukatın Gemini'nin basın yayıncılarının haklarını ihlal edebileceği yönünde görüş bildirmesi, lisanslı veri tarafının önemini artırıyor."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Adweek",
+              "url": "https://www.adweek.com/media/anthropic-licensing-deal-ap-election/"
+            },
+            {
+              "label": "PPC Land",
+              "url": "https://ppc.land/googles-gemini-can-infringe-press-rights-in-2-ways-eu-court-adviser-says/"
+            }
+          ]
+        }
+      ],
+      "id": "ai",
+      "subtitle": "Modeller, benchmark'lar, araştırma",
+      "title": "Yapay Zeka & LLM"
+    },
+    {
+      "articles": [
+        {
+          "big": true,
+          "headline": "Google, Anthropic'in Kentucky kampüsü için 19 milyar dolarlık kiraya kefil oldu",
+          "kicker": "Veri merkezi",
+          "paragraphs": [
+            "TeraWulf'un açıklamasına göre Google, Hawesville'deki Justified Data Campus'te Anthropic'in yaklaşık 401 MW'lık, 20 yıllık kira yükümlülüklerinin bir kısmını üç ayrı kredi destek anlaşmasıyla güvence altına alıyor. Toplam sözleşmeli kira taahhüdü yaklaşık 19 milyar dolar. Anthropic ödeme yapamazsa Google kirayı üstlenip kiracı olabiliyor ya da belirli durumlarda fesih bedeli ödeyebiliyor.",
+            "Anlaşmanın teknik açıdan en dikkat çekici maddesi: Anthropic bu tesiste sözleşme süresince yalnızca Google onaylı TPU'lar kullanacak. Fluor üç binanın tüm mühendislik ve inşaatını üstlendi; kademeli teslimler 2027 sonundan 2028'in ikinci çeyreğine kadar bekleniyor. Proje borcu ve garanti edilmiş azami fiyat henüz kesinleşmedi."
+          ],
+          "size": 8,
+          "sources": [
+            {
+              "label": "Unite.AI",
+              "url": "https://www.unite.ai/terawulf-lines-up-google-backstop-for-anthropics-kentucky-ai-campus/"
+            }
+          ]
+        },
+        {
+          "headline": "AMD'nin Taalas'a ödediği bedel ortaya çıktı",
+          "kicker": "Satın alma",
+          "paragraphs": [
+            "Ağustos'ta duyurulan, inference'a özel çip geliştiren Toronto merkezli Taalas satın alımının değeri AMD'nin 10-Q başvurusuyla netleşti. Haberlere göre yaklaşık 2,9 milyar dolarlık nakit ve hisse bedelinin 1,4 milyar doları belirli koşullara bağlı. İşlem düzenleyici onay bekliyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "AMD 10-Q",
+              "url": "https://www.sec.gov/Archives/edgar/data/0000002488/000000248826000191/amd-20260926.htm"
+            },
+            {
+              "label": "AMD",
+              "url": "https://ir.amd.com/news-events/press-releases/detail/1296/amd-acquires-taalas-to-advance-compute-solutions-for-rapidly-growing-ai-inference-market"
+            }
+          ]
+        },
+        {
+          "headline": "Ohio'da en az 14 belediye veri merkezlerini yasakladı veya kısıtladı",
+          "kicker": "Seçim sonrası",
+          "paragraphs": [
+            "Fortune'a göre 18 Ohio belediyesinde 21 veri merkezi oylaması yapıldı; ülke genelindeki 41 oylamanın yarısından fazlası bu eyaletteydi. Trenton'daki yasak %80'le geçti, Ashville inşaatı süren bir kampüsü durdurmayı onayladı. Seçim sonrası Hut 8, IREN ve Core Scientific gibi veri merkezi hisseleri sert düştü; CoreWeave tahvilleri de Teksas'ta moratoryum çağrısı sonrası dip yaptı."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Fortune",
+              "url": "https://fortune.com/2026/11/04/ohio-data-center-ballot-measures-midterm-elections/"
+            },
+            {
+              "label": "Bloomberg",
+              "url": "https://www.bloomberg.com/news/articles/2026-11-04/coreweave-bonds-hit-new-lows-as-texas-data-centers-in-crosshairs"
+            }
+          ]
+        },
+        {
+          "headline": "Goldman ve Apollo, SpaceX'in 40 milyar dolarlık GPU borcunu pazarlıyor",
+          "kicker": "Finansman",
+          "paragraphs": [
+            "Bloomberg'e göre iki kurum, Nvidia Rubin çipleri dahil 47,3 milyar dolarlık donanımı finanse eden bilanço dışı ve çok dilimli bir yapının parçalarını yatırımcılara satmak için görüşüyor. Bazı yatırımcılardan 500 milyon dolara kadar pay almaları isteniyor. SemiAnalysis ise SpaceX'in 2027'ye kadar 13 GW veri merkezi kapasitesi hedeflediğini yazdı."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Bloomberg",
+              "url": "https://www.bloomberg.com/news/articles/2026-11-04/goldman-apollo-in-talks-to-sell-spacex-s-40-billion-ai-deal"
+            },
+            {
+              "label": "SemiAnalysis",
+              "url": "https://newsletter.semianalysis.com/p/elon-is-doing-it-again-spacex-will"
+            }
+          ]
+        },
+        {
+          "headline": "Isomorphic Labs 50 milyar dolar değerlemeyle 5 milyar dolar arıyor",
+          "kicker": "İddia · Yatırım",
+          "paragraphs": [
+            "Bloomberg'in haberine göre DeepMind kökenli şirket görüşme aşamasında; tur kapanmadı. Şirket bu hafta AI'ın bir gün tüm ilaçları tasarlayacağı iddiasıyla da gündemdeydi."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "Bloomberg",
+              "url": "https://www.bloomberg.com/news/articles/2026-11-04/isomorphic-labs-in-talks-for-about-5-billion-in-funding"
+            }
+          ]
+        },
+        {
+          "headline": "Meta'nın ilk euro tahvili: 9 milyar euro, 53 milyar euro talep",
+          "kicker": "Borç piyasası",
+          "paragraphs": [
+            "15 milyar dolarlık dolar tahvilinin ardından gelen ihraç, rekor bir emir defteri topladı. AI yatırımlarının finansmanı giderek daha fazla borç piyasasına kayıyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "Bloomberg",
+              "url": "https://www.bloomberg.com/news/articles/2026-11-04/meta-starts-debut-euro-bond-sale-after-15-billion-dollar-deal"
+            }
+          ]
+        },
+        {
+          "headline": "Apple, mühendislerin günlük AI bütçesini 300'den 200 dolara indirdi",
+          "kicker": "İddia · Kurumsal AI",
+          "paragraphs": [
+            "Bloomberg'e göre ileride 100 dolara kadar ek kesinti planlanıyor. Goldman'ın geçen haftaki kısıtlamasıyla birlikte, kurumların token harcamasını sıkılaştırdığı bir döneme işaret ediyor."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "Bloomberg",
+              "url": "https://www.bloomberg.com/news/articles/2026-11-04/apple-cuts-internal-ai-usage-budgets-in-move-to-reduce-spending"
+            }
+          ]
+        }
+      ],
+      "id": "is",
+      "subtitle": "Kira güvenceleri, satın almalar, sandıktaki veri merkezleri",
+      "title": "Şirketler & Altyapı"
+    },
+    {
+      "articles": [
+        {
+          "big": true,
+          "headline": "Revolut, varsayılanı self-hosted GLM yaparak AI kodlama maliyetini onda birine indirdi",
+          "kicker": "Vaka çalışması",
+          "paragraphs": [
+            "Revolut'un altyapı lideri David Abitbol, AI Engineer konferansında şirketin yaklaşık 2.000 mühendis için varsayılan kodlama modelini Claude Code'dan kendi altyapısında çalışan Z.ai GLM'ye çevirdiğini anlattı. Önce GLM-5.1'e (yaklaşık 754B toplam, 40B aktif parametre), sonra GLM-5.3'e geçildi; model 56 Nvidia B200 GPU üzerinde çalışıyor. Milyon token başına 0,30 dolar ile maliyet ticari agent'ların onda biri seviyesinde; faturalama sabit hale geldi.",
+            "Kazancın büyük kısmı daha fazla GPU'dan değil yazılım ayarından geldi: NVFP4 quantization, disaggregated prefill/decode ve context uzunluğu ayarı. 256K context'te time-to-first-token 3 saniyenin altında. Model yalnızca metin desteklediği için görsel istekler bir router ile Gemini veya GPT'ye gidiyor; frontier ticari modeller istisna olarak duruyor. Abitbol, 1M token sunulabilse de pratikte faydalı olanın yaklaşık 256K olduğunu söylüyor. En büyük verim artışı ise ucuz token sayesinde hata ayıklama ve Jira işleri gibi kodlama dışı işlerden gelmiş."
+          ],
+          "size": 8,
+          "sources": [
+            {
+              "label": "The Register",
+              "url": "https://www.theregister.com/ai-and-ml/2026/11/03/british-fintech-revolut-slashes-ai-coding-costs-10x-by-cutting-out-claude-and-going-self-hosted/5307345"
+            }
+          ]
+        },
+        {
+          "headline": "SWE-2 Flash: üç kat hızlı, beşte bir fiyat",
+          "kicker": "Cognition",
+          "paragraphs": [
+            "276B toplam, 12B aktif parametreli MoE model, Thinking Machines'in Inkling-Small'undan uyarlandı. Devin Desktop ve CLI'da 30 Kasım'a kadar ücretsiz. Cognition'ın kendi ölçümüne göre FrontierCode 2.0'da SWE-2'yi geçiyor, Terminal-Bench ve DeepSWE'de geride kalıyor; ağırlıklar açık değil."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "Unite.AI",
+              "url": "https://www.unite.ai/cognition-launches-swe-2-flash-for-faster-lower-cost-coding-agents/"
+            }
+          ]
+        },
+        {
+          "headline": "Pando: agent trafiği için yeniden yazılmış Git backend'i",
+          "kicker": "OpenAI",
+          "paragraphs": [
+            "Codex gibi agent'ların paralel push ve CI fetch yükü için tasarlanan sistem, pack'leri immutable olarak blob storage'da tutup okuyuculara yeniden kullanıyor. OpenAI medyan push gecikmesinin yaklaşık %80 düştüğünü söylüyor. Pando açık kaynak değil; istemci yamaları `openai/git` fork'unda."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Classmethod",
+              "url": "https://dev.classmethod.jp/en/articles/openai-pando-git-backend/"
+            },
+            {
+              "label": "OpenAI",
+              "url": "https://openai.com/index/scaling-git-at-openai/"
+            }
+          ]
+        },
+        {
+          "headline": "2.1.317: e-posta ve connector'lar için yeni onay adımları",
+          "kicker": "Claude Code",
+          "paragraphs": [
+            "Yeni sürüm, `/schedule` istenmeyen connector eklerse uyarıyor ve bir web/shell aracı hesap e-postanızı gönderecekse önce soruyor. Agent SDK hook'ları için `onFailure: \"block\"` ve gateway admin API'sine maliyet raporu endpoint'i de eklendi."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Releasebot",
+              "url": "https://releasebot.io/updates/anthropic/claude-code"
+            }
+          ]
+        },
+        {
+          "headline": "Opus 5.5 artık mevcut oyunları klonlamayı reddediyor",
+          "kicker": "Claude Code · Politika",
+          "paragraphs": [
+            "Anthropic, Claude Code'daki Opus 5.5 system prompt'una mevcut video oyunlarının kopyalanmasını engelleyen iki cümle ekledi; yeniden adlandırılmış klonlar da kapsamda. Özgün oyunlar ve kullanıcının kendi asset'leriyle yapılan projeler serbest, ancak bazı geliştiriciler meşru işlerinin de etkilendiğini bildiriyor. Kurumsal kullanımda system prompt değişikliklerinin davranışı sessizce değiştirebileceğinin bir örneği."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "The Decoder",
+              "url": "https://the-decoder.com/anthropic-cracks-down-on-game-cloning-in-claude-code-after-wave-of-ai-built-knockoffs/"
+            }
+          ]
+        },
+        {
+          "headline": "Apple, Siri AI'ı App Intents ile geliştiricilere açtı",
+          "kicker": "Platform",
+          "paragraphs": [
+            "iOS 27.3 ve ilgili beta'larda gelen developer preview ile uygulamalar içeriklerini ve eylemlerini Siri'ye App Intents üzerinden bağlayabiliyor; geniş dağıtım daha sonra. Aynı gün Apple'ın yıllık raporunda otonom agent'ların yetkisiz işlem yapma ve güvenlik kontrollerini aşma risklerine dair uyarılar yer aldı."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Apple Developer",
+              "url": "https://developer.apple.com/news/?id=gdk2umrf"
+            },
+            {
+              "label": "CNBC",
+              "url": "https://www.cnbc.com/2026/11/03/apple-warns-of-ai-agents-behave-in-unintended-or-unpredictable-ways.html/"
+            }
+          ]
+        }
+      ],
+      "id": "gelistirme",
+      "subtitle": "Self-hosting ekonomisi, kodlama modelleri, git altyapısı",
+      "title": "Geliştirme & Araçlar"
+    },
+    {
+      "articles": [
+        {
+          "big": true,
+          "headline": "Kendi embedding'lerinizi `VectorStore`'a doğrudan yazın",
+          "kicker": "Spring AI 2.1",
+          "paragraphs": [
+            "Spring AI 2.1, `VectorStore`'a uygulamanın önceden hesapladığı vektörleri saklayan bir `upsert` metodu ekliyor; böylece store'un kendi embedding modeli çağrılmıyor. Görsel, video ya da ses gibi multimodal embedding'ler `EmbeddedDocument` içinde dokümanla eşleştiriliyor; SKU gibi kararlı ID'ler kullanıldığında yeniden indeksleme kopya üretmek yerine kaydı güncelliyor.",
+            "Yeni `similaritySearch(float[], SearchRequest)` overload'ı hazır bir sorgu vektörü alıp `topK` ve metadata filtrelerini uygulamaya devam ediyor. 2.1.0-RC1 itibarıyla PGvector, Redis, Elasticsearch, Qdrant ve OpenSearch iki işlemi de destekliyor. Embedding'i ayrı bir pipeline'da üreten ekipler için gereksiz bir model çağrısı ortadan kalkıyor."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "Spring Blog",
+              "url": "https://spring.io/blog/2026/10/28/spring-ai-upsert-own-embeddings"
+            }
+          ]
+        },
+        {
+          "headline": "Decision model'ler ve confidence cascade agent deseni",
+          "kicker": "LangChain4j 1.23",
+          "paragraphs": [
+            "33. beta'nın ardından gelen formal sürüm, Ollama'da çalışan karar modelleri için `OllamaDecisionModel` ve önce ucuz modeli deneyip güven düşükse daha güçlü modele çıkan `ConfidenceCascadePlanner` desenini ekliyor. Routing veya sınıflandırma gibi yapılandırılmış kararları maliyet kontrollü yapmak isteyen Java servisleri için doğrudan kullanılabilir bir yapı taşı."
+          ],
+          "size": 6,
+          "sources": [
+            {
+              "label": "InfoQ",
+              "url": "https://www.infoq.com/news/2026/11/java-news-roundup-oct26-2026/"
+            }
+          ]
+        },
+        {
+          "headline": "`@Filter` artık `@ManyToOne` üzerinde",
+          "kicker": "Hibernate ORM 8.0 Beta4",
+          "paragraphs": [
+            "Dördüncü beta, `@Filter` ve `@SQLRestriction`'ın join table kullananlar dahil `@ManyToOne` ve `@OneToOne` ilişkilerine doğrudan konmasına izin veriyor. Kimlik üretim optimizer'ı seçmek için `@GeneratorOptimizer` da eklendi."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "InfoQ",
+              "url": "https://www.infoq.com/news/2026/11/java-news-roundup-oct26-2026/"
+            }
+          ]
+        },
+        {
+          "headline": "Vektör veritabanları için `VectorTemplate`",
+          "kicker": "Eclipse JNoSQL 1.2",
+          "paragraphs": [
+            "Yeni sürüm Milvus, Qdrant ve Weaviate entegrasyonlarıyla vektör aramasını Jakarta NoSQL API'sine taşıyor; time-series için fluent temporal sorgular da geldi."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "InfoQ",
+              "url": "https://www.infoq.com/news/2026/11/java-news-roundup-oct26-2026/"
+            }
+          ]
+        },
+        {
+          "headline": "JDK 28 EA Build 22; JBang SDKMan'i bıraktı",
+          "kicker": "JDK 28 & araçlar",
+          "paragraphs": [
+            "JDK 28'in 22. erken erişim build'i yayında. JBang 0.143 Windows desteği için SDKMan yerine mise kullanıyor; JReleaser 1.27 native image sorunları nedeniyle POM ayrıştırmasından XPath'i çıkardı."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "InfoQ",
+              "url": "https://www.infoq.com/news/2026/11/java-news-roundup-oct26-2026/"
+            }
+          ]
+        }
+      ],
+      "id": "java",
+      "subtitle": "Spring AI, LangChain4j, Hibernate 8",
+      "title": "Java & Spring"
+    },
+    {
+      "articles": [
+        {
+          "alert": true,
+          "big": true,
+          "headline": "APT açığı: araya giren saldırgan doğrulanmış paketi değiştirip root olarak kod çalıştırabiliyor",
+          "kicker": "Debian / Ubuntu",
+          "paragraphs": [
+            "Max Justicz'in bulduğu CVE-2026-109518, APT'nin başarısız indirmeleri yeniden deneme mantığındaki bir hatadan kaynaklanıyor. Paket indirmelerini değiştirebilen bir saldırgan, örneğin kötü niyetli bir mirror veya proxy, HTTP redirect ve geçici sunucu hatalarıyla retry akışını tetikleyip doğrulanmış bir paketi zararlısıyla değiştirebiliyor; kod paket kurulurken root olarak çalışıyor. Ubuntu CVSS 4.0 ile 7,7 verdi, APT geliştiricileri “kritik” diyor.",
+            "Retry'ın varsayılan açık olduğu Debian 12 ve Ubuntu 22.04 sonrası etkileniyor; daha eski sürümlerde `Acquire::Retries` elle açıldıysa onlar da açık. Ubuntu düzeltmeleri 26.10, 26.04, 24.04 ve 22.04 için yayında (ör. 24.04'te `2.8.4ubuntu0.1`), Debian da yamaları çıkardı. Vahşi doğada istismar raporu yok. Container base image'larını ve CI'da `apt-get install` çalıştıran Dockerfile'ları yeniden build etmek ve HTTP mirror kullanımını gözden geçirmek iyi bir başlangıç."
+          ],
+          "pill": "CVSS 7,7",
+          "size": 8,
+          "sources": [
+            {
+              "label": "The Hacker News",
+              "url": "https://thehackernews.com/2026/11/debian-and-ubuntu-apt-flaw-lets-mitm.html"
+            }
+          ]
+        },
+        {
+          "alert": true,
+          "headline": "Claude'un bulduğu iki açık, bir VM'in dom0 belleğine erişmesini sağlıyor",
+          "kicker": "Xen · XSA-523",
+          "paragraphs": [
+            "CVE-2026-102703/102704, grant copy işlemindeki atlanan bir yetki kontrolünden doğuyor ve Xen 4.6+ sürümlerini etkiliyor. Bilinen bir geçici çözüm yok; XCP-ng ve Qubes yamaları reboot gerektiriyor. Xen Projesi bulguyu Anthropic'e ve Claude'a atfetti."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "The Hacker News",
+              "url": "https://thehackernews.com/2026/11/xen-hypervisor-flaws-let-one-malicious.html"
+            }
+          ]
+        },
+        {
+          "headline": "“Prompt adware”: Codex jailbreak paketi agent config'ine reklam gömüyor",
+          "kicker": "AI tooling",
+          "paragraphs": [
+            "Check Point'in incelediği Haiou paketi, global agent talimat dosyalarını değiştirip “merhaba” gibi tetikleyicilerde üçüncü taraf bir LLM gateway'inin reklamını yaptırıyor. Payload şifreli olduğu için gözle incelemesi zor. Ekipteki agent config ve skill dosyaları da kod gibi incelenmeli."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "Check Point Research",
+              "url": "https://research.checkpoint.com/2026/free-the-model-sell-the-gateway-prompt-adware-hidden-in-jailbreak-bundles/"
+            },
+            {
+              "label": "The Hacker News",
+              "url": "https://thehackernews.com/2026/11/researchers-uncover-prompt-adware.html"
+            }
+          ]
+        },
+        {
+          "alert": true,
+          "headline": "Güncelleme sırasındaki race condition aktif olarak istismar ediliyor",
+          "kicker": "WordPress Core",
+          "paragraphs": [
+            "CISA, CVE-2026-119977'yi (CVSS 8,1) KEV kataloğuna ekledi. Saldırgan, tam çekirdek güncellemesinin kısa penceresinde tahmin edilebilir staging yollarını hedefleyip kod çalıştırabiliyor; Wordfence ilk 21 saatte 18.500'den fazla istek gördü."
+          ],
+          "pill": "KEV",
+          "size": 4,
+          "sources": [
+            {
+              "label": "The Hacker News",
+              "url": "https://thehackernews.com/2026/11/cisa-confirms-hackers-exploiting.html"
+            }
+          ]
+        },
+        {
+          "headline": "Active Storage + ImageMagick ile dosya yazma",
+          "kicker": "Ruby on Rails",
+          "paragraphs": [
+            "GHSA-f3w6-w445-fwh9, güvenilmeyen yüklemeleri `mini_magick` ile işleyen uygulamalarda kimlik doğrulamasız dosya yazmaya izin veriyor. Düzeltme 8.1.4.1 ve 8.0.5.2'de; daha eski seriler `policy.xml` önlemine muhtaç."
+          ],
+          "pill": "CVSS 9,8",
+          "size": 4,
+          "sources": [
+            {
+              "label": "The Hacker News",
+              "url": "https://thehackernews.com/2026/11/critical-rails-flaw-lets-attackers.html"
+            }
+          ]
+        },
+        {
+          "headline": "Kasım bülteni: etkileşimsiz RCE riski",
+          "kicker": "Android",
+          "paragraphs": [
+            "CVE-2026-58868, `FrameDecoder.cpp` içinde olası bir heap overflow; Android 14–17 etkileniyor. Düzeltme 2026-11-01 yama seviyesinde, istismar raporu yok."
+          ],
+          "size": 4,
+          "sources": [
+            {
+              "label": "The Hacker News",
+              "url": "https://thehackernews.com/2026/11/google-patches-critical-android-flaw.html"
+            }
+          ]
+        },
+        {
+          "headline": "OpenAI yeni güvenlik sprint'ine Anthropic'e sızan ekibi dahil etti",
+          "kicker": "Kurum güvenliği",
+          "paragraphs": [
+            "OpenAI, bir bug bounty incelemesi sırasında Anthropic'in iç sistemlerinin bazı bölümlerine eriştiği bilinen Cathedral Systems ile çalışacak; ekip OpenAI'ın modelleriyle şirketin kendi savunmalarını deneyecek. Anthropic o testin yürütülüşüne itiraz etmiş, model ağırlıkları ve Claude konuşmalarının etkilenmediğini söylemişti. Aynı gün Reuters, beş kaynağa dayanarak OpenAI çalışanlarının yıllardır hassas bilgilere aşırı geniş erişim konusunda uyarıda bulunduğunu yazdı; OpenAI ihmal iddialarını reddediyor."
+          ],
+          "size": 8,
+          "sources": [
+            {
+              "label": "OpenAI",
+              "url": "https://openai.com/index/preparing-our-next-security-sprint-to-harden-openai/"
+            },
+            {
+              "label": "Gizmodo",
+              "url": "https://gizmodo.com/openai-hires-doge-alumni-who-hacked-into-anthropic-to-strengthen-security-2000834432"
+            },
+            {
+              "label": "Reuters",
+              "url": "https://www.reuters.com/business/openai-employees-warned-about-operational-security-lapses-years-sources-say-2026-11-03/"
+            }
+          ]
+        }
+      ],
+      "id": "guvenlik",
+      "subtitle": "Paket yöneticileri, hypervisor'lar, agent konfigürasyonu",
+      "title": "Güvenlik"
+    }
+  ]
+}
