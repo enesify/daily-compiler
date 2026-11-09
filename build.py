@@ -53,9 +53,28 @@ def asset(ctx, rel):
     return f"{ctx.href(rel)}?v={v}"
 
 
+WJ = "\u2060"  # word joiner: sayı aralığı satır sonunda bölünmesin
+
+
+def typo(text):
+    """Tipografik düzeltmeler: kesme işareti (Code'da → Code’da) ve sayı/saat aralıklarında kısa çizgi (16:00–18:00).
+    CVE numaraları ve ISO tarihler (2026-11-07) gibi çok tireli diziler aralık sayılmaz."""
+    s = str(text or "")
+    s = re.sub(r"(?<=[\w)”])'(?=\w)", "’", s)
+    s = re.sub(r"(?<![\w\-/.,:])(%?\d+(?:[.,:]\d+)*)-(%?\d+(?:[.,:]\d+)*)(?![\w\-/])",
+               lambda m: f"{m.group(1)}{WJ}–{WJ}{m.group(2)}", s)
+    return s
+
+
+def _text(p, i):
+    """rich() içindeki düz metin parçası; koddan hemen sonra gelen ek kesmesi de düzeltilir (`x`'e → ’e)."""
+    p = typo(p)
+    return "’" + p[1:] if i and re.match(r"'\w", p) else p
+
+
 def plain(text):
     """Düz metin alanları (title, og, feed) için backtick işaretlerini at."""
-    return str(text or "").replace("`", "")
+    return typo(text).replace("`", "")
 
 
 def num3(n):
@@ -65,7 +84,7 @@ def num3(n):
 def rich(text):
     """`backtick` → <code>, gerisi kaçışlı metin."""
     parts = re.split(r"`([^`]+)`", str(text or ""))
-    return "".join(f"<code>{esc(p)}</code>" if i % 2 else esc(p) for i, p in enumerate(parts) if p)
+    return "".join(f"<code>{esc(p)}</code>" if i % 2 else esc(_text(p, i)) for i, p in enumerate(parts) if p)
 
 
 # Büyük harf: Türkçe kelimelerde i→İ, İngilizce terim/özel isimlerde i→I (SPRING, GITHUB)
@@ -105,7 +124,7 @@ def caps(s):
 def caps_rich(text):
     """Büyük harfe çevrilecek alanlar: kod parçaları korunur."""
     parts = re.split(r"`([^`]+)`", str(text or ""))
-    return "".join(f"<code>{esc(p)}</code>" if i % 2 else esc(caps(p)) for i, p in enumerate(parts) if p)
+    return "".join(f"<code>{esc(p)}</code>" if i % 2 else esc(caps(_text(p, i))) for i, p in enumerate(parts) if p)
 
 
 # ---------------------------------------------------------------- veri
@@ -144,13 +163,13 @@ def ref_link(ctx, label, url):
         return f'<span class="ref-gone" title="Bu sayı bulunamadı">{esc(label)}</span>'
     date, anchor = m.group(1), m.group(2)
     h = ctx.href(issue_path(date)) + (f"#a-{anchor}" if anchor else "")
-    return f'<a class="ref" href="{esc(h)}" title="{esc(short_date(date))} sayısındaki habere git">↩ {esc(label)}</a>'
+    return f'<a class="ref" href="{esc(h)}" title="{esc(short_date(date))} sayısındaki habere git">↩ {esc(plain(label))}</a>'
 
 
 def ext_link(label, url):
     if re.match(r"^https?://", url or "", re.I):
-        return f'<a href="{esc(url)}" target="_blank" rel="noopener">{esc(label)}</a>'
-    return esc(label)
+        return f'<a href="{esc(url)}" target="_blank" rel="noopener">{esc(typo(label))}</a>'
+    return esc(typo(label))
 
 
 def sources(ctx, lst):
@@ -194,8 +213,23 @@ def article(ctx, a, aid):
     k = f'<span class="kicker{" alert" if a.get("alert") else ""}">{caps_rich(a.get("kicker"))}</span>' if a.get("kicker") else ""
     pill = f'<span class="pill">{caps_rich(a.get("pill"))}</span>' if a.get("pill") else ""
     body = "".join(f"<p>{rich(p)}</p>" for p in a.get("paragraphs") or [])
-    return (f'<article class="{cls}" id="a-{esc(aid)}">{k}<h3>{pill}{rich(a.get("headline"))}</h3>'
-            f'<div class="body">{body}</div>{chart(a.get("chart"))}{sources(ctx, a.get("sources"))}</article>')
+    # stat: büyük haberlerde isteğe bağlı tek iri rakam {n, l}; grafik varsa basılmaz
+    st = a.get("stat")
+    stat = ""
+    if a.get("big") and isinstance(st, dict) and st.get("n") and not chart(a.get("chart")):
+        stat = f'<p class="stat"><span class="n">{esc(typo(st.get("n")))}</span><span class="l">{rich(st.get("l"))}</span></p>'
+    # Telefonda küçük haberlerin metni üç satırda kesilir; site.js gerekirse bu düğmeyi gösterir
+    more = "" if a.get("big") else '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
+    return (f'<article class="{cls}" id="a-{esc(aid)}">{k}<h3>{pill}{rich(a.get("headline"))}</h3>{stat}'
+            f'<div class="body">{body}</div>{more}{chart(a.get("chart"))}{sources(ctx, a.get("sources"))}</article>')
+
+
+def art_id(s, i, a):
+    return str(a.get("id") or f"{s.get('id') or 'bolum'}-{i + 1}")
+
+
+def section_articles(ctx, s):
+    return "".join(article(ctx, a, art_id(s, i, a)) for i, a in enumerate(s.get("articles") or []))
 
 
 def dial(ctx, cur):
@@ -212,7 +246,8 @@ def dial(ctx, cur):
 
     meta = f'Sayı {num3(cur.get("number"))} · '
     meta += '<span class="latest">Son sayı</span>' if idx == 0 else f'{idx} sayı önce'
-    meta += f' · ≈ {cur.get("readingMinutes") or 15} dk okuma · <a href="{esc(ctx.href("arsiv.html"))}">Arşiv</a>'
+    meta += (f'<span class="opt"> · ≈ {cur.get("readingMinutes") or 15} dk okuma</span>'
+             f' · <a href="{esc(ctx.href("arsiv.html"))}">Arşiv</a>')
 
     # Şerit: en yeni sayıya kadar son STRIP_DAYS takvim günü; eski bir sayı açıksa ona ortalanır
     latest, oldest, c = d_of(issues[0]["date"]), d_of(issues[-1]["date"]), d_of(cur["date"])
@@ -324,7 +359,7 @@ def render_issue(ctx, cur):
     # Menü üste yapışınca solunda küçük logo belirir (site.js, .nav-sentinel görünümden çıkınca "stuck" sınıfını ekler)
     out.append('<div class="nav-sentinel" aria-hidden="true"></div><nav class="index" aria-label="Bölümler">'
                f'<a class="nav-brand" href="{esc(ctx.href("index.html"))}" tabindex="-1" aria-hidden="true">'
-               '<span class="the">The</span>Daily Compiler</a><div class="nav-links">' + "".join(
+               '<span class="the">The</span><span class="full">Daily Compiler</span><span class="mono">DC</span></a><div class="nav-links">' + "".join(
         f'<a href="#sec-{esc(i)}">{esc(caps(t))}</a>' for i, t in nav_items) + "</div></nav>")
 
     figs = cur.get("figures") or []
@@ -360,13 +395,13 @@ def render_issue(ctx, cur):
             f'<h2>{rich(L.get("headline"))}</h2>'
             + (f'<p class="deck">{rich(L.get("deck"))}</p>' if L.get("deck") else "")
             + '<div class="cols">' + "".join(f"<p>{rich(p)}</p>" for p in L.get("paragraphs") or []) + "</div>"
-            + chart(L.get("chart")) + sources(ctx, L.get("sources")) + f"</div>{box}</section>")
+            + chart(L.get("chart")) + sources(ctx, L.get("sources")) + f'</div><div class="lead-side">{box}{toc(secs)}</div></section>')
 
     for s in secs:
         sid = s.get("id") or "bolum"
-        arts = "".join(article(ctx, a, a.get("id") or f"{sid}-{i + 1}") for i, a in enumerate(s.get("articles") or []))
+        arts = section_articles(ctx, s)
         sub = f'<p>{rich(s.get("subtitle"))}</p>' if s.get("subtitle") else ""
-        out.append(f'<section class="sec" id="sec-{esc(sid)}"><div class="sec-h"><h2>{esc(s.get("title"))}</h2>{sub}</div>'
+        out.append(f'<section class="sec" id="sec-{esc(sid)}"><div class="sec-h"><h2>{esc(typo(s.get("title")))}</h2>{sub}</div>'
                    f'<div class="grid">{arts}</div></section>')
 
     R = cur.get("repos")
@@ -391,8 +426,43 @@ def render_issue(ctx, cur):
                 f' <a href="{esc(u)}" target="_blank" rel="noopener" aria-label="Kaynak">↗</a>' if re.match(r"^https?://", u) else "")
             ps.append(f'<p><b>{caps_rich(b.get("tag"))}</b>{rich(b.get("text"))}{tail}</p>')
         out.append(f'<section class="sec" id="sec-kisa"><div class="sec-h"><h2>Kısa Kısa</h2></div><div class="briefs">{"".join(ps)}</div></section>')
+    out.append(end_nav(ctx, cur))
     out.append("</main>")
     return "\n".join(out)
+
+
+def toc(secs):
+    """Manşetin yanında, kutunun altında: her bölümün ilk haberi (yalnızca geniş ekranda görünür)."""
+    items = []
+    for s in secs:
+        A = s.get("articles") or []
+        if A and A[0].get("headline"):
+            items.append(f'<li><a href="#a-{esc(art_id(s, 0, A[0]))}"><span class="ts">{esc(caps(s.get("title")))}</span>'
+                         f'<span class="th">{rich(A[0].get("headline"))}</span></a></li>')
+    if not items:
+        return ""
+    return f'<nav class="toc" aria-label="Bu sayıda"><span class="kicker">{esc(caps("Bu sayıda"))}</span><ol>{"".join(items)}</ol></nav>'
+
+
+def end_nav(ctx, cur):
+    """Sayı sonu: önceki/sonraki sayının manşeti ve başa dönüş."""
+    issues = ctx.issues
+    idx = next(i for i, x in enumerate(issues) if x["date"] == cur["date"])
+    older = issues[idx + 1] if idx + 1 < len(issues) else None
+    newer = issues[idx - 1] if idx > 0 else None
+
+    def cell(it, cls, label):
+        if not it:
+            return f'<span class="{cls}"></span>'
+        head = (it.get("lead") or {}).get("headline") or long_date(it["date"])
+        return (f'<a class="{cls}" href="{esc(ctx.href(issue_path(it["date"])))}"><span class="kicker">{esc(caps(label + " · " + short_date(it["date"])))}</span>'
+                f'<span class="en-h">{rich(head)}</span></a>')
+
+    right = cell(newer, "en-next", "Sonraki sayı") if newer else (
+        f'<a class="en-next" href="{esc(ctx.href("arsiv.html"))}"><span class="kicker">{esc(caps("Arşiv"))}</span>'
+        '<span class="en-h">Tüm sayılar</span></a>')
+    return (f'<nav class="endnav" aria-label="Sayı sonu">{cell(older, "en-prev", "Önceki sayı")}'
+            f'<a class="en-top" href="#" aria-label="Sayfanın başına dön">↑ {esc(caps("Başa dön"))}</a>{right}</nav>')
 
 
 def render_archive(ctx):

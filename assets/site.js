@@ -81,11 +81,34 @@
       }, { passive: true });
     }
   }
+  // Telefonda küçük haberleri üç satırda kes; metin sığıyorsa düğme hiç görünmez
+  var phone = window.matchMedia && matchMedia('(max-width: 560px)');
+  function setOpen(art, open) {
+    var b = art.querySelector('.more');
+    art.classList.toggle('clamp', !open);
+    if (b) { b.textContent = open ? 'Kapat' : 'Devamı'; b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  }
+  function clampAll() {
+    if (!phone || !phone.matches) return;
+    Array.prototype.forEach.call(document.querySelectorAll('article:not(.big)'), function (art) {
+      var b = art.querySelector('.more'), body = art.querySelector('.body');
+      if (!b || !body || b.dataset.ready) return;
+      b.dataset.ready = '1';
+      art.classList.add('clamp');
+      if (body.scrollHeight <= body.clientHeight + 2) { art.classList.remove('clamp'); return; }
+      b.hidden = false;
+      b.addEventListener('click', function () { setOpen(art, art.classList.contains('clamp')); });
+    });
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(clampAll); else clampAll();
+  if (phone && phone.addEventListener) phone.addEventListener('change', clampAll);
+
   function flash() {
     var id = decodeURIComponent((location.hash || '').slice(1));
     if (!/^a-/.test(id)) return;
     var t = document.getElementById(id);
     if (!t) return;
+    if (t.classList.contains('clamp')) setOpen(t, true);
     t.classList.remove('flash'); void t.offsetWidth; t.classList.add('flash');
   }
   window.addEventListener('hashchange', flash);

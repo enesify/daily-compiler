@@ -35,6 +35,14 @@ Bir kaynağın `url` alanı `#YYYY-MM-DD-<bölüm id>-<sıra>` ise (ör. `#2026-
 
 `figures[]` öğesine `ref` alanı eklenirse (`"manset"` ya da `"<bölüm id>-<sıra>"`, ör. `"java-1"`), rakam kutusu o habere link olur. Hedef o sayıda yoksa kutu link olmadan basılır.
 
+## İri rakam
+
+Büyük haberlerde (`big: true`) `stat: {"n": "%65-80", "l": "açıklama"}` alanı başlığın altına iri bir rakam basar; haberde grafik varsa basılmaz.
+
+## Tipografi
+
+`build.py` metinde düz kesme işaretini `’`, sayı ve saat aralıklarındaki tireyi `–` yapar (CVE numaraları ve ISO tarihler hariç); kod parçalarına ve linklere dokunmaz. JSON'da düz `'` ve `-` yazmaya devam edilir.
+
 ## Tema
 
 Sayfa sistemin açık/koyu ayarını izler; masthead'deki düğmeyle yapılan seçim tarayıcıda (`localStorage`, `dc-theme`) saklanır.
