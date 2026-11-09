@@ -239,9 +239,9 @@ def caps_meta(s):
 
 def masthead(ctx):
     return (f'<header class="mast"><h1><a href="{esc(ctx.href("index.html"))}"><span class="the">The</span>Daily Compiler</a></h1>'
-            f'<div class="tag"><b>{esc(TAGLINE_B)}</b>{esc(TAGLINE)}'
-            f'<button class="theme" type="button" id="theme-toggle" aria-label="Açık/koyu temayı değiştir" hidden>'
-            f'<span class="ico" aria-hidden="true"></span><span class="lbl">Tema</span></button></div></header>')
+            f'<div class="tag"><span class="tag-t"><b>{esc(TAGLINE_B)}</b>{esc(TAGLINE)}</span>'
+            f'<button class="theme" type="button" id="theme-toggle" aria-label="Açık/koyu temayı değiştir" '
+            f'title="Açık/koyu tema" hidden><span class="ico" aria-hidden="true"></span></button></div></header>')
 
 
 def footer(ctx):
@@ -311,8 +311,11 @@ def render_issue(ctx, cur):
         nav_items.append(("kisa", "Kısa Kısa"))
     out = [dial(ctx, cur)]
     out.append('<main id="issue">')
-    out.append('<nav class="index" aria-label="Bölümler">' + "".join(
-        f'<a href="#sec-{esc(i)}">{esc(caps(t))}</a>' for i, t in nav_items) + "</nav>")
+    # Menü üste yapışınca solunda küçük logo belirir (site.js, .nav-sentinel görünümden çıkınca "stuck" sınıfını ekler)
+    out.append('<div class="nav-sentinel" aria-hidden="true"></div><nav class="index" aria-label="Bölümler">'
+               f'<a class="nav-brand" href="{esc(ctx.href("index.html"))}" tabindex="-1" aria-hidden="true">'
+               '<span class="the">The</span>Daily Compiler</a><div class="nav-links">' + "".join(
+        f'<a href="#sec-{esc(i)}">{esc(caps(t))}</a>' for i, t in nav_items) + "</div></nav>")
 
     figs = cur.get("figures") or []
     if figs:

@@ -7,7 +7,8 @@
     var eff = function () { return root.getAttribute('data-theme') || (mq.matches ? 'dark' : 'light'); };
     var paint = function () {
       var dark = eff() === 'dark';
-      btn.querySelector('.lbl').textContent = dark ? 'Açık tema' : 'Koyu tema';
+      var label = dark ? 'Açık temaya geç' : 'Koyu temaya geç';
+      btn.setAttribute('aria-label', label); btn.title = label;
       btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
     };
     btn.hidden = false; paint();
@@ -25,16 +26,24 @@
   // Bölüm menüsü: görünen bölümü vurgula, menü kayıyorsa o linki görünür tut
   var nav = document.querySelector('nav.index');
   if (nav && 'IntersectionObserver' in window) {
-    var links = {}, active = null;
+    var links = {}, active = null, scroller = nav.querySelector('.nav-links') || nav;
+    // Menü üste yapıştığında küçük logoyu göster
+    var sentinel = document.querySelector('.nav-sentinel');
+    if (sentinel) {
+      new IntersectionObserver(function (es) {
+        var e = es[es.length - 1];
+        nav.classList.toggle('stuck', !e.isIntersecting && e.boundingClientRect.top < 1);
+      }).observe(sentinel);
+    }
     Array.prototype.forEach.call(nav.querySelectorAll('a[href^="#"]'), function (a) { links[a.getAttribute('href').slice(1)] = a; });
     var mark = function (id) {
       var a = links[id];
       if (!a || a === active) return;
       if (active) active.removeAttribute('aria-current');
       a.setAttribute('aria-current', 'true'); active = a;
-      if (nav.scrollWidth > nav.clientWidth) {
+      if (scroller.scrollWidth > scroller.clientWidth) {
         var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-        nav.scrollTo({ left: a.offsetLeft - nav.clientWidth / 2 + a.offsetWidth / 2, behavior: reduce ? 'auto' : 'smooth' });
+        scroller.scrollTo({ left: a.offsetLeft - scroller.clientWidth / 2 + a.offsetWidth / 2, behavior: reduce ? 'auto' : 'smooth' });
       }
     };
     var io = new IntersectionObserver(function (es) {

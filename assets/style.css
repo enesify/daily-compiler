@@ -42,9 +42,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .mast .tag{font-family:var(--f-label);font-size:13px;text-align:right;color:var(--ink-soft);line-height:1.4}
 .mast .tag b{display:block;color:var(--ink);font-weight:600;font-size:14px}
 /* Tema düğmesi: sistem ayarını izler, tıklanınca seçim tarayıcıda saklanır */
-.theme{display:flex;align-items:center;gap:6px;width:max-content;margin:7px 0 0 auto;padding:3px 8px;border:1px solid var(--rule);font-family:var(--f-label);font-size:11.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);transition:border-color .15s,color .15s}
-.theme:hover{border-color:var(--ink);color:var(--ink)}
-.theme .ico{width:10px;height:10px;border-radius:50%;border:1px solid currentColor;background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+.mast .tag{display:flex;align-items:center;justify-content:flex-end;gap:14px}
+.mast .tag-t{display:block}
+/* Tema düğmesi: kadran oklarıyla aynı çerçeveli kare; yarım daire koyu temada döner */
+.theme{flex:none;width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--rule);color:var(--ink);transition:border-color .15s,color .15s}
+.theme:hover{border-color:var(--ink);color:var(--accent)}
+.theme .ico{width:13px;height:13px;border-radius:50%;border:1.5px solid currentColor;background:linear-gradient(90deg,currentColor 50%,transparent 50%);transition:transform .35s ease}
+.theme[aria-pressed="true"] .ico{transform:rotate(180deg)}
 
 /* Sayı kadranı: büyük tarih + oklar, altında takvim günleri boyunca çentikli zaman şeridi */
 .dial{border-bottom:1px solid var(--rule);padding:12px 0 6px;display:grid;gap:6px}
@@ -74,10 +78,21 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .tick.mstart{border-left:1px dotted var(--rule)}
 
 /* Bölüm menüsü: sayfa boyunca üstte kalır, bulunulan bölüm vurgulanır; sığmazsa yatay kayar */
-nav.index{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;white-space:nowrap;font-family:var(--f-label);font-size:13px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top,0px)}
-nav.index::-webkit-scrollbar{display:none}
-nav.index a{text-decoration:none;padding:11px 0 9px;border-bottom:2px solid transparent;flex:none}
-nav.index a[aria-current="true"]{color:var(--accent);border-bottom-color:currentColor}
+nav.index{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;align-items:center;white-space:nowrap;border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top,0px)}
+.nav-sentinel{height:0}
+.nav-links{position:relative;flex:1;min-width:0;display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;font-family:var(--f-label);font-size:13px;font-weight:500;letter-spacing:.05em;text-transform:uppercase}
+/* Menü taşıyorsa sağ kenar solarak devamı olduğunu belli eder */
+.nav-links{padding-right:28px;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{text-decoration:none;padding:11px 0 9px;border-bottom:2px solid transparent;flex:none}
+.nav-links a[aria-current="true"]{color:var(--accent);border-bottom-color:currentColor}
+/* Küçük logo: menü yapışana kadar yer kaplamaz; yapışınca büyük halinden küçülerek yerine oturur */
+.nav-brand{flex:none;font-family:var(--f-display);font-size:21px;font-weight:600;letter-spacing:-.02em;line-height:1;text-decoration:none;color:var(--ink);font-variation-settings:"opsz" 36;
+  max-width:0;opacity:0;visibility:hidden;overflow:hidden;margin-right:0;padding-right:0;border-right:1px solid transparent;transform:translateY(-10px) scale(1.5);transform-origin:left center;
+  transition:max-width .3s ease,opacity .25s ease,transform .3s ease,margin .3s ease,padding .3s ease,border-color .3s ease,visibility 0s .3s}
+.nav-brand .the{font-size:.5em;font-style:italic;font-weight:500;letter-spacing:.01em;color:var(--accent);position:relative;top:-.72em;margin-right:.18em}
+nav.index.stuck .nav-brand{max-width:200px;opacity:1;visibility:visible;margin-right:18px;padding-right:18px;border-right-color:var(--rule);transform:none;transition-delay:0s}
+.nav-brand:hover{color:var(--accent)}
 
 .figs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-bottom:1px solid var(--rule)}
 .fig{padding:14px 14px 14px 0;display:flex;flex-direction:column;gap:2px;min-width:0}
@@ -170,8 +185,19 @@ footer{margin-top:40px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   .lead{grid-template-columns:1fr}
   .s8,.s6,.s4{grid-column:span 12}
   .repos{grid-template-columns:1fr}
-  /* Menü taşıyorsa sağ kenar solarak devamı olduğunu belli eder */
-  nav.index{gap:18px;padding-right:28px;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}
+  .nav-links{gap:18px}
+}
+/* Geniş ekranda sayı kadranı tek satırlık künye olur: solda tarih, ortada takvim şeridi, sağda sayı bilgisi */
+@media (min-width:901px){
+  .dial{grid-template-columns:minmax(max-content,1fr) auto minmax(0,auto) auto minmax(max-content,1fr);grid-template-areas:"date prev track next meta";align-items:center;gap:0 14px;padding:9px 0 7px}
+  .dial-head,.dial-now{display:contents}
+  .dial-date{grid-area:date;text-align:left}
+  .dial-meta{grid-area:meta;text-align:right}
+  .dial-step[rel="prev"],.dial-step:first-child{grid-area:prev}
+  .dial-step[rel="next"],.dial-step:last-child{grid-area:next}
+  .dial-track{grid-area:track}
+  .dial-step{width:30px;height:30px;font-size:19px}
+  .ticks{padding-top:0}
 }
 @media (min-width:561px) and (max-width:900px){
   .figs{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -180,7 +206,9 @@ footer{margin-top:40px;border-top:3px solid var(--ink);padding-top:12px;font-fam
 }
 @media (max-width:560px){
   .mast{grid-template-columns:1fr}.mast .tag{text-align:left}
-  .theme{margin-left:0}
+  .mast .tag{justify-content:space-between}
+  .nav-brand{font-size:19px}
+  nav.index.stuck .nav-brand{margin-right:14px;padding-right:14px}
   /* Rakam şeridi telefonda tek satır, yatay kayar: manşet ilk ekranda kalsın */
   .figs{display:flex;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .figs::-webkit-scrollbar{display:none}
