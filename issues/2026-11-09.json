@@ -1,0 +1,407 @@
+{
+ "date": "2026-11-09",
+ "number": 7,
+ "dateLabel": "Pazartesi, 9 Kasım 2026",
+ "readingMinutes": 15,
+ "figures": [
+  {
+   "n": "1.122",
+   "l": "Apiiro'ya göre gerçek bir sır içeren, herkese açık `.claude/settings.local.json` dosyası"
+  },
+  {
+   "n": "104.185",
+   "l": "Apiiro'nun GitHub'da taradığı herkese açık `.claude/settings.local.json` kopyası"
+  },
+  {
+   "n": "19:00",
+   "l": "`pull_request_target` için ilk brownout'un bugün İstanbul saatiyle başlangıcı; kesinti 21:00'e kadar sürüyor"
+  },
+  {
+   "n": "10",
+   "l": "Rampdown Phase One'a üç hafta kala JDK 28'e hedeflenmiş JEP sayısı"
+  },
+  {
+   "n": "359,2 milyon",
+   "l": "Amadeus'un Ocak-Eylül döneminde işlediği hava rezervasyonu; geçen yıla göre %2,8 düşüş"
+  }
+ ],
+ "lead": {
+  "kicker": "İddia · AI destekli geliştirme & Güvenlik",
+  "alert": true,
+  "headline": "Claude Code'da “Yes, and don't ask again” ile onaylanan komutlar sırlarıyla birlikte GitHub'a gitti: 1.122 açık dosyada gerçek parola ve anahtar",
+  "deck": "Apiiro'nun araştırmasına göre “don't ask again” ile onaylanan Bash komutları, içlerine yazılmış parola ve token'larla birlikte `.claude/settings.local.json` dosyasına kaydediliyor ve bu dosyalar herkese açık repolara ulaşıyor. Dosyayı git dışında tutan koruma yalnızca geliştiricinin kendi makinesinde çalışıyor.",
+  "paragraphs": [
+   "Güvenlik şirketi Apiiro'dan Shmulik Cohen ve Matan Giladi'nin 5 Kasım'da yayımladığı araştırmaya göre GitHub'daki 104.185 herkese açık `.claude/settings.local.json` kopyasının 1.122'sinde gerçek bir sır bulunuyor. Runtimewire'ın aktardığına göre Apiiro'nun daha geniş sayımı 1.994 herkese açık repoda 2.539 sırra ulaşıyor. Apiiro'nun raporuna doğrudan erişemedik; rakamlar raporu aktaran yayınlardan alındı ve bunları bağımsız olarak doğrulayan bir kaynak bulamadık.",
+   "Mekanizmanın kendisi Claude Code dokümantasyonunda yazıyor: bir Bash komutu için “Yes, and don't ask again” seçildiğinde onay, `.claude/settings.local.json` dosyasına bir `allow` kuralı olarak kaydediliyor. Araştırmayı aktaran yayınlara göre kural komutu olduğu gibi sakladığı için komutun içine yazılmış bir parola ya da token da dosyaya giriyor.",
+   "Dokümantasyona göre Claude Code bu dosyayı bir git reposunda ilk yazdığında `**/.claude/settings.local.json` kalıbını geliştiricinin global git excludes dosyasına ekliyor; dosya elle oluşturulduysa `.gitignore`'a eklemek kullanıcıya kalıyor. Runtimewire açığı şöyle özetliyor: ignore kuralı tek bir geliştiricinin makinesinde, dosya ise projede yaşıyor.",
+   "Haberi değerlendirirken bir çekinceyi de not etmek gerek: Apiiro, Claude Code ve Cursor gibi AI kodlama araçlarına yönelik güvenlik ürünleri satan bir şirket. Nisan'da bu araçların okuyup çalıştırabildiği agent skill'leri içeren bir CLI duyurmuştu."
+  ],
+  "sources": [
+   {
+    "label": "Apiiro araştırması",
+    "url": "https://apiiro.com/blog/coding-agents-leaking-secrets-github-dont-ask-again"
+   },
+   {
+    "label": "Runtimewire",
+    "url": "https://runtimewire.com/article/claude-code-dont-ask-again-secrets-github-apiiro"
+   },
+   {
+    "label": "Claude Code dokümantasyonu · settings",
+    "url": "https://code.claude.com/docs/en/settings"
+   },
+   {
+    "label": "SiliconANGLE · Apiiro CLI",
+    "url": "https://siliconangle.com/?p=738075"
+   }
+  ],
+  "box": {
+   "kicker": "Pratik çıkarım",
+   "title": "Agent onay dosyaları da sır deposudur",
+   "items": [
+    "Tüm repolarınızda, git geçmişi dahil `.claude/settings.local.json`, `.claude/settings.json` ve benzeri agent ayar ve transcript dosyalarını arayın; bulunan her kimlik bilgisini sızmış kabul edip rotasyona sokun.",
+    "Ignore kuralını geliştirici makinesine bırakmayın: `**/.claude/settings.local.json` satırını her reponun `.gitignore` dosyasına ekleyin ve CI'da bu dosyanın commit'lenmesini reddeden bir kontrol çalıştırın.",
+    "Ekibe, komut satırına parola ya da token yazıp “don't ask again” demek yerine sırları ortam değişkeni veya secret manager üzerinden geçirmeyi kural olarak koyun; Claude Code kullanan ekipler için bunu managed settings ile destekleyin.",
+    "Sır taramasında agent ayar ve transcript dosyalarını (`.claude/` altı ve benzerleri) açıkça kapsama alan bir kural ekleyin; varsayılan kurallarınızın bu dosyaları yakaladığını test edin."
+   ],
+   "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
+  }
+ },
+ "sections": [
+  {
+   "id": "ai",
+   "title": "Yapay Zeka & LLM",
+   "subtitle": "GPU'suz 284 milyar parametre iddiası, agent belleği için ortak format çağrısı",
+   "articles": [
+    {
+     "size": 6,
+     "kicker": "İddia · Yerel çıkarım",
+     "headline": "llama-modchip: 284 milyar parametreli DeepSeek-V4-Flash, GPU olmadan 64 GB RAM'de",
+     "paragraphs": [
+      "Açık kaynak `llama-modchip` projesi, `ggml`/`llama.cpp` için kernel yamaları, quantization araçları ve çalışma zamanı yardımcılarından oluşuyor. Ana hedef, 284,33 milyar parametreli ve 13,17 milyar aktif parametreli MoE modeli DeepSeek-V4-Flash'ı yalnızca CPU ile çalıştırmak.",
+      "README'ye göre checkpoint, Unsloth'un 76,87 GiB'lik sürümünden 1,71 bpw ortalamayla 56,56 GiB'ye sıkıştırılıyor; routed expert'ler çoğunlukla IQ1_S, hassas katmanlar daha yüksek bit formatlarında tutuluyor. 256K context'te tepe bellek kullanımı yaklaşık 57,6 GiB olarak veriliyor. Hız artışı için AVX-512 kernel'leri, bir FlashAttention varyantı ve n-gram tabanlı bir speculative decoding taslakçısı kullanılıyor.",
+      "Proje, 16 çekirdekli bir Zen 5 makinede 9,06-9,95 tok/s decode, taslakçıyla 14,7 tok/s'ye kadar hız bildiriyor. DeepSeek rakamları geliştiricinin kendi ölçümleri; bağımsız doğrulama yok. Üretilen modeller yalnızca projenin yamalı binary'leriyle çalışıyor, standart `llama.cpp`, Ollama ve LM Studio bunları reddediyor. Lisans Apache-2.0."
+     ],
+     "sources": [
+      {
+       "label": "GitHub · synchopate/llama-modchip",
+       "url": "https://github.com/synchopate/llama-modchip"
+      }
+     ],
+     "big": true
+    },
+    {
+     "size": 6,
+     "kicker": "Agent belleği · Standart",
+     "headline": "“Agent belleğinin OpenTelemetry anına ihtiyacı var”: ortak bir bellek formatı çağrısı",
+     "paragraphs": [
+      "LoreKit'i geliştiren ve Dash0'da OpenTelemetry üzerinde çalışan Mads Thines, 7 Kasım tarihli yazısında agent belleği için, gözlemlenebilirlikte OpenTelemetry'nin yaptığı gibi tarafsız ve ortak bir spesifikasyon çağrısı yaptı. Önerdiği kapsam; sürümlü konvansiyonlar, MCP üzerinden sunulan küçük bir işlem sözleşmesi ve uyumluluk testlerinden oluşuyor. Depolama, sıralama ve arayüz ise araçların rekabet edeceği alan olarak dışarıda bırakılıyor.",
+      "Yazıdaki örnek kayıt (`agent-memory/0.1`) `address`, `kind`, `written_by`, `lifecycle` gibi alanlar içeriyor; yazar bunun resmi bir öneri değil, veri modelini gösteren bir örnek olduğunu belirtiyor. Henüz destekleyen bir kurum adı verilmedi; LoreKit kendi şemasını MIT lisansıyla bir girdi olarak sunuyor."
+     ],
+     "sources": [
+      {
+       "label": "LoreKit blog",
+       "url": "https://www.lorekit.io/blog/open-agent-memory-format"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "is",
+   "title": "Şirketler & Altyapı",
+   "subtitle": "Amadeus'ta Air IT büyüyor, rezervasyonlar geriliyor · Nvidia'da bağımsız soruşturma",
+   "articles": [
+    {
+     "size": 8,
+     "kicker": "Havacılık · Amadeus",
+     "headline": "Amadeus'ta Air IT Solutions büyüyor, işlenen hava rezervasyonları geriliyor",
+     "paragraphs": [
+      "Amadeus 6 Kasım'da açıkladığı Ocak-Eylül sonuçlarında grup gelirini 5.075,7 milyon euro olarak raporladı; büyüme raporlanan bazda %3,7, sabit kurla %5,2. Havalimanı ve havayolu yazılımlarını kapsayan Air IT Solutions geliri sabit kurla %7,7 artışla 1.852,0 milyon euroya çıkarken, Air Distribution %2,1 büyüdü. İşlenen hava rezervasyonları %2,8 düşüşle 359,2 milyona inerken, biniş yapan yolcu sayısı %1,3 artışla 1.708,8 milyona ulaştı.",
+      "Şirket 2026 hedeflerinde kalacağını, ancak Orta Doğu'daki aksaklıklar nedeniyle muhtemelen beklenti aralığının alt ucunda bitireceğini söylüyor. Habere göre Amadeus, Eylül'de duyurduğu Anthropic işbirliğini ve Ekim'de NVIDIA ile imzaladığı, hızlandırılmış hesaplamayla uçuş aramasını araştıran mutabakat zaptını da öne çıkardı; ikincisi henüz ticari kullanımda değil. Haberde, dünkü manşetimizde ele aldığımız veri ihlalinden söz edilmiyor."
+     ],
+     "sources": [
+      {
+       "label": "Travel PR News",
+       "url": "https://travelprnews.com/article/amadeus-grows-nine-month-revenue-to-e5-08-billion-as-ai-partnerships-expand-amid-softer-air-bookings"
+      },
+      {
+       "label": "Amadeus yatırımcı sayfası",
+       "url": "https://amadeus.com/en/investors"
+      },
+      {
+       "label": "Dünkü sayı: Amadeus ihlali Avrupa'ya ulaştı",
+       "url": "#2026-11-08-manset"
+      }
+     ],
+     "big": true
+    },
+    {
+     "size": 4,
+     "kicker": "Nvidia · Yönetişim",
+     "headline": "Nvidia yönetim kurulu, Jensen Huang'ın yabancı istihbaratın hedefi olduğuna dair haberler üzerine bağımsız soruşturma başlattı",
+     "paragraphs": [
+      "Nvidia yönetim kurulu 8 Kasım'da, kurucu ve CEO Jensen Huang'ın bir yabancı istihbarat çabasının hedefi olduğuna dair haberlerin ardından bağımsız üyelerden oluşan bir komite eliyle, dışarıdan bağımsız hukuk danışmanlarının desteğiyle soruşturma başlattığını duyurdu. Kurul, ulusal güvenliğin ya da Nvidia sırlarının tehlikeye girdiğine inanmak için bir neden görmediğini, Huang'a güvendiğini ve Huang'ın incelemede işbirliği yapmayı kabul ettiğini belirtiyor.",
+      "Arka planda New York Times'ın, Nvidia müşterisi Singapur merkezli Megaspeed'in bir yöneticisinin Pekin'e bilgi aktardığını ABD istihbaratının belirlediğine dair haberi var. Nvidia o dönem Huang'ın bu yöneticiyle görüşmelerinin olağandışı olmadığını, müşterilerle görüşmenin CEO'nun işinin parçası olduğunu söylemişti."
+     ],
+     "sources": [
+      {
+       "label": "Nvidia yönetim kurulu açıklaması",
+       "url": "https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors"
+      },
+      {
+       "label": "ABC13 · AP",
+       "url": "https://abc13.com/story/nvidia-denies-report-ceo-was-allegedly-targeted-chinese-spy-plot/20000206/"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gelistirme",
+   "title": "Geliştirme & Araçlar",
+   "subtitle": "`pull_request_target` için ilk kesinti bugün, Outlook.com'da DMARC'sız alan adlarına ret",
+   "articles": [
+    {
+     "size": 8,
+     "big": true,
+     "alert": true,
+     "kicker": "GitHub Actions",
+     "headline": "`pull_request_target` için ilk brownout bugün 16:00-18:00 UTC'de: public repolarda workflow'lar çalışmayacak",
+     "paragraphs": [
+      "GitHub'ın duyurusuna göre 2 Aralık'tan itibaren public repolarda `pull_request_target` olayı, bir Actions event policy açıkça izin vermedikçe varsayılan olarak engellenecek. Geçişten önce iki brownout planlandı: bugün, 9 Kasım 16:00-18:00 UTC (İstanbul saatiyle 19:00-21:00) ve 16 Kasım aynı saatlerde. Bu pencerelerde engellenen çalıştırmalar bir hata notuyla başarısız oluyor ve workflow yürütülmüyor; pencereler dışında kural yeniden evaluate moduna dönüyor ve workflow'lar uyarıyla çalışıyor.",
+      "Değişiklik GitHub Free, Team ve Enterprise Cloud'daki public repoları etkiliyor; private ve internal repolar ile GitHub Enterprise Server kapsam dışında. Bu workflow'ları çalıştırmaya devam etmek isteyenlerin ilgili Actions event policy'ye açık bir izin eklemesi, belirli workflow'ları hedeflemek için de workflow dosyası hedeflemesini kullanması gerekiyor. Hangi çalıştırmaların engelleneceği Insights üzerinden görülebiliyor."
+     ],
+     "sources": [
+      {
+       "label": "GitHub Changelog",
+       "url": "https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2"
+      },
+      {
+       "label": "7 Kasım sayısı: `pull_request_target` 2 Aralık'ta engelleniyor",
+       "url": "#2026-11-07-guvenlik-4"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "İddia · E-posta",
+     "headline": "Outlook.com, DMARC kaydı olmayan alan adlarından gelen bazı e-postaları reddetmeye başladı",
+     "paragraphs": [
+      "E-posta güvenliği şirketi MailRoute'a göre 5 Kasım'dan beri outlook.com, hotmail.com, live.com ve msn.com adreslerine giden ve DMARC kaydı olmayan alan adlarından gönderilen bazı iletiler `550 5.7.1` hatasıyla geri dönüyor; düşük hacimli göndericiler de etkileniyor. Bulgu şirketin kendi loglarına dayanıyor ve 6 Kasım itibarıyla Microsoft'tan bir duyuru yoktu. MailRoute bu alanda ürün satan bir şirket."
+     ],
+     "sources": [
+      {
+       "label": "MailRoute blog",
+       "url": "https://mailroute.net/blog/outlook-rejecting-email-without-dmarc"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "java",
+   "title": "Java & Spring",
+   "subtitle": "Son 48 saatte yeni sürüm yok · haftanın okumaları",
+   "articles": [
+    {
+     "size": 8,
+     "big": true,
+     "kicker": "OpenJDK · JDK 28",
+     "headline": "JDK 28'in özellik listesi şekilleniyor: Rampdown Phase One 3 Aralık'ta, 10 JEP hedeflendi",
+     "paragraphs": [
+      "OpenJDK'nın JDK 28 sayfasına göre ana hattan dallanma anlamına gelen Rampdown Phase One 3 Aralık'ta, genel erişim (GA) ise 9 Mart 2027'de. Sayfanın 2 Kasım tarihli son güncellemesine göre JDK 28'e hedeflenen JEP'ler şunlar: Value Objects (Preview, JEP 401), Shenandoah'ta generational modun varsayılan olması (535), JVM'de katı alan ilklendirme (Preview, 539), Simple JSON API (Incubator, 540), macOS/x64 portunun kaldırılmak üzere kullanımdan kaldırılması (541), kriptografik nesneler için PEM kodlaması (542), Structured Concurrency (543), Ahead-of-Time Code Compilation (544), ZGC ile daha hızlı açılış ve ısınma (545) ve ZGC için uyarlanabilir heap boyutlandırma (546).",
+      "Spring Boot servisleri için en doğrudan ilgili madde JEP 544: eğitim çalıştırmasında derlenmiş optimize native kod AOT cache'e yazılıyor ve sonraki açılışlarda yeniden derlenmeden kullanılıyor. JEP'e göre uygulama kodu değişikliği gerekmiyor, mevcut `-XX:AOTCacheOutput` / `-XX:AOTCache` akışı genişletiliyor. Kısıtlar arasında aynı CPU mimarisi ve özellik seti, tüm çalıştırmalarda aynı GC ve başlangıçta yalnızca AArch64 ile x64 desteği var.",
+      "JEP, iki çekirdekli bir Linux/x64 sistemde beş framework benchmark'ında yalnızca cache ile açılış süresinin yaklaşık %50-70, AOT kodla birlikte yaklaşık %65-80 kısaldığını bildiriyor."
+     ],
+     "sources": [
+      {
+       "label": "OpenJDK · JDK 28",
+       "url": "https://openjdk.org/projects/jdk/28/"
+      },
+      {
+       "label": "JEP 544",
+       "url": "https://openjdk.org/jeps/544"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "Inside Java · Devoxx",
+     "headline": "Project Detroit ve Babylon: JVM'den V8, CPython ve hızlandırıcılara açılan yollar",
+     "paragraphs": [
+      "Inside Java, Devoxx Belgium 2026'dan iki oturumu yayımladı. 4 Kasım'daki yazıda Maurizio Cimadamore, Nashorn gibi runtime'ları Java'da yeniden yazmak yerine FFM API ile V8 ve CPython'u gömmeyi hedefleyen Project Detroit'i ve iki GC'yi birlikte yönetmek, virtual thread pinning'den kaçınmak gibi zorlukları anlatıyor. 8 Kasım'daki oturum FFM, `jextract` ve Project Babylon'un code reflection yaklaşımına odaklanıyor."
+     ],
+     "sources": [
+      {
+       "label": "Inside Java · Project Detroit",
+       "url": "https://inside.java/2026/11/04/devoxxbelgium-project-detroit/"
+      },
+      {
+       "label": "Inside Java · Java Next",
+       "url": "https://inside.java/2026/11/08/devoxxbelgium-java-next-programming-models/"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "guvenlik",
+   "title": "Güvenlik",
+   "subtitle": "Plakadan uzaktan araç komutuna, IRC'de sunucu yetkisi, `/tmp`'deki Vim soketi, şifre değişikliğine dayanan token'lar",
+   "articles": [
+    {
+     "size": 8,
+     "big": true,
+     "kicker": "Bağlı araçlar · IAM",
+     "headline": "Bir otomobil üreticisinin admin aracında JavaScript'e gömülü OpenIDM parolası: plaka numarasıyla uzaktan komut zinciri",
+     "paragraphs": [
+      "Assetnote kurucu ortağı Shubham Shah 7 Kasım'da, Sam Curry ile birlikte yürüttükleri ve adını vermedikleri bir otomobil üreticisinin bağlı araç altyapısındaki saldırı zincirini yayımladı. Zincir; internete açık bir iç admin aracı, JavaScript vendor paketine gömülü OpenIDM admin kimlik bilgileri, `/static%2f..%2fopenidm/` biçiminde path traversal ile WAF atlatma, Resource Owner Password Credentials akışı üzerinden MFA atlatma ve ardından bir uygulama token'ı üretip uzaktan komut API'sini çağırmaktan oluşuyor.",
+      "Yazıya göre araştırmacılar Avustralya'da, yalnızca plaka numarasını bilerek üreticinin iki markasındaki herhangi bir araca kapı açma gibi komutlar gönderebiliyordu; çalışma ABD ve Kanada'yı da kapsıyor. Çalışma Temmuz 2026'da yapılmış. Yazıda etkilenen araç sayısı, ifşa takvimi ve üreticinin düzeltme durumu belirtilmiyor."
+     ],
+     "sources": [
+      {
+       "label": "shubs.io",
+       "url": "https://shubs.io/unlocking-any-car-from-x-brand-in-most-of-the-world/"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "UnrealIRCd · AI destekli denetim",
+     "headline": "UnrealIRCd'de sıradan kullanıcıya sunucu yetkisi veren açık; dokuz düzeltme çoğu ağda yeniden başlatmadan uygulanabiliyor",
+     "paragraphs": [
+      "Bram Matthys'in 8 Kasım'da oss-security'ye ilettiği duyuruya göre AI yardımıyla yapılan bir iç denetimde birkaç önemli açık bulundu. En kritiği CVE-2026-114713: IRCv3 `label` etiketindeki bir kaçış hatası, sıradan bir kullanıcının sunucular arası trafiğe satır sonu enjekte edip sunucu yetkisiyle komut çalıştırmasına izin veriyor; duyuru bunu son 15 yılın en kritik sorunu olarak nitelendiriyor. 7 Kasım'da yayımlanan hot-patch paketi dokuz sorunu kapatıyor ve UnrealIRCd 6 ağlarının çoğunda yeniden başlatmadan uygulanabiliyor; Windows'ta ya da hot-patch başarısız olursa 6.2.7.1'e yükseltmek gerekiyor."
+     ],
+     "sources": [
+      {
+       "label": "oss-security · UnrealIRCd",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/08/1"
+      },
+      {
+       "label": "UnrealIRCd güvenlik duyurusu",
+       "url": "https://forums.unrealircd.org/viewtopic.php?t=9487"
+      }
+     ]
+    },
+    {
+     "size": 6,
+     "kicker": "Vim",
+     "headline": "Vim 9.2.1308: `/tmp`'de önceden oluşturulan soket dizini, başka kullanıcının Vim'inde komut çalıştırmaya açıyor",
+     "paragraphs": [
+      "Vim'in 8 Kasım tarihli duyurusuna göre clientserver özelliğinin socketserver backend'i, soket dizini (`$TMPDIR/vim-<uid>`, `$TMPDIR` tanımlı değilse `/tmp/vim-<uid>`) zaten varsa sahibini ve izinlerini kontrol etmeden kullanıyordu. Aynı sistemdeki yerel bir saldırgan dizini önceden oluşturup soketi ele geçirerek Vim ifadeleri, dolayısıyla shell komutları çalıştırabiliyor. Önem derecesi orta; düzeltme 9.2.1308'de. Aynı gün, modeline ile yüklenebilen özel bir spell dosyasıyla tetiklenen, heap'te sınır dışı okumaya ve çökmeye yol açan düşük önemli bir hata da 9.2.1309'da düzeltildi."
+     ],
+     "sources": [
+      {
+       "label": "oss-security · Vim soket dizini",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/08/4"
+      },
+      {
+       "label": "oss-security · Vim spell dosyası",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/08/5"
+      }
+     ]
+    },
+    {
+     "size": 6,
+     "kicker": "İddia · Home Assistant",
+     "headline": "Araştırmacı: Home Assistant'ta refresh token sırları düz metin, şifre değişikliği hiçbir token'ı iptal etmiyor",
+     "paragraphs": [
+      "“knell” imzalı bir araştırmacı 8 Kasım'da oss-security'ye, Home Assistant 2026.11.0'da tüm kullanıcıların refresh token sırlarının ve token başına JWT imzalama anahtarlarının `config/.storage/auth` dosyasında düz metin olarak tutulduğunu yazdı. İddiaya göre long-lived ve system refresh token'larının süresi dolmuyor, şifre değiştirme yollarından hiçbiri token iptali yapmıyor ve otomatik yedek parolası da düz metin saklanıyor.",
+      "Araştırmacı bunun kimlik doğrulamasız bir ağ saldırısı olmadığını, yapılandırma dizininin ya da bir yedeğin okunmasıyla başladığını kendisi vurguluyor. Kontrol ettiği 11 iddiadan 3'ünün geçerli, 5'inin sınırlı olarak geçerli olduğunu, 3'ünün ise tutmadığını yazıyor; token üretimindeki entropiyi ve erişim token'larının 30 dakikalık ömrünü sağlam bulduğunu da belirtiyor. Projenin bir yanıtı duyuruda yer almıyor."
+     ],
+     "sources": [
+      {
+       "label": "oss-security · Home Assistant",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/08/3"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "repos": {
+  "subtitle": "GitHub ve Trendshift günlük trending sıralamalarından seçme · yıldız sayıları repo sayfalarından, 9 Kasım",
+  "items": [
+   {
+    "name": "vercel-labs/agent-browser",
+    "url": "https://github.com/vercel-labs/agent-browser",
+    "stars": "47,8 bin",
+    "starsValue": 47800,
+    "lang": "Rust",
+    "cat": "Agent için tarayıcı otomasyonu",
+    "why": "Sayfayı her öğesi `@e1` gibi bir referans taşıyan kompakt erişilebilirlik ağacı olarak okuyan ve agent'ın bu referanslarla tıklayıp form doldurduğu CLI; arka planda açık kalan bir daemon sayesinde her adım kısa bir shell çağrısı, MCP sunucu modu da var.",
+    "meta": "Rust · Agent için tarayıcı otomasyonu"
+   },
+   {
+    "name": "anthropics/claude-quickstarts",
+    "url": "https://github.com/anthropics/claude-quickstarts",
+    "stars": "19,5 bin",
+    "starsValue": 19500,
+    "lang": "Python",
+    "cat": "Örnek projeler",
+    "why": "Müşteri destek agent'ından computer use demosuna ve Managed Agents ile Slack, Linear, Sentry entegrasyonlarına kadar 18 başlangıç projesi; her biri kendi README'si ve kurulum adımlarıyla geliyor.",
+    "meta": "Python · Örnek projeler"
+   },
+   {
+    "name": "ranxianglei/billion-context",
+    "url": "https://github.com/ranxianglei/billion-context",
+    "stars": "5,3 bin",
+    "starsValue": 5300,
+    "lang": "TypeScript",
+    "cat": "Context sıkıştırma",
+    "why": "Agent ile model API'si arasına girip uzun oturumlarda context'i modelin kendi çağırdığı `compress` ve `decompress` araçlarıyla geri alınabilir şekilde sıkıştıran eklenti; Claude Code, Codex ve Copilot CLI dahil pek çok istemciyi listeliyor, tasarruf iddiaları projenin kendi ölçümleri.",
+    "meta": "TypeScript · Context sıkıştırma"
+   },
+   {
+    "name": "DIYgod/pinky",
+    "url": "https://github.com/DIYgod/pinky",
+    "stars": "988",
+    "starsValue": 988,
+    "cat": "Telefonda agent",
+    "why": "Claude Code, Codex ve Cursor gibi agent'ların MCP üzerinden gerçek bir iPhone ya da Android telefonu kullanmasını sağlıyor; ödeme, gönderme ve silme gibi adımlar kullanıcı onayı bekliyor, bankacılık ve parola uygulamaları varsayılan olarak gizli. Proje kendini pre-alpha olarak tanımlıyor.",
+    "meta": "Telefonda agent"
+   },
+   {
+    "name": "dsx-ai-factory/nvke",
+    "url": "https://github.com/dsx-ai-factory/nvke",
+    "stars": "911",
+    "starsValue": 911,
+    "lang": "Go",
+    "cat": "GPU Kubernetes",
+    "why": "Kendi bare-metal NVIDIA GPU altyapısında her biri ayrı control plane ve etcd'ye sahip Kubernetes cluster'ları kurup yöneten management plane; preview aşamasında, README üretim için önermiyor ve API kimlik doğrulaması varsayılan olarak kapalı.",
+    "meta": "Go · GPU Kubernetes"
+   },
+   {
+    "name": "janestreet/agent_skills",
+    "url": "https://github.com/janestreet/agent_skills",
+    "stars": "474",
+    "starsValue": 474,
+    "cat": "Agent skill'leri",
+    "why": "Jane Street'in agent skill koleksiyonu şimdilik tek bir skill içeriyor: konuyu tanı testi, seviye haritası ve aralıklı tekrar ile Sokratik yöntemle öğreten `socratic-tutor`; MIT lisanslı.",
+    "meta": "Agent skill'leri"
+   }
+  ],
+  "sources": [
+   {
+    "label": "GitHub Trending · günlük",
+    "url": "https://github.com/trending"
+   },
+   {
+    "label": "Trendshift · günlük",
+    "url": "https://trendshift.io/"
+   }
+  ]
+ },
+ "briefs": [
+  {
+   "tag": "Apache",
+   "text": "Apache Allura 1.22.0 ve öncesinde “critical” önemde OAuth 1 rebinding açığı CVE-2026-118196 duyuruldu; düzeltme 1.22.1'de.",
+   "url": "https://www.openwall.com/lists/oss-security/2026/11/07/1"
+  },
+  {
+   "tag": "Havacılık",
+   "text": "Kanadalı bölgesel havayolu Air Creebec, yetkisiz tarafların idari sistemlerine eriştiğini ve kişisel bilgilerin açığa çıkmış olabileceğini açıkladı; kapsam ve etkilenen kişi sayısı belirtilmedi.",
+   "url": "https://www.ctvnews.ca/northern-ontario/article/regional-airline-suffers-cyberattack/"
+  }
+ ]
+}
