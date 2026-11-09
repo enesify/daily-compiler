@@ -5,3 +5,4 @@
 - Yeni bir sayı eklendiğinde şunların değişmesi BEKLENİR ve birlikte commit edilir: yeni `issues/<tarih>.json`, `issues/index.json`, `index.html`, `arsiv.html`, `feed.xml` ve `sayi/` altındaki sayfalar. `feed.xml` (RSS akışı) her yeni sayıda değişir; bu bir sorun değildir.
 - `hakkinda.html`, `assets/og.png`, `assets/style.css`, `assets/site.js` yeni sayı eklenirken değişmez.
 - `figures[]` öğelerindeki `ref` alanı (`"manset"` ya da `"<bölüm id>-<sıra>"`, ör. `"java-1"`) rakam kutusunu o habere link yapar; hedef yoksa kutu link olmadan basılır.
+- Sayfalar `assets/style.css` ve `assets/site.js` dosyalarını içerik özetiyle (`?v=...`) çağırır; bu dosyalar değişmedikçe özet de değişmez.

@@ -7,6 +7,7 @@ Bağımlılık yok (yalnızca Python 3 standart kütüphanesi).
 """
 import datetime as dt
 import glob
+import hashlib
 import html
 import json
 import os
@@ -41,6 +42,15 @@ def short_date(iso):
 def long_date(iso):
     d = d_of(iso)
     return f"{DAYS[d.weekday()]}, {d.day} {MONTHS_LONG[d.month - 1]} {d.year}"
+
+
+def asset(ctx, rel):
+    """assets/ dosyası için içerik özetli adres: dosya değişince tarayıcı önbelleği kendiliğinden yenilenir."""
+    try:
+        v = hashlib.sha1(open(os.path.join(ROOT, rel), "rb").read()).hexdigest()[:8]
+    except OSError:
+        return ctx.href(rel)
+    return f"{ctx.href(rel)}?v={v}"
 
 
 def plain(text):
@@ -288,7 +298,7 @@ def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, bas
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="{esc(ctx.href('assets/style.css'))}">
+<link rel="stylesheet" href="{esc(asset(ctx, 'assets/style.css'))}">
 </head>
 <body>
 <div class="wrap" lang="tr">
@@ -296,7 +306,7 @@ def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, bas
 {body}
 {footer(ctx)}
 </div>
-<script src="{esc(ctx.href('assets/site.js'))}" defer></script>
+<script src="{esc(asset(ctx, 'assets/site.js'))}" defer></script>
 </body>
 </html>
 """
