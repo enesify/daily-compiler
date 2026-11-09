@@ -94,12 +94,15 @@ nav.index{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;a
 nav.index.stuck .nav-brand{max-width:200px;opacity:1;visibility:visible;margin-right:18px;padding-right:18px;border-right-color:var(--rule);transform:none;transition-delay:0s}
 .nav-brand:hover{color:var(--accent)}
 
-.figs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-bottom:1px solid var(--rule)}
-.fig{padding:14px 14px 14px 0;display:flex;flex-direction:column;gap:2px;min-width:0}
+/* Günün rakamları: “Pratik çıkarım” kutusuyla aynı dilde, etiketli açık zeminli bant */
+.figs-wrap{background:var(--paper-2);margin-top:16px;padding:12px 18px 2px}
+.figs-wrap>.kicker{display:block}
+.figs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.fig{padding:8px 14px 12px 0;display:flex;flex-direction:column;gap:2px;min-width:0}
 .fig+.fig{border-left:1px solid var(--rule);padding-left:14px}
 .fig .n{font-family:var(--f-display);font-size:30px;font-weight:600;font-variant-numeric:tabular-nums lining-nums;line-height:1.1}
 .fig .l{font-family:var(--f-label);font-size:12.5px;color:var(--ink-soft);line-height:1.35}
-.fig code{font-size:.92em;padding:0 3px}
+.fig code{font-size:.92em;padding:0 3px;background:var(--paper)}
 /* Habere bağlı rakam kutusu */
 a.fig{text-decoration:none;color:inherit}
 a.fig .l::after{content:" ↓";color:var(--accent)}
@@ -203,6 +206,7 @@ footer{margin-top:40px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   .figs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .fig:nth-child(odd){border-left:0;padding-left:0}
   .fig{border-bottom:1px solid var(--rule)}
+  .fig:nth-last-child(-n+1){border-bottom:0}
 }
 @media (max-width:560px){
   .mast{grid-template-columns:1fr}.mast .tag{text-align:left}
@@ -212,7 +216,8 @@ footer{margin-top:40px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   /* Rakam şeridi telefonda tek satır, yatay kayar: manşet ilk ekranda kalsın */
   .figs{display:flex;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .figs::-webkit-scrollbar{display:none}
-  .fig{flex:0 0 72%;scroll-snap-align:start;padding-top:12px;padding-bottom:12px}
+  .figs-wrap{padding:10px 14px 0;margin-top:12px}
+  .fig{flex:0 0 72%;scroll-snap-align:start;padding-top:6px;padding-bottom:12px}
   .fig .n{font-size:26px}
   .lead{padding-top:22px}
   .deck{font-size:19px}

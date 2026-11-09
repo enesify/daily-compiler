@@ -333,7 +333,8 @@ def render_issue(ctx, cur):
                 cells.append(f'<a class="fig" href="#a-{esc(ref)}">{inner}</a>')
             else:
                 cells.append(f'<div class="fig">{inner}</div>')
-        out.append('<div class="figs" aria-label="Rakamlarla gün">' + "".join(cells) + "</div>")
+        out.append('<section class="figs-wrap" aria-label="Günün rakamları"><span class="kicker">'
+                   + esc(caps("Günün rakamları")) + '</span><div class="figs">' + "".join(cells) + "</div></section>")
 
     L = cur.get("lead")
     if L:
