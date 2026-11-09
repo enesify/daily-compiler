@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The Daily Compiler · statik site üretici.
 
-issues/*.json  →  index.html (son sayı), sayi/YYYY-MM-DD.html, arsiv.html
+issues/*.json  →  index.html (son sayı), sayi/YYYY-MM-DD.html, arsiv.html, hakkinda.html, feed.xml
 Kullanım:  python3 build.py
 Bağımlılık yok (yalnızca Python 3 standart kütüphanesi).
 """
@@ -41,6 +41,11 @@ def short_date(iso):
 def long_date(iso):
     d = d_of(iso)
     return f"{DAYS[d.weekday()]}, {d.day} {MONTHS_LONG[d.month - 1]} {d.year}"
+
+
+def plain(text):
+    """Düz metin alanları (title, og, feed) için backtick işaretlerini at."""
+    return str(text or "").replace("`", "")
 
 
 def num3(n):
@@ -234,15 +239,35 @@ def caps_meta(s):
 
 def masthead(ctx):
     return (f'<header class="mast"><h1><a href="{esc(ctx.href("index.html"))}"><span class="the">The</span>Daily Compiler</a></h1>'
-            f'<div class="tag"><b>{esc(TAGLINE_B)}</b>{esc(TAGLINE)}</div></header>')
+            f'<div class="tag"><b>{esc(TAGLINE_B)}</b>{esc(TAGLINE)}'
+            f'<button class="theme" type="button" id="theme-toggle" aria-label="Açık/koyu temayı değiştir" hidden>'
+            f'<span class="ico" aria-hidden="true"></span><span class="lbl">Tema</span></button></div></header>')
 
 
-FOOTER = ('<footer><span>The Daily Compiler · Her sabah yayımlanır, tüm sayılar arşivde</span>'
-          '<span>Haberler kaynaklardan özetlenmiştir; “İddia” etiketli haberler resmî olarak doğrulanmamıştır.</span></footer>')
+def footer(ctx):
+    return ('<footer><span>The Daily Compiler · Her sabah yayımlanır · '
+            f'<a href="{esc(ctx.href("arsiv.html"))}">Arşiv</a> · <a href="{esc(ctx.href("feed.xml"))}">RSS</a> · '
+            f'<a href="{esc(ctx.href("hakkinda.html"))}">Hakkında</a></span>'
+            '<span>Haberler yapay zeka tarafından kaynaklardan özetlenir ve ayrı bir yapay zeka editörce denetlenir; '
+            f'hata olabilir, kaynak linklerine bakın. <a href="{esc(ctx.href("hakkinda.html"))}">Nasıl hazırlanıyor?</a></span></footer>')
 
 
-def page(ctx, title, desc, body, canonical=None):
+# Sayfa boyanmadan önce kayıtlı tema seçimini uygula (yanıp sönmeyi önler)
+THEME_BOOT = ("<script>try{var t=localStorage.getItem('dc-theme');"
+              "if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>")
+
+
+def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, base="", published=None):
     can = f'<link rel="canonical" href="{esc(canonical)}">' if canonical else ""
+    og = ""
+    if og_url or canonical:
+        og += f'<meta property="og:url" content="{esc(og_url or canonical)}">\n'
+    if base:
+        og += (f'<meta property="og:image" content="{esc(base)}assets/og.png">\n'
+               '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
+               '<meta name="twitter:card" content="summary_large_image">\n')
+    if published:
+        og += f'<meta property="article:published_time" content="{esc(published)}">\n'
     return f"""<!doctype html>
 <html lang="tr">
 <head>
@@ -250,11 +275,15 @@ def page(ctx, title, desc, body, canonical=None):
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
-<meta property="og:title" content="{esc(title)}">
+<meta property="og:title" content="{esc(og_title or title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:type" content="article">
-<meta name="color-scheme" content="light dark">
+<meta property="og:site_name" content="{esc(SITE_NAME)}">
+<meta property="og:locale" content="tr_TR">
+{og}<meta name="color-scheme" content="light dark">
+{THEME_BOOT}
 {can}
+<link rel="alternate" type="application/atom+xml" title="{esc(SITE_NAME)}" href="{esc(ctx.href('feed.xml'))}">
 <link rel="icon" href="{esc(ctx.href('assets/favicon.svg'))}" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -265,7 +294,7 @@ def page(ctx, title, desc, body, canonical=None):
 <div class="wrap" lang="tr">
 {masthead(ctx)}
 {body}
-{FOOTER}
+{footer(ctx)}
 </div>
 <script src="{esc(ctx.href('assets/site.js'))}" defer></script>
 </body>
@@ -287,8 +316,21 @@ def render_issue(ctx, cur):
 
     figs = cur.get("figures") or []
     if figs:
-        out.append('<div class="figs" aria-label="Rakamlarla gün">' + "".join(
-            f'<div class="fig"><span class="n">{esc(f.get("n"))}</span><span class="l">{esc(f.get("l"))}</span></div>' for f in figs) + "</div>")
+        # ref: "manset" ya da "<bölüm id>-<sıra>" (haberin kendi id'si varsa o); hedef bu sayıda yoksa kutu link olmaz
+        targets = {"manset"} if cur.get("lead") else set()
+        for s in secs:
+            for i, a in enumerate(s.get("articles") or []):
+                targets.add(str(a.get("id") or f"{s.get('id') or 'bolum'}-{i + 1}"))
+        cells = []
+        for f in figs:
+            inner = f'<span class="n">{esc(f.get("n"))}</span><span class="l">{rich(f.get("l"))}</span>'
+            ref = str(f.get("ref") or "").lstrip("#")
+            ref = ref[2:] if ref.startswith("a-") else ref
+            if ref in targets:
+                cells.append(f'<a class="fig" href="#a-{esc(ref)}">{inner}</a>')
+            else:
+                cells.append(f'<div class="fig">{inner}</div>')
+        out.append('<div class="figs" aria-label="Rakamlarla gün">' + "".join(cells) + "</div>")
 
     L = cur.get("lead")
     if L:
@@ -309,7 +351,7 @@ def render_issue(ctx, cur):
     for s in secs:
         sid = s.get("id") or "bolum"
         arts = "".join(article(ctx, a, a.get("id") or f"{sid}-{i + 1}") for i, a in enumerate(s.get("articles") or []))
-        sub = f'<p>{esc(s.get("subtitle"))}</p>' if s.get("subtitle") else ""
+        sub = f'<p>{rich(s.get("subtitle"))}</p>' if s.get("subtitle") else ""
         out.append(f'<section class="sec" id="sec-{esc(sid)}"><div class="sec-h"><h2>{esc(s.get("title"))}</h2>{sub}</div>'
                    f'<div class="grid">{arts}</div></section>')
 
@@ -323,7 +365,7 @@ def render_issue(ctx, cur):
             cards.append(f'<div class="repo">{name}<span class="stars">{"★ " + esc(r["stars"]) if r.get("stars") else ""}</span>'
                          f'<p class="why">{rich(r.get("why"))}</p>' + (f'<span class="meta">{caps_rich(meta)}</span>' if meta else "") + "</div>")
         sub = R.get("subtitle") or "Trending listelerinden seçme · yıldız sayıları kaynak tarihindeki değerlerdir"
-        out.append(f'<section class="sec" id="sec-repolar"><div class="sec-h"><h2>Öne Çıkan GitHub Repoları</h2><p>{esc(sub)}</p></div>'
+        out.append(f'<section class="sec" id="sec-repolar"><div class="sec-h"><h2>Öne Çıkan GitHub Repoları</h2><p>{rich(sub)}</p></div>'
                    f'<div class="repos">{"".join(cards)}</div>{sources(ctx, R.get("sources"))}</section>')
 
     briefs = cur.get("briefs") or []
@@ -354,6 +396,52 @@ def render_archive(ctx):
     return f'<main id="issue" class="arc">{"".join(blocks)}</main>'
 
 
+def render_about(ctx):
+    return f"""<main id="issue" class="about">
+<h2>Hakkında</h2>
+<p>The Daily Compiler; yazılım, yapay zeka ve güvenlik haberlerini her sabah tek sayfada toplayan günlük bir gazetedir. Kişisel, ticari olmayan bir projedir; reklam ya da sponsorlu içerik yoktur.</p>
+<h3>Nasıl hazırlanıyor?</h3>
+<p>Her sayı otomatik olarak, bir yapay zeka modeli (Anthropic Claude) tarafından hazırlanır. Model son 24–48 saatin haberlerini tarar (Pazartesi sayılarında hafta sonunu da kapsar), asıl kaynakları okur ve haberleri kendi cümleleriyle özetler. Ardından ayrı bir yapay zeka “editör”, taslağı kaynak linklerini yeniden açarak denetler; doğrulanamayan bilgi çıkarılır ya da etiketlenir.</p>
+<p>Sayılar yayımlanmadan önce bir insan tarafından tek tek okunmaz. Bu yüzden hata olabilir: bir haber sizin için önemliyse, altındaki kaynak linkinden asıl metne bakın.</p>
+<h3>Etiketler</h3>
+<ul>
+<li><b>İddia</b>: tek kaynağa dayanan ya da bağımsız olarak doğrulanmamış haber.</li>
+<li><b>Şirket beyanı</b>: bir şirketin yalnızca kendisi hakkındaki ölçümü ya da açıklaması (kendi benchmark'ı, kendi vaka çalışması).</li>
+<li><b>Pratik çıkarım</b>: manşetin yanındaki kutu editoryal öneridir, haberin parçası değildir.</li>
+<li><b>↩ ile başlayan kaynaklar</b>: önceki bir sayıdaki habere iç atıftır.</li>
+</ul>
+<h3>Takip</h3>
+<p>Yeni sayılar her sabah yayımlanır; tüm sayılar <a href="{esc(ctx.href("arsiv.html"))}">arşivde</a> kalır. Bir okuyucu uygulamasıyla izlemek için <a href="{esc(ctx.href("feed.xml"))}">RSS akışını</a> kullanabilirsiniz.</p>
+</main>"""
+
+
+def render_feed(issues, base):
+    """Atom akışı: son 30 sayı. Zaman damgaları sayı tarihinden türetilir (yeniden üretim dosyayı değiştirmesin)."""
+    x = lambda t: html.escape(plain(t), quote=False)
+    stamp = lambda iso: f"{iso}T07:11:00+03:00"
+    out = ['<?xml version="1.0" encoding="utf-8"?>', '<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr">',
+           f"<title>{x(SITE_NAME)}</title>", f"<subtitle>{x(TAGLINE_B)} · {x(TAGLINE)}</subtitle>",
+           f'<link href="{esc(base)}"/>', f'<link rel="self" type="application/atom+xml" href="{esc(base)}feed.xml"/>',
+           f"<id>{esc(base)}</id>", f"<updated>{stamp(issues[0]['date'])}</updated>",
+           f"<author><name>{x(SITE_NAME)}</name></author>"]
+    for it in issues[:30]:
+        L = it.get("lead") or {}
+        url = base + issue_path(it["date"])
+        label = it.get("dateLabel") or long_date(it["date"])
+        heads = [(L.get("headline"), "manset")] if L.get("headline") else []
+        for s in it.get("sections") or []:
+            for i, a in enumerate(s.get("articles") or []):
+                heads.append((a.get("headline"), str(a.get("id") or f"{s.get('id') or 'bolum'}-{i + 1}")))
+        body = (f"<p>{x(L.get('deck'))}</p>" if L.get("deck") else "") + "<ul>" + "".join(
+            f'<li><a href="{esc(url)}#a-{esc(aid)}">{x(h)}</a></li>' for h, aid in heads if h) + "</ul>"
+        out += ["<entry>", f"<title>{x(L.get('headline') or label)}</title>", f'<link href="{esc(url)}"/>',
+                f"<id>{esc(url)}</id>", f"<updated>{stamp(it['date'])}</updated>",
+                f"<summary>{x('Sayı ' + num3(it.get('number')) + ' · ' + label + (' · ' + L['deck'] if L.get('deck') else ''))}</summary>",
+                f'<content type="html">{html.escape(body, quote=False)}</content>', "</entry>"]
+    out.append("</feed>")
+    return "\n".join(out) + "\n"
+
+
 FAVICON = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="#18222B"/><text x="32" y="46" text-anchor="middle" font-family="Georgia,serif" font-size="40" font-weight="700" fill="#EEF0EC">D</text><text x="15" y="22" font-family="Georgia,serif" font-style="italic" font-size="11" fill="#5FB3B3">The</text></svg>"""
 
 
@@ -376,15 +464,28 @@ def main():
         os.remove(f)
     for it in issues:
         ctx = Ctx(issues, 1)
-        title = f"{SITE_NAME} · {it.get('dateLabel') or long_date(it['date'])}"
-        desc = (it.get("lead") or {}).get("headline") or TAGLINE
+        L = it.get("lead") or {}
+        label = it.get("dateLabel") or long_date(it["date"])
+        head = plain(L.get("headline"))
+        # Sekme ve paylaşım başlığı: önce manşet, sonra gazete adı ve tarih
+        title = f"{head} · {SITE_NAME}, {short_date(it['date'])}" if head else f"{SITE_NAME} · {label}"
+        desc = plain(L.get("deck")) or head or TAGLINE
         write(issue_path(it["date"]), page(ctx, title, desc, render_issue(ctx, it),
-                                           base + issue_path(it["date"]) if base else None))
+                                           base + issue_path(it["date"]) if base else None,
+                                           og_title=head or title, base=base, published=f"{it['date']}T07:11:00+03:00"))
     latest = issues[0]
     ctx = Ctx(issues, 0)
-    write("index.html", page(ctx, SITE_NAME, (latest.get("lead") or {}).get("headline") or TAGLINE,
-                             render_issue(ctx, latest), base + issue_path(latest["date"]) if base else None))
-    write("arsiv.html", page(ctx, f"{SITE_NAME} · Arşiv", "Tüm sayılar", render_archive(ctx)))
+    L = latest.get("lead") or {}
+    head = plain(L.get("headline"))
+    write("index.html", page(ctx, f"{SITE_NAME} · {TAGLINE_B}", plain(L.get("deck")) or head or TAGLINE,
+                             render_issue(ctx, latest), base + issue_path(latest["date"]) if base else None,
+                             og_title=f"{SITE_NAME} · {head}" if head else SITE_NAME, og_url=base or None, base=base))
+    write("arsiv.html", page(ctx, f"Arşiv · {SITE_NAME}", "Tüm sayılar", render_archive(ctx),
+                             base + "arsiv.html" if base else None, base=base))
+    write("hakkinda.html", page(ctx, f"Hakkında · {SITE_NAME}", "The Daily Compiler nasıl hazırlanıyor, etiketler ne anlama geliyor",
+                                render_about(ctx), base + "hakkinda.html" if base else None, base=base))
+    if base:
+        write("feed.xml", render_feed(issues, base))
     write("assets/favicon.svg", FAVICON)
     # sayı listesi (otomasyon ve iç atıf kontrolü için)
     write("issues/index.json", json.dumps(

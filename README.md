@@ -13,6 +13,9 @@ Her sabah otomatik hazırlanan, yazılım · yapay zeka · güvenlik gazetesi.
 | `sayi/YYYY-MM-DD.html` | Tek tek sayılar (üretilir) |
 | `arsiv.html` | Ay ay tüm sayılar (üretilir) |
 | `issues/index.json` | Sayı listesi (üretilir) |
+| `feed.xml` | Atom/RSS akışı, son 30 sayı (üretilir; her yeni sayıda değişir) |
+| `hakkinda.html` | Gazetenin nasıl hazırlandığı ve etiketler (üretilir; metni `build.py` içinde) |
+| `assets/og.png` | Paylaşım kartı görseli (sabit) |
 
 ## Yeni sayı ekleme
 
@@ -27,6 +30,14 @@ Tasarım değiştiğinde `python3 build.py` tüm arşivi yeni tasarımla yeniden
 ## İç atıflar
 
 Bir kaynağın `url` alanı `#YYYY-MM-DD-<bölüm id>-<sıra>` ise (ör. `#2026-11-07-is-4`), o sayıdaki habere link olur. Manşet için `#YYYY-MM-DD-manset`.
+
+## Rakam şeridi
+
+`figures[]` öğesine `ref` alanı eklenirse (`"manset"` ya da `"<bölüm id>-<sıra>"`, ör. `"java-1"`), rakam kutusu o habere link olur. Hedef o sayıda yoksa kutu link olmadan basılır.
+
+## Tema
+
+Sayfa sistemin açık/koyu ayarını izler; masthead'deki düğmeyle yapılan seçim tarayıcıda (`localStorage`, `dc-theme`) saklanır.
 
 ## Özel alan adı
 

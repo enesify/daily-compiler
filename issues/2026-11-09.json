@@ -6,23 +6,28 @@
  "figures": [
   {
    "n": "1.122",
-   "l": "Apiiro'ya göre gerçek bir sır içeren, herkese açık `.claude/settings.local.json` dosyası"
+   "l": "Apiiro'ya göre gerçek bir sır içeren, herkese açık `.claude/settings.local.json` dosyası",
+   "ref": "manset"
   },
   {
    "n": "104.185",
-   "l": "Apiiro'nun GitHub'da taradığı herkese açık `.claude/settings.local.json` kopyası"
+   "l": "Apiiro'nun GitHub'da taradığı herkese açık `.claude/settings.local.json` kopyası",
+   "ref": "manset"
   },
   {
    "n": "19:00",
-   "l": "`pull_request_target` için ilk brownout'un bugün İstanbul saatiyle başlangıcı; kesinti 21:00'e kadar sürüyor"
+   "l": "`pull_request_target` için ilk brownout'un bugün İstanbul saatiyle başlangıcı; kesinti 21:00'e kadar sürüyor",
+   "ref": "gelistirme-1"
   },
   {
    "n": "10",
-   "l": "Rampdown Phase One'a üç hafta kala JDK 28'e hedeflenmiş JEP sayısı"
+   "l": "Rampdown Phase One'a üç hafta kala JDK 28'e hedeflenmiş JEP sayısı",
+   "ref": "java-1"
   },
   {
    "n": "359,2 milyon",
-   "l": "Amadeus'un Ocak-Eylül döneminde işlediği hava rezervasyonu; geçen yıla göre %2,8 düşüş"
+   "l": "Amadeus'un Ocak-Eylül döneminde işlediği hava rezervasyonu; geçen yıla göre %2,8 düşüş",
+   "ref": "is-1"
   }
  ],
  "lead": {
