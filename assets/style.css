@@ -115,7 +115,7 @@ a.fig:hover .n{color:var(--accent)}
 .kicker{font-family:var(--f-label);font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 .kicker.alert{color:var(--alert)}
 /* Kaynak etiketi (İddia / Şirket beyanı): konu etiketinden ayrı, çerçeveli */
-.prov{display:inline-block;border:1px solid currentColor;padding:0 5px;margin-right:8px;font-size:11px;line-height:1.45;letter-spacing:.06em;color:var(--ink-soft)}
+.prov{display:inline-block;border:1px solid currentColor;padding:0 5px;margin-right:8px;font-family:var(--f-label);font-size:11px;font-weight:600;line-height:1.45;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
 .prov-claim{color:var(--alert)}
 .lead h2{font-size:clamp(32px,4.6vw,52px);line-height:1.04;font-weight:600;letter-spacing:-.015em;margin:8px 0 14px}
 .deck{font-size:21px;line-height:1.4;color:var(--ink-soft);font-style:italic;margin-bottom:20px;max-width:46ch}
@@ -196,7 +196,7 @@ article.big.s8 .body{columns:2 300px;column-gap:30px;column-rule:1px solid var(-
 .briefs b{font-family:var(--f-label);font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-right:6px}
 .briefs a{text-decoration:none;margin-left:4px}
 /* Kaynak oku: dokunma alanı metni kaydırmadan büyütülür */
-.briefs a[aria-label]{display:inline-block;padding:8px 10px;margin:-8px -6px -8px -2px}
+.briefs a[aria-label]{padding:8px 10px;margin:0 -6px 0 -6px}
 
 .msg{padding:56px 0;max-width:52ch}
 .msg h2{font-size:32px;margin-bottom:10px}
@@ -215,7 +215,9 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
 
 @media (max-width:900px){
   .lead{grid-template-columns:1fr}
-  .s8,.s6,.s4{grid-column:span 12}
+  /* Tek sütun: 12 kolonun aralıkları (11 × 30px) dar telefonda sayfayı taşırmasın */
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .s8,.s6,.s4{grid-column:auto}
   .toc{display:none}
   .repos{grid-template-columns:1fr}
   .nav-links{gap:18px}

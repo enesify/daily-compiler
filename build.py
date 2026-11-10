@@ -444,7 +444,7 @@ def render_issue(ctx, cur):
         for b in briefs:
             u = b.get("url") or ""
             tail = (" " + ref_link(ctx, "önceki sayı", u)) if u.startswith("#") else (
-                f' <a href="{esc(u)}" target="_blank" rel="noopener" aria-label="Kaynak">↗</a>' if re.match(r"^https?://", u) else "")
+                f'\u00a0<a href="{esc(u)}" target="_blank" rel="noopener" aria-label="Kaynak">↗</a>' if re.match(r"^https?://", u) else "")
             ps.append(f'<p><b>{caps_rich(b.get("tag"))}</b>{rich(b.get("text"))}{tail}</p>')
         out.append(f'<section class="sec" id="sec-kisa"><div class="sec-h"><h2>Kısa Kısa</h2></div><div class="briefs">{"".join(ps)}</div></section>')
     out.append(end_nav(ctx, cur))
@@ -510,8 +510,8 @@ def render_about(ctx):
 <p>Sayılar yayımlanmadan önce bir insan tarafından tek tek okunmaz. Bu yüzden hata olabilir: bir haber sizin için önemliyse, altındaki kaynak linkinden asıl metne bakın.</p>
 <h3>Etiketler</h3>
 <ul>
-<li><b>İddia</b>: tek kaynağa dayanan ya da bağımsız olarak doğrulanmamış haber.</li>
-<li><b>Şirket beyanı</b>: bir şirketin yalnızca kendisi hakkındaki ölçümü ya da açıklaması (kendi benchmark'ı, kendi vaka çalışması).</li>
+<li><span class="prov prov-claim">İDDİA</span> tek kaynağa dayanan ya da bağımsız olarak doğrulanmamış haber.</li>
+<li><span class="prov prov-company">ŞİRKET BEYANI</span> bir şirketin yalnızca kendisi hakkındaki ölçümü ya da açıklaması (kendi benchmark’ı, kendi vaka çalışması).</li>
 <li><b>Pratik çıkarım</b>: manşetin yanındaki kutu editoryal öneridir, haberin parçası değildir.</li>
 <li><b>↩ ile başlayan kaynaklar</b>: önceki bir sayıdaki habere iç atıftır.</li>
 </ul>
