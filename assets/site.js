@@ -81,7 +81,7 @@
       }, { passive: true });
     }
   }
-  // Telefonda küçük haberleri üç satırda kes; metin sığıyorsa düğme hiç görünmez
+  // Telefonda haber metnini kes (küçük haber 3, büyük haber 8 satır); metin sığıyorsa düğme hiç görünmez
   var phone = window.matchMedia && matchMedia('(max-width: 560px)');
   function setOpen(art, open) {
     var b = art.querySelector('.more');
@@ -90,7 +90,7 @@
   }
   function clampAll() {
     if (!phone || !phone.matches) return;
-    Array.prototype.forEach.call(document.querySelectorAll('article:not(.big)'), function (art) {
+    Array.prototype.forEach.call(document.querySelectorAll('article'), function (art) {
       var b = art.querySelector('.more'), body = art.querySelector('.body');
       if (!b || !body || b.dataset.ready) return;
       b.dataset.ready = '1';

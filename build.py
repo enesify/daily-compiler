@@ -208,9 +208,27 @@ def chart(c):
     return f'<figure class="chart">{cap}{"".join(rows)}{note}</figure>'
 
 
+PROVENANCE = {"iddia": "claim", "şirket beyanı": "company"}
+
+
+def kicker(text, alert=False, default=None):
+    """Üst başlık. Baştaki “İddia” / “Şirket beyanı” kaynak etiketi konu etiketinden ayrılır ve çerçeveli basılır."""
+    text = str(text or default or "")
+    if not text:
+        return ""
+    parts = [p.strip() for p in text.split(" · ")]
+    key = parts[0].replace("İ", "i").replace("I", "ı").lower()
+    prov = ""
+    if key in PROVENANCE:
+        prov = f'<span class="prov prov-{PROVENANCE[key]}">{esc(caps(parts[0]))}</span>'
+        parts = parts[1:]
+    rest = caps_rich(" · ".join(parts)) if parts else ""
+    return f'<span class="kicker{" alert" if alert else ""}">{prov}{rest}</span>'
+
+
 def article(ctx, a, aid):
     cls = f"s{a.get('size') or 4}" + (" big" if a.get("big") else "")
-    k = f'<span class="kicker{" alert" if a.get("alert") else ""}">{caps_rich(a.get("kicker"))}</span>' if a.get("kicker") else ""
+    k = kicker(a.get("kicker"), a.get("alert"))
     pill = f'<span class="pill">{caps_rich(a.get("pill"))}</span>' if a.get("pill") else ""
     body = "".join(f"<p>{rich(p)}</p>" for p in a.get("paragraphs") or [])
     # stat: büyük haberlerde isteğe bağlı tek iri rakam {n, l}; grafik varsa basılmaz
@@ -219,7 +237,7 @@ def article(ctx, a, aid):
     if a.get("big") and isinstance(st, dict) and st.get("n") and not chart(a.get("chart")):
         stat = f'<p class="stat"><span class="n">{esc(typo(st.get("n")))}</span><span class="l">{rich(st.get("l"))}</span></p>'
     # Telefonda küçük haberlerin metni üç satırda kesilir; site.js gerekirse bu düğmeyi gösterir
-    more = "" if a.get("big") else '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
+    more = '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
     return (f'<article class="{cls}" id="a-{esc(aid)}">{k}<h3>{pill}{rich(a.get("headline"))}</h3>{stat}'
             f'<div class="body">{body}</div>{more}{chart(a.get("chart"))}{sources(ctx, a.get("sources"))}</article>')
 
@@ -389,13 +407,16 @@ def render_issue(ctx, cur):
             box = (f'<aside class="box"><span class="kicker">{caps_rich(B.get("kicker") or "Pratik çıkarım")}</span>'
                    f'<h3>{rich(B.get("title"))}</h3><ol>' + "".join(f"<li>{rich(t)}</li>" for t in B.get("items") or []) + "</ol>"
                    + (f'<p class="note">{esc(B.get("note"))}</p>' if B.get("note") else "") + "</aside>")
+        # Manşet grafiği dar ekranda metnin altında, geniş ekranda sağ sütunda durur: iki kopya basılır, biri CSS ile gizlenir
+        lead_chart = chart(L.get("chart"))
+        lc = lambda cls: f'<div class="{cls}">{lead_chart}</div>' if lead_chart else ""
         out.append(
             f'<section class="lead" id="sec-manset"><div id="a-manset">'
-            f'<span class="kicker{" alert" if L.get("alert") else ""}">{caps_rich(L.get("kicker") or "Manşet")}</span>'
+            f'{kicker(L.get("kicker"), L.get("alert"), "Manşet")}'
             f'<h2>{rich(L.get("headline"))}</h2>'
             + (f'<p class="deck">{rich(L.get("deck"))}</p>' if L.get("deck") else "")
             + '<div class="cols">' + "".join(f"<p>{rich(p)}</p>" for p in L.get("paragraphs") or []) + "</div>"
-            + chart(L.get("chart")) + sources(ctx, L.get("sources")) + f'</div><div class="lead-side">{box}{toc(secs)}</div></section>')
+            + lc("lc-main") + sources(ctx, L.get("sources")) + f'</div><div class="lead-side">{box}{lc("lc-side")}{toc(secs)}</div></section>')
 
     for s in secs:
         sid = s.get("id") or "bolum"
