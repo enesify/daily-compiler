@@ -370,7 +370,11 @@ def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, bas
 {THEME_BOOT}
 {can}
 <link rel="alternate" type="application/atom+xml" title="{esc(SITE_NAME)}" href="{esc(ctx.href('feed.xml'))}">
+<link rel="icon" href="{esc(ctx.href('favicon.ico'))}" sizes="32x32">
 <link rel="icon" href="{esc(ctx.href('assets/favicon.svg'))}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{esc(ctx.href('assets/apple-touch-icon.png'))}">
+<meta name="theme-color" content="#EEF0EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151B20" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -400,7 +404,7 @@ def render_issue(ctx, cur):
     # Menü üste yapışınca solunda küçük logo belirir (site.js, .nav-sentinel görünümden çıkınca "stuck" sınıfını ekler)
     out.append('<div class="nav-sentinel" aria-hidden="true"></div><nav class="index" aria-label="Bölümler">'
                f'<a class="nav-brand" href="{esc(ctx.href("index.html"))}" tabindex="-1" aria-hidden="true">'
-               '<span class="the">The</span><span class="full">Daily Compiler</span><span class="mono">DC</span></a><div class="nav-links">' + "".join(
+               '<span class="the">The</span><span class="full">Daily Compiler</span><span class="mono">D</span></a><div class="nav-links">' + "".join(
         f'<a href="#sec-{esc(i)}">{esc(caps(t))}</a>' for i, t in nav_items) + "</div></nav>")
 
     figs = cur.get("figures") or []
@@ -573,7 +577,9 @@ def render_feed(issues, base):
     return "\n".join(out) + "\n"
 
 
-FAVICON = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="#18222B"/><text x="32" y="46" text-anchor="middle" font-family="Georgia,serif" font-size="40" font-weight="700" fill="#EEF0EC">D</text><text x="15" y="22" font-family="Georgia,serif" font-style="italic" font-size="11" fill="#5FB3B3">The</text></svg>"""
+# Sekme ikonu: Newsreader "D" (çizim olarak; yazı tipine bağlı değil) ve masthead çizgisine gönderme yapan turkuaz çizgi.
+# Koyu temada renkler tersine döner. favicon.ico ve assets/apple-touch-icon.png aynı çizimin sabit kopyalarıdır.
+FAVICON = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><style>.b{fill:#18222B}.f{fill:#EEF0EC}.a{fill:#5FB3B3}@media (prefers-color-scheme:dark){.b{fill:#EEF0EC}.f{fill:#18222B}.a{fill:#0F5E63}}</style><rect class="b" width="64" height="64" rx="10"/><path class="f" d="M42.14 27.38Q42.14 20.19 38.73 16.85Q35.33 13.51 29.13 13.51H21.38L20.65 9.67H30.49Q37.47 9.67 42.1 11.56Q46.73 13.45 49.04 17.26Q51.34 21.07 51.34 26.81Q51.34 32.92 48.63 37.2Q45.93 41.49 41.22 43.74Q36.5 46 30.5 46H20.65L21.38 42.16H29.73Q33.52 42.16 36.31 40.65Q39.09 39.14 40.62 35.87Q42.14 32.61 42.14 27.38ZM12.66 46V44.46L16.71 42.94V12.73L12.66 11.21V9.67H25.53V46Z"/><rect class="a" x="13" y="52" width="38" height="4"/></svg>"""
 
 
 def write(rel, content):
