@@ -1,0 +1,497 @@
+{
+ "date": "2026-11-10",
+ "number": 8,
+ "dateLabel": "Salı, 10 Kasım 2026",
+ "readingMinutes": 15,
+ "figures": [
+  {
+   "n": "%69,9",
+   "l": "Anthropic'in tablosunda Claude Fable 5.2'nin FrontierSWE v2 agentic kodlama skoru",
+   "ref": "manset"
+  },
+  {
+   "n": "26,54 dolar",
+   "l": "Artificial Analysis'e göre Fable 5.2'nin (Max) endeks görevi başına maliyeti; 73 model arasında en yüksek",
+   "ref": "manset"
+  },
+  {
+   "n": "0,10 dolar",
+   "l": "Meta'nın Muse Ember için milyon girdi token'ı başına fiyatı (200 bin token'a kadar istemler)",
+   "ref": "ai-1"
+  },
+  {
+   "n": "21",
+   "l": "MIT Kerberos 1.22.3'ün tek seferde kapattığı CVE sayısı",
+   "ref": "guvenlik-2"
+  },
+  {
+   "n": "1,47×",
+   "l": "Valhalla value class'ıyla dizi taramasında ölçülen medyan hızlanma",
+   "ref": "java-4"
+  }
+ ],
+ "lead": {
+  "kicker": "Şirket beyanı · Model sürümü",
+  "alert": false,
+  "headline": "Claude Fable 5.2 yayında: Anthropic'in kodlama testlerinde Opus 5.5'in önünde",
+  "deck": "9 Kasım'da duyurulan model, Anthropic'in kendi tablosunda FrontierSWE v2'de %69,9 ile Opus 5.5 ve GPT-6 Astra'yı geçiyor. Bağımsız Artificial Analysis endeksinde de ilk sırada, ama görev başına en pahalı model.",
+  "paragraphs": [
+   "Anthropic 9 Kasım'da Claude Fable 5.2 ve Claude Mythos 5.2'yi duyurdu. Şirkete göre ikisi aynı model: Fable, siber güvenlik ve biyoloji için güçlü korumalarla herkese açık; korumaları daha az olan Mythos yalnızca doğrulama programlarındaki kurumlara veriliyor. Fiyat milyon token başına 8 dolar girdi, 40 dolar çıktı; çıktı üretimini 2,5 kata kadar hızlandıran fast mode 16 ve 80 dolar. Model API'de `claude-fable-5-2` kimliğiyle ve AWS, Google Cloud ve Microsoft Azure üzerinden sunuluyor. Claude Code 2.1.321 ile Fable 5.2 varsayılan Fable modeli oldu; changelog'a göre context window 1M token. GitHub da modeli Copilot Pro+, Max, Business ve Enterprise planlarına ekledi; Business ve Enterprise'da politika varsayılan olarak kapalı ve model varsayılan olarak veri saklama gerektiriyor.",
+   "Anthropic'in açıkladığı agentic kodlama sonuçlarında Fable 5.2, FrontierSWE v2'de %69,9 alıyor; aynı tabloda Fable 5.1 %56,3, Opus 5.5 %62,3, GPT-6 Astra %65,5 ve Gemini 4 Carbon %61,2'de. FrontierCode 2.0'da Xhigh effort ile skor %49,1, Opus 5.5 için %45,5. Şirket, High effort ayarında Fable 5.2'nin FrontierCode'da (%45,3) Opus 5.5 ile yaklaşık aynı skoru yaklaşık yarı maliyetle aldığını söylüyor. Tabloyu Anthropic yayımladı, metodoloji System Card'da; dipnotlara göre adı geçen dış kuruluşlar yazıyı incelemedi. Anthropic, günlük kodlama ve bilgi işleri için önerdiği modelin hâlâ Opus 5.5 olduğunu, Fable ve Mythos'u en zorlu açık uçlu görevlere ayırdığını yazıyor.",
+   "Bağımsız ölçüm tarafında Artificial Analysis, Fable 5.2'yi (Max) Intelligence Index'te 65 puanla 74 model arasında ilk sıraya koyuyor. Aynı sayfa maliyet tarafını da gösteriyor: endeks görevi başına 26,54 dolarla 73 model arasında en pahalı model, görev başına süre 46,4 dakika ve endeks boyunca üretilen çıktı 275 milyon token (medyan 72,8 milyon).",
+   "Fable 5.2'nin korumaları penetrasyon testi, exploit üretimi ve binary tabanlı zafiyet çalışması dahil çoğu siber güvenlik görevini engelliyor; engellenen sorgulara Opus 4.8 (biyolojide Opus 5) yanıt veriyor. Anthropic, Fable 5.1'e göre siber güvenlikteki engellemelerin yaklaşık %60 azaldığını söylüyor. Şirketin kendi notuna göre iki model de test edildiklerinden önceki modellere göre daha sık şüphelendiklerini dile getiriyor ve bu, değerlendirmelere güvenmeyi zorlaştırıyor. Pro ve standart Team kullanıcılarına 9-16 Kasım arasında haftalık limitin %50'sine kadar Fable kullanımı tanınıyor."
+  ],
+  "chart": {
+   "title": "FrontierSWE v2 agentic kodlama skoru (%)",
+   "note": "Anthropic'in yayımladığı tablo (şirket beyanı).",
+   "items": [
+    {
+     "label": "Claude Fable 5.2",
+     "value": 69.9,
+     "display": "%69,9",
+     "highlight": true
+    },
+    {
+     "label": "GPT-6 Astra",
+     "value": 65.5,
+     "display": "%65,5"
+    },
+    {
+     "label": "Claude Opus 5.5",
+     "value": 62.3,
+     "display": "%62,3"
+    },
+    {
+     "label": "Gemini 4 Carbon",
+     "value": 61.2,
+     "display": "%61,2"
+    },
+    {
+     "label": "Claude Fable 5.1",
+     "value": 56.3,
+     "display": "%56,3"
+    }
+   ]
+  },
+  "sources": [
+   {
+    "label": "Anthropic duyurusu",
+    "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+   },
+   {
+    "label": "Artificial Analysis · Claude Fable 5.2",
+    "url": "https://artificialanalysis.ai/models/claude-fable-5-2"
+   },
+   {
+    "label": "Claude Code CHANGELOG",
+    "url": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md"
+   },
+   {
+    "label": "GitHub Changelog · Copilot'ta Fable 5.2",
+    "url": "https://github.blog/changelog/2026-11-09-claude-fable-5-2-in-github-copilot"
+   },
+   {
+    "label": "Claude yardım merkezi · lansman teklifleri",
+    "url": "https://support.claude.com/en/articles/17506494-claude-fable-5-2-launch-offers"
+   }
+  ],
+  "box": {
+   "kicker": "Pratik çıkarım",
+   "title": "Yeni modeli varsayılan yapmadan önce kendi işinizde ölçün",
+   "items": [
+    "Yayıncı benchmark'ları yerine kendi repolarınızdan alınmış birkaç gerçek görevle (ör. çok modüllü bir Maven projesinde bağımlılık yükseltmesi ya da flaky test düzeltmesi) Fable 5.2'yi Opus 5.5 ile aynı effort ayarlarında karşılaştırın; başarı oranıyla birlikte görev başına maliyeti ve süreyi de kaydedin.",
+    "Artificial Analysis'in maliyet ve token verisi, modeli her iş için varsayılan yapmanın bütçeyi hızla tüketebileceğine işaret ediyor; rutin işleri daha ucuz modelde tutup Fable'ı zor görevlere ayıran bir yönlendirme kuralı tanımlayın.",
+    "Copilot kullanan kurumlarda Fable 5.2 politikasını açmadan önce veri saklama gerekliliğini hukuk ve uyum ekipleriyle değerlendirin; zero data retention uygunluğunu GitHub hesap ekibine sorun.",
+    "Güvenlik ekipleri, sızma testi ve exploit doğrulama gibi işlerde isteğin daha eski bir modele yönlendirilebileceğini hesaba katsın; bu tür iş akışlarını yeni modelle ayrıca test edin."
+   ],
+   "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
+  }
+ },
+ "sections": [
+  {
+   "id": "ai",
+   "title": "Yapay Zeka & LLM",
+   "subtitle": "Kısa bölüm · Meta'dan küçük ve ucuz Muse Ember, Fable 5.2 ile tasarlanan üç cihaz",
+   "articles": [
+    {
+     "size": 8,
+     "big": true,
+     "kicker": "Şirket beyanı · Model sürümü",
+     "headline": "Meta'dan Muse Ember: milyon girdi token'ı 0,10 dolara en küçük Muse",
+     "paragraphs": [
+      "Meta 9 Kasım'da Muse ailesinin en küçük ve en verimli modeli olarak tanımladığı Muse Ember'ı duyurdu. Model Muse Code'da ve Meta Model API'de `muse-ember-1.0` kimliğiyle kullanılabiliyor; 1M token context window ve 512 bine kadar çıktı token'ı sunuyor, Responses API'yi destekliyor. 200 bin token'a kadar istemlerde fiyat milyon token başına 0,10 dolar girdi, 0,004 dolar önbellekli girdi ve 0,50 dolar çıktı; daha uzun istemlerde 0,30, 0,012 ve 1,50 dolar. Meta parametre sayısını açıklamadı, açık ağırlıktan da söz etmiyor.",
+      "Meta'nın yayımladığı tabloda Ember, Artificial Analysis Intelligence Index'te 36 puanla Claude Haiku 5.5 ile aynı düzeyde, GPT-6 Luna'nın (28) önünde. Terminal-Bench 4.0'da %40,9 alırken Haiku 5.5 %39,2'de; FrontierCode 2.0-AA'da ise Haiku 5.5, %34,9 ile Ember'ın (%27,2) önünde. AutomationBench-AA'da fark büyük: Ember %37,8, Haiku 5.5 %13,9. OSWorld 2.1'de ise skorlar yakın: %69,5'e karşı %68,9. Meta, Artificial Analysis görevi başına maliyetin yaklaşık 0,14 dolar olduğunu, Muse Spark 1.3 için bunun 2,39 dolar olduğunu söylüyor. Muse Ember, Spark ve Wonder Google Cloud ve Oracle Cloud'da da sunuluyor."
+     ],
+     "sources": [
+      {
+       "label": "Meta Research · Muse Ember",
+       "url": "https://research.meta.ai/blog/muse-ember"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "Şirket beyanı · Araştırma",
+     "headline": "Fable 5.2, Diode ile üç çalışan elektronik cihaz tasarladı",
+     "paragraphs": [
+      "Anthropic'in 9 Kasım tarihli araştırma yazısına göre Fable 5.2, devre kartı şirketi Diode ile bir USB speakerphone, bir sesli asistan hub'ı ve el tipi bir sanal evcil hayvan tasarladı. Model şartname, şema, PCB yerleşimi, yönlendirme, kasa, firmware ve parça listesini yazdı; kartları Diode mühendisleri üretip test etti. Üç prototip de devre düzeltmesi gerekmeden çalıştı. Diode'un iç benchmark'ı PCB Gym'de skor Fable 5 için %25, Fable 5.2 için %69. Yazı, cihazların elektriksel doğrulama, ısıl test ve sertifikasyondan geçmemiş erken prototipler olduğunu ve Anthropic'in Diode ile ticari ilişkisi bulunduğunu belirtiyor."
+     ],
+     "sources": [
+      {
+       "label": "Anthropic Research",
+       "url": "https://www.anthropic.com/research/claude-electronics-design"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "is",
+   "title": "Şirketler & Altyapı",
+   "subtitle": "Kısa bölüm · Google'dan iki yeni TPU sistemi, 5 W'ta 100 milyar parametre iddiası",
+   "articles": [
+    {
+     "size": 8,
+     "big": true,
+     "kicker": "Şirket beyanı · Altyapı",
+     "headline": "Google, TPU 8 ailesini 8tx ve 8i Max ile genişletti",
+     "paragraphs": [
+      "Google 9 Kasım'da sekizinci nesil TPU ailesine iki yeni sistem ekledi; Nisan'da duyurulan TPU 8t ve TPU 8i ile birlikte bu, bir yılda dört yeni TPU sistemi demek. TPU 8tx, TPU 8t ile aynı silikonu 5. nesil AMD EPYC işlemcili host'larla eşleştiriyor ve gizli (confidential) çıkarım için tasarlandı: donanım düzeyindeki koruma, kullanım sırasında hassas veriyi ve model ağırlıklarını izole tutuyor. Google, Boardfly ağı sayesinde TPU 8t'ye göre iki kata kadar daha düşük gecikme ve neredeyse sıfır performans kaybı vadediyor. Sistem, özel veri üzerinde fine-tuning, distillation ve reinforcement learning'i veriyi cluster'lar arasında taşımadan tek sistemde yapmaya da uygun.",
+      "TPU 8i Max ise iki TPU 8i çipini tek pakette birleştiriyor; TPU 8i'ye göre iki kat hesaplama, iki kat SRAM ve iki kat HBM bant genişliği sunuyor ve mevcut rack alanına iki kat silikon sığdırıyor. Google hedef iş yükü olarak büyük bir kod tabanı üzerinde çalışan çok sayıda agent ya da saatlerce video gibi çok büyük context gerektiren işleri gösteriyor. Duyuruda FLOPS ya da bellek kapasitesi gibi mutlak değerler, fiyat veya erişim tarihi yok; Google, TPU işinin 100'e yakın müşteriye ulaştığını söylüyor."
+     ],
+     "sources": [
+      {
+       "label": "Google blog",
+       "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "Şirket beyanı · Çip",
+     "headline": "DeepX: 5 W'ta 100 milyar parametreye kadar çıkarım iddiası",
+     "paragraphs": [
+      "DeepX, Samsung'un processor-in-memory (PIM) teknolojisini kullanan ikinci nesil hızlandırıcısı DX-M2'nin tape-out'unu tamamladı. EE Times'ın aktardığına göre şirket, çipin 20-100 milyar parametreli modelleri 5 W güç bütçesi içinde saniyede 10-30 token hızla çalıştıracağını söylüyor; bellek bant genişliği 50'den 150 GB/s'ye çıkıyor. Numuneler Mart 2027'de, seri üretim 2027 sonbaharında bekleniyor. Llama3.1-8B için verilen, PIM'siz DX-M2'ye göre 6,7 kat hız artışı DeepX'in simülasyonlarından geliyor, yaklaşık 2,7 kat toplam güç gerektiriyor ve PIM destekli derleyici henüz bitmedi. Rakamların tümü DeepX'in beyanı ya da simülasyonu."
+     ],
+     "sources": [
+      {
+       "label": "EE Times",
+       "url": "https://www.eetimes.com/deepx-tapes-out-second-gen-chip-projects-6-7x-performance-gain-with-lpddr5x-pim/"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gelistirme",
+   "title": "Geliştirme & Araçlar",
+   "subtitle": "Kısa bölüm · GitHub Actions loglarında sır taraması, Expo'dan webview'suz UI runtime'ı",
+   "articles": [
+    {
+     "size": 8,
+     "big": true,
+     "kicker": "Güvenlik · CI/CD",
+     "headline": "GitHub secret scanning artık Actions workflow loglarını da tarıyor",
+     "paragraphs": [
+      "GitHub 9 Kasım'da secret scanning'in issue, wiki, discussion ve pull request'lere ek olarak GitHub Actions workflow loglarındaki sırları da yakaladığını duyurdu; özellik public preview aşamasında. Bir workflow çalışması bittikten sonra loglar sağlayıcı kalıplarına göre taranıyor ve bulgular, loga geri link içeren bir alarm olarak reponun secret scanning listesine düşüyor. Desteklenen sır türleri için geçerlilik kontrolü yapılıyor ve alarmlar loglar silindikten sonra da kalıyor.",
+      "Özellik, GitHub Secret Protection ya da GitHub Advanced Security lisansına sahip GitHub Enterprise Cloud kurumlarına açık; GHE.com veri yerleşimi de dahil. Politika varsayılan olarak kapalı: enterprise sahiplerinin Policies > Advanced Security altından “Secret scanning for Actions workflow logs” ayarını açması gerekiyor ve ayar yalnızca secret scanning'i zaten açık olan repolara uygulanıyor.",
+      "Sınırlar da açıkça yazılmış: yalnızca özellik açıldıktan sonra biten çalışmalar taranıyor, eski loglar geriye dönük taranmıyor. Generic ve custom kalıplar, AI ile tespit edilen sırlar ve Actions'ın zaten maskelediği sırlar yakalanmıyor. Preview süresince bu alarmlar bildirim de göndermiyor; listeyi elle kontrol etmek gerekiyor. Duyuru, public ve private repolar arasında ayrı bir kural belirtmiyor."
+     ],
+     "sources": [
+      {
+       "label": "GitHub Changelog",
+       "url": "https://github.blog/changelog/2026-11-09-secret-scanning-detects-secrets-in-github-actions-workflow-logs"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "Şirket beyanı · UI framework",
+     "headline": "Expo'dan Exact: webview'suz cross-platform UI runtime'ı",
+     "paragraphs": [
+      "Expo'nun GitHub'da yayımladığı Exact, arayüzün Contract adlı deklaratif bir dille, veri mantığının ise TypeScript ya da Rust ile yazıldığı bir cross-platform uygulama runtime'ı. README'ye göre arayüzde webview ya da JavaScript köprüsü yok; Web, macOS, iOS ve Linux destekleniyor, Android “erken”, Windows kısmi. Proje, bir AI agent'ın uygulamayı derleyip çalıştırabilmesini, görebilmesini ve test edebilmesini hedefliyor; RealWorld benchmark'ında web derlemesinin React'in 81 KB'ına karşı 26 KB kod kullandığını söylüyor. Exact 1.0 öncesi, MIT lisanslı ve API kararlılığı vaat etmiyor; reponun Releases bölümü henüz boş."
+     ],
+     "sources": [
+      {
+       "label": "GitHub · expo/exact",
+       "url": "https://github.com/expo/exact"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "java",
+   "title": "Java & Spring",
+   "subtitle": "Spring AI 2.1 ikinci RC'de · Claude ile bulunan Apache açıkları · Valhalla ile tek `int`'e sığan sınıf",
+   "articles": [
+    {
+     "size": 8,
+     "big": true,
+     "kicker": "Spring AI · Release candidate",
+     "headline": "Spring AI 2.1.0-RC2: DecisionModel API ve yedi yükseltme notu",
+     "paragraphs": [
+      "Spring AI 2.1.0-RC2 9 Kasım'da yayımlandı; GA için tarih verilmedi, ekip yalnızca sıradakinin 2.1.0 GA olduğunu söylüyor. En büyük yenilik, serbest metin yerine olasılıklı, tipli kararlar döndüren DecisionModel API'si: evet/hayır, seçim ve puan olmak üzere üç soru tipi var; OpenAI, yerelde API anahtarı olmadan çalışan Ollama ve System One uygulamaları geliyor. Bunun üzerine RAG için `DecisionDocumentReranker` ve `DecisionDocumentFilter` ile bir tool-search stratejisi kuruldu. Tool çağrısı argümanları artık Anthropic, OpenAI, Bedrock Converse ve DeepSeek için akış halinde geliyor. `spring.ai.mcp.server.protocol=MODERN` ile MCP 2026-07-28 spesifikasyonunun session'sız “modern” sunucusu açılabiliyor, ancak yalnızca senkron API destekleniyor.",
+      "Sürüm notlarında kod değişikliği gerektirebilecek yedi yükseltme notu listeleniyor. Anthropic Java SDK 3.x'e geçişle varsayılan API sürümü `temperature`, `topP` ve `topK`'yı reddettiği için bu parametreler artık bir WARN logu ile sessizce atılıyor; API anahtarı da `X-Api-Key` yerine Bearer başlığıyla gönderiliyor. Anthropic ve Bedrock Converse'te prompt token sayılarına cache okuma ve yazma token'ları da ekleniyor; bu, `gen_ai.usage.input_tokens` observation özniteliğini ve kullanım raporlarını etkiliyor; cache token'larını elle ekleyen kod bunu kaldırmazsa token'lar iki kez sayılıyor. Sürüm Spring Boot 4.2.0-RC2 ve MCP Java SDK 2.2.0-M2 üzerine kurulu."
+     ],
+     "sources": [
+      {
+       "label": "Spring blog",
+       "url": "https://spring.io/blog/2026/11/09/spring-ai-2-1-0-RC2-available-now"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "Güvenlik · Apache Storm",
+     "headline": "Storm 3.1.0'da Claude agent'larıyla bulunan iki açık kapandı",
+     "paragraphs": [
+      "Apache Storm, 3.0.0'dan 3.1.0'a kadarki sürümleri etkileyen iki açığı 9 Kasım'da duyurdu; iki duyuruda da bulucu olarak “The ASF using Claude Agents” yazıyor. “Important” önemdeki CVE-2026-82436'da varsayılan olmayan Redis tabanlı state provider, checkpoint'leri sınıf kaydı kapalı Kryo ile deserialize ediyordu; state store'a yazabilen biri worker JVM'de kod çalıştırabiliyordu. “Moderate” önemdeki CVE-2026-82440'ta ise tanımsız bırakılan allowlist, kimliği doğrulanmış bir göndericinin Nimbus'ta classpath'teki herhangi bir sınıfı örneklemesine izin veriyordu. 3.1.0'da tanımsız allowlist yalnızca Storm ile gelen stratejilere izin veriyor; geçişte eski checkpoint'ler geri yüklenemeyebilir."
+     ],
+     "sources": [
+      {
+       "label": "oss-security · CVE-2026-82436",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/09/1"
+      },
+      {
+       "label": "oss-security · CVE-2026-82440",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/09/2"
+      }
+     ]
+    },
+    {
+     "size": 6,
+     "kicker": "Güvenlik · Commons Codec",
+     "headline": "Commons Codec'te Blake3 açığı: yükseltmek yetmiyor",
+     "paragraphs": [
+      "Apache Commons Codec'in 1.16.0'dan 1.23.0'a kadarki sürümlerini etkileyen “Important” önemdeki CVE-2026-119078, kodun belgelenen davranışla uyuşmamasından kaynaklanıyor. Blake3 sınıfının Javadoc'u `doFinalize` tekrar çağrıldığında farklı çıktı döneceğini söylüyordu; oysa metod hash durumunu değiştirmiyor ve Javadoc'taki anahtar türetme örneği iki özdeş anahtar üretiyor. 1.23.0 yalnızca belgeyi düzeltiyor, davranış aynı kalıyor; aynı örnek üzerinde `doFinalize`'ı birden fazla kez çağıran kodu elle bulmak gerekiyor. Önerilen yol, toplam uzunluğu tek çağrıda isteyip çıktıyı bölmek. Bu açıkta ve düşük önemdeki CVE-2026-124077'de araç olarak Claude Security listeleniyor."
+     ],
+     "sources": [
+      {
+       "label": "oss-security · CVE-2026-119078",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/09/29"
+      },
+      {
+       "label": "oss-security · CVE-2026-124077",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/09/30"
+      }
+     ]
+    },
+    {
+     "size": 6,
+     "kicker": "Valhalla · Okuma",
+     "headline": "Valhalla ile beş karakterlik borsa sembolü tek bir `int`'te",
+     "paragraphs": [
+      "Inside Java'da 9 Kasım'da yayımlanan yazıda Per-Ake Minborg, en fazla beş karakterlik bir borsa sembolünü tek bir `int` içinde saklayan bir `Ticker` value class'ı adım adım kuruyor. Her karakter 37 sembollük bir alfabeden 6 bitlik bir koda dönüşüyor ve paketlenmiş değerlerin `Integer.compare` ile sıralaması metin sıralamasıyla aynı. Value class'lar JDK 28'de JEP 401 kapsamında preview özellik. Apple M4 Pro üzerindeki dizi tarama benchmark'ında `ValueTicker[]` eleman başına 0,261 ns, identity sınıf 0,385 ns sürdü; medyan hızlanma 1,47×. Yazar, C2'nin skalarlaştırmasının garanti olmadığını ve sonuçların tek bir JDK build'iyle sınırlı olduğunu vurguluyor."
+     ],
+     "sources": [
+      {
+       "label": "Inside Java",
+       "url": "https://inside.java/2026/11/09/inside-java-ticker-value-class/"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "guvenlik",
+   "title": "Güvenlik",
+   "subtitle": "Qubole üzerinden müşteri AWS hesaplarına erişim iddiası · krb5'te 21 CVE · Airflow'da 18 duyuru · yamasız Dokploy açığı",
+   "articles": [
+    {
+     "size": 8,
+     "big": true,
+     "kicker": "İddia · Tedarik zinciri",
+     "alert": true,
+     "headline": "Qubole'un kimlik bilgileriyle müşterilerin AWS hesaplarına girildi",
+     "stat": {
+      "n": "7 dakika",
+      "l": "Sentra'ya göre yaklaşık 100 parola ve anahtarın okunduğu süre"
+     },
+     "paragraphs": [
+      "Veri güvenliği şirketi Sentra'nın 9 Kasım tarihli yazısına göre bir saldırgan, büyük veri platformu Qubole'a ait kimlik bilgilerini ele geçirdi ve müşterilerin Qubole'a tanıdığı cross-account rolleri kullanarak onların verilerini okudu; bilgilerin nasıl çalındığı açıklanmıyor. Saldırgan önce düşük değerli bir rolde bilgileri denedi, dakikalar içinde Qubole'a güvenen tüm rollere girdi ve sonraki günlerde toplu indirmeler yaptı; son turda üretim veritabanı yedekleri çekildi. Secrets Manager, SSM Parameter Store, Lambda ortam değişkenleri ve EC2 user data'dan kimlik bilgileri okundu; yaklaşık 100 parola ve anahtar 7 dakika içinde okunmuş. Oturumlar Qubole'un ağından değil, kiralık bir OVH sunucusundan ve Mullvad VPN'den geldi. Yazıya göre etkilenen kurumlar ExternalId kontrolü dahil AWS önerilerine uymuştu ve saldırgan bu kontrolü geçti.",
+      "Etkilenen kurum sayısı yazıda tutarsız: girişte “onlarca”, özette “bir düzineden fazla” deniyor. Sentra incelemeyi Wiz ve Mandiant ile birlikte yürüttüğünü söylüyor, ancak Wiz'in araştırmasına ve Qubole'dan bir açıklamaya ulaşamadık; saldırganın adı ve IOC'ler de yazıda yok. Önerilen adımlar arasında Qubole'u ona güvenen tüm rollerden çıkarmak, okunan her sırrı döndürmek, logları süresi dolmadan saklamak ve kullanılmayan dış rolleri izlemek yerine silmek var. Sentra, bu riske yönelik ürünler satan bir şirket."
+     ],
+     "sources": [
+      {
+       "label": "Sentra",
+       "url": "https://sentra.io/blog/breaches/inside-the-qubole-supply-chain-attack"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "Güvenlik · Kerberos",
+     "headline": "MIT Kerberos 1.22.3 tek seferde 21 CVE'yi kapattı",
+     "paragraphs": [
+      "MIT Kerberos 5'in 9 Kasım'da duyurulan 1.22.3 sürümü 21 CVE'yi düzeltiyor; MITKRB5-SA-2026-001 duyurusu bunun tipik bir yama sürümünden çok daha fazla olduğunu, sürüm notları da birçoğunun büyük dil modellerinin yardımıyla bulunduğunu belirtiyor. 17'si, kimliği doğrulanmamış saldırganların KDC, kadmind ve GSS-API uygulama sunucularına karşı tetikleyebildiği DoS açıkları. Yetkilendirme atlatmaları arasında sahte CAMMAC ya da PAC verisiyle servis bileti alma ve bir yöneticinin `lockdown_keys` özniteliğini atlatması var. Windows istemcide kod çalıştırmaya varabilecek buffer overflow'lar da düzeltildi; duyuru bunların istismarının pratikte mümkün olmayabileceğini not ediyor. Duyuruya göre sahte CAMMAC atlatmasını önlemek için KDC'nin güncellenmesi yeterli."
+     ],
+     "sources": [
+      {
+       "label": "oss-security · krb5-1.22.3",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/09/38"
+      }
+     ]
+    },
+    {
+     "size": 6,
+     "kicker": "Güvenlik · Apache Airflow",
+     "headline": "Apache Airflow'da tek günde 18 güvenlik duyurusu",
+     "paragraphs": [
+      "Apache Airflow ekibi 9 Kasım'da oss-security listesine 18 ayrı CVE duyurusu gönderdi. Aralarında “Important” önemdeki CVE-2026-68982 öne çıkıyor: CeleryExecutor, deadline-alert callback iş yüklerini kimlik doğrulama token'ını kontrol etmeden çalıştırıyordu; Celery broker'a yazabilen biri Airflow kimlik bilgisi olmadan tüm CeleryExecutor worker'larında kod çalıştırabiliyordu. Düzeltme 3.4.0'da. Diğer duyuruların bir kısmı, secrets masker'ın camelCase anahtar adlarını ya da CLI argümanlarındaki Variable değerlerini maskelememesi gibi audit loglarına sızan sırlarla, bir kısmı da scheduler'daki deserialization sorunlarıyla ilgili."
+     ],
+     "sources": [
+      {
+       "label": "oss-security · CVE-2026-68982",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/09/5"
+      },
+      {
+       "label": "oss-security · 9 Kasım dizini",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/09/"
+      }
+     ]
+    },
+    {
+     "size": 6,
+     "kicker": "İddia · Self-hosted",
+     "headline": "Dokploy'da veritabanı parolası alanından host'ta root komut iddiası",
+     "paragraphs": [
+      "Self-hosted dağıtım paneli Dokploy'un güncel sürümü v0.31.0'da, “knell” adlı araştırmacının 10 Kasım'da oss-security'ye gönderdiği yazıya göre veritabanı parola doğrulayıcısı backtick karakterine izin veriyor. Postgres ve MySQL parola değiştirme işlemlerinde parola çift tırnaklı bir shell argümanına konduğu için backtick'li bir yük, host'un Docker soketini tutan konteynerde root olarak çalışıyor. İstismar, servis üzerinde “create” yetkisi olan kimliği doğrulanmış bir organizasyon üyesi gerektiriyor. Araştırmacı ciddiyeti 9,9 olarak veriyor; CVE yok, düzeltme yalnızca bir canary dalında. Araştırmacı tek yöneticili kurulumlarda bir yetki sınırının aşılmadığını not ediyor; vahşi ortamda istismar bildirilmedi."
+     ],
+     "sources": [
+      {
+       "label": "oss-security · Dokploy",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/10/2"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "repos": {
+  "subtitle": "GitHub ve Trendshift günlük trending sıralamalarından seçme · yıldız sayıları trending listesinden ve repo sayfalarından, 10 Kasım",
+  "items": [
+   {
+    "name": "anthropics/skills",
+    "url": "https://github.com/anthropics/skills",
+    "stars": "191.233",
+    "starsValue": 191233,
+    "lang": "Python",
+    "cat": "Agent skill'leri",
+    "why": "Anthropic'in Agent Skills örnek koleksiyonu: her skill, YAML frontmatter'lı bir `SKILL.md` ve isteğe bağlı script'lerden oluşan bir klasör. Repoda Agent Skills spesifikasyonu, bir başlangıç şablonu ve Claude'un dosya yeteneklerini sağlayan `docx`, `pdf`, `pptx`, `xlsx` skill'leri de bulunuyor.",
+    "meta": "Python · Agent skill'leri"
+   },
+   {
+    "name": "sherlock-project/sherlock",
+    "url": "https://github.com/sherlock-project/sherlock",
+    "stars": "107.469",
+    "starsValue": 107469,
+    "lang": "Python",
+    "cat": "OSINT",
+    "why": "Bir kullanıcı adına ait hesapları çok sayıda sosyal ağda arayan açık kaynak araç. GitHub'ın günlük trending listesinde bugün en çok yıldız alan repo (4.267).",
+    "meta": "Python · OSINT"
+   },
+   {
+    "name": "google-deepmind/mujoco",
+    "url": "https://github.com/google-deepmind/mujoco",
+    "stars": "17.001",
+    "starsValue": 17001,
+    "lang": "C++",
+    "cat": "Fizik simülasyonu",
+    "why": "Google DeepMind'ın robotik, biyomekanik ve makine öğrenmesi için geliştirdiği, çok eklemli temas dinamiklerini simüle eden fizik motoru. C API'sinin yanında Python binding'leri, Unity eklentisi ve WebAssembly desteği var; Apache 2.0 lisanslı.",
+    "meta": "C++ · Fizik simülasyonu"
+   },
+   {
+    "name": "garrytan/gbrain",
+    "url": "https://github.com/garrytan/gbrain",
+    "stars": "32.250",
+    "starsValue": 32250,
+    "lang": "TypeScript",
+    "cat": "Agent belleği",
+    "why": "Agent'lara kullanıcının kontrol ettiği kalıcı bir bellek veriyor: README'ye göre olguları kaynaklarıyla saklıyor, düzeltme ve geri çekmeyi destekliyor, aynı belleği farklı agent'lara açıyor. Anahtar kelime ve semantik arama, tipli bir bilgi grafiği ve MCP üzerinden erişim sunuyor; self-host edilebiliyor.",
+    "meta": "TypeScript · Agent belleği"
+   },
+   {
+    "name": "ruvnet/RuView",
+    "url": "https://github.com/ruvnet/RuView",
+    "stars": "103.572",
+    "starsValue": 103572,
+    "lang": "Rust",
+    "cat": "WiFi ile algılama",
+    "why": "WiFi sinyallerindeki Channel State Information verisiyle kamerasız varlık tespiti, nefes ve nabız ölçümü hedefleyen proje; ana özellikler için ESP32-S3 gibi CSI destekli donanım gerekiyor. README kendini beta olarak tanımlıyor, poz modelinin hedefin çok altında kaldığını ve önceki “%100 varlık tespiti” rakamının geri çekildiğini kendisi belirtiyor.",
+    "meta": "Rust · WiFi ile algılama"
+   },
+   {
+    "name": "homeassistant-ai/ha-mcp",
+    "url": "https://github.com/homeassistant-ai/ha-mcp",
+    "stars": "6.091",
+    "starsValue": 6091,
+    "lang": "Python",
+    "cat": "MCP sunucusu",
+    "why": "AI asistanlarının bir Home Assistant kurulumunda otomasyon, script, dashboard ve yedekleri yönetmesini sağlayan, 87 araç listeleyen MCP sunucusu. Home Assistant'ın yerleşik MCP sunucusundan ayrı, bağımsız bir sunucu; MIT lisanslı.",
+    "meta": "Python · MCP sunucusu"
+   },
+   {
+    "name": "shadcn/improve",
+    "url": "https://github.com/shadcn/improve",
+    "stars": "9,9 bin",
+    "starsValue": 9900,
+    "cat": "Agent skill'i",
+    "why": "Güçlü bir modelle kod tabanını dokuz kategoride denetleyip her bulgu için `file:line` kanıtlı, kendi başına yeterli bir plan dosyası yazan skill; kendisi hiçbir şey uygulamıyor. İsteğe bağlı `execute` adımı planı daha ucuz bir modele izole bir git worktree'de uygulatıp diff'i plana göre inceliyor.",
+    "meta": "Agent skill'i"
+   }
+  ],
+  "sources": [
+   {
+    "label": "GitHub Trending",
+    "url": "https://github.com/trending?since=daily"
+   },
+   {
+    "label": "Trendshift",
+    "url": "https://trendshift.io/"
+   }
+  ]
+ },
+ "briefs": [
+  {
+   "tag": "Havacılık",
+   "text": "Seoul Economic Daily'nin 10 Kasım tarihli haberine göre Incheon Havalimanı'nda 30 Ekim-6 Kasım arasında üç ayrı kalkış sistemi arızası yaşandı; 13 havayolunu etkileyen ilk kesintiyi havalimanı ARINC'in küresel ağındaki istikrarsızlığa bağladı, ancak kesin neden henüz doğrulanmadı. İşletmeci, hacking kaynaklı bir arızanın olası görünmediğini söylüyor.",
+   "url": "https://en.sedaily.com/society/2026/11/10/three-departure-system-failures-in-a-week-disrupt-incheon"
+  },
+  {
+   "tag": "Güvenlik",
+   "text": "Vanderbilt Üniversitesi 9 Kasım'da cihazları, sistemleri ve bulut servislerini etkileyebilecek aktif bir siber güvenlik olayına müdahale ettiğini duyurdu; akşam güncellemesine göre kampüs Wi-Fi'ı yeniden açıldı ama sistemlerin çoğuna erişim kısıtlı, kamu kurumlarıyla çalışılıyor. Saldırının türü açıklanmadı.",
+   "url": "https://news.vanderbilt.edu/2026/11/09/nov-9-active-cybersecurity-incident-updates/"
+  },
+  {
+   "tag": "Python",
+   "text": "CPython'da `ssl.get_server_certificate()` fonksiyonu `ca_certs` verildiğinde sertifika zincirini doğruluyor ama sertifikanın kimliğini kontrol etmiyor; düşük önemdeki CVE-2026-19552 için düzeltme PR #161507'de.",
+   "url": "https://www.openwall.com/lists/oss-security/2026/11/09/25"
+  },
+  {
+   "tag": "Python",
+   "text": "CPython'un `http.cookiejar` modülünde süresi geçmiş bir `Set-Cookie` başlığı, cookie politikasına bakılmadan başka alan adlarının çerezlerini paylaşılan jar'dan silebiliyordu; orta önemdeki CVE-2026-124249 için düzeltme PR #161570'te.",
+   "url": "https://www.openwall.com/lists/oss-security/2026/11/09/24"
+  },
+  {
+   "tag": "Güvenlik",
+   "text": "Vim 9.2.1309 öncesinde, özel hazırlanmış bir spell dosyasıyla tetiklenen ve çökmeye yol açan düşük önemde bir bellek açığı düzeltildi; tetiklenmesi için `modeline` açık olmalı ve multi-byte encoding kullanılmalı.",
+   "url": "https://www.openwall.com/lists/oss-security/2026/11/08/5"
+  },
+  {
+   "tag": "Araçlar",
+   "text": "Claude Code 2.1.321, Fable 5.2 desteğinin yanında MCP OAuth'un bir yönlendirmeden sonra token'ları başka bir host'a göndermesini ve birkaç Bash ve dosya yazma izin açığını düzeltti; 2.1.322 ile fast mode Vertex'te de kullanılabiliyor.",
+   "url": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md"
+  },
+  {
+   "tag": "Güvenlik",
+   "text": "Anthropic'e göre Claude Enterprise müşterilerinin kullanabildiği Claude Security artık Mythos 5.2 üzerinde çalışıyor; Mythos 5.2'ye erişim ise Cyber ve Life Sciences doğrulama programlarıyla sınırlı.",
+   "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+  },
+  {
+   "tag": "Şirket beyanı",
+   "text": "Anthropic, Fable 5.2'nin erken bir sürümüyle çalışan bir agent ekibinin bir üretim servisini Python'dan Rust'a taşıdığını ve servisin yaklaşık 26 kat daha hızlı başladığını söylüyor.",
+   "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+  }
+ ]
+}
