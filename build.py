@@ -238,8 +238,31 @@ def article(ctx, a, aid):
         stat = f'<p class="stat"><span class="n">{esc(typo(st.get("n")))}</span><span class="l">{rich(st.get("l"))}</span></p>'
     # Telefonda küçük haberlerin metni üç satırda kesilir; site.js gerekirse bu düğmeyi gösterir
     more = '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
+    # why: tek cümlelik editoryal “Neden önemli” notu; metinden ayrı ve etiketli basılır
+    why = f'<p class="why"><b>{esc(caps("Neden önemli"))}</b>{rich(a.get("why"))}</p>' if a.get("why") else ""
     return (f'<article class="{cls}" id="a-{esc(aid)}">{k}<h3>{pill}{rich(a.get("headline"))}</h3>{stat}'
-            f'<div class="body">{body}</div>{more}{chart(a.get("chart"))}{sources(ctx, a.get("sources"))}</article>')
+            f'<div class="body">{body}</div>{more}{why}{chart(a.get("chart"))}{sources(ctx, a.get("sources"))}</article>')
+
+
+def pattern(cur):
+    """Günün örüntüsü: birkaç haberin ortak noktasını adlandıran isteğe bağlı editoryal not {title, text, refs[]}."""
+    P = cur.get("pattern")
+    if not isinstance(P, dict) or not P.get("text"):
+        return ""
+    heads = {"manset": (cur.get("lead") or {}).get("headline")}
+    for s in cur.get("sections") or []:
+        for i, a in enumerate(s.get("articles") or []):
+            heads[art_id(s, i, a)] = a.get("headline")
+    links = []
+    for r in P.get("refs") or []:
+        r = str(r).lstrip("#")
+        r = r[2:] if r.startswith("a-") else r
+        if heads.get(r):
+            links.append(f'<a href="#a-{esc(r)}">{rich(heads[r])}</a>')
+    rel = f'<p class="src">İlgili haberler: {" · ".join(links)}</p>' if links else ""
+    title = f'<h3>{rich(P.get("title"))}</h3>' if P.get("title") else ""
+    return (f'<aside class="pattern" aria-label="Günün örüntüsü"><div><span class="kicker">{esc(caps("Günün örüntüsü"))}</span>{title}</div>'
+            f'<div><p>{rich(P.get("text"))}</p>{rel}<p class="note">Bu not editoryal bir gözlemdir, haberin parçası değildir.</p></div></aside>')
 
 
 def art_id(s, i, a):
@@ -418,6 +441,8 @@ def render_issue(ctx, cur):
             + '<div class="cols">' + "".join(f"<p>{rich(p)}</p>" for p in L.get("paragraphs") or []) + "</div>"
             + lc("lc-main") + sources(ctx, L.get("sources")) + f'</div><div class="lead-side">{box}{lc("lc-side")}{toc(secs)}</div></section>')
 
+    out.append(pattern(cur))
+
     for s in secs:
         sid = s.get("id") or "bolum"
         arts = section_articles(ctx, s)
@@ -508,6 +533,7 @@ def render_about(ctx):
 <h3>Nasıl hazırlanıyor?</h3>
 <p>Her sayı otomatik olarak, bir yapay zeka modeli (Anthropic Claude) tarafından hazırlanır. Model son 24–48 saatin haberlerini tarar (Pazartesi sayılarında hafta sonunu da kapsar), asıl kaynakları okur ve haberleri kendi cümleleriyle özetler. Ardından ayrı bir yapay zeka “editör”, taslağı kaynak linklerini yeniden açarak denetler; doğrulanamayan bilgi çıkarılır ya da etiketlenir.</p>
 <p>Sayılar yayımlanmadan önce bir insan tarafından tek tek okunmaz. Bu yüzden hata olabilir: bir haber sizin için önemliyse, altındaki kaynak linkinden asıl metne bakın.</p>
+<p>Gazeteyi yazan model Anthropic’in ürünü olduğu için Anthropic ve Claude haberlerinde bir çıkar çatışması vardır. Bu haberlere de diğer şirketlerle aynı etiketler ve çekinceler uygulanır; bir şirket, manşet dışında bir sayıda en fazla iki haber ve bir kısa haberle yer alır.</p>
 <h3>Etiketler</h3>
 <ul>
 <li><span class="prov prov-claim">İDDİA</span> tek kaynağa dayanan ya da bağımsız olarak doğrulanmamış haber.</li>
