@@ -266,11 +266,9 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
 @media (max-width:560px){
   .mast{grid-template-columns:1fr}.mast .tag{text-align:left}
   .mast .tag{justify-content:space-between}
-  .nav-brand{font-size:22px}
+  .nav-brand{font-size:20px}
   .nav-brand .full{display:none}
-  /* Telefonda menü logosu sekme ikonuyla aynı işaret: D ve altında turkuaz çizgi */
-  .nav-brand .the{display:none}
-  .nav-brand .mono{display:inline-block;font-weight:700;line-height:.9;padding:0 1px 1px;border-bottom:2px solid var(--accent)}
+  .nav-brand .mono{display:inline}
   nav.index.stuck .nav-brand{margin-right:12px;padding-right:12px}
   /* Telefonda künye: takvim şeridi yok, tarih ve oklar tek blok */
   .dial-track{display:none}

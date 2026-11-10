@@ -404,7 +404,7 @@ def render_issue(ctx, cur):
     # Menü üste yapışınca solunda küçük logo belirir (site.js, .nav-sentinel görünümden çıkınca "stuck" sınıfını ekler)
     out.append('<div class="nav-sentinel" aria-hidden="true"></div><nav class="index" aria-label="Bölümler">'
                f'<a class="nav-brand" href="{esc(ctx.href("index.html"))}" tabindex="-1" aria-hidden="true">'
-               '<span class="the">The</span><span class="full">Daily Compiler</span><span class="mono">D</span></a><div class="nav-links">' + "".join(
+               '<span class="the">The</span><span class="full">Daily Compiler</span><span class="mono">DC</span></a><div class="nav-links">' + "".join(
         f'<a href="#sec-{esc(i)}">{esc(caps(t))}</a>' for i, t in nav_items) + "</div></nav>")
 
     figs = cur.get("figures") or []
