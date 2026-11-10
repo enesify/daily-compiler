@@ -1,0 +1,92 @@
+{
+  "_not": "Yalnızca alan adlarını ve biçimi gösterir. Metinler, haber sayısı ve uzunluklar örnek değildir; kurallar için KURALLAR.md'ye bak. Bu _not alanı gerçek sayıda yer almaz.",
+  "date": "2026-01-15",
+  "number": 42,
+  "dateLabel": "Perşembe, 15 Ocak 2026",
+  "readingMinutes": 15,
+  "figures": [
+    {"n": "%48,5", "l": "Rakamın neyi ölçtüğünü söyleyen kısa açıklama", "ref": "manset"},
+    {"n": "3.1.0", "l": "Açıklama; `kod` backtick içinde yazılır", "ref": "java-1"},
+    {"n": "21", "l": "Açıklama", "ref": "guvenlik-1"},
+    {"n": "9 dk", "l": "Açıklama", "ref": "gelistirme-1"},
+    {"n": "12 bin", "l": "Yalnızca Kısa Kısa'da geçen rakamda ref yazılmaz"}
+  ],
+  "pattern": {
+    "title": "İsteğe bağlı: örüntünün adı",
+    "text": "İsteğe bağlı not: en az üç haberin kendi kaynağında yazan ortak olgusu.",
+    "refs": ["guvenlik-1", "java-1", "java-2"]
+  },
+  "lead": {
+    "kicker": "Şirket beyanı · Model sürümü",
+    "alert": false,
+    "headline": "Manşet başlığı",
+    "deck": "Manşetin spotu.",
+    "paragraphs": ["Birinci paragraf.", "İkinci paragraf.", "Üçüncü paragraf.", "Dördüncü paragraf."],
+    "chart": {
+      "title": "Ölçü ve birim (%)",
+      "note": "Şirketin kendi ölçümü.",
+      "items": [
+        {"label": "Haberin öznesi", "value": 48.5, "display": "%48,5", "highlight": true},
+        {"label": "Karşılaştırılan", "value": 41.2, "display": "%41,2"}
+      ]
+    },
+    "sources": [{"label": "Resmi duyuru", "url": "https://example.com/duyuru"}],
+    "box": {
+      "kicker": "Pratik çıkarım",
+      "title": "Kutunun başlığı",
+      "items": ["Birinci somut madde.", "İkinci somut madde.", "Üçüncü somut madde."],
+      "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
+    }
+  },
+  "sections": [
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "subtitle": "Bölümdeki haberlerin kısa özeti",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Spring · Sürüm",
+          "headline": "Büyük haberin başlığı",
+          "stat": {"n": "%65-80", "l": "İsteğe bağlı iri rakamın açıklaması"},
+          "paragraphs": ["Birinci paragraf.", "İkinci paragraf."],
+          "why": "Büyük haberde zorunlu tek cümle; “Neden önemli” sözüyle başlamaz.",
+          "sources": [
+            {"label": "Spring blog", "url": "https://example.com/spring"},
+            {"label": "Dünkü sayı: önceki haberin kısa başlığı", "url": "#2026-01-14-java-2"}
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "İddia · Konu",
+          "alert": true,
+          "pill": "Güncelleme",
+          "headline": "Kaynak: küçük haberin başlığı",
+          "paragraphs": ["Tek paragraf."],
+          "sources": [{"label": "Kaynak adı", "url": "https://example.com/haber"}]
+        }
+      ]
+    }
+  ],
+  "repos": {
+    "subtitle": "Listenin nereden seçildiği · yıldız sayılarının tarihi",
+    "items": [
+      {
+        "name": "kurulus/repo",
+        "url": "https://github.com/kurulus/repo",
+        "stars": "13,4 bin",
+        "starsValue": 13400,
+        "lang": "Rust",
+        "cat": "Kategori",
+        "why": "Reponun ne olduğu. Neden şimdi gündemde olduğu.",
+        "meta": "Rust · Kategori"
+      }
+    ],
+    "sources": [{"label": "GitHub Trending · günlük", "url": "https://github.com/trending"}]
+  },
+  "briefs": [
+    {"tag": "Güvenlik", "text": "Tek-iki cümlelik kısa haber.", "url": "https://example.com/kisa"},
+    {"tag": "Takip", "text": "Önceki bir haberin sonucu.", "url": "#2026-01-14-gelistirme-1"}
+  ]
+}
