@@ -100,9 +100,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 nav.index{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;align-items:center;white-space:nowrap;border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top,0px)}
 .nav-sentinel{height:0}
 /* Menü yapışıkken altında kısa bir geçiş: kayan metin menüye değmeden bulanıklaşıp solar */
-nav.index::after{content:"";position:absolute;left:0;right:0;top:calc(100% + 1px);height:22px;pointer-events:none;opacity:0;transition:opacity .2s;
-  background:linear-gradient(color-mix(in srgb,var(--paper) 85%,transparent),transparent);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
-  -webkit-mask-image:linear-gradient(#000 45%,transparent);mask-image:linear-gradient(#000 45%,transparent)}
+nav.index::after{content:"";position:absolute;left:0;right:0;top:100%;height:34px;pointer-events:none;opacity:0;transition:opacity .2s;
+  background:linear-gradient(var(--paper),color-mix(in srgb,var(--paper) 94%,transparent) 12%,color-mix(in srgb,var(--paper) 78%,transparent) 28%,color-mix(in srgb,var(--paper) 50%,transparent) 50%,color-mix(in srgb,var(--paper) 20%,transparent) 75%,transparent);
+  -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+  -webkit-mask-image:linear-gradient(#000,#000 30%,rgba(0,0,0,.5) 65%,transparent);mask-image:linear-gradient(#000,#000 30%,rgba(0,0,0,.5) 65%,transparent)}
 nav.index.stuck::after{opacity:1}
 /* Yapışıkken alt çizgi kaybolur: kenarı geçiş çizer */
 nav.index{transition:border-color .2s}
