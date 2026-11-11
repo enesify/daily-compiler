@@ -104,6 +104,9 @@ nav.index::after{content:"";position:absolute;left:0;right:0;top:calc(100% + 1px
   background:linear-gradient(color-mix(in srgb,var(--paper) 85%,transparent),transparent);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
   -webkit-mask-image:linear-gradient(#000 45%,transparent);mask-image:linear-gradient(#000 45%,transparent)}
 nav.index.stuck::after{opacity:1}
+/* Yapışıkken alt çizgi kaybolur: kenarı geçiş çizer */
+nav.index{transition:border-color .2s}
+nav.index.stuck{border-bottom-color:transparent}
 .nav-links{position:relative;flex:1;min-width:0;display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;font-family:var(--f-label);font-size:13px;font-weight:500;letter-spacing:.05em;text-transform:uppercase}
 /* Menü taşıyorsa sağ kenar solarak devamı olduğunu belli eder */
 .nav-links{padding-right:28px;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}
