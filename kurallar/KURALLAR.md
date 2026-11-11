@@ -11,15 +11,15 @@ Bu tanım haber seçimini ve önceliklendirmeyi yönlendiren bir mercektir. Gaze
 ## 2. Araştırma
 
 - Zaman penceresi: son 24 saat, en fazla 48 saat. Pazartesi sayılarında hafta sonu nedeniyle sınır 72 saattir (Cuma sabahından itibaren).
-- Her bölüm için ayrı aramalar yap. Toplam WebSearch sayısı en az 15, en fazla 25'tir; 25 kesin üst sınırdır. Haber azsa daha fazla arama yapma, bölümleri kısa tut.
+- Her bölüm için ayrı aramalar yap. Toplam WebSearch sayısı en az 15, en fazla 25'tir; 25 kesin üst sınırdır. Aramaların en az üçte birini Yapay Zeka & LLM bölümüne ayır (model sürümleri, araştırma, benchmark, agent'lar, düzenleme gibi farklı açılardan); Güvenlik için 2-3 arama yeter. Haber azsa daha fazla arama yapma, bölümleri kısa tut.
 - WebFetch ile asıl kaynakları oku. Bir kaynak iki denemede 403, bot koruması ya da erişim hatası verirse o kaynağı bırak: aynı bilgiyi veren başka bir birincil kaynak ara, bulamazsan 5. bölümdeki "asıl kaynağa ulaşılamadı" kuralını uygula. Bot korumasını aşmaya çalışma (headless tarayıcı, arşiv servisleri vb. kullanma).
 - Son 3 sayıda geçen haberleri tekrar etme. Gerçek bir yeni gelişme varsa onu öne çıkar ve önceki habere iç atıf ver (7. bölüm, İç atıflar).
 
 ## 3. Bölümler
 
-**Manşet.** Günün bu okuyucu için en önemli ve en çok eylem gerektiren AI/LLM gelişmesi (yalnızca genel olarak en büyük haber değil). Örnekler: model sürümleri, AI kodlama araçları ve agent harness'larındaki önemli değişiklikler, ekiplerin AI kullanımını etkileyen araştırma ve benchmark'lar, fiyat/limit/politika değişiklikleri. Güvenlik haberleri (CVE'ler, ihlaller, tedarik zinciri saldırıları) manşete çıkmaz, Güvenlik bölümünde 8 kolonluk büyük haber olur. İstisna: ana konusu bir AI aracı ya da AI destekli geliştirme pratiği olan güvenlik haberleri (ör. bir AI kodlama aracının sırları sızdırması) manşet olabilir. Pencere içinde manşete değer bir AI/LLM gelişmesi yoksa en güçlü AI/LLM haberini manşet yap; uydurma ya da abartma. Manşetin yanında "Pratik çıkarım" kutusu olur: benzer işi yapan bir yazılım ekibi için 3-4 somut madde.
+**Manşet.** Günün bu okuyucu için en önemli ve en çok eylem gerektiren AI/LLM gelişmesi (yalnızca genel olarak en büyük haber değil). Örnekler: model sürümleri, AI kodlama araçları ve agent harness'larındaki önemli değişiklikler, ekiplerin AI kullanımını etkileyen araştırma ve benchmark'lar, fiyat/limit/politika değişiklikleri. Güvenlik haberleri (CVE'ler, ihlaller, tedarik zinciri saldırıları) manşete çıkmaz, Güvenlik bölümünde yer alır. İstisna: ana konusu bir AI aracı ya da AI destekli geliştirme pratiği olan güvenlik haberleri (ör. bir AI kodlama aracının sırları sızdırması) manşet olabilir; ama güvenlik temalı manşet art arda iki sayıda olmaz (önceki manşet özet çıktısında görünür). Pencere içinde manşete değer bir AI/LLM gelişmesi yoksa en güçlü AI/LLM haberini manşet yap; uydurma ya da abartma. Manşetin yanında "Pratik çıkarım" kutusu olur: benzer işi yapan bir yazılım ekibi için 3-4 somut madde.
 
-**Yapay Zeka & LLM** (id `ai`). Model sürümleri, benchmark'lar, araştırmalar.
+**Yapay Zeka & LLM** (id `ai`). Gazetenin ana bölümüdür: 6-8 haber. Model sürümleri, benchmark'lar, araştırmalar, agent'lar ve agent altyapısı, açık modeller, AI düzenlemeleri ve politika değişiklikleri. İlk satır 8+4 (büyük haber), sonraki satırlar 6+6 ya da 4+4+4. Pencere içinde 6 gerçek haber yoksa daha az yaz; dolgu koyma.
 
 **Şirketler & Altyapı** (id `is`). Yatırımlar, birleşmeler, çipler, veri merkezleri.
 
@@ -35,7 +35,9 @@ Bu tanım haber seçimini ve önceliklendirmeyi yönlendiren bir mercektir. Gaze
 
 Bunlar dışındaki projeleri ancak bu kaynaklarda bir ipucu varsa ara.
 
-**Güvenlik** (id `guvenlik`). Aktif istismarlar, kritik CVE'ler, tedarik zinciri saldırıları (özellikle Java/JVM, npm/Maven, AI tooling). Haftalar önce düzeltilmiş, aciliyeti olmayan açıkları büyük haber yapma.
+**Güvenlik** (id `guvenlik`). Küçük bir bölümdür: günün öne çıkan 3-4 haberi, her biri 60-90 kelimelik tek paragraf. Büyük haber ve 8 kolonluk haber olmaz: 3 haber 4+4+4, 4 haber iki satır 6+6 dizilir. Aktif istismarlar, kritik CVE'ler, tedarik zinciri saldırıları (özellikle Java/JVM, npm/Maven, AI tooling) arasından bu okuyucunun en çok harekete geçmesi gerekenleri seç; gerisini yazma. Haftalar önce düzeltilmiş, aciliyeti olmayan açıkları koyma.
+
+Güvenlik gazetenin ana konusu değildir. Güvenlik bölümü dışında bir sayıda en fazla 1 haber ve 2 kısa haber güvenlik temalı olabilir (Java & Spring'e giren bir açık haberi bu 1 habere sayılır).
 
 Açık haberleri için (hangi bölümde ya da Kısa Kısa'da olursa olsun):
 
@@ -57,7 +59,7 @@ Açık haberleri için (hangi bölümde ya da Kısa Kısa'da olursa olsun):
 
 ## 4. Uzunluk ve yerleşim
 
-- Toplam içerik yaklaşık 15 dakikalık okuma olmalı: manşet 4 paragraf, bölüm başına 2-4 haber.
+- Toplam içerik yaklaşık 15 dakikalık okuma olmalı: manşet 4 paragraf; Yapay Zeka & LLM 6-8 haber, Güvenlik 3-4 kısa haber, diğer bölümler 2-3 haber.
 - Yer dağılımını okuyucunun önceliklerine göre yap: 8 kolonluk büyük haberler okuyucunun işine en çok dokunan haberlere gitsin; genel piyasa/finans haberleri ve küçük sürüm notları 4 kolonla yetinsin.
 - Izgara 12 kolonludur. Her bölümde `size` değerleri satırları tam dolduracak şekilde seçilir: 8+4, 6+6 ya da 4+4+4. İlk haber genelde `big: true` olur.
 
@@ -65,7 +67,7 @@ Açık haberleri için (hangi bölümde ya da Kısa Kısa'da olursa olsun):
 
 - 8 kolonluk büyük haber 160-220 kelime, 2-3 paragraf.
 - Onunla aynı satırdaki 4 kolonluk haber bunun yaklaşık yarısı: 80-110 kelime, tek paragraf.
-- 6+6 satırlarında iki haber 80-110 kelime ve birbirine yakın (fark en fazla 20 kelime). 4+4+4 satırlarında da üç haber yakın uzunlukta.
+- 6+6 satırlarında iki haber 80-110 kelime ve birbirine yakın (fark en fazla 20 kelime). 4+4+4 satırlarında da üç haber yakın uzunlukta. Güvenlik bölümünde bu ölçü 60-90 kelimedir.
 - Bir haber bu ölçüye sığmıyorsa metni kısaltmak yerine `size` değerini ya da satırdaki eşini değiştir.
 
 **Paragraf uzunluğu.** Manşette ve büyük haberlerde paragraf başına en fazla 80 kelime; daha uzun paragrafı konunun değiştiği yerde ikiye böl. 4 ve 6 kolonluk haberler tek paragraf kalır.

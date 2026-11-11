@@ -38,9 +38,10 @@ h2 code,h3 code,.deck code,.toc code,.endnav code{background:none;padding:0;font
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 .mast{display:grid;grid-template-columns:1fr auto;align-items:end;gap:16px;padding:8px 0 14px;border-bottom:3px solid var(--ink)}
-.mast h1{font-size:clamp(40px,8vw,88px);font-weight:600;letter-spacing:-.025em;line-height:.92;font-variation-settings:"opsz" 72}
+/* Logo: sayfanın en büyük öğesi ama manşetle yarışmaz (yaklaşık 1,3 katı) */
+.mast h1{--fs:clamp(32px,5.2vw,58px);--the:max(calc(var(--fs)*.3),13px);font-size:var(--fs);font-weight:600;letter-spacing:-.022em;line-height:.95;font-variation-settings:"opsz" 72}
 /* Küçük italik “The”, “Daily”nin büyük harf yüksekliğine oturur */
-.mast h1 .the{font-size:max(.3em,15px);font-style:italic;font-weight:500;letter-spacing:.01em;color:var(--accent);position:relative;top:-1.62em;margin-right:.2em;font-variation-settings:"opsz" 24}
+.mast h1 .the{font-size:var(--the);font-style:italic;font-weight:500;letter-spacing:.01em;color:var(--accent);position:relative;top:calc((var(--fs) - var(--the))*-.694);margin-right:.2em;font-variation-settings:"opsz" 24}
 .mast .tag{font-family:var(--f-label);font-size:13px;text-align:right;color:var(--ink-soft);line-height:1.4}
 .mast .tag b{display:block;color:var(--ink);font-weight:600;font-size:14px}
 /* Tema düğmesi: sistem ayarını izler, tıklanınca seçim tarayıcıda saklanır */
@@ -103,7 +104,7 @@ nav.index.stuck .nav-brand{max-width:200px;opacity:1;visibility:visible;margin-r
 .figs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
 .fig{padding:8px 14px 12px 0;display:flex;flex-direction:column;gap:2px;min-width:0}
 .fig+.fig{border-left:1px solid var(--rule);padding-left:14px}
-.fig .n{font-family:var(--f-display);font-size:30px;font-weight:600;font-variant-numeric:tabular-nums lining-nums;line-height:1.1}
+.fig .n{font-family:var(--f-display);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums lining-nums;line-height:1.1}
 .fig .l{font-family:var(--f-label);font-size:12.5px;color:var(--ink-soft);line-height:1.35}
 .fig code{font-size:.92em;padding:0 3px;background:var(--paper)}
 /* Habere bağlı rakam kutusu */
@@ -117,8 +118,8 @@ a.fig:hover .n{color:var(--accent)}
 /* Kaynak etiketi (İddia / Şirket beyanı): konu etiketinden ayrı, çerçeveli */
 .prov{display:inline-block;border:1px solid currentColor;padding:0 5px;margin-right:8px;font-family:var(--f-label);font-size:11px;font-weight:600;line-height:1.45;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
 .prov-claim{color:var(--alert)}
-.lead h2{font-size:clamp(32px,4.6vw,52px);line-height:1.04;font-weight:600;letter-spacing:-.015em;margin:8px 0 14px}
-.deck{font-size:21px;line-height:1.4;color:var(--ink-soft);font-style:italic;margin-bottom:20px;max-width:46ch}
+.lead h2{font-size:clamp(29px,3.7vw,44px);line-height:1.07;font-weight:600;letter-spacing:-.015em;margin:8px 0 14px}
+.deck{font-size:19.5px;line-height:1.4;color:var(--ink-soft);font-style:italic;margin-bottom:18px;max-width:50ch}
 .cols{columns:2 300px;column-gap:32px;column-rule:1px solid var(--rule)}
 .cols p{margin-bottom:12px}
 /* Baş harf tam iki satır kaplar */
@@ -160,25 +161,25 @@ figure.chart .cnote{font-family:var(--f-label);font-size:12px;color:var(--ink-so
 
 section.sec{padding-top:30px}
 .sec-h{display:flex;align-items:baseline;gap:14px;border-top:3px solid var(--ink);padding-top:8px;margin-bottom:18px;flex-wrap:wrap}
-.sec-h h2{font-size:30px;font-weight:600;letter-spacing:-.01em}
+.sec-h h2{font-size:24px;font-weight:600;letter-spacing:-.01em}
 .sec-h p{font-family:var(--f-label);font-size:13px;color:var(--ink-soft)}
 .sec-h code{font-size:.92em}
 /* Son satırdaki haberlerin alt çizgisi kırpılır: bölümün kalın çizgisiyle çift çizgi olmasın */
 .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:22px 30px;clip-path:inset(-14px -14px 2px -14px)}
 article{min-width:0;display:flex;flex-direction:column;gap:6px;padding-bottom:18px;border-bottom:1px solid var(--rule);scroll-margin-top:16px}
-article h3{font-size:22px;line-height:1.18;font-weight:600}
-article.big h3{font-size:29px;line-height:1.1}
+article h3{font-size:21px;line-height:1.2;font-weight:600}
+article.big h3{font-size:26px;line-height:1.13}
 article p{font-size:16.5px}
 /* İri rakam: büyük haberlerde tek çarpıcı sayı */
 .stat{display:flex;align-items:baseline;gap:14px;margin:4px 0 6px;padding:6px 0 8px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.stat .n{font-family:var(--f-display);font-size:40px;font-weight:600;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}
+.stat .n{font-family:var(--f-display);font-size:34px;font-weight:600;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}
 .stat .l{font-family:var(--f-label);font-size:13.5px;line-height:1.35;color:var(--ink-soft)}
 /* Neden önemli: metinden ayrı, etiketli tek cümle (editoryal) */
 .why{font-size:15.5px;line-height:1.45;margin-top:2px;padding-left:10px;border-left:2px solid var(--accent)}
 .why b{font-family:var(--f-label);font-size:11.5px;font-weight:600;letter-spacing:.07em;color:var(--accent);margin-right:7px}
 /* Günün örüntüsü: manşet ile bölümler arasında, iki çizgi arasında editoryal not */
 .pattern{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.1fr);gap:8px 36px;margin-top:20px;padding:16px 0 14px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.pattern h3{font-size:25px;line-height:1.14;font-weight:600;margin-top:6px}
+.pattern h3{font-size:23px;line-height:1.14;font-weight:600;margin-top:6px}
 .pattern p{font-size:17px;line-height:1.5;max-width:68ch}
 .pattern .src{font-size:12.5px;margin-top:8px;max-width:none}
 .pattern .src a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor}
@@ -286,9 +287,9 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   .figs::-webkit-scrollbar{display:none}
   .figs-wrap{padding:10px 14px 0;margin-top:12px}
   .fig{flex:0 0 72%;scroll-snap-align:start;padding-top:6px;padding-bottom:12px}
-  .fig .n{font-size:26px}
+  .fig .n{font-size:24px}
   .lead{padding-top:22px}
-  .deck{font-size:19px}
+  .deck{font-size:18px}
   .brow{grid-template-columns:minmax(0,7.5em) minmax(0,1fr) auto}
   .ticks{justify-content:flex-start}
   .tick{width:34px}

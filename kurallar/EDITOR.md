@@ -29,6 +29,7 @@ Her rakam, tarih, isim, ayrıntı ve nitelendirme kaynakta açıkça yazıyor mu
 - Manşetin AI/LLM kuralına uyup uymadığı.
 - Haber cümlesi gibi yazılmış yorum.
 - Grafik kuralları.
+- Bölüm ağırlıkları: Yapay Zeka & LLM ana bölüm mü (6-8 haber), Güvenlik 3-4 kısa haberle sınırlı mı, bölüm dışındaki güvenlik temalı haberler sınırı (1 haber, 2 kısa haber) aşıyor mu, güvenlik temalı manşet art arda ikinci kez mi.
 - Okuyucuya göre önceliklendirme ve yer dağılımı; aynı satırdaki haberlerin uzunluk dengesi; başlık uzunluğu sınırları.
 - Haber dili: giriş cümlesi kalıbı, cümle uzunluğu, grafikteki rakamların metinde tekrarı, terim tutarlılığı, açıklanmamış ya da yanlış açıklanmış jargon, İddia haberlerinde kesin kipte başlık.
 - İçerik kurgusu: şirket ağırlığı sınırı; why cümlelerinde abartı ya da haberdeki olgulara dayanmayan çıkarım; pattern notundaki her haberin ortak olguyu kendi kaynağında gerçekten yazıp yazmadığı; açık haberlerinde kimin etkilendiği ve ne yapılacağı; takip haberlerinde iç atıf.
@@ -42,7 +43,7 @@ Her rakam, tarih, isim, ayrıntı ve nitelendirme kaynakta açıkça yazıyor mu
 
 - **önem**
   - KRİTİK: yanlış, kaynaksız ya da kaynağın söylediğini aşan bilgi.
-  - ÖNEMLİ: etiket, İddia haberinde kesin kipte başlık, şirket ağırlığı sınırının aşılması, dayanaksız why ya da pattern, tekrar, güncellik, kaynak kalitesi, önceliklendirme.
+  - ÖNEMLİ: etiket, bölüm ağırlıklarının bozulması (güvenliğin öne çıkması), İddia haberinde kesin kipte başlık, şirket ağırlığı sınırının aşılması, dayanaksız why ya da pattern, tekrar, güncellik, kaynak kalitesi, önceliklendirme.
   - KÜÇÜK: dil ve biçim.
 - **konum**: bölüm id + haber başlığı.
 - **sorun**

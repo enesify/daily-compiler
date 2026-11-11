@@ -182,8 +182,9 @@ def main():
         if re.search(r"kısa bölüm", s.get("subtitle") or "", re.I):
             E(f"{sid}: subtitle'da “Kısa bölüm” notu var")
         arts = s.get("articles") or []
-        if not 2 <= len(arts) <= 4:
-            W(f"{sid}: {len(arts)} haber var (2-4 beklenir)")
+        lo, hi = {"ai": (6, 8), "guvenlik": (3, 4)}.get(sid, (2, 3))
+        if not lo <= len(arts) <= hi:
+            (E if sid == "guvenlik" and len(arts) > hi else W)(f"{sid}: {len(arts)} haber var ({lo}-{hi} beklenir)")
         row = []
         for i, a in enumerate(arts):
             where = f"{sid}-{i + 1}"
@@ -194,6 +195,12 @@ def main():
             for k in ("kicker", "headline", "paragraphs"):
                 if not a.get(k):
                     E(f"{where}: {k} eksik")
+            if sid == "guvenlik":
+                if big or size == 8:
+                    E(f"{where}: Güvenlik bölümünde büyük ya da 8 kolonluk haber olmaz (3 haber 4+4+4, 4 haber 6+6)")
+                n = words(" ".join(a.get("paragraphs") or []))
+                if n > 100:
+                    W(f"{where}: güvenlik haberi {n} kelime (60-90 beklenir)")
             limit = 60 if size == 4 else 70
             if len(a.get("headline") or "") > limit:
                 E(f"{where}: başlık {len(a['headline'])} karakter (en fazla {limit}): {a['headline']}")
