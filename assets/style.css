@@ -78,12 +78,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .dial-track::-webkit-scrollbar{display:none}
 .ticks{display:flex;justify-content:center;align-items:flex-end;min-width:max-content;margin:0 auto;padding:0 4px}
 .tick{position:relative;width:34px;display:grid;justify-items:center;gap:5px;padding:2px 0 4px;text-decoration:none;font-family:var(--f-label);font-variant-numeric:tabular-nums;color:var(--ink-soft)}
-.tick .stem{width:1px;height:8px;background:var(--rule);transition:height .15s,background .15s}
+/* Üzerine gelince çentik ölçeklenerek uzar: satır yüksekliği değişmez, şerit titremez */
+.tick .stem{width:1px;height:8px;background:var(--rule);transform-origin:bottom;transition:transform .15s,background .15s}
 .tick .d{font-size:13px;line-height:1}
 
 .tick.has .stem{height:12px;background:var(--ink-soft)}
 .tick.has .d{color:var(--ink)}
-.tick.has:hover .stem{background:var(--accent);height:15px}
+.tick.has:hover .stem{background:var(--accent);transform:scaleY(1.3)}
 .tick.has:hover .d{color:var(--accent)}
 .tick.none{opacity:.45}
 /* Hafta sonu soluk: haftanın ritmi rakamlardan okunur */
@@ -98,6 +99,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* Bölüm menüsü: sayfa boyunca üstte kalır, bulunulan bölüm vurgulanır; sığmazsa yatay kayar */
 nav.index{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;align-items:center;white-space:nowrap;border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top,0px)}
 .nav-sentinel{height:0}
+/* Menü yapışıkken altında kısa bir geçiş: kayan metin menüye değmeden bulanıklaşıp solar */
+nav.index::after{content:"";position:absolute;left:0;right:0;top:calc(100% + 1px);height:14px;pointer-events:none;opacity:0;transition:opacity .2s;
+  background:linear-gradient(var(--paper),transparent);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+  -webkit-mask-image:linear-gradient(#000 35%,transparent);mask-image:linear-gradient(#000 35%,transparent)}
+nav.index.stuck::after{opacity:1}
 .nav-links{position:relative;flex:1;min-width:0;display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;font-family:var(--f-label);font-size:13px;font-weight:500;letter-spacing:.05em;text-transform:uppercase}
 /* Menü taşıyorsa sağ kenar solarak devamı olduğunu belli eder */
 .nav-links{padding-right:28px;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}
