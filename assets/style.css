@@ -38,10 +38,13 @@ h2 code,h3 code,.deck code,.toc code,.endnav code{background:none;padding:0;font
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 .mast{display:grid;grid-template-columns:1fr auto;align-items:end;gap:16px;padding:8px 0 14px;border-bottom:3px solid var(--ink)}
-/* Logo: sayfanın en büyük öğesi ama manşetle yarışmaz (yaklaşık 1,3 katı) */
-.mast h1{--fs:clamp(32px,5.2vw,58px);--the:max(calc(var(--fs)*.3),13px);font-size:var(--fs);font-weight:600;letter-spacing:-.022em;line-height:.95;font-variation-settings:"opsz" 72}
+/* Logo: çizim (SVG); sayfanın en büyük öğesi ama manşetle yarışmaz */
+.mast h1{line-height:0}
+.logo{display:block;width:auto;fill:currentColor}
+.logo .the{fill:var(--accent)}
+.mast .logo{height:clamp(32px,5.1vw,58px)}
 /* Küçük italik “The”, “Daily”nin büyük harf yüksekliğine oturur */
-.mast h1 .the{font-size:var(--the);font-style:italic;font-weight:500;letter-spacing:.01em;color:var(--accent);position:relative;top:calc((var(--fs) - var(--the))*-.694);margin-right:.2em;font-variation-settings:"opsz" 24}
+
 .mast .tag{font-family:var(--f-label);font-size:13px;text-align:right;color:var(--ink-soft);line-height:1.4}
 .mast .tag b{display:block;color:var(--ink);font-weight:600;font-size:14px}
 /* Tema düğmesi: sistem ayarını izler, tıklanınca seçim tarayıcıda saklanır */
@@ -90,10 +93,10 @@ nav.index{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;a
 .nav-links a{text-decoration:none;padding:11px 0 9px;border-bottom:2px solid transparent;flex:none}
 .nav-links a[aria-current="true"]{color:var(--accent);border-bottom-color:currentColor}
 /* Küçük logo: menü yapışana kadar yer kaplamaz; yapışınca büyük halinden küçülerek yerine oturur */
-.nav-brand{flex:none;font-family:var(--f-display);font-size:21px;font-weight:600;letter-spacing:-.02em;line-height:1;text-decoration:none;color:var(--ink);font-variation-settings:"opsz" 36;
+.nav-brand{flex:none;line-height:0;text-decoration:none;color:var(--ink);
   max-width:0;opacity:0;visibility:hidden;overflow:hidden;margin-right:0;padding-right:0;border-right:1px solid transparent;transform:translateY(-10px) scale(1.5);transform-origin:left center;
   transition:max-width .3s ease,opacity .25s ease,transform .3s ease,margin .3s ease,padding .3s ease,border-color .3s ease,visibility 0s .3s}
-.nav-brand .the{font-size:.5em;font-style:italic;font-weight:500;letter-spacing:.01em;color:var(--accent);position:relative;top:-.72em;margin-right:.18em}
+.nav-brand .logo{height:22px}
 nav.index.stuck .nav-brand{max-width:200px;opacity:1;visibility:visible;margin-right:18px;padding-right:18px;border-right-color:var(--rule);transform:none;transition-delay:0s}
 .nav-brand:hover{color:var(--accent)}
 .nav-brand .mono{display:none}
@@ -267,9 +270,9 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
 @media (max-width:560px){
   .mast{grid-template-columns:1fr}.mast .tag{text-align:left}
   .mast .tag{justify-content:space-between}
-  .nav-brand{font-size:20px}
+  .nav-brand .logo{height:21px}
   .nav-brand .full{display:none}
-  .nav-brand .mono{display:inline}
+  .nav-brand .mono{display:block}
   nav.index.stuck .nav-brand{margin-right:12px;padding-right:12px}
   /* Telefonda künye: takvim şeridi yok, tarih ve oklar tek blok */
   .dial-track{display:none}
