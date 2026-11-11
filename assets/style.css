@@ -100,9 +100,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 nav.index{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;align-items:center;white-space:nowrap;border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top,0px)}
 .nav-sentinel{height:0}
 /* Menü yapışıkken altında kısa bir geçiş: kayan metin menüye değmeden bulanıklaşıp solar */
-nav.index::after{content:"";position:absolute;left:0;right:0;top:calc(100% + 1px);height:14px;pointer-events:none;opacity:0;transition:opacity .2s;
-  background:linear-gradient(var(--paper),transparent);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
-  -webkit-mask-image:linear-gradient(#000 35%,transparent);mask-image:linear-gradient(#000 35%,transparent)}
+nav.index::after{content:"";position:absolute;left:0;right:0;top:calc(100% + 1px);height:22px;pointer-events:none;opacity:0;transition:opacity .2s;
+  background:linear-gradient(color-mix(in srgb,var(--paper) 85%,transparent),transparent);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+  -webkit-mask-image:linear-gradient(#000 45%,transparent);mask-image:linear-gradient(#000 45%,transparent)}
 nav.index.stuck::after{opacity:1}
 .nav-links{position:relative;flex:1;min-width:0;display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;font-family:var(--f-label);font-size:13px;font-weight:500;letter-spacing:.05em;text-transform:uppercase}
 /* Menü taşıyorsa sağ kenar solarak devamı olduğunu belli eder */
