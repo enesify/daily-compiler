@@ -5,8 +5,16 @@
 <link href="https://dailycompiler.com/"/>
 <link rel="self" type="application/atom+xml" href="https://dailycompiler.com/feed.xml"/>
 <id>https://dailycompiler.com/</id>
-<updated>2026-11-10T07:11:00+03:00</updated>
+<updated>2026-11-11T07:11:00+03:00</updated>
 <author><name>The Daily Compiler</name></author>
+<entry>
+<title>VulnCheck: Glasswing’in 37.966 bulgusundan yalnızca 217’si düzeltildi</title>
+<link href="https://dailycompiler.com/sayi/2026-11-11.html"/>
+<id>https://dailycompiler.com/sayi/2026-11-11.html</id>
+<updated>2026-11-11T07:11:00+03:00</updated>
+<summary>Sayı 009 · Çarşamba, 11 Kasım 2026 · Anthropic’in açık bulma programına dair analize göre Claude bulguların %91,5’ini kritik ya da yüksek saydı, bakımcılar %51,3’ünü. curl’e gelen raporlardan yayımlanan ilk 34’ünün 19’u açık çıkmadı.</summary>
+<content type="html">&lt;p&gt;Anthropic’in açık bulma programına dair analize göre Claude bulguların %91,5’ini kritik ya da yüksek saydı, bakımcılar %51,3’ünü. curl’e gelen raporlardan yayımlanan ilk 34’ünün 19’u açık çıkmadı.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-manset"&gt;VulnCheck: Glasswing’in 37.966 bulgusundan yalnızca 217’si düzeltildi&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-ai-1"&gt;DeepMind: AlphaProof Code, Signal’in protokol kodunu Lean’le doğruladı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-ai-2"&gt;New York’un AI güvenlik yasası için kayıt portalı açıldı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-is-1"&gt;Anthropic halka arzda hisse başına 70⁠–⁠78 dolar aralığı belirledi&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-is-2"&gt;Tendrils, binlerce çekirdekli CPU için 30 milyon dolar aldı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-gelistirme-1"&gt;Dependabot, hareketsiz repolarda alarmları kapatacak&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-gelistirme-2"&gt;.NET 11 çıktı: SDK’da MCP sunucu şablonu ve agent altyapısı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-java-1"&gt;Spring for Apache Pulsar, Apache Pulsar projesine taşınıyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-java-2"&gt;DataSketches Java 9.1.0: hazırlanmış sketch belleği tüketebiliyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-guvenlik-1"&gt;Railway ihlalinde çalınan AI anahtarlarıyla 740 bin dolarlık kullanım&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-guvenlik-2"&gt;Xen Orchestra’da kimlik doğrulama atlatması istismarda&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-guvenlik-3"&gt;Go 1.27.4: kötü niyetli cgo paketi derlemede kod çalıştırabiliyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-11.html#a-guvenlik-4"&gt;Plone’da anonim ziyaretçiye kod çalıştırtan zincir kapatıldı&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+</entry>
 <entry>
 <title>Claude Fable 5.2 yayında: Anthropic’in kodlama testlerinde Opus 5.5’in önünde</title>
 <link href="https://dailycompiler.com/sayi/2026-11-10.html"/>
