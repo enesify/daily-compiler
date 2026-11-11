@@ -37,51 +37,63 @@ code{font-family:var(--f-mono);font-size:.86em;background:var(--paper-2);padding
 h2 code,h3 code,.deck code,.toc code,.endnav code{background:none;padding:0;font-size:.84em}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
-.mast{display:grid;grid-template-columns:1fr auto;align-items:end;gap:16px;padding:8px 0 14px;border-bottom:3px solid var(--ink)}
+/* Üst bölüm: solda tarih, ortada logo, sağda slogan; iki yan blok aynı stilde */
+.mast{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:16px;padding:10px 0 14px;border-bottom:3px solid var(--ink)}
 /* Logo: çizim (SVG); sayfanın en büyük öğesi ama manşetle yarışmaz */
-.mast h1{line-height:0}
+.mast h1{line-height:0;justify-self:center}
 .logo{display:block;width:auto;fill:currentColor}
-.logo .the{fill:var(--accent)}
-.mast .logo{height:clamp(32px,5.1vw,58px)}
+
+.mast .logo{width:clamp(240px,36vw,433px);height:auto}
 /* Küçük italik “The”, “Daily”nin büyük harf yüksekliğine oturur */
 
-.mast .tag{font-family:var(--f-label);font-size:13px;text-align:right;color:var(--ink-soft);line-height:1.4}
-.mast .tag b{display:block;color:var(--ink);font-weight:600;font-size:14px}
-/* Tema düğmesi: sistem ayarını izler, tıklanınca seçim tarayıcıda saklanır */
-.mast .tag{display:flex;align-items:center;justify-content:flex-end;gap:14px}
+.mast .tag,.mast-date{font-family:var(--f-label);font-size:13px;color:var(--ink-soft);line-height:1.4}
+.mast .tag{text-align:right}
+.mast .tag b,.mast-date b{display:block;color:var(--ink);font-weight:600;font-size:14px}
+/* Tema düğmesi: çerçevesiz ikon; açık temada ay, koyu temada güneş */
+.mast .tag{display:flex;align-items:center;justify-content:flex-end;gap:12px}
 .mast .tag-t{display:block}
-/* Tema düğmesi: kadran oklarıyla aynı çerçeveli kare; yarım daire koyu temada döner */
-.theme{flex:none;width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--rule);color:var(--ink);transition:border-color .15s,color .15s}
-.theme:hover{border-color:var(--ink);color:var(--accent)}
-.theme .ico{width:13px;height:13px;border-radius:50%;border:1.5px solid currentColor;background:linear-gradient(90deg,currentColor 50%,transparent 50%);transition:transform .35s ease}
-.theme[aria-pressed="true"] .ico{transform:rotate(180deg)}
+
+.theme{flex:none;display:inline-grid;place-items:center;padding:2px;color:var(--ink-soft);vertical-align:-4px;transition:color .15s}
+.theme svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.theme .sun,.theme[aria-pressed="true"] .moon{display:none}
+.theme[aria-pressed="true"] .sun{display:block}
+.mast .theme svg{width:16px;height:16px}
+.theme:hover{color:var(--accent)}
+
+
 
 /* Sayı kadranı: büyük tarih + oklar, altında takvim günleri boyunca çentikli zaman şeridi */
-.dial{border-bottom:1px solid var(--rule);padding:12px 0 6px;display:grid;gap:6px}
+.dial{border-bottom:1px solid var(--rule);padding:10px 0 8px;display:grid;gap:6px}
 .dial-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px}
-.dial-step{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--rule);font-family:var(--f-display);font-size:22px;line-height:1;color:var(--ink);transition:border-color .15s,color .15s}
-.dial-step:hover:not(:disabled){border-color:var(--ink);color:var(--accent)}
+.dial-step{display:grid;place-items:center;width:26px;font-family:var(--f-display);font-size:20px;line-height:1;color:var(--ink-soft);transition:color .15s}
+
 .dial-step:disabled{opacity:.3;cursor:default}
-.dial-now{text-align:center;min-width:0;display:grid;gap:1px}
-.dial-date{font-family:var(--f-display);font-style:italic;font-size:clamp(20px,2.6vw,26px);font-weight:500;line-height:1.15}
+.dial-now{min-width:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:2px .5em;text-align:center}
+.dial-date{flex-basis:100%;font-family:var(--f-label);font-size:14px;color:var(--ink-soft)}
+.dial-date b{font-size:16px;font-weight:600;color:var(--ink)}
+.dial-r::before{content:"· "}
 .dial-meta{font-family:var(--f-label);font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .dial-meta .latest{color:var(--accent);font-weight:600}
 .dial-track{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .dial-track::-webkit-scrollbar{display:none}
-.ticks{display:flex;justify-content:center;min-width:max-content;margin:0 auto;padding:2px 4px 0}
-.tick{position:relative;width:38px;display:grid;justify-items:center;gap:3px;padding:4px 0 2px;text-decoration:none;font-family:var(--f-label);font-variant-numeric:tabular-nums;color:var(--ink-soft)}
-.tick .stem{width:1px;height:10px;background:var(--rule);transition:height .15s,background .15s}
-.tick .d{font-size:12.5px;line-height:1}
-.tick .w{font-size:10px;letter-spacing:.06em;text-transform:uppercase;line-height:1;opacity:.8}
-.tick.has .stem{height:16px;background:var(--ink-soft)}
+.ticks{display:flex;justify-content:center;align-items:flex-end;min-width:max-content;margin:0 auto;padding:0 4px}
+.tick{position:relative;width:34px;display:grid;justify-items:center;gap:5px;padding:2px 0 4px;text-decoration:none;font-family:var(--f-label);font-variant-numeric:tabular-nums;color:var(--ink-soft)}
+.tick .stem{width:1px;height:8px;background:var(--rule);transition:height .15s,background .15s}
+.tick .d{font-size:13px;line-height:1}
+
+.tick.has .stem{height:12px;background:var(--ink-soft)}
 .tick.has .d{color:var(--ink)}
-.tick.has:hover .stem{background:var(--accent);height:20px}
+.tick.has:hover .stem{background:var(--accent);height:15px}
 .tick.has:hover .d{color:var(--accent)}
 .tick.none{opacity:.45}
-.tick[aria-current="page"] .stem{background:var(--accent);height:22px;width:3px}
-.tick[aria-current="page"] .d{color:var(--accent);font-weight:600}
-.tick .mo{position:absolute;top:-2px;left:50%;transform:translateX(-50%);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;display:none}
-.tick.mstart{border-left:1px dotted var(--rule)}
+/* Hafta sonu soluk: haftanın ritmi rakamlardan okunur */
+.tick.we .d{color:var(--ink-soft);opacity:.75}
+/* Seçili gün: kalın rakam ve turkuaz alt çizgi (bölüm menüsündeki seçili bölümle aynı dil) */
+.tick[aria-current="page"] .stem{height:12px;background:var(--ink-soft)}
+.tick[aria-current="page"] .d{font-size:14px;font-weight:600;color:var(--ink);opacity:1;padding:0 3px 3px;border-bottom:2px solid var(--accent);margin-bottom:-5px}
+/* Şeritte ay değişince araya giren ay adı */
+.ticks .mo{font-family:var(--f-label);font-size:10.5px;letter-spacing:.09em;color:var(--ink-soft);padding:0 8px 6px 12px;line-height:1}
+
 
 /* Bölüm menüsü: sayfa boyunca üstte kalır, bulunulan bölüm vurgulanır; sığmazsa yatay kayar */
 nav.index{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;align-items:center;white-space:nowrap;border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top,0px)}
@@ -96,8 +108,9 @@ nav.index{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;a
 .nav-brand{flex:none;line-height:0;text-decoration:none;color:var(--ink);
   max-width:0;opacity:0;visibility:hidden;overflow:hidden;margin-right:0;padding-right:0;border-right:1px solid transparent;transform:translateY(-10px) scale(1.5);transform-origin:left center;
   transition:max-width .3s ease,opacity .25s ease,transform .3s ease,margin .3s ease,padding .3s ease,border-color .3s ease,visibility 0s .3s}
-.nav-brand .logo{height:22px}
-nav.index.stuck .nav-brand{max-width:200px;opacity:1;visibility:visible;margin-right:18px;padding-right:18px;border-right-color:var(--rule);transform:none;transition-delay:0s}
+.nav-brand .full{height:23px}
+.nav-brand .mono{height:16.5px}
+nav.index.stuck .nav-brand{max-width:230px;opacity:1;visibility:visible;margin-right:18px;padding-right:18px;border-right-color:var(--rule);transform:none;transition-delay:0s}
 .nav-brand:hover{color:var(--accent)}
 .nav-brand .mono{display:none}
 
@@ -238,6 +251,14 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   .nav-links{gap:18px}
 }
 @media (max-width:1000px){.dial-meta .opt{display:none}}
+@media (max-width:760px){
+  .mast{grid-template-columns:minmax(0,1fr);justify-items:center;gap:10px}
+  .mast-date{display:none}
+  .mast .tag{text-align:center;justify-content:center}
+  .mast .logo{width:min(100%,290px)}
+  .dial-step{font-size:24px;width:36px;height:36px}
+}
+@media (max-width:400px){.dial-head{gap:4px}.dial-step{width:26px}.dial-meta{letter-spacing:.03em}.dial-now{column-gap:.35em}}
 @media (min-width:561px){.more{display:none!important}}
 @media (min-width:901px){
   /* Manşet grafiği sağ sütunda: iki sütun aynı boyda bitsin */
@@ -248,15 +269,17 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
 }
 /* Tablet ve üstünde sayı kadranı tek satırlık künye olur: solda tarih, ortada takvim şeridi, sağda sayı bilgisi */
 @media (min-width:761px){
-  .dial{grid-template-columns:minmax(max-content,1fr) auto minmax(0,auto) auto minmax(max-content,1fr);grid-template-areas:"date prev track next meta";align-items:center;gap:0 14px;padding:9px 0 7px}
+  .dial{grid-template-columns:minmax(max-content,1fr) auto minmax(0,auto) auto minmax(max-content,1fr);grid-template-areas:"l prev track next r";align-items:end;gap:0 12px}
   .dial-head,.dial-now{display:contents}
-  .dial-date{grid-area:date;text-align:left}
-  .dial-meta{grid-area:meta;text-align:right}
+  .dial-date,.dial-r::before{display:none}
+  .dial-l{grid-area:l;text-align:left}
+  .dial-r{grid-area:r;text-align:right}
+  .dial-meta{padding-bottom:4px}
   .dial-step[rel="prev"],.dial-step:first-child{grid-area:prev}
   .dial-step[rel="next"],.dial-step:last-child{grid-area:next}
   .dial-track{grid-area:track}
-  .dial-step{width:30px;height:30px;font-size:19px}
-  .ticks{padding-top:0}
+  .dial-step{padding-bottom:5px;font-size:19px}
+
 }
 @media (min-width:561px) and (max-width:900px){
   /* Rakamlar 3 + 2: tek kalan kutu olmasın */
@@ -268,9 +291,9 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   article .body{columns:2 300px;column-gap:30px;column-rule:1px solid var(--rule)}
 }
 @media (max-width:560px){
-  .mast{grid-template-columns:1fr}.mast .tag{text-align:left}
-  .mast .tag{justify-content:space-between}
-  .nav-brand .logo{height:21px}
+
+
+
   .nav-brand .full{display:none}
   .nav-brand .mono{display:block}
   nav.index.stuck .nav-brand{margin-right:12px;padding-right:12px}
@@ -295,7 +318,7 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   .deck{font-size:18px}
   .brow{grid-template-columns:minmax(0,7.5em) minmax(0,1fr) auto}
   .ticks{justify-content:flex-start}
-  .tick{width:34px}
+
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
@@ -326,3 +349,4 @@ span.dial-step{opacity:.3}
 .about p{margin-bottom:12px}
 .about ul{margin:0 0 12px;padding-left:20px;display:grid;gap:6px}
 .about b{font-family:var(--f-label);font-weight:600;font-size:.82em;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+.dial-r .sep:has(+ .theme[hidden]){display:none}
