@@ -273,6 +273,11 @@ def section_articles(ctx, s):
     return "".join(article(ctx, a, art_id(s, i, a)) for i, a in enumerate(s.get("articles") or []))
 
 
+# Kadran okları: yazı tipi glifi yerine çizim (rakamlarla tam hizalanabilsin diye)
+CHEV_L = '<svg viewBox="0 0 6 10" aria-hidden="true"><path d="M5 1 1 5l4 4"/></svg>'
+CHEV_R = '<svg viewBox="0 0 6 10" aria-hidden="true"><path d="m1 1 4 4-4 4"/></svg>'
+
+
 def dial(ctx, cur):
     issues = ctx.issues
     idx = next(i for i, x in enumerate(issues) if x["date"] == cur["date"])
@@ -287,7 +292,7 @@ def dial(ctx, cur):
 
     left = f'Sayı {num3(cur.get("number"))} · '
     left += '<span class="latest">Son sayı</span>' if idx == 0 else f'{idx} sayı önce'
-    right = (f'<span class="opt">≈ {cur.get("readingMinutes") or 15} dk okuma · </span>'
+    right = (f'<span class="opt">≈ {cur.get("readingMinutes") or 15} dk okuma ·</span>'
              f'<a href="{esc(ctx.href("arsiv.html"))}">Arşiv</a>')
     date, day = date_parts(cur)
 
@@ -314,11 +319,11 @@ def dial(ctx, cur):
         d += dt.timedelta(days=1)
 
     return (f'<nav class="dial" id="archive" aria-label="Sayı arşivi"><div class="dial-head">'
-            f'{step(older, "‹", "Önceki sayı", "Daha eski sayı yok", "prev")}'
+            f'{step(older, CHEV_L, "Önceki sayı", "Daha eski sayı yok", "prev")}'
             f'<div class="dial-now"><span class="dial-date"><b>{esc(date)}</b> {esc(day)}</span>'
             f'<span class="dial-meta dial-l">{caps_meta(left)}</span>'
-            f'<span class="dial-meta dial-r">{caps_meta(right)}<span class="sep"> · </span>{THEME_BTN}</span></div>'
-            f'{step(newer, "›", "Sonraki sayı", "Daha yeni sayı yok", "next")}</div>'
+            f'<span class="dial-meta dial-r">{caps_meta(right)}<span class="sep">·</span>{THEME_BTN}</span></div>'
+            f'{step(newer, CHEV_R, "Sonraki sayı", "Daha yeni sayı yok", "next")}</div>'
             f'<div class="dial-track"><div class="ticks" role="list">{"".join(ticks)}</div></div></nav>')
 
 

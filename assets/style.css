@@ -65,13 +65,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* Sayı kadranı: büyük tarih + oklar, altında takvim günleri boyunca çentikli zaman şeridi */
 .dial{border-bottom:1px solid var(--rule);padding:10px 0 8px;display:grid;gap:6px}
 .dial-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px}
-.dial-step{display:grid;place-items:center;width:26px;font-family:var(--f-display);font-size:20px;line-height:1;color:var(--ink-soft);transition:color .15s}
+.dial-step{display:grid;place-items:center;width:26px;color:var(--ink-soft);transition:color .15s}
+.dial-step svg{width:6px;height:10px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
 
 .dial-step:disabled{opacity:.3;cursor:default}
 .dial-now{min-width:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:2px .5em;text-align:center}
 .dial-date{flex-basis:100%;font-family:var(--f-label);font-size:14px;color:var(--ink-soft)}
 .dial-date b{font-size:16px;font-weight:600;color:var(--ink)}
-.dial-r::before{content:"· "}
+.dial-r{display:inline-flex;align-items:center;gap:.45em}
+.dial-r .opt,.dial-r .sep{white-space:pre}
+.dial-r::before{content:"·"}
+.dial-r .theme{vertical-align:0;padding:0 2px;position:relative;top:-.75px}
 .dial-meta{font-family:var(--f-label);font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .dial-meta .latest{color:var(--accent);font-weight:600}
 .dial-track{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -93,7 +97,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .tick[aria-current="page"] .stem{height:12px;background:var(--ink-soft)}
 .tick[aria-current="page"] .d{font-size:14px;font-weight:600;color:var(--ink);opacity:1;padding:0 3px 3px;border-bottom:2px solid var(--accent);margin-bottom:-5px}
 /* Ay adı: şeridin başında ve ay değişiminde */
-.ticks .mo{font-family:var(--f-label);font-size:10.5px;letter-spacing:.09em;color:var(--ink-soft);padding:0 8px 7px 14px;line-height:1}
+.ticks .mo{font-family:var(--f-label);font-size:10.5px;letter-spacing:.09em;color:var(--ink-soft);padding:0 8px 5.5px 14px;line-height:1}
 .ticks .mo:first-child{padding-left:0}
 
 
@@ -268,7 +272,8 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   .mast-date{display:none}
   .mast .tag{text-align:center;justify-content:center}
   .mast .logo{width:min(100%,290px)}
-  .dial-step{font-size:24px;width:36px;height:36px}
+  .dial-step{width:36px;height:36px}
+  .dial-step svg{width:8px;height:13px}
 }
 @media (max-width:400px){.dial-head{gap:4px}.dial-step{width:26px}.dial-meta{letter-spacing:.03em}.dial-now{column-gap:.35em}}
 @media (min-width:561px){.more{display:none!important}}
@@ -286,11 +291,13 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   .dial-date,.dial-r::before{display:none}
   .dial-l{grid-area:l;text-align:left}
   .dial-r{grid-area:r;text-align:right}
-  .dial-meta{padding-bottom:4px}
+  /* Ok, ay adı, rakamlar ve yan yazılar aynı yatay eksende: hepsinin orta noktası şeridin altından 10,5px yukarıda */
+  .dial-meta{line-height:1;padding-bottom:3.5px}
+  .dial-r{justify-content:flex-end}
   .dial-step[rel="prev"],.dial-step:first-child{grid-area:prev}
   .dial-step[rel="next"],.dial-step:last-child{grid-area:next}
   .dial-track{grid-area:track}
-  .dial-step{padding-bottom:5px;font-size:19px}
+  .dial-step{padding-bottom:5.75px}
 
 }
 @media (min-width:561px) and (max-width:900px){
