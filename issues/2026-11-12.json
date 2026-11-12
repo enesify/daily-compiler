@@ -1,0 +1,468 @@
+{
+ "date": "2026-11-12",
+ "number": 10,
+ "dateLabel": "Perşembe, 12 Kasım 2026",
+ "readingMinutes": 15,
+ "figures": [
+  {
+   "n": "30 Kasım",
+   "l": "Gemini 4 Carbon'da tanıtım fiyatının son günü",
+   "ref": "manset"
+  },
+  {
+   "n": "0,10 dolar",
+   "l": "Gemini Decisions API'de milyon girdi token'ının fiyatı",
+   "ref": "ai-1"
+  },
+  {
+   "n": "11",
+   "l": "Agent Name Service'i destekleyen kuruluş sayısı",
+   "ref": "ai-4"
+  },
+  {
+   "n": "500 milyon dolar",
+   "l": "Torus'un modüler AI veri merkezi için topladığı Series C",
+   "ref": "is-2"
+  },
+  {
+   "n": "16",
+   "l": "Node.js'in üç sürüm hattında kapanan açık sayısı",
+   "ref": "guvenlik-1"
+  }
+ ],
+ "lead": {
+  "kicker": "Şirket beyanı · Model sürümü",
+  "alert": false,
+  "headline": "Gemini 4 Carbon ücretli API'ye açıldı; fiyat 30 Kasım'dan sonra ikiye katlanıyor",
+  "deck": "Google'ın en güçlü modeli artık tüm ücretli geliştiricilerde. Tanıtım fiyatı milyon token başına 2/10 dolar, Antigravity'de ise tek prompt'tan agent ekibi kuran `/swarm` önizlemede.",
+  "paragraphs": [
+   "Google'ın en güçlü modeli Gemini 4 Carbon, Gemini API'nin ücretli katmanındaki tüm geliştiricilere ve kurumlara açıldı. Model iki hafta önce yalnızca Fairwind programındaki siber savunma ekiplerine verilmişti. Google DeepMind'ın 10 Kasım tarihli duyurusuna göre Carbon; AI Studio, Android Studio, Gemini for business ve Google'ın agent tabanlı geliştirme ortamı Antigravity üzerinden kullanılabiliyor. Google AI Ultra aboneleri modeli Gemini uygulamasında da deneyebiliyor.",
+   "Tanıtım fiyatı milyon girdi token'ı için 2, çıktı token'ı için 10 dolar; bu, Gemini 4 Argon'un tanıtım fiyatıyla aynı. 30 Kasım'dan sonra fiyat 4 ve 20 dolara çıkacak. Google, Carbon'un problemleri keşfetmek ve doğrulama döngüleri çalıştırmak için daha fazla token harcadığını yazıyor. Şirkete göre yazılım geliştirme ve bilgi işlerinin çoğunda Argon hâlâ daha iyi seçim.",
+   "Antigravity'de önizlemede olan `/swarm`, tek bir prompt'u gerçek zamanlı izlenebilen koordineli bir agent ekibine dönüştürüyor. Geliştirici mimari tasarım, koordinasyon ve denetim gibi yoğun akıl yürütme isteyen rolleri Carbon'a verebiliyor. Uygulama işini ise paralel ve izole çalışma alanlarındaki daha hızlı, hafif modellere bırakabiliyor; ekibe karşıt doğrulayıcılar da eklenebiliyor.",
+   "Google'ın kendi ölçümlerine göre Carbon; CursorBench 4.0, Perplexity'nin WANDR'ı ve Zapier'in AutomationBench testlerinde birinci. Görev başına maliyeti de en yakın harici modelden iki kattan fazla düşük. Simüle saldırı testlerinde deneme başına ihlal oranı Argon'daki %3,1'den %0,8'e inmiş. Google, prompt injection dayanıklılığının hâlâ geliştirilmesi gereken bir alan olduğunu da not ediyor. Modelin ilk duyurusunu 4 Kasım sayısında aktarmıştık."
+  ],
+  "sources": [
+   {
+    "label": "Google: Gemini 4 Carbon now available",
+    "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/"
+   },
+   {
+    "label": "4 Kasım sayısı: Gemini 4 Carbon, Intelligence Index'te bir puan farkla önde",
+    "url": "#2026-11-04-ai-2"
+   }
+  ],
+  "box": {
+   "kicker": "Pratik çıkarım",
+   "title": "Carbon'u denemeden önce token'ı ölçün",
+   "items": [
+    "Carbon'u varsayılan model yapmadan önce kendi görevlerinizde token tüketimini Argon'la yan yana ölçün; Google bile çoğu iş için Argon'u öneriyor.",
+    "Değerlendirmeyi 30 Kasım'dan önce bitirin; sonrasında aynı iş yükü iki kat fiyattan faturalanacak.",
+    "Çok agent'lı akışlarda pahalı modeli planlama ve denetim rollerine ayırıp uygulamayı ucuz modellere bırakmak, `/swarm` kullansanız da kullanmasanız da maliyeti sınırlamanın yolu.",
+    "CursorBench gibi sonuçlar şirket beyanı; kararı kendi repolarınızdan seçtiğiniz gerçek görevlerle verin."
+   ],
+   "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
+  }
+ },
+ "sections": [
+  {
+   "id": "ai",
+   "title": "Yapay Zeka & LLM",
+   "subtitle": "Agent kararlarına metinsiz API · United agent'larla rezervasyonu yasakladı · Avustralya'da AI regülatörü · agent kimliği için ANS · Claude'a ekip araçları",
+   "articles": [
+    {
+     "size": 8,
+     "big": true,
+     "kicker": "Şirket beyanı · API",
+     "headline": "Gemini Decisions API, agent kararlarını metin üretmeden puanlıyor",
+     "paragraphs": [
+      "Tool seçimi, politika kontrolü, model yönlendirme ve context derecelendirme gibi kapalı kümeli kararlar için Google'dan yeni bir uç nokta geldi. Gemini Decisions API cevap metni üretmiyor. Aday seçenekleri modelden tek bir ileri geçişte (forward pass) puanlıyor. 11 Kasım'da açıklanan API `gemini-decision-1` modeliyle çalışıyor ve her cevap için 0 ile 1 arasında bir güven skoru döndürüyor. Üç soru tipi var: evet/hayır, 2-255 seçenekli çoktan seçmeli ve sıralı rubrik puanı.",
+      "Tek istekte metin, görsel, ses, video ve PDF'ten oluşan 256 bin token'a kadar ortak bir girdi veriliyor ve aynı girdi üzerinde 1.000'e kadar soru sorulabiliyor. Fiyat milyon girdi token'ı başına 0,10 dolar, çıktı token'ı ücretsiz. Ortak girdi istek başına bir kez faturalanıyor. Google'a göre uçtan uca gecikme 150-250 ms ve soru sayısı 1'den 100'e çıktığında neredeyse sabit kalıyor; bu ölçüm 16 bin token'a kadar context için geçerli.",
+      "Şirket, kendi benchmark setinde en düşük kalibrasyon hatasını, yani güven skoru ile gerçek isabet arasındaki en küçük farkı verdiğini söylüyor. Interactions API ile kullanılan Gemini 3.5 Flash-Lite'tan yaklaşık 5 kat ucuz olduğunu da ekliyor; rakamlar Google'ın kendi ölçümü. API, Gemini API ve AI Studio'da ücretsiz prototip katmanıyla açık. OpenRouter, LangChain, Vercel ve LiteLLM gibi entegrasyonlar kademeli olarak geliyor; Google Cloud desteği ise “yakında”."
+     ],
+     "why": "Agent'larda tool seçimi ve yönlendirme için tam bir LLM çağrısı yapan ekipler, bu adımları metin üretmeyen ve çıktısı ücretsiz bir çağrıya taşıyabilir.",
+     "sources": [
+      {
+       "label": "Google: Gemini Decisions API",
+       "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "Politika · Agent'lar",
+     "headline": "United Airlines, AI agent'larla rezervasyonu yasakladı",
+     "paragraphs": [
+      "Yolcular adına uçuş rezervasyonu yapan üçüncü taraf kişisel AI agent'ları ve asistanları United Airlines'ta artık yasak. Havayolu 11 Kasım'da rezervasyon ve biletleme politikalarını güncelledi; erişimi hem kendi dijital platformlarında hem de seyahat acenteleri ve aggregator'lar üzerinden kısıtlayacak. Gerekçe olarak hesap bilgilerini agent'larla paylaşmanın hassas veriyi açığa çıkarabileceğini, istenmeyen satın alma ve mil kullanımını gösteriyor. Check-in'deki yüz yüze beyan gibi federal kuralların çiğnenebileceğini de ekliyor. Atmosphere Research Group'tan Henry Harteveldt'e göre United, rezervasyon sürecini kontrol etmek ve araya yeni bir aracı girmesini önlemek istiyor. Southwest ise uçuş envanterini ChatGPT kullanıcılarına açmıştı."
+     ],
+     "sources": [
+      {
+       "label": "CBS News",
+       "url": "https://www.cbsnews.com/news/united-airlines-bans-ai-agents-booking-flights/"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "Regülasyon · Avustralya",
+     "headline": "Avustralya, OpenAI olayının ardından AI regülatörü kuruyor",
+     "paragraphs": [
+      "Avustralya bir AI güvenlik regülatörü kuracak ve AI şirketlerini ciddi olayları hükümete bildirmeye zorlayacak. Başbakan Anthony Albanese'nin 10 Kasım'daki açıklamasına göre kurallar hazırlanan AI yasasına girecek. Tetikleyici, bir OpenAI agent'ının Haziran'da Medicare verisi barındıran bir devlet istatistik portalına erişmesiydi. OpenAI erişimi Ağustos'ta fark etti ve hükümete ilk kez 10 Eylül'de genel bir e-posta adresinden yazdı. Albanese kişisel bilgi alınmadığını söyledi. Hükümet olay incelemesinin 18 önerisinin hepsini kabul etti. Regülatör yüksek para cezası kesebilecek; tutar ve takvim verilmedi."
+     ],
+     "sources": [
+      {
+       "label": "The Next Web",
+       "url": "https://thenextweb.com/news/australia-plans-ai-safety-regulator-after-openai-agent-breach"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "Standart · Agent kimliği",
+     "headline": "Agent kimliği için DNS tabanlı ANS, Linux Foundation'da",
+     "paragraphs": [
+      "Agent Name Service (ANS), Linux Foundation projesi oldu. Standart, AI agent'larının kimliğini web sitelerinin zaten kullandığı DNS ve sertifikalarla doğrulamayı hedefliyor. 10 Kasım'da KubeCon North America'da duyurulan ANS, agent'ların nasıl adlandırılıp kaydedileceğini, kimliklerin DNS'te nasıl yayımlanıp doğrulanacağını tanımlıyor. Yedi spesifikasyon belgesi, kimlik kayıtlarındaki yetkisiz değişikliklerin izlenmesini, açık log denetimini ve agent'tan agent'a kimlik doğrulamayı da kapsıyor. Cisco, Cloudflare, DigiCert, GoDaddy, Salesforce ve OWASP dahil 11 kuruluş projeyi destekliyor. İlk geliştirmeyi DistributedApps.ai CEO'su Ken Huang yönetti; vakıf projeyi başlatma niyetini Haziran'da açıklamıştı."
+     ],
+     "sources": [
+      {
+       "label": "Linux Foundation",
+       "url": "https://www.linuxfoundation.org/press/linux-foundation-welcomes-agent-name-service-to-bring-verifiable-identity-and-discovery-to-ai-agents"
+      },
+      {
+       "label": "GitHub: agentnameservice",
+       "url": "https://github.com/agentnameservice"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "Ürün · Anthropic",
+     "headline": "Claude'a Sheets, Whiteboards ve kurum geneli Auto-connect",
+     "paragraphs": [
+      "Claude'un ekip ürünlerine ortak tablo, beyaz tahta ve veri panosu araçları eklendi. Anthropic'in 10 Kasım tarihli yazısına göre Claude Sheets'te ekip ve Claude birlikte formül yazıp birden çok sekmede çalışabiliyor. Eski adı Dashboards olan Claude Data, Snowflake ve Salesforce gibi kaynaklardan pano üretiyor. Interactive connector'lar Adobe ve Atlassian gibi uygulamaları sohbetin yanına getiriyor. Beta'daki Auto-connect'te yönetici bir uygulama bağlantısını kurum için bir kez kuruyor. Enterprise'ta her bulut oturumuna izole sanal makine, audit log ve Compliance API var; Claude Meetings ise “yakında”."
+     ],
+     "sources": [
+      {
+       "label": "Claude: Sheets, Whiteboards ve interactive connector'lar",
+       "url": "https://claude.com/resources/articles/more-ways-to-work-with-claude-sheets-whiteboards-and-interactive-connectors"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "is",
+   "title": "Şirketler & Altyapı",
+   "subtitle": "Nvidia yönetim kurulu Huang'ın geleceğini tartışıyor · Torus'a modüler veri merkezi için 500 milyon dolar",
+   "articles": [
+    {
+     "size": 6,
+     "kicker": "İddia · Nvidia",
+     "headline": "WSJ: Nvidia yönetim kurulu Huang'ı görevden almaya hazırlanıyor",
+     "paragraphs": [
+      "The Wall Street Journal'a göre Nvidia'nın yönetim kurulu CEO Jensen Huang'ı görevden almaya hazırlanıyor; WSJ haberine kendimiz erişemedik. Reuters'a konuşan bir kaynak, kurulun 11 Kasım Çarşamba günü bu konuyu karara bağlamak için toplandığını söyledi; Nvidia, Reuters'ın yorum talebine hemen yanıt vermedi. CBS News'e göre gerekçe, ABD istihbaratının Çin'in ajanı olduğundan şüphelendiği bir kadınla Huang'ın yaşadığı iddia edilen ilişki. CBS'e konuşan iki kaynak, Trump yönetiminin konudan haberdar olduğunu söyledi. Nvidia hisseleri Çarşamba mesai sonrası işlemlerde %8'den fazla düştü. Kurul Pazar günü Huang'a güvendiğini açıklayıp bağımsız soruşturma başlatmıştı. Sonuç henüz açıklanmadı."
+     ],
+     "sources": [
+      {
+       "label": "Reuters (GV Wire)",
+       "url": "https://gvwire.com/2026/11/11/nvidia-board-meets-to-decide-ceo-huangs-future-source-says/"
+      },
+      {
+       "label": "CBS News",
+       "url": "https://www.cbsnews.com/news/nvidia-board-ceo-jensen-huang-china/"
+      },
+      {
+       "label": "9 Kasım sayısı: Nvidia yönetim kurulu bağımsız soruşturma başlattı",
+       "url": "#2026-11-09-is-2"
+      }
+     ]
+    },
+    {
+     "size": 6,
+     "kicker": "Yatırım · Veri merkezi",
+     "headline": "Torus, modüler AI veri merkezi için 500 milyon dolar topladı",
+     "paragraphs": [
+      "Salt Lake City merkezli Torus, Magnetar liderliğindeki Series C turunda 500 milyon dolar topladı. Şirketin Foundry adlı ürünü, AI hesaplama donanımını enerji depolama ve güç yönetimiyle birleştiren modüler bir veri merkezi sistemi. The Tech Capital'ın 11 Kasım tarihli haberine göre fon, Salt Lake City'deki üretimi büyütmekte kullanılacak. Torus, 2027 sonuna kadar Foundry birimlerinde toplam 47 binden fazla GPU'ya ulaşmayı hedefliyor. Haberin geri kalanı abonelik arkasında olduğu için modüllerin kapasitesi ve turdaki diğer yatırımcıların rolü gibi ayrıntılara erişemedik."
+     ],
+     "sources": [
+      {
+       "label": "The Tech Capital",
+       "url": "https://thetechcapital.com/torus-raises-500-million-modular-ai-data-centre-production/"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gelistirme",
+   "title": "Geliştirme & Araçlar",
+   "subtitle": "Agent'ların yazdığı AWS Emulator yerel test için açık kaynak · Huawei'nin quantization aracı MACaQ",
+   "articles": [
+    {
+     "size": 8,
+     "big": true,
+     "kicker": "Şirket beyanı · Test araçları",
+     "headline": "AWS Emulator yayında; Amazon'a göre kodun tamamını agent'lar yazdı",
+     "paragraphs": [
+      "AWS hesabı açmadan, AWS CLI ve SDK'ları yerelde çalışan bir emülatöre yönlendirerek test yapmak artık mümkün: AWS Emulator 11 Kasım'da açık kaynak olarak yayımlandı. Rust ile yazılan araç, AWS'nin GitHub'daki API modelleri reposunda modeli bulunan servislerin API'lerini destekliyor; CC0 1.0 lisanslı ve ek ücreti yok. Linux'ta RPM ya da Debian paketiyle kuruluyor. macOS ve Windows'ta dokümandaki Dockerfile'dan imaj üretmek gerekiyor, hazır imaj yayımlanmıyor. Emülatör `127.0.0.1:9297` üzerinde HTTPS sunuyor ve `AWS_ENDPOINT_URL` gibi ortam değişkenleriyle bağlanılıyor.",
+      "Sınırlar açıkça yazılmış: IAM ve kaynak tabanlı politikalar AWS'deki gibi değerlendirilmiyor, yani AWS'nin reddedeceği bir istek yerelde geçebilir. Her emülatör tek hesap gibi davranıyor, hesaplar ve Region'lar arası davranış yok. Uygulanmamış operasyonlar HTTP 501 döndürüyor. Her sürüm servis başına “50 testten 40'ı” biçiminde bir uyumluluk skoru yayımlıyor ve test suite ayrı bir repoda açık. Telemetri varsayılan olarak açık, kapatılabiliyor.",
+      "Amazon kıdemli baş mühendisi Matthew Goldberg'e göre kodun her satırını binlerce otonom agent yazdı; ekip kodun hiçbirini yazmadı ya da incelemedi. İnsanlar guardrail'leri, test suite'i ve merge kapısını kurdu. Her test gönderilmeden önce gerçek AWS'ye karşı doğrulanıyor. Goldberg, güvenilir bir ürün çıkarmanın yine ciddi mühendislik emeği gerektirdiğini de not ediyor. Repo pull request kabul etmiyor, hatalar GitHub Issues'a bildiriliyor."
+     ],
+     "why": "AWS'ye bağımlı entegrasyon testleri hesap ve ücret olmadan yerelde koşabilir; ama yerelde geçen bir istek IAM politikası yüzünden AWS'de reddedilebilir.",
+     "sources": [
+      {
+       "label": "AWS blog: AWS Emulator",
+       "url": "https://aws.amazon.com/blogs/aws/test-your-applications-against-aws-locally-with-aws-emulator/"
+      },
+      {
+       "label": "About Amazon: agent'ların AWS Emulator'ı nasıl yazdığı",
+       "url": "https://www.aboutamazon.com/news/aws/how-autonomous-ai-agents-built-aws-emulator"
+      },
+      {
+       "label": "GitHub: aws/aws-emulator",
+       "url": "https://github.com/aws/aws-emulator"
+      }
+     ]
+    },
+    {
+     "size": 4,
+     "kicker": "Şirket beyanı · Yerel çıkarım",
+     "headline": "Huawei, quantization aracı MACaQ'yu açık kaynak yaptı",
+     "paragraphs": [
+      "Huawei CSL, yerel çıkarımda kullandığı quantization aracı MACaQ'yu Apache 2.0 lisansıyla GitHub'da yayımladı. Quantization, model ağırlıklarını daha az bitle saklayıp bellek ihtiyacını düşürüyor. Araç metin modellerini llama.cpp için 2, 3 ve 4 bitlik GGUF dosyalarına çeviriyor; vLLM, Diffusers ve PyTorch için W4A4 desteği de var. Huawei'ye göre 122 milyar parametreli bir model 32,5 GB cihaz belleğiyle 64 dakikada nicelenebiliyor. Qwen3.8-27B'de vLLM üzerinde W4A4, BF16'ya göre prefill'i 2,33 kat, decode'u 2,58 kat hızlandırıyor. Rakamların hepsi şirketin kendi ölçümü."
+     ],
+     "sources": [
+      {
+       "label": "GitHub: huawei-csl/MACaQ",
+       "url": "https://github.com/huawei-csl/MACaQ"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "java",
+   "title": "Java & Spring",
+   "subtitle": "Primitive Patterns JDK 28'den çıkarılıyor · Batik ve FOP'ta sekiz açık kapandı",
+   "articles": [
+    {
+     "size": 6,
+     "kicker": "OpenJDK · JDK 28",
+     "headline": "Primitive Patterns JDK 28'den çıkıyor; sırada Constant Patterns",
+     "paragraphs": [
+      "Primitive tiplerin pattern'lerde, `instanceof` ve `switch`'te kullanımı JDK 28'de olmayacak; özellik `--enable-preview` ile de açılamayacak. Angelos Bimpoudis ve Gavin Bierman'ın 9 Kasım'da amber-spec-experts listesine yazdığına göre altıncı preview için hazırlanan taslak JEP geri çekiliyor. Özellik JDK 23'ten 27'ye beş kez preview olarak çıkmıştı. Gerekçe Valhalla: proje, kullanıcı tanımlı sayısal tipleri de içeren yeni bir sayısal tip vizyonu üzerinde çalışıyor. Bu iş sürerken kesin sayısal dönüşüm tanımını kesinleştirmek erken bulunuyor. Yerine `case Point(0, 0)` gibi sabitleri pattern olarak kullanan Constant Patterns için taslak JEP yakında yayımlanacak."
+     ],
+     "why": "JDK 27'de bu preview'ı kullanan kod JDK 28'e geçerken derlenmeyecek; deneme amaçlı kullananların bu bloklarını şimdiden ayırması gerekiyor.",
+     "sources": [
+      {
+       "label": "amber-spec-experts: Withdrawing the Primitive Patterns preview feature",
+       "url": "https://mail.openjdk.org/archives/list/amber-spec-experts@openjdk.org/thread/UYEK3PGOHN6R56AHJTSLPGAY363K666S/"
+      },
+      {
+       "label": "inside.java",
+       "url": "https://inside.java/"
+      }
+     ]
+    },
+    {
+     "size": 6,
+     "kicker": "Güvenlik · Apache XML Graphics",
+     "headline": "Batik 1.20 ve FOP 2.12: SVG ve PDF kütüphanelerinde sekiz açık",
+     "paragraphs": [
+      "Java'da SVG işlemek için kullanılan Apache Batik'in 1.19 sürümünde altı, PDF üreten Apache FOP'un 2.11 sürümünde iki açık kapatıldı. Düzeltmeler Batik 1.20 ve FOP 2.12'de. Batik açıkları arasında iki SSRF var; biri SVG `color-profile` öğesindeki `xml:base` ile harici kaynak kontrolünü atlatıyor. SVGFont'ta bir XSS ve SVG öğe referanslarında bir DoS da düzeltildi; hepsi “moderate”. FOP'ta hyphenation yüklemedeki güvensiz deserialization (moderate) ve Unix'te geçici dosyalara erişimi kısıtlamayan `TemporaryFolder` (low) kapandı. 11 Kasım'daki duyurularda teknik ayrıntı çok az; Apache iki projede de yükseltme öneriyor."
+     ],
+     "sources": [
+      {
+       "label": "oss-security: Batik SSRF (CVE-2026-49236)",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/11/18"
+      },
+      {
+       "label": "oss-security: FOP deserialization (CVE-2026-71395)",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/11/19"
+      },
+      {
+       "label": "oss-security: Batik XSS (CVE-2026-40853)",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/11/16"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "guvenlik",
+   "title": "Güvenlik",
+   "subtitle": "Node.js'te 16 açık · Apache httpd'de kritik RCE · Git'te altı açık · Apache Roller'da 15 CVE",
+   "articles": [
+    {
+     "size": 6,
+     "kicker": "Güvenlik · Node.js",
+     "headline": "Node.js 22, 24 ve 26'da yedisi yüksek önemde 16 açık kapandı",
+     "paragraphs": [
+      "Node.js'in desteklenen üç sürüm hattında 16 açık kapatıldı; yedisi “high”. Düzeltmeler 22.23.5, 24.22.3 ve 26.13.1'de. Yüksek önemdekilerin çoğu HTTP/2 ve TLS katmanında: kimliği doğrulanmamış bir HTTP/2 istemcisi sunucuyu çökertebiliyor, HTTPS'teki bir use-after-free istek gövdelerine heap verisi sızdırabiliyor. TLS 1.2 renegotiation ile host başına istemci sertifikası doğrulaması da atlatılabiliyor. Sürümler llhttp ve undici bağımlılıklarını da güncelliyor. Beş açığın bulunuşu Chris Rohlf'a “Claude ve Anthropic Research ile birlikte” atfediliyor."
+     ],
+     "sources": [
+      {
+       "label": "Node.js: November 2026 security releases",
+       "url": "https://nodejs.org/en/blog/vulnerability/november-2026-security-releases"
+      }
+     ]
+    },
+    {
+     "size": 6,
+     "kicker": "Güvenlik · Apache HTTP Server",
+     "headline": "Apache httpd 2.4.71, mod_http2'deki kritik RCE açığını kapattı",
+     "paragraphs": [
+      "Apache HTTP Server 2.4.55-2.4.70'te mod_http2'nin `assign_headers()` fonksiyonundaki senkronizasyon hatası heap bozulmasına ve uzaktan kod çalıştırmaya yol açabiliyor. “Critical” önemdeki CVE-2026-119618, 11 Kasım'da çıkan 2.4.71'de düzeltildi; aynı sürüm mod_md'de çökmeye yol açan “important” bir açığı da kapatıyor. Açığı bulanlar arasında Anthropic'in OSS Scanner'ı ve Google Cloud araştırmacıları var. Wiz'e göre bilinen bir istismar yok. Hemen yükseltemeyenler HTTP/2'yi kapatıp `Protocols http/1.1` ile yalnızca HTTP/1.1 kullanabilir."
+     ],
+     "sources": [
+      {
+       "label": "Apache httpd 2.4 güvenlik sayfası",
+       "url": "https://httpd.apache.org/security/vulnerabilities_24.html"
+      },
+      {
+       "label": "oss-security",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/11/13"
+      },
+      {
+       "label": "Wiz",
+       "url": "https://www.wiz.io/blog/cve-2026-119618-rce-apache-http-server-vulnerability"
+      }
+     ]
+    },
+    {
+     "size": 6,
+     "kicker": "Güvenlik · Git",
+     "headline": "Git'te altı açık: kötü niyetli submodule `.git`'in üzerine yazabiliyor",
+     "paragraphs": [
+      "Git 2.27.0'dan bu yana tüm sürümleri etkileyen altı açık için 2.50.2'den 2.56.1'e kadar yedi bakım sürümü çıktı; 2.50 öncesine düzeltme yok. En ciddisinde, saldırganın reposu `--recurse-submodules` ile klonlandığında bir symlink submodule'deki `.git`'in üzerine yazabiliyor; bu, hook ya da config üzerinden kod çalıştırmaya yol açabilir. Diğerleri arasında, sunucu tarafında `merge-tree` ile birleştirilebilirlik kontrolü yapan forge'ları da etkileyebilen bir merge heap taşması ve `fast-import`'ta keyfi dosya okuma-yazma var. Bu `fast-import` özellikleri artık geriye uyumsuz biçimde `--allow-unsafe-features` istiyor."
+     ],
+     "sources": [
+      {
+       "label": "oss-security: Git güvenlik sürümleri",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/11/10"
+      }
+     ]
+    },
+    {
+     "size": 6,
+     "kicker": "Güvenlik · Apache Roller",
+     "headline": "Apache Roller 6.1.7 tek seferde 15 CVE'yi kapattı",
+     "paragraphs": [
+      "Java tabanlı blog platformu Apache Roller'ın 4.0-6.1.6 sürümlerini etkileyen 15 açık 6.1.7'de düzeltildi. “Important” önemdeki üç açıktan biri ping istemcisindeki güvensiz deserialization: kötü niyetli bir ping hedefinin yanıtı sunucuda kod çalıştırabiliyor. Blog yayın protokolü AtomPub'daki XXE açığı yetki kontrolünden önce çalıştığı için weblog izni olmayan herhangi bir hesapla dosya okutabiliyor. Varsayılan olarak açık Planet aggregator artık kapalı geliyor. Yorumcu e-postalarını temizlemek için arama indeksi yeniden oluşturulmalı."
+     ],
+     "sources": [
+      {
+       "label": "oss-security: Apache Roller 6.1.7",
+       "url": "https://www.openwall.com/lists/oss-security/2026/11/11/6"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "repos": {
+  "subtitle": "GitHub Trending (günlük) ve Trendshift sıralamalarından seçme · yıldız sayıları repo sayfalarından, 12 Kasım",
+  "items": [
+   {
+    "name": "yetone/magpie",
+    "url": "https://github.com/yetone/magpie",
+    "stars": "34,9 bin",
+    "starsValue": 34900,
+    "cat": "Agent araçları",
+    "why": "Her kodlama agent'ına ayrı model atayan menü çubuğu uygulaması; yerel gateway'i OpenAI, Anthropic ve Gemini API formatları arasında streaming ve tool call dahil çeviri yapıyor. Repo, Trendshift'in 12 Kasım günlük listesine 22. sıradan girdi.",
+    "meta": "Agent araçları"
+   },
+   {
+    "name": "dream-num/univer",
+    "url": "https://github.com/dream-num/univer",
+    "stars": "23,3 bin",
+    "starsValue": 23300,
+    "cat": "Ofis SDK'sı",
+    "why": "Düzenleme, hesaplama ve iş birliği sunan açık kaynak ofis SDK'sı. Agent'ların izole taslaklarda birkaç tur çalışıp sonucu insana devretmesini sağlayan worktree draft'ları ekledi ve Trendshift günlük listesinde 21. sırada.",
+    "meta": "Ofis SDK'sı"
+   },
+   {
+    "name": "openai/codex-security",
+    "url": "https://github.com/openai/codex-security",
+    "stars": "11.856",
+    "starsValue": 11856,
+    "lang": "TypeScript",
+    "cat": "Güvenlik",
+    "why": "Repoları tarayıp bulguları doğrulayan, yama üreten ve sonuçları SARIF olarak dışa aktaran Codex Security CLI'ı ve TypeScript SDK'sı. GitHub günlük trending'de 9., Trendshift'te 6. sırada; yerel `serve` komutu ve tarayıcı paneli kaldırıldı.",
+    "meta": "TypeScript · Güvenlik"
+   },
+   {
+    "name": "kuafuai/andee",
+    "url": "https://github.com/kuafuai/andee",
+    "stars": "4,9 bin",
+    "starsValue": 4900,
+    "cat": "Cihaz agent'ı",
+    "why": "Android telefonda ya da Mac'te uygulamaları erişilebilirlik ağacı üzerinden bir insan gibi kullanan, belleğini ve parolalarını cihazda tutan agent. Son sürümü v0.14.2 olan repo Trendshift günlük listesinde 18. sırada.",
+    "meta": "Cihaz agent'ı"
+   },
+   {
+    "name": "FrigadeHQ/yogurt",
+    "url": "https://github.com/FrigadeHQ/yogurt",
+    "stars": "487",
+    "starsValue": 487,
+    "cat": "Toplantı notları",
+    "why": "Toplantıya bot eklemeden kayıt alıp kişi bazında sonraki adımları içeren özet çıkaran, MIT lisanslı açık kaynak AI toplantı notu uygulaması. Show HN ile 11 Kasım'da tanıtıldı, Hacker News ön sayfasına ve Trendshift'te 10. sıraya çıktı.",
+    "meta": "Toplantı notları"
+   },
+   {
+    "name": "wici-ai/inferssd",
+    "url": "https://github.com/wici-ai/inferssd",
+    "stars": "474",
+    "starsValue": 474,
+    "cat": "Yerel çıkarım",
+    "why": "RAM ya da VRAM'e sığmayan MoE modellerini uzmanları SSD'den akıtarak çalıştıran, llama.cpp tabanlı araç. README'deki ölçüme göre DeepSeek-V4.1-Flash'ta RTX 5090 üzerinde prefill llama.cpp'den 20,41 kat hızlı; Trendshift'te 12. sırada.",
+    "meta": "Yerel çıkarım"
+   }
+  ],
+  "sources": [
+   {
+    "label": "GitHub Trending · günlük",
+    "url": "https://github.com/trending"
+   },
+   {
+    "label": "Trendshift",
+    "url": "https://trendshift.io/"
+   },
+   {
+    "label": "Show HN: Yogurt",
+    "url": "https://news.ycombinator.com/item?id=50454625"
+   }
+  ]
+ },
+ "briefs": [
+  {
+   "tag": "Güvenlik",
+   "text": "Emacs 31.1'de `.dir-locals.el` üzerinden keyfi kod çalıştırmaya izin veren bir açık bildirildi; Emacs 30.2 etkilenmiyor. Yama duyuruya eklendi ve çıkacak 31.2 sürümünde yer alacak; duyuruda geçici bir önlem yok.",
+   "url": "https://www.openwall.com/lists/oss-security/2026/11/11/7"
+  },
+  {
+   "tag": "İddia · Yerel AI",
+   "text": "9to5Mac'in bir sızıntıya dayanan haberine göre Apple, Claris markası altında Mac'i açık ağırlıklı modeller için yerel çıkarım sunucusuna çeviren Harbor adlı bir uygulamayı özel önizlemede test ediyor. Sızan açıklamaya göre uygulama, Thunderbolt 5 ile bağlı Mac'leri kümeleyip birleşik belleklerini büyük modeller için birleştirebilecek.",
+   "url": "https://9to5mac.com/2026/11/10/apple-has-new-mac-app-coming-to-make-running-local-ai-models-easy/"
+  },
+  {
+   "tag": "Konuşma tanıma",
+   "text": "ElevenLabs'in Scribe v3 modeli, şirketin FLEURS ölçümüne göre 102 dilde Scribe v2'den %27 daha az kelime hatası yapıyor. Gerçek zamanlı Scribe v3 Live ilk kez konuşmacı ayrımı getiriyor; iki model de API'de `scribe_v3` ve `scribe_v3_live` kimlikleriyle kullanılabiliyor.",
+   "url": "https://elevenlabs.io/blog/scribe-v3"
+  },
+  {
+   "tag": "Açık model",
+   "text": "MiniMax, görsel üretme ve düzenleme modeli H3-Image'ın ağırlıklarını Hugging Face'te yayımladı; sayfada lisans adı geçmiyor. Şirkete göre model 4096 × 4096 bir görseli 10 saniyenin altında üretiyor ve 16'ya kadar referans görsel alıyor.",
+   "url": "https://www.minimax.io/blog/minimax-h3-image"
+  },
+  {
+   "tag": "Şirket",
+   "text": "OpenAI, Sonder'in kurucusu Francis Davidson'ın yaklaşık bir yıllık AI seyahat agent'ı girişimi Odessia'yı satın aldı; şartlar açıklanmadı. TechCrunch anlaşmayı bir acqui-hire olarak değerlendiriyor, Odessia'nın aracı ise kapatıldı.",
+   "url": "https://techcrunch.com/2026/11/10/openai-acquires-odessia-travel-startup-created-by-sonder-founder/"
+  },
+  {
+   "tag": "AI destekli geliştirme",
+   "text": "Matematikçi Terence Tao, 2018 tarihli mantık öğretme oyunu QED'i bir kodlama agent'ıyla yeniden yazdı; Lean Grimoire adlı yeni sürüm oyun durumunun Lean ispatını gösterebiliyor. Tao uygulama için oyun testçisi arıyor.",
+   "url": "https://terrytao.wordpress.com/2026/11/11/lean-grimoire/"
+  }
+ ]
+}
