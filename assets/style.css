@@ -92,8 +92,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* Seçili gün: kalın rakam ve turkuaz alt çizgi (bölüm menüsündeki seçili bölümle aynı dil) */
 .tick[aria-current="page"] .stem{height:12px;background:var(--ink-soft)}
 .tick[aria-current="page"] .d{font-size:14px;font-weight:600;color:var(--ink);opacity:1;padding:0 3px 3px;border-bottom:2px solid var(--accent);margin-bottom:-5px}
-/* Şeritte ay değişince araya giren ay adı */
-.ticks .mo{font-family:var(--f-label);font-size:10.5px;letter-spacing:.09em;color:var(--ink-soft);padding:0 8px 6px 12px;line-height:1}
+/* Ay adı: şeridin başında ve ay değişiminde */
+.ticks .mo{font-family:var(--f-label);font-size:10.5px;letter-spacing:.09em;color:var(--ink-soft);padding:0 8px 7px 14px;line-height:1}
+.ticks .mo:first-child{padding-left:0}
 
 
 /* Bölüm menüsü: sayfa boyunca üstte kalır, bulunulan bölüm vurgulanır; sığmazsa yatay kayar */

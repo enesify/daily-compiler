@@ -303,7 +303,7 @@ def dial(ctx, cur):
         lbl = f"{d.day} {MONTHS_LONG[d.month - 1]}" + (f" · Sayı {num3(it.get('number'))}" if it else " · sayı yok")
         inner = f'<span class="stem"></span><span class="d">{d.day}</span>'
         ms = " we" if d.weekday() >= 5 else ""
-        if d.day == 1 and d != start:   # şeritte ay değişiyorsa ay adı araya girer
+        if d == start or d.day == 1:   # şeridin başında ve ay değişiminde ay adı
             ticks.append(f'<span class="mo" aria-hidden="true">{esc(caps(MONTHS_LONG[d.month - 1]))}</span>')
         if it:
             cur_attr = ' aria-current="page"' if iso == cur["date"] else ""
