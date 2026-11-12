@@ -2,6 +2,7 @@
 """The Daily Compiler · statik site üretici.
 
 issues/*.json  →  index.html (son sayı), sayi/YYYY-MM-DD.html, arsiv.html, hakkinda.html, feed.xml
+data/modeller.json  →  modeller.html ve her sayıdaki “Modeller” bandı
 Kullanım:  python3 build.py
 Bağımlılık yok (yalnızca Python 3 standart kütüphanesi).
 """
@@ -10,6 +11,7 @@ import glob
 import hashlib
 import html
 import json
+import math
 import os
 import re
 import sys
@@ -147,13 +149,195 @@ def issue_path(date):
 
 
 class Ctx:
-    def __init__(self, issues, depth):
+    def __init__(self, issues, depth, models=None):
         self.issues = issues
+        self.models = models
         self.by_date = {i["date"]: i for i in issues}
         self.pre = "../" * depth if depth else ""
 
     def href(self, path):
         return self.pre + path
+
+
+
+# ---------------------------------------------------------------- modeller (data/modeller.json)
+def load_models():
+    """Model karşılaştırma verisi. Dosya yoksa ya da bozuksa sayfa ve bant hiç basılmaz."""
+    try:
+        D = json.load(open(os.path.join(ROOT, "data", "modeller.json"), encoding="utf-8"))
+        v = D["views"][0]
+        assert D["models"] and v["x"] in D["metrics"] and v["y"] in D["metrics"]
+        return D
+    except Exception as e:
+        print(f"UYARI: data/modeller.json kullanılamadı, Modeller sayfası üretilmedi: {e}", file=sys.stderr)
+        return None
+
+
+def tr_num(v, d):
+    return f"{v:.{d}f}".replace(".", ",")
+
+
+M_FMT = {  # (değer yazımı, eksen çentiği yazımı)
+    "puan": (lambda v: str(round(v)), lambda v: f"{v:g}"),
+    "yuzde": (lambda v: "%" + tr_num(v, 1), lambda v: f"%{v:g}"),
+    "usd": (lambda v: "$" + tr_num(v, 2), lambda v: "$" + (tr_num(v, 1) if v < 1 else f"{v:g}")),
+    "dk": (lambda v: tr_num(v, 1) + " dk", lambda v: f"{v:g}"),
+}
+
+
+def m_scale(D, k):
+    """(alt, üst, çentikler, log mu): eksen aralığı veriden hesaplanır (assets/modeller.js ile aynı kural)."""
+    vs = [m[k] for m in D["models"] if m.get(k) is not None]
+    lo, hi = min(vs), max(vs)
+    if D["metrics"][k].get("log"):
+        seq = [float(f"{s * 10.0 ** e:.1g}") for e in range(-3, 7) for s in (1, 2, 5)]
+        a, b = [x for x in seq if x <= lo][-1], [x for x in seq if x >= hi][0]
+        return a, b, [x for x in seq if a <= x <= b], True
+    pad = (hi - lo or 1) * .06
+    lo, hi = lo - pad, hi + pad
+    raw = (hi - lo) / 4
+    mag = 10 ** math.floor(math.log10(raw))
+    step = [x for x in (1, 2, 5, 10) if x * mag >= raw][0] * mag
+    a, b = math.floor(lo / step) * step, math.ceil(hi / step) * step
+    return a, b, [round(a + i * step, 6) for i in range(int(round((b - a) / step)) + 1)], False
+
+
+def m_color(D, m):
+    provs = list(dict.fromkeys(x["saglayici"] for x in D["models"]))
+    return f"var(--l{min(6, provs.index(m['saglayici']) + 1)})"
+
+
+def m_frontier(D, v):
+    """Aynı ya da daha düşük maliyete (süreye) daha iyisi olmayan modeller."""
+    best, out = -1e18, []
+    for m in sorted([m for m in D["models"] if m.get(v["x"]) is not None and m.get(v["y"]) is not None],
+                    key=lambda m: (m[v["x"]], -m[v["y"]])):
+        if m[v["y"]] > best:
+            out.append(m)
+            best = m[v["y"]]
+    return out
+
+
+def models_svg(D, W, H, small):
+    """Açılış görünümünün durağan çizimi: sayı içindeki bantta ve JavaScript kapalıyken Modeller sayfasında kullanılır."""
+    v = D["views"][0]
+    kx, ky = v["x"], v["y"]
+    L, R, T, B = (38, 10, 20, 40) if small else (48, 16, 24, 46)
+    fs, nf, r = (10.5, 12, 6.5) if small else (12, 14, 8.5)
+    ax, bx, tx, lx = m_scale(D, kx)
+    ay, by, tys, ly = m_scale(D, ky)
+
+    def sc(val, a, b, log, p0, p1):
+        f = (math.log(val) - math.log(a)) / (math.log(b) - math.log(a)) if log else (val - a) / (b - a)
+        return p0 + f * (p1 - p0)
+    X = lambda val: sc(val, ax, bx, lx, L, W - R)
+    Y = lambda val: sc(val, ay, by, ly, H - B, T)
+    o = [f'<svg viewBox="0 0 {W} {H}" class="mdl-static {"sm" if small else "lg"}" role="img" '
+         f'aria-label="{esc(D["metrics"][ky]["ad"])} ve {esc(D["metrics"][kx]["ad"].lower())}">']
+    for t in tys:
+        o.append(f'<line x1="{L}" x2="{W - R}" y1="{Y(t):.1f}" y2="{Y(t):.1f}" class="grid"/>'
+                 f'<text x="{L - 6}" y="{Y(t) + fs * .36:.1f}" class="tick" text-anchor="end" font-size="{fs}">{M_FMT[D["metrics"][ky]["bicim"]][1](t)}</text>')
+    for t in tx:
+        o.append(f'<line x1="{X(t):.1f}" x2="{X(t):.1f}" y1="{T}" y2="{H - B}" class="grid"/>'
+                 f'<text x="{X(t):.1f}" y="{H - B + 15}" class="tick" text-anchor="middle" font-size="{fs}">{M_FMT[D["metrics"][kx]["bicim"]][1](t)}</text>')
+    o.append(f'<line x1="{L}" x2="{W - R}" y1="{H - B}" y2="{H - B}" class="base"/>'
+             f'<text x="{(L + W - R) / 2:.1f}" y="{H - 5}" class="axis" text-anchor="middle" font-size="{fs + .5}">{esc(D["metrics"][kx]["eksen"])}</text>'
+             f'<text x="{L}" y="{T - 8}" class="axis" font-size="{fs + .5}">↑ {esc(D["metrics"][ky]["eksen"])}</text>')
+    F = m_frontier(D, v) if v.get("sinir") else []
+    if F:
+        d = f"M{X(F[0][kx]):.1f} {H - B}" + "".join(
+            f"V{Y(m[ky]):.1f}H" + (f"{X(F[i + 1][kx]):.1f}" if i + 1 < len(F) else f"{W - R}") for i, m in enumerate(F))
+        o.append(f'<path d="{d}V{H - B}Z" class="under"/><path d="{d}" class="frontier"/>')
+    for m in D["models"]:
+        if m.get(kx) is None or m.get(ky) is None:
+            continue
+        cx, cy, c = X(m[kx]), Y(m[ky]), m_color(D, m)
+        q = r * 1.22
+        o.append(f'<path d="M{cx:.1f} {cy - q:.1f}L{cx + q:.1f} {cy:.1f} {cx:.1f} {cy + q:.1f} {cx - q:.1f} {cy:.1f}Z" fill="{c}" class="pt"/>'
+                 if m.get("acik") else f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" fill="{c}" class="pt"/>')
+        if m in F:   # çizgi noktadan sağa ve aşağı gider; etiket sol üstte kalır
+            name = m.get("kisa") or m["ad"]
+            if cx - r - 5 - len(name) * nf * .5 < 2:   # sola sığmıyorsa noktanın üstüne, soldan hizalı
+                o.append(f'<text x="{max(2, cx - r):.1f}" y="{cy - r - 6:.1f}" class="nm" font-size="{nf}">{esc(name)}</text>')
+            else:
+                o.append(f'<text x="{cx - r - 5:.1f}" y="{cy - 3:.1f}" text-anchor="end" class="nm" font-size="{nf}">{esc(name)}</text>')
+    return "".join(o) + "</svg>"
+
+
+def models_legend(D):
+    seen = {}
+    for m in D["models"]:
+        seen.setdefault(m["saglayici"], m_color(D, m))
+    items = "".join(f'<li><i style="background:{c}"></i>{esc(p)}</li>' for p, c in seen.items())
+    extra = '<li class="dia"><i></i>Açık model</li>' if any(m.get("acik") for m in D["models"]) else ""
+    return f'<ul class="mdl-legend">{items}{extra}</ul>'
+
+
+def models_sources(D, keys=None):
+    """Kullanılan kaynakların linkleri: “Artificial Analysis, CursorBench”. keys verilirse yalnızca o ölçütlerin kaynakları."""
+    used = list(dict.fromkeys(D["metrics"][k]["kaynak"] for k in (keys or D["metrics"])))
+    return ", ".join(f'<a href="{esc(D["sources"][k]["url"])}" target="_blank" rel="noopener">{esc(D["sources"][k]["name"])}</a>' for k in used)
+
+
+def models_updated(D):
+    d = d_of(D["updated"])
+    return f"{d.day} {MONTHS_LONG[d.month - 1]} {d.year}"
+
+
+def models_band(ctx):
+    """Her sayıda aynı yerde duran, hep güncel veriyi gösteren küçük bant. Ayrıntı Modeller sayfasındadır."""
+    D = ctx.models
+    if not D:
+        return ""
+    v = D["views"][0]
+    href = esc(ctx.href("modeller.html"))
+    return (f'<section class="sec mdl-band" id="sec-modeller"><div class="sec-h"><h2>Modeller</h2>'
+            f'<p>{esc(D["metrics"][v["y"]]["ad"])} ve {esc(D["metrics"][v["x"]]["ad"].lower())} · son güncelleme {esc(models_updated(D))}</p></div>'
+            f'<div class="mdl-band-in"><div class="mdl-band-t"><p class="mdl-q">{esc(v.get("q"))}</p>'
+            f'<p>Çizgi, aynı paraya daha iyisi olmayan modelleri birleştirir; çizginin altında kalan model için daha ucuza ya da aynı fiyata daha güçlü bir seçenek vardır.</p>'
+            f'<p class="mdl-src">Ölçümler: {models_sources(D, [v["x"], v["y"]])}. '
+            f'Yeni model çıktığında güncellenir.</p>'
+            f'<a class="mdl-go" href="{href}">Bütün görünümler ve rakamlar</a>{models_legend(D)}</div>'
+            f'<a class="mdl-band-c" href="{href}" aria-label="Modeller sayfasını aç">{models_svg(D, 660, 380, False)}{models_svg(D, 360, 330, True)}</a></div></section>')
+
+
+def render_models(ctx):
+    D = ctx.models
+    met = D["metrics"]
+    rows = []
+    first = next(iter(met))
+    for m in sorted(D["models"], key=lambda m: -(m.get(first) or 0)):
+        cells = "".join(f'<td class="num">{M_FMT[met[k]["bicim"]][0](m[k])}</td>' if m.get(k) is not None
+                        else '<td class="num wait">ölçüm bekleniyor</td>' for k in met)
+        rows.append(f'<tr><th scope="row"><i style="background:{m_color(D, m)}"></i>{esc(m["ad"])}'
+                    + (' <span class="open">açık</span>' if m.get("acik") else "") + f'</th><td>{esc(m["saglayici"])}</td>'
+                    f'<td>{esc(m.get("ayar") or "–")}</td>{cells}</tr>')
+    head = "".join(f'<th scope="col" class="num">{esc(met[k]["ad"])}<small>{esc(D["sources"][met[k]["kaynak"]]["name"])}</small></th>' for k in met)
+    src = models_sources(D)
+    data = json.dumps(D, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    return f"""<main id="issue" class="mdl-page">
+<h2>Modeller</h2>
+<p class="mdl-sub">Son güncelleme: {esc(models_updated(D))} · Ölçümler: {src}</p>
+<div class="mdl" id="mdl">
+<div class="mdl-views" id="mdl-views"></div>
+<p class="mdl-q" id="mdl-q">{esc(D["views"][0].get("q"))}</p>
+<svg id="mdl-chart" role="img" aria-label="Model karşılaştırma grafiği"><g id="mdl-axis"></g><g id="mdl-note"></g><path id="mdl-under"/><path id="mdl-frontier"/><g id="mdl-stems"></g><g id="mdl-dots"></g><g id="mdl-labels"></g></svg>
+<div class="mdl-nojs">{models_svg(D, 1140, 520, False)}{models_svg(D, 360, 330, True)}</div>
+<p class="mdl-read" id="mdl-read" aria-live="polite"></p>
+{models_legend(D)}
+</div>
+<section class="mdl-table"><h3>Bütün rakamlar</h3>
+<div class="mdl-scroll"><table><thead><tr><th scope="col">Model</th><th scope="col">Sağlayıcı</th><th scope="col">Ayar</th>{head}</tr></thead><tbody>{"".join(rows)}</tbody></table></div>
+<p class="mdl-src">Rakamlar {src} tablolarından, {esc(models_updated(D))} tarihinde okundu. Sütun başlığının altındaki not, rakamın hangi tablodan geldiğini gösterir.</p></section>
+<section class="mdl-how"><h3>Nasıl okunur?</h3>
+<p><b>Zekâ endeksi</b>, Artificial Analysis’in kendi koştuğu dokuz testin birleşik puanıdır; kodlama, terminalde iş yürütme, bilgi ve muhakeme testlerini içerir. <b>Görev başına maliyet</b> ve <b>süre</b>, modelin bu testlerdeki bir görevi bitirmek için ortalama ne kadar harcadığını ve ne kadar beklettiğini gösterir; token fiyatından farklı olarak modelin ne kadar token tükettiğini de hesaba katar.</p>
+<p><b>Kodlama</b> puanı CursorBench’ten gelir: gerçek geliştirici oturumlarından alınmış, birden çok dosyaya dokunan, tarifi eksik bırakılmış görevlerde başarı oranı. Testi kod editörü üreticisi Cursor koşar; bütün modeller aynı ortamda ölçülür, ama Cursor’ın kendi modeli de tabloda yer alır. Cursor’ın notu burada da geçerli: küçük puan farkları istatistik olarak anlamlı olmayabilir.</p>
+<p>Çizgi, aynı paraya (ya da aynı sürede) daha iyisi olmayan modelleri birleştirir. Çizginin altında kalan bir model kötü değildir; yalnızca o bütçeyle daha yüksek puanlı bir seçenek vardır.</p>
+<h3>Hangi modeller, hangi kurala göre?</h3>
+<p>Listeyi editör seçmez: zekâ endeksinde ilk on model ve en yüksek puanlı iki açık model alınır. Aynı modelin birden çok ayarı ölçülmüşse zekâ endeksinde en yüksek puanı alan ayar gösterilir ve “ayar” sütununda yazar; kodlama puanı da aynı ayarın satırından okunur. Şirketlerin kendi modelleri için açıkladığı puanlar kullanılmaz; ölçümü olmayan değer “ölçüm bekleniyor” olarak kalır.</p>
+<p>Bu gazeteyi yazan model Anthropic’in ürünüdür ve listede Anthropic modelleri de vardır. Kuralların mekanik olmasının ve her rakamın kaynağa bağlanmasının nedeni budur; sayfada “en iyi model” yorumu yapılmaz.</p></section>
+<script type="application/json" id="mdl-veri">{data}</script>
+</main>"""
 
 
 # ---------------------------------------------------------------- bileşenler
@@ -372,7 +556,9 @@ def masthead(ctx, cur=None):
 
 def footer(ctx):
     return ('<footer><span>The Daily Compiler · Her sabah yayımlanır · '
-            f'<a href="{esc(ctx.href("arsiv.html"))}">Arşiv</a> · <a href="{esc(ctx.href("feed.xml"))}">RSS</a> · '
+            f'<a href="{esc(ctx.href("arsiv.html"))}">Arşiv</a> · '
+            + (f'<a href="{esc(ctx.href("modeller.html"))}">Modeller</a> · ' if ctx.models else "")
+            + f'<a href="{esc(ctx.href("feed.xml"))}">RSS</a> · '
             f'<a href="{esc(ctx.href("hakkinda.html"))}">Hakkında</a></span>'
             '<span>Haberler yapay zeka tarafından kaynaklardan özetlenir ve ayrı bir yapay zeka editörce denetlenir; '
             f'hata olabilir, kaynak linklerine bakın. <a href="{esc(ctx.href("hakkinda.html"))}">Nasıl hazırlanıyor?</a></span></footer>')
@@ -383,7 +569,7 @@ THEME_BOOT = ("<script>try{var t=localStorage.getItem('dc-theme');"
               "if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>")
 
 
-def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, base="", published=None, cur=None):
+def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, base="", published=None, cur=None, scripts=""):
     can = f'<link rel="canonical" href="{esc(canonical)}">' if canonical else ""
     og = ""
     if og_url or canonical:
@@ -426,7 +612,7 @@ def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, bas
 {body}
 {footer(ctx)}
 </div>
-<script src="{esc(asset(ctx, 'assets/site.js'))}" defer></script>
+<script src="{esc(asset(ctx, 'assets/site.js'))}" defer></script>{scripts}
 </body>
 </html>
 """
@@ -435,6 +621,8 @@ def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, bas
 def render_issue(ctx, cur):
     secs = cur.get("sections") or []
     nav_items = [("manset", "Manşet")] + [(s.get("id"), s.get("title")) for s in secs]
+    if ctx.models:
+        nav_items.append(("modeller", "Modeller"))
     if cur.get("repos"):
         nav_items.append(("repolar", "GitHub Repoları"))
     if cur.get("briefs"):
@@ -493,6 +681,8 @@ def render_issue(ctx, cur):
         sub = f'<p>{rich(s.get("subtitle"))}</p>' if s.get("subtitle") else ""
         out.append(f'<section class="sec" id="sec-{esc(sid)}"><div class="sec-h"><h2>{esc(typo(s.get("title")))}</h2>{sub}</div>'
                    f'<div class="grid">{arts}</div></section>')
+
+    out.append(models_band(ctx))
 
     R = cur.get("repos")
     if R and R.get("items"):
@@ -633,6 +823,7 @@ def main():
     issues = load_issues()
     if not issues:
         sys.exit("issues/ klasöründe sayı yok")
+    models = load_models()
     base = ""
     if os.path.exists(os.path.join(ROOT, "CNAME")):
         base = "https://" + open(os.path.join(ROOT, "CNAME")).read().strip() + "/"
@@ -640,7 +831,7 @@ def main():
     for f in glob.glob(os.path.join(ROOT, "sayi", "*.html")):
         os.remove(f)
     for it in issues:
-        ctx = Ctx(issues, 1)
+        ctx = Ctx(issues, 1, models)
         L = it.get("lead") or {}
         label = it.get("dateLabel") or long_date(it["date"])
         head = plain(L.get("headline"))
@@ -651,7 +842,7 @@ def main():
                                            base + issue_path(it["date"]) if base else None,
                                            og_title=head or title, base=base, published=f"{it['date']}T07:11:00+03:00", cur=it))
     latest = issues[0]
-    ctx = Ctx(issues, 0)
+    ctx = Ctx(issues, 0, models)
     L = latest.get("lead") or {}
     head = plain(L.get("headline"))
     write("index.html", page(ctx, f"{SITE_NAME} · {TAGLINE_B}", plain(L.get("deck")) or head or TAGLINE,
@@ -661,6 +852,12 @@ def main():
                              base + "arsiv.html" if base else None, base=base))
     write("hakkinda.html", page(ctx, f"Hakkında · {SITE_NAME}", "The Daily Compiler nasıl hazırlanıyor, etiketler ne anlama geliyor",
                                 render_about(ctx), base + "hakkinda.html" if base else None, base=base))
+    if models:
+        write("modeller.html", page(ctx, f"Modeller · {SITE_NAME}", "Yapay zeka modelleri: bağımsız ölçümlerle zekâ, maliyet ve süre karşılaştırması",
+                                    render_models(ctx), base + "modeller.html" if base else None, base=base,
+                                    scripts=f'\n<script src="{esc(asset(ctx, "assets/modeller.js"))}" defer></script>'))
+    elif os.path.exists(os.path.join(ROOT, "modeller.html")):
+        os.remove(os.path.join(ROOT, "modeller.html"))
     if base:
         write("feed.xml", render_feed(issues, base))
     write("assets/favicon.svg", FAVICON)

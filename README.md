@@ -40,6 +40,8 @@ Bir kaynağın `url` alanı `#YYYY-MM-DD-<bölüm id>-<sıra>` ise (ör. `#2026-
 | `kurallar/ornek.json` | JSON biçim örneği |
 | `tools/ozet.py` | Yeni sayıdan önce: tarih, sıradaki numara, son sayıların başlıkları, açık uçlar |
 | `tools/kontrol.py` | Bir sayı dosyasını ölçülebilir kurallara göre denetler |
+| `tools/modeller.py` | `data/modeller.json` dosyasını (Modeller sayfasının verisi) denetler; `--yas 7` ile güncelleme gerekip gerekmediğini söyler |
+| `.claude/skills/modeller-guncelle/` | Modeller verisinin hangi tablolardan, hangi kurallarla yenileneceği |
 
 Kurallar değişecekse bu dosyalar düzenlenir; zamanlanmış görevin prompt'u yalnızca iş akışını içerir.
 

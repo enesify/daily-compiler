@@ -1,0 +1,111 @@
+{
+ "updated": "2026-11-13",
+ "sources": {
+  "aa": {
+   "name": "Artificial Analysis",
+   "url": "https://artificialanalysis.ai/leaderboards/models",
+   "note": "Intelligence Index v5.0.1"
+  },
+  "cursor": {
+   "name": "CursorBench",
+   "url": "https://cursor.com/evals",
+   "note": "CursorBench 4.0"
+  }
+ },
+ "metrics": {
+  "zeka": {
+   "ad": "Zekâ endeksi",
+   "eksen": "zekâ endeksi",
+   "bicim": "puan",
+   "iyi": "yuksek",
+   "kaynak": "aa"
+  },
+  "maliyet": {
+   "ad": "Görev başına maliyet",
+   "eksen": "görev başına maliyet (logaritmik)",
+   "bicim": "usd",
+   "iyi": "dusuk",
+   "log": true,
+   "kaynak": "aa"
+  },
+  "sure": {
+   "ad": "Görev başına süre",
+   "eksen": "görev başına süre, dakika",
+   "bicim": "dk",
+   "iyi": "dusuk",
+   "kaynak": "aa"
+  },
+  "kodlama": {
+   "ad": "Kodlama",
+   "eksen": "kodlama başarısı (CursorBench 4.0)",
+   "bicim": "yuzde",
+   "iyi": "yuksek",
+   "kaynak": "cursor"
+  },
+  "kod_maliyet": {
+   "ad": "Kodlama görevi maliyeti",
+   "eksen": "kodlama görevi başına maliyet (logaritmik)",
+   "bicim": "usd",
+   "iyi": "dusuk",
+   "log": true,
+   "kaynak": "cursor"
+  }
+ },
+ "views": [
+  {
+   "id": "zeka-maliyet",
+   "label": "Zekâ × maliyet",
+   "x": "maliyet",
+   "y": "zeka",
+   "sinir": true,
+   "q": "Hangi model parasını hak ediyor?",
+   "notlar": {
+    "tl": "ucuz ve güçlü",
+    "br": "pahalı ve zayıf"
+   }
+  },
+  {
+   "id": "kodlama-maliyet",
+   "label": "Kodlama × maliyet",
+   "x": "kod_maliyet",
+   "y": "kodlama",
+   "sinir": true,
+   "q": "Kod işinde hangi model parasını hak ediyor?",
+   "notlar": {
+    "tl": "ucuz ve güçlü",
+    "br": "pahalı ve zayıf"
+   }
+  },
+  {
+   "id": "zeka-sure",
+   "label": "Zekâ × süre",
+   "x": "sure",
+   "y": "zeka",
+   "sinir": true,
+   "q": "İyi cevap için ne kadar beklemek gerekiyor?",
+   "notlar": {
+    "tl": "hızlı ve güçlü",
+    "br": "yavaş ve zayıf"
+   }
+  },
+  {
+   "id": "zeka",
+   "label": "Yalnızca zekâ",
+   "rank": "zeka",
+   "q": "Kim önde, ne kadar farkla?"
+  }
+ ],
+ "models": [
+  {"ad": "Claude Fable 5.2", "kisa": "Fable 5.2", "saglayici": "Anthropic", "ayar": "max", "acik": false, "zeka": 65, "maliyet": 26.54, "sure": 47.5, "kodlama": 60.0, "kod_maliyet": 32.79},
+  {"ad": "Gemini 4 Carbon", "kisa": "Gemini 4 Carbon", "saglayici": "Google", "ayar": "high", "acik": false, "zeka": 60, "maliyet": 7.76, "sure": 25.7, "kodlama": 60.4, "kod_maliyet": 9.22},
+  {"ad": "Claude Opus 5.5", "kisa": "Opus 5.5", "saglayici": "Anthropic", "ayar": "max", "acik": false, "zeka": 59, "maliyet": 10.04, "sure": 25.0, "kodlama": 57.8, "kod_maliyet": 13.43},
+  {"ad": "GPT-6 Astra", "kisa": "GPT-6 Astra", "saglayici": "OpenAI", "ayar": "max", "acik": false, "zeka": 57, "maliyet": 6.24, "sure": 24.7, "kodlama": null, "kod_maliyet": null},
+  {"ad": "GPT-6.1 Sol", "kisa": "GPT-6.1 Sol", "saglayici": "OpenAI", "ayar": "max", "acik": false, "zeka": 55, "maliyet": 1.27, "sure": 21.9, "kodlama": null, "kod_maliyet": null},
+  {"ad": "Claude Sonnet 5.5", "kisa": "Sonnet 5.5", "saglayici": "Anthropic", "ayar": "max", "acik": false, "zeka": 55, "maliyet": 10.02, "sure": 32.6, "kodlama": 55.5, "kod_maliyet": 7.05},
+  {"ad": "GPT-6.1 Terra", "kisa": "GPT-6.1 Terra", "saglayici": "OpenAI", "ayar": "max", "acik": false, "zeka": 51, "maliyet": 0.96, "sure": 14.0, "kodlama": null, "kod_maliyet": null},
+  {"ad": "Gemini 4 Argon", "kisa": "Gemini 4 Argon", "saglayici": "Google", "ayar": "high", "acik": false, "zeka": 50, "maliyet": 9.95, "sure": 30.0, "kodlama": 52.9, "kod_maliyet": 4.57},
+  {"ad": "Muse Wonder Full", "kisa": "Muse Wonder Full", "saglayici": "Meta", "ayar": "max", "acik": false, "zeka": 50, "maliyet": null, "sure": null, "kodlama": null, "kod_maliyet": null},
+  {"ad": "Kimi K3.1 Pro", "kisa": "Kimi K3.1 Pro", "saglayici": "Kimi", "ayar": "", "acik": true, "zeka": 46, "maliyet": 3.68, "sure": 37.9, "kodlama": null, "kod_maliyet": null},
+  {"ad": "DeepSeek V4.1 Flash 1017", "kisa": "DeepSeek V4.1 Flash", "saglayici": "DeepSeek", "ayar": "max", "acik": true, "zeka": 33, "maliyet": 0.6, "sure": 15.2, "kodlama": 47.7, "kod_maliyet": 0.98}
+ ]
+}
