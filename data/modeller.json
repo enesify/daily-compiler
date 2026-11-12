@@ -18,37 +18,42 @@
    "eksen": "zekâ endeksi",
    "bicim": "puan",
    "iyi": "yuksek",
-   "kaynak": "aa"
+   "kaynak": "aa",
+   "kisa": "Zekâ"
   },
   "maliyet": {
    "ad": "Görev başına maliyet",
-   "eksen": "görev başına maliyet (logaritmik)",
+   "eksen": "görev başına maliyet, $ (log)",
    "bicim": "usd",
    "iyi": "dusuk",
    "log": true,
-   "kaynak": "aa"
+   "kaynak": "aa",
+   "kisa": "Maliyet, $"
   },
   "sure": {
    "ad": "Görev başına süre",
-   "eksen": "görev başına süre, dakika",
+   "eksen": "görev başına süre, dk",
    "bicim": "dk",
    "iyi": "dusuk",
-   "kaynak": "aa"
+   "kaynak": "aa",
+   "kisa": "Süre, dk"
   },
   "kodlama": {
    "ad": "Kodlama",
-   "eksen": "kodlama başarısı (CursorBench 4.0)",
+   "eksen": "kodlama başarısı, %",
    "bicim": "yuzde",
    "iyi": "yuksek",
-   "kaynak": "cursor"
+   "kaynak": "cursor",
+   "kisa": "Kodlama, %"
   },
   "kod_maliyet": {
    "ad": "Kodlama görevi maliyeti",
-   "eksen": "kodlama görevi başına maliyet (logaritmik)",
+   "eksen": "kodlama görevi başına maliyet, $ (log)",
    "bicim": "usd",
    "iyi": "dusuk",
    "log": true,
-   "kaynak": "cursor"
+   "kaynak": "cursor",
+   "kisa": "Maliyet, $"
   }
  },
  "views": [
@@ -58,23 +63,15 @@
    "x": "maliyet",
    "y": "zeka",
    "sinir": true,
-   "q": "Hangi model parasını hak ediyor?",
-   "notlar": {
-    "tl": "ucuz ve güçlü",
-    "br": "pahalı ve zayıf"
-   }
+   "q": "Hangi model parasını hak ediyor?"
   },
   {
    "id": "kodlama-maliyet",
-   "label": "Kodlama × maliyet",
+   "label": "Kod × maliyet",
    "x": "kod_maliyet",
    "y": "kodlama",
    "sinir": true,
-   "q": "Kod işinde hangi model parasını hak ediyor?",
-   "notlar": {
-    "tl": "ucuz ve güçlü",
-    "br": "pahalı ve zayıf"
-   }
+   "q": "Kod işinde hangi model parasını hak ediyor?"
   },
   {
    "id": "zeka-sure",
@@ -82,15 +79,11 @@
    "x": "sure",
    "y": "zeka",
    "sinir": true,
-   "q": "İyi cevap için ne kadar beklemek gerekiyor?",
-   "notlar": {
-    "tl": "hızlı ve güçlü",
-    "br": "yavaş ve zayıf"
-   }
+   "q": "İyi cevap için ne kadar beklemek gerekiyor?"
   },
   {
    "id": "zeka",
-   "label": "Yalnızca zekâ",
+   "label": "Sıralama",
    "rank": "zeka",
    "q": "Kim önde, ne kadar farkla?"
   }

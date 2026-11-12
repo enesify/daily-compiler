@@ -177,11 +177,11 @@ def tr_num(v, d):
     return f"{v:.{d}f}".replace(".", ",")
 
 
-M_FMT = {  # (değer yazımı, eksen çentiği yazımı)
-    "puan": (lambda v: str(round(v)), lambda v: f"{v:g}"),
-    "yuzde": (lambda v: "%" + tr_num(v, 1), lambda v: f"%{v:g}"),
-    "usd": (lambda v: "$" + tr_num(v, 2), lambda v: "$" + (tr_num(v, 1) if v < 1 else f"{v:g}")),
-    "dk": (lambda v: tr_num(v, 1) + " dk", lambda v: f"{v:g}"),
+M_FMT = {  # (değer yazımı, eksen çentiği yazımı, tabloda birimsiz yazım)
+    "puan": (lambda v: str(round(v)), lambda v: f"{v:g}", lambda v: str(round(v))),
+    "yuzde": (lambda v: "%" + tr_num(v, 1), lambda v: f"%{v:g}", lambda v: tr_num(v, 1)),
+    "usd": (lambda v: "$" + tr_num(v, 2), lambda v: "$" + (tr_num(v, 1) if v < 1 else f"{v:g}"), lambda v: tr_num(v, 2)),
+    "dk": (lambda v: tr_num(v, 1) + " dk", lambda v: f"{v:g}", lambda v: tr_num(v, 1)),
 }
 
 
@@ -257,8 +257,11 @@ def models_svg(D, W, H, small):
                  if m.get("acik") else f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" fill="{c}" class="pt"/>')
         if m in F:   # çizgi noktadan sağa ve aşağı gider; etiket sol üstte kalır
             name = m.get("kisa") or m["ad"]
-            if cx - r - 5 - len(name) * nf * .5 < 2:   # sola sığmıyorsa noktanın üstüne, soldan hizalı
-                o.append(f'<text x="{max(2, cx - r):.1f}" y="{cy - r - 6:.1f}" class="nm" font-size="{nf}">{esc(name)}</text>')
+            if cx - r - 5 - len(name) * nf * .5 < 2:   # sola sığmıyor: üste, soldan hizalı; o da çizgiye çarpacaksa etiketsiz kalır
+                i = F.index(m)
+                nxt = X(F[i + 1][kx]) if i + 1 < len(F) else W - R
+                if max(2, cx - r) + len(name) * nf * .5 < nxt - 4:
+                    o.append(f'<text x="{max(2, cx - r):.1f}" y="{cy - r - 6:.1f}" class="nm" font-size="{nf}">{esc(name)}</text>')
             else:
                 o.append(f'<text x="{cx - r - 5:.1f}" y="{cy - 3:.1f}" text-anchor="end" class="nm" font-size="{nf}">{esc(name)}</text>')
     return "".join(o) + "</svg>"
@@ -294,30 +297,55 @@ def models_band(ctx):
     return (f'<section class="sec mdl-band" id="sec-modeller"><div class="sec-h"><h2>Modeller</h2>'
             f'<p>{esc(D["metrics"][v["y"]]["ad"])} ve {esc(D["metrics"][v["x"]]["ad"].lower())} · son güncelleme {esc(models_updated(D))}</p></div>'
             f'<div class="mdl-band-in"><div class="mdl-band-t"><p class="mdl-q">{esc(v.get("q"))}</p>'
-            f'<p>Çizgi, aynı paraya daha iyisi olmayan modelleri birleştirir; çizginin altında kalan model için daha ucuza ya da aynı fiyata daha güçlü bir seçenek vardır.</p>'
-            f'<p class="mdl-src">Ölçümler: {models_sources(D, [v["x"], v["y"]])}. '
-            f'Yeni model çıktığında güncellenir.</p>'
-            f'<a class="mdl-go" href="{href}">Bütün görünümler ve rakamlar</a>{models_legend(D)}</div>'
+            f'<p>Çizgi, aynı paraya daha iyisi olmayan modelleri birleştirir.</p>'
+            f'<p class="mdl-src">{models_sources(D, [v["x"], v["y"]])}</p>'
+            f'<a class="mdl-go" href="{href}">Bütün görünümler ve rakamlar</a></div>'
             f'<a class="mdl-band-c" href="{href}" aria-label="Modeller sayfasını aç">{models_svg(D, 660, 380, False)}{models_svg(D, 360, 330, True)}</a></div></section>')
+
+
+def models_table(D, keys, models, cls):
+    """Kaynak başlıklı tablo: birim başlıkta bir kez yazılır, ölçümü olmayan hücre “–” olur."""
+    met, src = D["metrics"], D["sources"]
+    groups = []
+    for k in keys:
+        if not groups or groups[-1][0] != met[k]["kaynak"]:
+            groups.append([met[k]["kaynak"], []])
+        groups[-1][1].append(k)
+    starts = {g[1][0] for g in groups[1:]}
+    c = lambda k, extra="": f' class="num{" gs" if k in starts else ""}{extra}"'
+    grp = "".join(f'<th scope="colgroup" colspan="{len(ks)}"{c(ks[0])}><a href="{esc(src[g]["url"])}" target="_blank" rel="noopener">'
+                  f'{esc(src[g]["name"])}</a></th>' for g, ks in groups)
+    head = "".join(f'<th scope="col"{c(k)}>{esc(met[k].get("kisa") or met[k]["ad"])}</th>' for k in keys)
+    rows = []
+    for m in models:
+        cells = "".join(f'<td{c(k)}>{M_FMT[met[k]["bicim"]][2](m[k])}</td>' if m.get(k) is not None
+                        else f'<td{c(k, " none")}>–</td>' for k in keys)
+        mark = f'<i class="{"dia" if m.get("acik") else "dot"}" style="background:{m_color(D, m)}"></i>'
+        ayar = f' <span class="ayar">{esc(m["ayar"])}</span>' if m.get("ayar") else ""
+        rows.append(f'<tr><th scope="row">{mark}{esc(m.get("kisa") or m["ad"])}{ayar}</th>{cells}</tr>')
+    return (f'<table class="{cls}"><thead><tr class="grp"><td></td>{grp}</tr><tr><th scope="col">Model</th>{head}</tr></thead>'
+            f'<tbody>{"".join(rows)}</tbody></table>')
 
 
 def render_models(ctx):
     D = ctx.models
     met = D["metrics"]
-    rows = []
-    first = next(iter(met))
-    for m in sorted(D["models"], key=lambda m: -(m.get(first) or 0)):
-        cells = "".join(f'<td class="num">{M_FMT[met[k]["bicim"]][0](m[k])}</td>' if m.get(k) is not None
-                        else '<td class="num wait">ölçüm bekleniyor</td>' for k in met)
-        rows.append(f'<tr><th scope="row"><i style="background:{m_color(D, m)}"></i>{esc(m["ad"])}'
-                    + (' <span class="open">açık</span>' if m.get("acik") else "") + f'</th><td>{esc(m["saglayici"])}</td>'
-                    f'<td>{esc(m.get("ayar") or "–")}</td>{cells}</tr>')
-    head = "".join(f'<th scope="col" class="num">{esc(met[k]["ad"])}<small>{esc(D["sources"][met[k]["kaynak"]]["name"])}</small></th>' for k in met)
-    src = models_sources(D)
+    keys = list(met)
+    first = keys[0]
+    models = sorted(D["models"], key=lambda m: -(m.get(first) or 0))
+    # geniş ekranda tek tablo; telefonda kaynak başına bir tablo (yatay kaydırma olmasın)
+    narrow = []
+    for g in dict.fromkeys(met[k]["kaynak"] for k in keys):
+        ks = [k for k in keys if met[k]["kaynak"] == g]
+        have = [m for m in models if any(m.get(k) is not None for k in ks)]
+        rest = [m.get("kisa") or m["ad"] for m in models if m not in have]
+        narrow.append(models_table(D, ks, have, "mdl-t mdl-narrow")
+                      + (f'<p class="mdl-src mdl-narrow">Henüz ölçülmedi: {esc(", ".join(rest))}</p>' if rest else ""))
+    legend = ("◆ açık ağırlıklı · " if any(m.get("acik") for m in models) else "") + "– henüz ölçülmedi · model adının yanındaki not ölçülen ayardır"
     data = json.dumps(D, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     return f"""<main id="issue" class="mdl-page">
 <h2>Modeller</h2>
-<p class="mdl-sub">Son güncelleme: {esc(models_updated(D))} · Ölçümler: {src}</p>
+<p class="mdl-sub">{esc(models_updated(D))} verisi · {models_sources(D)}</p>
 <div class="mdl" id="mdl">
 <div class="mdl-views" id="mdl-views"></div>
 <p class="mdl-q" id="mdl-q">{esc(D["views"][0].get("q"))}</p>
@@ -327,15 +355,9 @@ def render_models(ctx):
 {models_legend(D)}
 </div>
 <section class="mdl-table"><h3>Bütün rakamlar</h3>
-<div class="mdl-scroll"><table><thead><tr><th scope="col">Model</th><th scope="col">Sağlayıcı</th><th scope="col">Ayar</th>{head}</tr></thead><tbody>{"".join(rows)}</tbody></table></div>
-<p class="mdl-src">Rakamlar {src} tablolarından, {esc(models_updated(D))} tarihinde okundu. Sütun başlığının altındaki not, rakamın hangi tablodan geldiğini gösterir.</p></section>
-<section class="mdl-how"><h3>Nasıl okunur?</h3>
-<p><b>Zekâ endeksi</b>, Artificial Analysis’in kendi koştuğu dokuz testin birleşik puanıdır; kodlama, terminalde iş yürütme, bilgi ve muhakeme testlerini içerir. <b>Görev başına maliyet</b> ve <b>süre</b>, modelin bu testlerdeki bir görevi bitirmek için ortalama ne kadar harcadığını ve ne kadar beklettiğini gösterir; token fiyatından farklı olarak modelin ne kadar token tükettiğini de hesaba katar.</p>
-<p><b>Kodlama</b> puanı CursorBench’ten gelir: gerçek geliştirici oturumlarından alınmış, birden çok dosyaya dokunan, tarifi eksik bırakılmış görevlerde başarı oranı. Testi kod editörü üreticisi Cursor koşar; bütün modeller aynı ortamda ölçülür, ama Cursor’ın kendi modeli de tabloda yer alır. Cursor’ın notu burada da geçerli: küçük puan farkları istatistik olarak anlamlı olmayabilir.</p>
-<p>Çizgi, aynı paraya (ya da aynı sürede) daha iyisi olmayan modelleri birleştirir. Çizginin altında kalan bir model kötü değildir; yalnızca o bütçeyle daha yüksek puanlı bir seçenek vardır.</p>
-<h3>Hangi modeller, hangi kurala göre?</h3>
-<p>Listeyi editör seçmez: zekâ endeksinde ilk on model ve en yüksek puanlı iki açık model alınır. Aynı modelin birden çok ayarı ölçülmüşse zekâ endeksinde en yüksek puanı alan ayar gösterilir ve “ayar” sütununda yazar; kodlama puanı da aynı ayarın satırından okunur. Şirketlerin kendi modelleri için açıkladığı puanlar kullanılmaz; ölçümü olmayan değer “ölçüm bekleniyor” olarak kalır.</p>
-<p>Bu gazeteyi yazan model Anthropic’in ürünüdür ve listede Anthropic modelleri de vardır. Kuralların mekanik olmasının ve her rakamın kaynağa bağlanmasının nedeni budur; sayfada “en iyi model” yorumu yapılmaz.</p></section>
+{models_table(D, keys, models, "mdl-t mdl-wide")}
+{"".join(narrow)}
+<p class="mdl-src">{esc(legend)}</p></section>
 <script type="application/json" id="mdl-veri">{data}</script>
 </main>"""
 

@@ -73,17 +73,17 @@
   function targets() {
     var miss = 0, order = view.rank ? ranked(view.rank) : null;
     var nMiss = M.filter(function (m) { return view.rank ? m[view.rank] == null : (m[view.x] == null && m[view.y] != null) || m[view.x] == null; }).length;
-    var gap = Math.min(170, (G.W - G.R - G.L - 130) / Math.max(1, nMiss));   // şeritteki modeller arası boşluk
+    var gap = Math.min(170, (G.W - G.R - G.L - 190) / Math.max(1, nMiss));   // şeritteki modeller arası boşluk
     D.forEach(function (d) {
       var m = d.m, t = { miss: false, sx: 0, stem: 0, lab: 1, val: "" };
       if (view.rank) {
         var v = m[view.rank], rowH = (G.pb - G.T) / M.length;
-        if (v == null) { t.miss = true; t.x = G.L + 16 + miss++ * gap; t.y = G.pb + G.band / 2; }
-        else { t.x = sc(view.rank, v, G.L, G.W - G.R - (G.small ? 110 : 190)); t.y = G.T + (order.indexOf(m) + .5) * rowH; t.stem = 1; t.val = fv(view.rank, v); }
+        if (v == null) { t.miss = true; t.x = G.L + (G.small ? 78 : 92) + miss++ * gap; t.y = G.pb + G.band / 2; }
+        else { t.x = sc(view.rank, v, G.L, G.W - G.R - (G.small ? 110 : 190)); t.y = G.T + (order.indexOf(m) + .5) * rowH; t.val = fv(view.rank, v); }
         t.sx = t.miss ? t.x : G.L;
       } else {
         var xv = m[view.x], yv = m[view.y];
-        if (yv == null || xv == null) { t.miss = true; t.y = G.pb + G.band / 2; t.x = xv != null ? sc(view.x, xv, G.L, G.W - G.R) : G.L + 16 + miss++ * gap; }
+        if (yv == null || xv == null) { t.miss = true; t.y = G.pb + G.band / 2; t.x = xv != null ? sc(view.x, xv, G.L, G.W - G.R) : G.L + (G.small ? 78 : 92) + miss++ * gap; }
         else { t.x = sc(view.x, xv, G.L, G.W - G.R); t.y = sc(view.y, yv, G.pb, G.T); }
         t.sx = t.x;
       }
@@ -172,7 +172,7 @@
     }
     if (D.some(function (d) { return d.to.miss; })) {
       el("line", { x1: L, x2: R, y1: pb + G.band, y2: pb + G.band, "class": "grid", "stroke-dasharray": "3 4" }, gAxis);
-      txt(gAxis, R, pb + G.band / 2 + fs * .36, "ölçüm yok", "tick", "end");
+      txt(gAxis, L, pb + G.band / 2 + fs * .36, "ölçüm yok", "tick", "start");
     }
   }
   function drawFrontier(animate) {
@@ -220,7 +220,7 @@
     sel = d;
     D.forEach(function (o) { o.g.classList.toggle("sel", o === d); o.g.classList.toggle("dimmed", !!d && o !== d); if (o.cur) paint(o); });
     var r = $("mdl-read"); r.textContent = "";
-    if (!d) { r.textContent = G.small ? "Bir noktaya dokun: bütün ölçümleri burada görünür." : "Bir noktanın üzerine gel: bütün ölçümleri burada görünür."; return; }
+    if (!d) { if (G.small) r.textContent = "Ayrıntı için bir noktaya dokun."; return; }
     var m = d.m, add = function (tag, text, cls) { var e = document.createElement(tag); e.textContent = text; if (cls) e.className = cls; r.appendChild(e); return e; };
     add("i", "", "sw").style.background = col(m);
     add("b", m.ad);

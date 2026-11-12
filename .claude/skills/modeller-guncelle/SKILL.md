@@ -43,4 +43,4 @@ Yalnızca bu iki tablonun kendi sayfası okunur. Rakam başka bir siteden (derle
 
 ## Yeni ölçüt eklemek (günlük oturumun işi değildir)
 
-Yeni bir ölçüt ya da görünüm, ancak listedeki modellerin en az altısı için tablosu eksiksiz okunabilen bağımsız bir kaynak bulunduğunda eklenir: `sources` içine kaynak, `metrics` içine ölçüt (`bicim`: puan / yuzde / usd / dk; `iyi`: yuksek / dusuk; gerekirse `log`), `views` içine görünüm, her modele alan. Kod değişikliği gerekmez. Bu kararı gazetenin sahibi verir.
+Yeni bir ölçüt ya da görünüm, ancak listedeki modellerin en az altısı için tablosu eksiksiz okunabilen bağımsız bir kaynak bulunduğunda eklenir: `sources` içine kaynak, `metrics` içine ölçüt (`kisa`: tablo başlığı, birimiyle; `bicim`: puan / yuzde / usd / dk; `iyi`: yuksek / dusuk; gerekirse `log`), `views` içine görünüm, her modele alan. Kod değişikliği gerekmez. Bu kararı gazetenin sahibi verir.
