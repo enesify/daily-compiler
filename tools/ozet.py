@@ -80,6 +80,33 @@ def main():
         for b in d.get("briefs") or []:
             head.append(f"(kısa) {b.get('tag')}: {(b.get('text') or '')[:150]}")
         head.append("")
+    if issues:
+        L = issues[-1].get("lead") or {}
+        p(f"ÖNCEKİ MANŞET (aynı şirket art arda manşet olmaz): {L.get('kicker')} | {L.get('headline')}")
+    t0 = now.date()
+    recent = []
+    for d in issues:
+        if 0 < (t0 - datetime.date.fromisoformat(d["date"])).days <= 7:
+            recent += [r.get("name") for r in (d.get("repos") or {}).get("items") or []]
+    if recent:
+        p("SON 7 GÜNÜN REPOLARI (tekrar girmez): " + ", ".join(sorted(set(recent))))
+    upcoming = {}
+    for d in issues[-5:]:
+        for c in d.get("calendar") or []:
+            if str(c.get("date")) >= today:
+                upcoming[(c.get("date"), c.get("text"))] = (d["date"], c.get("ref"), c.get("url"))
+    if upcoming:
+        p("ÖNCEKİ TAKVİMLERDE HÂLÂ GELECEKTE KALAN TARİHLER (önemini koruyorsa yeniden girebilir; ref yerine url gerekir):")
+        for (cd, t), (src, r, u) in sorted(upcoming.items()):
+            p(f"  {cd} | {t} | {u or f'#{src}-{r}'}")
+    pr = []
+    for d in last:
+        for x in ((d.get("lead") or {}).get("box") or {}).get("items") or []:
+            pr.append(f"  {d['date']}: {x[:140]}")
+    if pr:
+        p("SON SAYILARIN PRATİK ÇIKARIM MADDELERİ (tekrar edilmez):")
+        lines.extend(pr)
+    p("")
     p("SON SAYILARIN HABERLERİ (iç atıf adresi | bölüm | kicker | başlık):")
     lines.extend(head)
 

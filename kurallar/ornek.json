@@ -4,12 +4,12 @@
   "number": 42,
   "dateLabel": "Perşembe, 15 Ocak 2026",
   "readingMinutes": 15,
-  "figures": [
-    {"n": "%48,5", "l": "Rakamın neyi ölçtüğünü söyleyen kısa açıklama", "ref": "manset"},
-    {"n": "3.1.0", "l": "Açıklama; `kod` backtick içinde yazılır", "ref": "java-1"},
-    {"n": "21", "l": "Açıklama", "ref": "guvenlik-1"},
-    {"n": "9 dk", "l": "Açıklama", "ref": "gelistirme-1"},
-    {"n": "12 bin", "l": "Yalnızca Kısa Kısa'da geçen rakamda ref yazılmaz"}
+  "calendar": [
+    {"date": "2026-01-16", "text": "Olayın kendisi, en fazla 60 karakter", "ref": "java-1"},
+    {"date": "2026-01-21", "text": "Bu sayıda geçmeyen tarih: kaynağın linki verilir", "url": "https://example.com/duyuru"}
+  ],
+  "corrections": [
+    {"date": "2026-01-14", "ref": "gelistirme-1", "text": "İsteğe bağlı: neyin yanlış yazıldığı ve doğrusu."}
   ],
   "pattern": {
     "title": "İsteğe bağlı: örüntünün adı",

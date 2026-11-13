@@ -40,14 +40,17 @@ Bir kaynağın `url` alanı `#YYYY-MM-DD-<bölüm id>-<sıra>` ise (ör. `#2026-
 | `kurallar/ornek.json` | JSON biçim örneği |
 | `tools/ozet.py` | Yeni sayıdan önce: tarih, sıradaki numara, son sayıların başlıkları, açık uçlar |
 | `tools/kontrol.py` | Bir sayı dosyasını ölçülebilir kurallara göre denetler |
-| `tools/modeller.py` | `data/modeller.json` dosyasını (Modeller sayfasının verisi) denetler; `--yas 7` ile güncelleme gerekip gerekmediğini söyler |
-| `.claude/skills/modeller-guncelle/` | Modeller verisinin hangi tablolardan, hangi kurallarla yenileneceği |
+| `tools/modeller.py` | `data/modeller.json` dosyasını (Benchmark sayfasının verisi) denetler; `--yas 7` ile güncelleme gerekip gerekmediğini söyler |
+| `.claude/skills/modeller-guncelle/` | Benchmark verisinin hangi tablolardan, hangi kurallarla yenileneceği |
 
 Kurallar değişecekse bu dosyalar düzenlenir; zamanlanmış görevin prompt'u yalnızca iş akışını içerir.
 
-## Rakam şeridi
+## Takvim, Bugün yamala, düzeltmeler
 
-`figures[]` öğesine `ref` alanı eklenirse (`"manset"` ya da `"<bölüm id>-<sıra>"`, ör. `"java-1"`), rakam kutusu o habere link olur. Hedef o sayıda yoksa kutu link olmadan basılır.
+- `calendar[]` (`{date, text, ref?, url?}`): sayının başında önümüzdeki 30 günün tarihleri. `ref` bu sayıdaki habere, `url` dış kaynağa link verir. Sayı tarihinden önceki öğeler basılmaz. Eski sayılardaki `figures[]` rakam şeridi olarak basılmaya devam eder; yeni sayılarda yazılmaz.
+- Güvenlik bölümündeki `patch[]` (`{text, url}`, 1-3 madde) bölümün başına “Bugün yamala” listesi basar.
+- `corrections[]` (`{date, ref, text}`) sayının sonunda “Düzeltme” bölümü olarak basılır; bütün düzeltmeler Hakkında sayfasında da listelenir.
+- Arşiv sayfası haber başlıklarında, kısa haberlerde ve repo adlarında arama yapar (veri sayfaya gömülüdür).
 
 ## İri rakam
 

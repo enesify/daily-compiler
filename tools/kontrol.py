@@ -8,6 +8,7 @@ Kullanım:
 HATA satırları düzeltilmeden yayımlanmaz (çıkış kodu 1). UYARI satırları gözden geçirilir; gerekçesi varsa bırakılabilir.
 Bu betik yalnızca biçim ve ölçüleri denetler; doğruluğu ve dili editör denetler.
 """
+import datetime
 import glob
 import json
 import os
@@ -109,7 +110,7 @@ def main():
         sys.exit(f"HATA: dosya okunamadı ya da geçerli JSON değil: {e}")
 
     # Önceki sayılar: numara ve iç atıf hedefleri
-    dates, numbers = {}, []
+    dates, numbers, prev = {}, [], {}
     for p in glob.glob(os.path.join(ROOT, "issues", "*.json")):
         if os.path.basename(p) == "index.json" or os.path.abspath(p) == os.path.abspath(path):
             continue
@@ -123,9 +124,10 @@ def main():
             for i, art in enumerate(s.get("articles") or []):
                 a.add(str(art.get("id") or f"{s.get('id') or 'bolum'}-{i + 1}"))
         dates[o["date"]] = a
+        prev[o["date"]] = o
 
     # Üst alanlar
-    for k in ("date", "number", "dateLabel", "readingMinutes", "figures", "lead", "sections", "repos", "briefs"):
+    for k in ("date", "number", "dateLabel", "readingMinutes", "lead", "sections", "repos", "briefs"):
         if k not in d:
             E(f"üst alan eksik: {k}")
     if "_not" in d:
@@ -182,6 +184,19 @@ def main():
         if re.search(r"kısa bölüm", s.get("subtitle") or "", re.I):
             E(f"{sid}: subtitle'da “Kısa bölüm” notu var")
         arts = s.get("articles") or []
+        patch = s.get("patch")
+        if patch is not None:
+            if sid != "guvenlik":
+                E(f"{sid}: patch (Bugün yamala) yalnızca Güvenlik bölümünde olur")
+            if not 1 <= len(patch) <= 3:
+                E(f"{sid}.patch {len(patch)} madde (1-3 olmalı; yoksa alanı yazma)")
+            for i, m in enumerate(patch):
+                if not m.get("text"):
+                    E(f"{sid}.patch[{i}]: text eksik")
+                elif len(m["text"]) > 110:
+                    E(f"{sid}.patch[{i}]: {len(m['text'])} karakter (en fazla 110)")
+                if not re.match(r"^https://", m.get("url") or ""):
+                    E(f"{sid}.patch[{i}]: url https ile başlamalı")
         lo, hi = {"ai": (6, 8), "guvenlik": (3, 4)}.get(sid, (2, 3))
         if not lo <= len(arts) <= hi:
             (E if sid == "guvenlik" and len(arts) > hi else W)(f"{sid}: {len(arts)} haber var ({lo}-{hi} beklenir)")
@@ -225,8 +240,6 @@ def main():
                     E(f"{where}: stat.n {len(str(st.get('n')))} karakter (en fazla 10)")
                 if len(str(st.get("l") or "")) > 80:
                     E(f"{where}: stat.l {len(str(st.get('l')))} karakter (en fazla 80)")
-                if any(str(f.get("n")) == str(st.get("n")) for f in d.get("figures") or []):
-                    W(f"{where}: stat rakamı figures'ta da var")
             if a.get("chart"):
                 charts += 1
                 check_chart(where, a["chart"])
@@ -262,21 +275,73 @@ def main():
     if charts > 3:
         E(f"{charts} grafik var (bir sayıda en fazla 3)")
 
-    # Rakam şeridi
-    figs = d.get("figures") or []
-    if len(figs) != 5:
-        E(f"figures {len(figs)} adet (tam 5 olmalı)")
-    refs = set()
-    for i, f in enumerate(figs):
-        if not f.get("n") or not f.get("l"):
-            E(f"figures[{i}]: n ya da l eksik")
-        r = f.get("ref")
-        if r:
-            refs.add(r)
-            if r not in anchors:
-                E(f"figures[{i}] ({f.get('n')}): ref {r!r} bu sayıda yok (geçerli: {', '.join(anchors)})")
-    if figs and len(refs) < 3:
-        W(f"figures yalnızca {len(refs)} farklı habere dağılmış (mümkünse en az 3)")
+    # Takvim
+    if d.get("figures"):
+        W("figures artık kullanılmıyor; sayının başında Takvim (calendar) basılır")
+    cal = d.get("calendar")
+    if cal is not None:
+        if not 2 <= len(cal) <= 5:
+            E(f"calendar {len(cal)} öğe (2-5 olmalı; en az 2 uygun tarih yoksa alanı yazma)")
+        try:
+            today = datetime.date.fromisoformat(d.get("date"))
+        except (TypeError, ValueError):
+            today = None
+        last = None
+        for i, c in enumerate(cal):
+            w = f"calendar[{i}]"
+            try:
+                cd = datetime.date.fromisoformat(str(c.get("date")))
+            except ValueError:
+                E(f"{w}: date biçimi YYYY-MM-DD olmalı: {c.get('date')!r}")
+                continue
+            if today and not 0 <= (cd - today).days <= 30:
+                E(f"{w}: {cd} sayı tarihinden itibaren 0-30 gün içinde olmalı")
+            if last and cd < last:
+                W(f"{w}: öğeler tarih sırasında değil (sayfa yine de sıralar)")
+            last = cd
+            t = c.get("text") or ""
+            if not t:
+                E(f"{w}: text eksik")
+            elif len(t) > 60:
+                E(f"{w}: text {len(t)} karakter (en fazla 60): {t}")
+            if re.search(r"\b(yakında|bekleniyor|muhtemelen|önemli)\b", t, re.I):
+                W(f"{w}: kesin olmayan ya da yorum içeren ifade: {t}")
+            r, u = c.get("ref"), c.get("url")
+            if not r and not u:
+                E(f"{w}: ref ya da url gerekli")
+            if r and r not in anchors:
+                E(f"{w}: ref {r!r} bu sayıda yok (geçerli: {', '.join(anchors)})")
+            if u and not re.match(r"^https://", u):
+                E(f"{w}: url https ile başlamalı")
+
+    # Düzeltmeler
+    for i, c in enumerate(d.get("corrections") or []):
+        w = f"corrections[{i}]"
+        cd, r = c.get("date"), c.get("ref")
+        if cd not in dates:
+            E(f"{w}: {cd!r} tarihli önceki sayı yok")
+        elif r not in dates[cd]:
+            E(f"{w}: {cd} sayısında {r!r} çapası yok")
+        if not c.get("text"):
+            E(f"{w}: text eksik")
+        elif words(c["text"]) > 50:
+            W(f"{w}: {words(c['text'])} kelime (tek iki cümle beklenir)")
+
+    # Yalnızca Anthropic kaynaklı öne çıkarma
+    def only_anthropic(a):
+        us = [x.get("url") or "" for x in a.get("sources") or []]
+        return us and all(re.search(r"(anthropic\.com|claude\.(ai|com))", u) for u in us)
+    for where, a in [("manşet", L)] + [(k, v) for k, v in anchors.items() if k != "manset"]:
+        if only_anthropic(a) and (where == "manşet" or a.get("big") or a.get("stat") or a.get("chart")):
+            E(f"{where}: yalnızca Anthropic kaynaklı haber manşet, büyük haber, stat ya da chart olamaz")
+
+    # Manşet: aynı şirket art arda
+    older = [k for k in prev if k < str(d.get("date"))]
+    if older:
+        p = prev[max(older)]
+        pk = ((p.get("lead") or {}).get("headline") or "").split()[:1]
+        if pk and pk == (L.get("headline") or "").split()[:1]:
+            W(f"manşet önceki sayınınkiyle aynı kelimeyle açılıyor ({pk[0]}); aynı şirket art arda manşet olmaz")
 
     # Günün örüntüsü
     P = d.get("pattern")
@@ -313,6 +378,21 @@ def main():
     for o, names in owners.items():
         if len(names) > 1:
             E(f"aynı kuruluştan birden fazla repo: {', '.join(names)}")
+    try:
+        today = datetime.date.fromisoformat(d.get("date"))
+    except (TypeError, ValueError):
+        today = None
+    seen = {}
+    for pd, o in prev.items():
+        if today and 0 < (today - datetime.date.fromisoformat(pd)).days <= 7:
+            for r in (o.get("repos") or {}).get("items") or []:
+                seen.setdefault((r.get("name") or "").lower(), pd)
+    for r in items:
+        n = (r.get("name") or "").lower()
+        if n in seen:
+            E(f"repo {r.get('name')}: {seen[n]} sayısında yer aldı (7 gün içinde tekrar olmaz)")
+    if items and not any((r.get("lang") or "") in ("Java", "Kotlin", "Scala", "Groovy") for r in items):
+        W("repolarda JVM reposu yok; trending listelerinde varsa en az biri girer")
 
     # Kısa Kısa
     briefs = d.get("briefs") or []

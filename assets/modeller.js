@@ -1,4 +1,4 @@
-// The Daily Compiler · Modeller sayfası: ölçüt sekmeleri ve sıralı liste. Veri sayfaya gömülü JSON'dan (data/modeller.json) gelir.
+// The Daily Compiler · Benchmark sayfası (benchmark.html): ölçüt sekmeleri ve sıralı liste. Veri sayfaya gömülü JSON'dan (data/modeller.json) gelir.
 // Ölçüt değişince satırlar yeni sıralarına kayar, çubuklar ve rakamlar yeni değerlerine akar.
 // Satıra dokununca o modelin bütün ölçümleri açılır. Yorum yok: yalnızca ölçüm, sıra ve kaynak.
 (function () {

@@ -13,11 +13,16 @@ Bu tanım haber seçimini ve önceliklendirmeyi yönlendiren bir mercektir. Gaze
 - Zaman penceresi: son 24 saat, en fazla 48 saat. Pazartesi sayılarında hafta sonu nedeniyle sınır 72 saattir (Cuma sabahından itibaren).
 - Her bölüm için ayrı aramalar yap. Toplam WebSearch sayısı en az 15, en fazla 25'tir; 25 kesin üst sınırdır. Aramaların en az üçte birini Yapay Zekâ & LLM bölümüne ayır (model sürümleri, araştırma, benchmark, agent'lar, düzenleme gibi farklı açılardan); Güvenlik için 2-3 arama yeter. Haber azsa daha fazla arama yapma, bölümleri kısa tut.
 - WebFetch ile asıl kaynakları oku. Bir kaynak iki denemede 403, bot koruması ya da erişim hatası verirse o kaynağı bırak: aynı bilgiyi veren başka bir birincil kaynak ara, bulamazsan 5. bölümdeki "asıl kaynağa ulaşılamadı" kuralını uygula. Bot korumasını aşmaya çalışma (headless tarayıcı, arşiv servisleri vb. kullanma).
+- Takvim için ayrı arama yapma: okuduğun kaynaklarda geçen ileri tarihleri (GA, fiyat değişikliği, kapanış, son tarih) not et; özet çıktısındaki önceki takvimde hâlâ gelecekte kalan öğeleri de değerlendir (8. bölüm, Takvim).
 - Son 3 sayıda geçen haberleri tekrar etme. Gerçek bir yeni gelişme varsa onu öne çıkar ve önceki habere iç atıf ver (7. bölüm, İç atıflar).
 
 ## 3. Bölümler
 
-**Manşet.** Günün bu okuyucu için en önemli ve en çok eylem gerektiren AI/LLM gelişmesi (yalnızca genel olarak en büyük haber değil). Örnekler: model sürümleri, AI kodlama araçları ve agent harness'larındaki önemli değişiklikler, ekiplerin AI kullanımını etkileyen araştırma ve benchmark'lar, fiyat/limit/politika değişiklikleri. Güvenlik haberleri (CVE'ler, ihlaller, tedarik zinciri saldırıları) manşete çıkmaz, Güvenlik bölümünde yer alır. İstisna: ana konusu bir AI aracı ya da AI destekli geliştirme pratiği olan güvenlik haberleri (ör. bir AI kodlama aracının sırları sızdırması) manşet olabilir; ama güvenlik temalı manşet art arda iki sayıda olmaz (önceki manşet özet çıktısında görünür). Pencere içinde manşete değer bir AI/LLM gelişmesi yoksa en güçlü AI/LLM haberini manşet yap; uydurma ya da abartma. Manşetin yanında "Pratik çıkarım" kutusu olur: benzer işi yapan bir yazılım ekibi için 3-4 somut madde.
+**Manşet.** Günün bu okuyucu için en önemli ve en çok eylem gerektiren AI/LLM gelişmesi (yalnızca genel olarak en büyük haber değil). Örnekler: model sürümleri, AI kodlama araçları ve agent harness'larındaki önemli değişiklikler, ekiplerin AI kullanımını etkileyen araştırma ve benchmark'lar, fiyat/limit/politika değişiklikleri. Güvenlik haberleri (CVE'ler, ihlaller, tedarik zinciri saldırıları) manşete çıkmaz, Güvenlik bölümünde yer alır. İstisna: ana konusu bir AI aracı ya da AI destekli geliştirme pratiği olan güvenlik haberleri (ör. bir AI kodlama aracının sırları sızdırması) manşet olabilir; ama güvenlik temalı manşet art arda iki sayıda olmaz (önceki manşet özet çıktısında görünür). Pencere içinde manşete değer bir AI/LLM gelişmesi yoksa en güçlü AI/LLM haberini manşet yap; uydurma ya da abartma.
+
+- Aynı şirket ya da ürün ailesi (ör. Gemini, GPT, Claude) art arda iki sayıda manşet olmaz; önceki manşet özet çıktısında görünür. O gün en güçlü haber yine o şirketinse bölümün büyük haberi yap.
+- Manşet başlığı bağımsız ya da doğrulanabilir bir olguyla açılır (fiyat, sürüm, erişim, bağımsız ölçüm); şirketin kendi ölçümü ya da hız iddiası başlığa girmez, gerekiyorsa metinde şirkete atfedilerek yer alır.
+- Okuyucu için en önemli pratik bilgi (fiyat, uyumluluk, son tarih, kimin etkilendiği, rakiplerle karşılaştırma) deck'te ya da ilk paragrafta yer alır; son paragrafa gömülmez. Manşetin yanında "Pratik çıkarım" kutusu olur: benzer işi yapan bir yazılım ekibi için 3-4 somut madde.
 
 **Yapay Zekâ & LLM** (id `ai`). Gazetenin ana bölümüdür: 6-8 haber. Model sürümleri, benchmark'lar, araştırmalar, agent'lar ve agent altyapısı, açık modeller, AI düzenlemeleri ve politika değişiklikleri. İlk satır 8+4 (büyük haber), sonraki satırlar 6+6 ya da 4+4+4. Pencere içinde 6 gerçek haber yoksa daha az yaz; dolgu koyma.
 
@@ -32,10 +37,19 @@ Bu tanım haber seçimini ve önceliklendirmeyi yönlendiren bir mercektir. Gaze
 - https://openjdk.org/projects/jdk/ (aktif JDK sürüm sayfası ve JEP listesi)
 - https://inside.java/
 - https://www.openwall.com/lists/oss-security/ (Java/Apache güvenlik duyuruları için günlük dizin)
+- https://github.com/spring-projects/spring-boot/releases ve https://github.com/spring-projects/spring-framework/releases (sürüm notları)
+- https://openjdk.org/jeps/0 (JEP dizini ve durumları: Candidate, Targeted, Integrated)
+- https://jdk.java.net/ (JDK erken erişim ve GA yapıları)
+- https://foojay.io/today/ (JVM topluluğu haberleri)
 
-Bunlar dışındaki projeleri ancak bu kaynaklarda bir ipucu varsa ara.
+Bunlar dışındaki projeleri ancak bu kaynaklarda bir ipucu varsa ara. Maven Central ve JVM bağımlılıklarını etkileyen tedarik zinciri haberleri de bu bölüme girer.
+
+- Bölüme yalnızca JVM ekosistemi girer. AI kütüphaneleri ancak Java/Kotlin API'si ise girer (LangChain4j, Spring AI evet; Python LangChain hayır, o Geliştirme & Araçlar'a gider). Alan dışı haber (ör. biyoloji modeli) bu bölüme konmaz.
+- Güncel haber yoksa okuma yazısı koyabilirsin: kicker'ı "Okuma · Konu" olur, son 7 günde yayımlanmış olmalı ve bölümde en fazla 1 tane bulunur. Haber varken okuma yazısı koyma.
 
 **Güvenlik** (id `guvenlik`). Küçük bir bölümdür: günün öne çıkan 3-4 haberi, her biri 60-90 kelimelik tek paragraf. Büyük haber ve 8 kolonluk haber olmaz: 3 haber 4+4+4, 4 haber iki satır 6+6 dizilir. Aktif istismarlar, kritik CVE'ler, tedarik zinciri saldırıları (özellikle Java/JVM, npm/Maven, AI tooling) arasından bu okuyucunun en çok harekete geçmesi gerekenleri seç; gerisini yazma. Haftalar önce düzeltilmiş, aciliyeti olmayan açıkları koyma.
+
+**Bugün yamala (`patch`, Güvenlik bölümünde, isteğe bağlı).** Bölümün başında 1-3 maddelik liste: pencere içinde aktif istismar edildiği bildirilen (CISA KEV kataloğuna eklenen ya da üreticinin "istismar ediliyor" dediği) ya da tedarik zinciri saldırısıyla zehirlenmiş paket. Her madde tek satır: ürün ve etkilenen sürüm, ne yapılacağı. Kaynak: https://www.cisa.gov/known-exploited-vulnerabilities-catalog, üretici duyurusu ya da paket kayıt defterinin duyurusu. Ölçüt tutmuyorsa alanı yazma; listeyi doldurmak için madde ekleme. Bu maddeler bölümdeki haberleri tekrar etmez; aynı açık haber olarak da yazıldıysa listede yer almaz.
 
 Güvenlik gazetenin ana konusu değildir. Güvenlik bölümü dışında bir sayıda en fazla 1 haber ve 2 kısa haber güvenlik temalı olabilir (Java & Spring'e giren bir açık haberi bu 1 habere sayılır).
 
@@ -52,8 +66,10 @@ Açık haberleri için (hangi bölümde ya da Kısa Kısa'da olursa olsun):
 - `stars` metni kaynaktaki hassasiyette yazılır: tam sayı görünüyorsa Türkçe binlik ayıracıyla "1.932", kaynak yuvarlanmış "13.4k" veriyorsa "13,4 bin". `starsValue` alanına aynı değeri sayı olarak yaz (13,4 bin → 13400). Mümkünse güncel değeri repo sayfasından al.
 - `lang` ve `cat` alanlarını ayrı doldur, `meta` alanını bunlardan oluştur ("Rust · Kategori"; dil yoksa yalnızca kategori). Dili kaynakta (repo sayfası, README, topic etiketi) açıkça görmediysen tahmin etme, `lang` alanını hiç yazma.
 - Telif açısından şüpheli projeleri (ör. ticari oyun emülatörleri, recomp) seçme.
+- Son 7 günün sayılarında yer almış bir repo tekrar girmez (özet çıktısında liste var; denetim aracı da kontrol eder). Aynı kuruluşun benzer adlı ikinci reposu da tekrar sayılır.
+- Trending listelerinde bir JVM reposu (Java, Kotlin, Scala, Groovy) varsa en az biri listeye girer.
 
-**Kısa Kısa.** 6-10 tek-iki cümlelik haber. Okuyucuya değer katmayan tüketici ürünü ya da magazin haberlerini koyma; sayıyı doldurmak için haber ekleme.
+**Kısa Kısa.** 6-10 tek-iki cümlelik haber. Birincil kaynağına ulaşılamayan, tek ve ikincil kaynağa dayanan bir gelişme ancak burada, "İddia" ile başlayarak yer alabilir; bölüm haberi olamaz. Okuyucuya değer katmayan tüketici ürünü ya da magazin haberlerini koyma; sayıyı doldurmak için haber ekleme.
 
 **Subtitle.** Her bölümün subtitle'ı yalnızca o bölümdeki haberleri özetler; "Kısa bölüm" gibi bir not yazma. Tek istisna Java & Spring'deki "yeni sürüm yok" notudur.
 
@@ -76,9 +92,11 @@ Açık haberleri için (hangi bölümde ya da Kısa Kısa'da olursa olsun):
 
 ## 5. Kaynak ve doğruluk (en önemli kurallar)
 
-- Haber metninde (headline, deck, paragraphs, figures, stat, chart, briefs, repolar) kaynağında açıkça yazmayan hiçbir ayrıntı, yöntem, sayı ya da nitelendirme yazma. Bilmediğin bir şeyi "mantıklı" diye ekleme; emin değilsen yazma. İki istisna var: 6. bölümdeki kısa jargon açıklamaları (genel bilinen tanım) ve editoryal alanlar (Pratik çıkarım, why, pattern). Editoryal alanlar da yeni olgu içermez.
+- Haber metninde (headline, deck, paragraphs, calendar, patch, stat, chart, briefs, repolar) kaynağında açıkça yazmayan hiçbir ayrıntı, yöntem, sayı ya da nitelendirme yazma. Bilmediğin bir şeyi "mantıklı" diye ekleme; emin değilsen yazma. İki istisna var: 6. bölümdeki kısa jargon açıklamaları (genel bilinen tanım) ve editoryal alanlar (Pratik çıkarım, why, pattern). Editoryal alanlar da yeni olgu içermez.
 - Özet/aggregator siteleri (aiweekly.co, theneuron.ai, techstartups roundup'ları, Releasebot vb.) yalnızca haberi ve asıl kaynağı bulmak için kullan. Linklerde asıl kaynağı (resmi duyuru, birincil haber, GitHub issue ya da sürüm notu) ver. Asıl kaynağa ulaşamadıysan haberi atla ya da kicker'ı "İddia" ile işaretleyip metinde asıl kaynağa ulaşılamadığını söyle.
 - Tek kaynaklı ve doğrulanmamış iddiaları kicker'ın başına "İddia" ekleyerek işaretle. Bir şirketin yalnızca kendisi hakkındaki ölçüm ve beyanlarını (kendi benchmark'ı, kendi maliyet tasarrufu, kendi vaka çalışması) kicker'ın başında "Şirket beyanı" ile işaretle. Biçim: "İddia · Konu", "Şirket beyanı · Konu".
+- **Türetilmiş rakam.** Yüzde fark, oran ya da "kat" gibi bir rakamı kaynak vermiyorsa ve sen hesaplıyorsan, girdileri kaynakta açıkça yazan rakamlardan hesapla, hesabı iki kez yap ve sonucu yuvarlarken "yaklaşık" de. Kaynak bir hesap veriyorsa (ör. bir blog yazarının hesabı) onu kaynağa atfet ve kendi girdilerinle çelişmediğini kontrol et; çelişiyorsa yazma. Aynı rakam sayı boyunca ve önceki sayılarla tutarlı olmalı.
+- **Benchmark tutarlılığı.** Benchmark sayfasındaki (`data/modeller.json`) bir modelin bir ölçümünü haberde veriyorsan değer oradakiyle aynı olmalı. Kaynak başka bir ayarın (ör. high/xhigh) ya da sürümün sonucunu veriyorsa bunu metinde açıkça yaz.
 - Kaynakta bildirenin kendi çekincesi varsa (tekrar üretilemedi, tartışmalı vb.) bunu habere yaz.
 - Kendi yorumunu haber cümlesi gibi yazma. Editoryal yorum yalnızca "Pratik çıkarım" kutusunda, haberlerin why alanında ve pattern notunda olabilir; paragraphs içinde yorum olmaz.
 - Her haberde en az bir kaynak linki olsun (gerçek URL, uydurma link yok). Rakamları kaynakta yazdığı gibi ver. Kaynaklardan 15 kelimeyi aşan alıntı yapma. Siyasi konularda yorum katma.
@@ -89,16 +107,19 @@ Türkçe yaz; teknik terimler İngilizce kalabilir (context window, release cand
 
 - **Giriş cümlesi** haberin sonucunu söyler: ne değişti, ne bulundu, ne bozuldu. Tarihle ya da “X şirketi … duyurdu” kalıbıyla açma; tarihi ve duyuranı cümlenin sonuna ya da ikinci cümleye koy. Aynı sayıda iki haber aynı kalıpla açılmasın. İddia ve Şirket beyanı haberlerinde kaynak yine ilk cümlede anılır (“X'e göre” ya da cümle sonunda); yasak olan atıf değil, tarihli duyuru kalıbıdır.
 - **Kısa cümle kur.** Bir cümlede en fazla bir noktalı virgül; 25 kelimeyi aşan cümleyi böl. Bir cümlede ikiden fazla karşılaştırma ya da rakam çifti sıralama.
-- **Rakam seç, rakam yığma.** Okuyucunun karar vermesine yarayan iki üç rakamı ver, gerisini kaynağa bırak. Grafikteki rakamların hepsini metinde tek tek sıralama; metin grafiğin ne gösterdiğini söylesin ve en fazla ana rakamı ansın. figures ve stat rakamları ise ilgili haberin metninde bir kez geçer.
+- **Rakam seç, rakam yığma.** Okuyucunun karar vermesine yarayan iki üç rakamı ver, gerisini kaynağa bırak. Grafikteki rakamların hepsini metinde tek tek sıralama; metin grafiğin ne gösterdiğini söylesin ve en fazla ana rakamı ansın. stat rakamı ise ilgili haberin metninde bir kez geçer.
 - **Terimler.** Bir kavram için sayı boyunca tek terim kullan (aynı sayıda hem “istem” hem “prompt” olmaz). Yerleşik Türkçe karşılığı olmayan terimi İngilizce bırak; karşılık uydurma (“skalarlaştırma”, “sınıfı örneklemek” gibi). İngilizce deyimi kelime kelime çevirme: “in the wild” için “sahada istismar” ya da “aktif istismar”, “instantiate” için “nesnesini oluşturmak”.
+- **Çeviri ve tekrar.** İngilizce kalıbı kelime kelime çevirme (“pooling-aware” için “pooling'e göre eğitilen” değil, “pooling'i hesaba katarak eğitilen”). Aynı olguyu bir haberde iki kez söyleme. “Rutin sürüm işleri”, “bir dizi iyileştirme” gibi bilgi taşımayan dolgu cümlesi yazma; söyleyecek bir şey kalmadıysa haberi bitir. Alanın kendi terimini kullan (DNA dizisi için “harf” değil “baz çifti”).
 - **Yazım.** “Zekâ” her yerde şapkalı yazılır: yapay zekâ, zekâ endeksi, Yapay Zekâ & LLM. (Sayfa üretilirken şapkasız yazım da düzeltilir, ama JSON'da doğru yaz.)
 - **Jargon.** Okuyucu deneyimli bir yazılımcıdır ama her alt alanın uzmanı değildir. Yaygın olmayan bir ürün, protokol, benchmark ya da kısaltmayı ilk geçtiği yerde üç-sekiz kelimeyle açıkla (ör. “Kerberos'un bilet dağıtım sunucusu KDC”). Açıklama kaynakta yazan ya da genel olarak bilinen bir tanım olmalı; emin değilsen açıklama uydurma, terimi çıkar ya da kaynağın ifadesiyle ver. Java, Docker, CVE, RAG, MCP gibi bu okuyucunun bildiği terimleri açıklama.
 - **Başlık kipi.** İddia etiketli ya da tek kaynaklı haberin başlığı kesin olgu gibi yazılmaz; başlıkta kaynak ya da “iddia” yer alır (ör. “Sentra: Qubole üzerinden müşteri AWS hesaplarına girildi”). Şirket beyanı haberlerinde başlıktaki ölçüm ya da üstünlük şirkete atfedilir.
 
 ## 7. İçerik kurgusu
 
-- **Şirket ağırlığı.** Bir şirket (ürünleriyle birlikte) bir sayıda manşet dışında en fazla 2 haber ve 1 kısa haberle yer alır; aynı günün birden çok duyurusunu tek haberde birleştir. Başka bir konunun haberinde şirketin yalnızca adının geçmesi (ör. bir açığı bulan araç olarak) ve repo listesi bu sınıra girmez. Bu gazeteyi Anthropic'in Claude modeli yazıyor: Anthropic ve Claude haberlerinde diğer şirketlere uyguladığın etiketleri, çekinceleri ve ölçütleri aynen uygula, övgü sıfatı kullanma, rakip ürünleri aynı ayrıntıda ver.
-- **Neden önemli (`why`).** Bölümlerdeki her büyük haberde zorunlu, diğer haberlerde isteğe bağlı tek cümle (en fazla 25 kelime). Manşette why yazılmaz; orada "Pratik çıkarım" kutusu var. Haberin bu okuyucu kitlesi için sonucunu söyler: kim etkilenir, neyi değiştirir, ne zaman harekete geçmeli. Sayfa bunu “Neden önemli” etiketiyle metinden ayrı basar; cümleyi bu sözle başlatma. Yalnızca haberde yazan olgulardan çıkan sonucu söyler, yeni olgu ya da rakam getirmez; tahmin, abartı ve “önemli bir adım” gibi içi boş ifadeler yazma. Söyleyecek somut bir şey yoksa küçük haberde boş bırak. why cümlesi uzunluk dengesi kelime sayılarına dahil değildir.
+- **Şirket ağırlığı.** Bir şirket (ürünleriyle birlikte) bir sayıda manşet dışında en fazla 2 haber ve 1 kısa haberle yer alır; aynı günün birden çok duyurusunu tek haberde birleştir. Başka bir konunun haberinde şirketin yalnızca adının geçmesi (ör. bir açığı bulan araç olarak) ve repo listesi bu sınıra girmez. Bu gazeteyi Anthropic'in Claude modeli yazıyor: Anthropic ve Claude haberlerinde diğer şirketlere uyguladığın etiketleri, çekinceleri ve ölçütleri aynen uygula, övgü sıfatı kullanma, rakip ürünleri aynı ayrıntıda ver. Ayrıca yalnızca Anthropic'in kendi kaynağına dayanan (Şirket beyanı) bir haber manşet ya da büyük haber olamaz, stat ve chart alamaz; bağımsız ikinci bir kaynak (ölçüm, analiz, haber) varsa bu sınır kalkar.
+- **Neden önemli (`why`).** Bölümlerdeki büyük haberlerde beklenen, diğer haberlerde isteğe bağlı tek cümle (en fazla 25 kelime). Manşette why yazılmaz; orada "Pratik çıkarım" kutusu var. Haberin bu okuyucu kitlesi için sonucunu söyler: kim etkilenir, neyi değiştirir, ne zaman harekete geçmeli. Sayfa bunu “Neden önemli” etiketiyle metinden ayrı basar; cümleyi bu sözle başlatma. Yalnızca haberde yazan olgulardan çıkan sonucu söyler, yeni olgu ya da rakam getirmez; tahmin, abartı ve “önemli bir adım” gibi içi boş ifadeler yazma. Şirketin kendi açıklamasını tekrar etme (“yol haritasının değişmeyeceğini söylüyor” bir sonuç değildir). Söyleyecek somut bir sonuç yoksa büyük haberde de boş bırak. why cümlesi uzunluk dengesi kelime sayılarına dahil değildir.
+- **Pratik çıkarım.** Her madde somut bir eylem ve nesnesini içerir: hangi sürüm, ayar, komut, son tarih ya da karşılaştırma (ör. “`thinking: high` ile `xhigh`'ı aynı görev setinde 20 koşuda karşılaştırın; 1 Aralık'taki fiyat artışından önce bitirin”). Her habere uyan genel maddeler (“kendi görev setinizde ölçün”, “gelişmeleri takip edin”, “değerlendirin”) yazılmaz. Önceki üç sayının kutularındaki maddeleri tekrar etme.
+- **Düzeltmeler (`corrections`, isteğe bağlı).** Önceki bir sayıda yanlış bir bilgi fark edersen (takip ederken, kaynağı yeniden okurken ya da yeni bir kaynak çelişince) düzeltmeyi bu sayıya ekle: `{"date": "hatalı sayının tarihi", "ref": "o sayıdaki çapa", "text": "Neyin yanlış yazıldığı ve doğrusu, tek iki cümle"}`. Sayfa düzeltmeyi sayının sonunda, Hakkında sayfasında da tüm düzeltmelerin listesinde basar. Yalnızca olgu hataları düzeltilir; üslup değişikliği düzeltme değildir. Düzeltmeyi gizleme ya da yumuşatma.
 - **Süreklilik (açık uçlar).** Son 3 sayıda sonucu henüz belli olmayan konular vardır: tarihi verilmiş gelecek olaylar (kesinti, geçiş, GA, son tarih) ve “henüz açıklanmadı”, “düzeltme bekleniyor” denen haberler. Tarihi pencereye düşenler için toplam en fazla 3 arama ayır. Birincil kaynakta bir sonuç varsa “Takip” etiketiyle Kısa Kısa'ya ya da ilgili bölüme yaz ve önceki habere iç atıf ver; sonuç yoksa yazma, tahmin yürütme. Takip haberi tekrar sayılmaz.
 - **Günün örüntüsü (`pattern`, isteğe bağlı).** Yalnızca bu sayıdaki en az üç haber aynı olguyu paylaşıyorsa ve bu ortaklık her birinin kendi kaynağında açıkça yazıyorsa ekle (ör. üç ayrı güvenlik duyurusunun da açıkların yapay zekâ araçlarıyla bulunduğunu belirtmesi). Ortaklığı adlandır ve haberleri say; nedensellik kurma, gelecek tahmini yapma. Zorlama bağlantı kurmaktansa hiç yazma; çoğu gün örüntü olmaz.
 
@@ -107,18 +128,25 @@ Türkçe yaz; teknik terimler İngilizce kalabilir (context window, release cand
 Alan adları ve biçim için `kurallar/ornek.json` dosyasına bak; o dosya yalnızca yapıyı gösterir, içindeki metinler ve uzunluklar örnek değildir.
 
 - `date` (YYYY-MM-DD), `number` (önceki en büyük number + 1), `dateLabel` ("Çarşamba, 4 Kasım 2026" biçimi), `readingMinutes` (15).
-- `figures`: tam 5 adet `{n, l, ref}`; günün çarpıcı rakamları.
+- `calendar` (isteğe bağlı): 2-5 adet `{date, text, ref?, url?}`; Takvim. `figures` artık yazılmaz (eski sayılarda kalır).
+- `corrections` (isteğe bağlı): `{date, ref, text}` listesi.
 - `pattern` (isteğe bağlı): `{title, text, refs[]}`.
 - `lead`: `{kicker, alert, headline, deck, paragraphs[], chart?, sources[{label, url}], box{kicker, title, items[], note}}`.
-- `sections[]`: `{id, title, subtitle, articles[]}`; haber: `{size: 4|6|8, big?, kicker, alert?, pill?, headline, stat?, paragraphs[], why?, chart?, sources[]}`.
+- `sections[]`: `{id, title, subtitle, patch?, articles[]}` (`patch` yalnızca Güvenlik'te: `[{text, url}]`); haber: `{size: 4|6|8, big?, kicker, alert?, pill?, headline, stat?, paragraphs[], why?, chart?, sources[]}`.
 - `repos`: `{subtitle, items[{name, url, stars, starsValue, lang?, cat, why, meta}], sources[]}`.
 - `briefs[]`: `{tag, text, url}`.
 
 **Çapalar.** Bir haberin bu sayıdaki çapası: manşet için `manset`, bölüm haberleri için `<bölüm id>-<sıra>` (sıra, bölümün `articles` dizisindeki 1'den başlayan konum; ör. `java` bölümünün ilk haberi → `java-1`). Haberin kendi `id` alanı varsa sıra yerine o kullanılır.
 
-**Rakam şeridi (`figures`).** Sayfa her rakam kutusunu, rakamın geçtiği habere link yapar; `ref` alanına o haberin çapasını yaz. Her rakam bu sayıdaki bir haberde aynen geçmeli; mümkünse 5 rakamı en az 3 farklı habere dağıt. Rakam yalnızca Kısa Kısa ya da repolarda geçiyorsa `ref` yazma. Haber sırasını değiştirirsen ref'leri güncelle.
+**Takvim (`calendar`).** Sayının başında, önümüzdeki günlerin okuyucuyu ilgilendiren tarihleri: GA ve sürüm tarihleri, fiyat ve limit değişiklikleri, servis kapanışları, son tarihler, bilanço günleri, önemli konferans açılışları. Biçim: `{"date": "2026-11-19", "text": "PostgreSQL 19 GA", "ref": "guvenlik-1"}`.
 
-**İri rakam (`stat`, isteğe bağlı).** Yalnızca `big: true` haberlerde. Biçim: `{"n": "%65-80", "l": "rakamın neyi ölçtüğünü söyleyen kısa açıklama"}`. Sayfa bunu başlığın altında iri puntoyla basar. `n` en fazla 10 karakterlik tek bir rakam ya da aralık, `l` en fazla 80 karakter; rakam kaynakta yazmalı ve haberin ana olgusu olmalı. Bir sayıda en fazla 3 stat; chart olan habere stat koyma, figures'taki bir rakamı stat olarak tekrar etme. Uygun rakam yoksa hiç koyma.
+- 2-5 öğe; tarih sayı tarihinden itibaren en fazla 30 gün ileride. En az 2 uygun tarih yoksa alanı hiç yazma.
+- Her tarih kaynakta açıkça yazmalı. "Yakında", "önümüzdeki hafta", "bekleniyor" gibi kesin olmayan tarihler girmez; tahmin edilen tarih girmez.
+- Tarih bu sayıdaki bir haberde geçiyorsa `ref` o haberin çapasıdır. Haberde geçmiyorsa (ör. önceki sayının takviminden devralınan) `url` kaynağın linkidir; `ref` ve `url`'den biri zorunlu.
+- `text` en fazla 60 karakter, olayın kendisi: "Gemini 4 Carbon ve Argon fiyatı iki katına çıkıyor". Yorum, tahmin ve “önemli” gibi sıfatlar yok.
+- Önceki sayının takviminde olup hâlâ gelecekte kalan bir tarih, okuyucu için önemini koruyorsa yeniden girebilir; tarihi değiştiyse yeni kaynağıyla yaz.
+
+**İri rakam (`stat`, isteğe bağlı).** Yalnızca `big: true` haberlerde. Biçim: `{"n": "%65-80", "l": "rakamın neyi ölçtüğünü söyleyen kısa açıklama"}`. Sayfa bunu başlığın altında iri puntoyla basar. `n` en fazla 10 karakterlik tek bir rakam ya da aralık, `l` en fazla 80 karakter; rakam kaynakta yazmalı ve haberin ana olgusu olmalı. Bir sayıda en fazla 3 stat; chart olan habere stat koyma. Uygun rakam yoksa hiç koyma.
 
 **`pattern` biçimi.** `{"title": "en fazla 60 karakter", "text": "30-60 kelime", "refs": ["guvenlik-2", "java-2", "java-3"]}`; `refs` ilgili haberlerin çapalarıdır, en az 3 tane.
 

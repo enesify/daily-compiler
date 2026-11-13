@@ -381,6 +381,19 @@ def art_id(s, i, a):
     return str(a.get("id") or f"{s.get('id') or 'bolum'}-{i + 1}")
 
 
+def calendar_items(cur):
+    """[(öğe, tarih)]: sayı tarihi ve sonrası, tarih sırasıyla, en çok 5. Biçimi bozuk öğe atlanır."""
+    out = []
+    for it in cur.get("calendar") or []:
+        try:
+            d = d_of(str(it.get("date")))
+        except Exception:
+            continue
+        if d >= d_of(cur["date"]) and it.get("text"):
+            out.append((it, d))
+    return sorted(out, key=lambda x: x[1])[:5]
+
+
 def section_articles(ctx, s):
     return "".join(article(ctx, a, art_id(s, i, a)) for i, a in enumerate(s.get("articles") or []))
 
@@ -561,15 +574,34 @@ def render_issue(ctx, cur):
     out.append('<div class="nav-sentinel" aria-hidden="true"></div><nav class="index" aria-label="Bölümler">'
                f'<a class="nav-brand" href="{esc(ctx.href("index.html"))}" tabindex="-1" aria-hidden="true">'
                f'{logo("full", "full")}{logo("mono", "mono")}</a><div class="nav-links">' + "".join(
-        f'<a href="#sec-{esc(i)}">{esc(caps(t))}</a>' for i, t in nav_items) + "</div></nav>")
+        f'<a href="#sec-{esc(i)}">{esc(caps(t))}</a>' for i, t in nav_items) + "</div>"
+        f'<button type="button" class="nav-more" aria-label="Menüde sağa kaydır" tabindex="-1">{CHEV_R}</button></nav>')
 
-    figs = cur.get("figures") or []
+    # ref: "manset" ya da "<bölüm id>-<sıra>" (haberin kendi id'si varsa o); hedef bu sayıda yoksa kutu link olmaz
+    targets = {"manset"} if cur.get("lead") else set()
+    for s in secs:
+        for i, a in enumerate(s.get("articles") or []):
+            targets.add(str(a.get("id") or f"{s.get('id') or 'bolum'}-{i + 1}"))
+    cal = calendar_items(cur)
+    figs = [] if cal else (cur.get("figures") or [])   # eski sayılar: Günün rakamları
+    if cal:
+        cells = []
+        for it, d in cal:
+            delta = (d - d_of(cur["date"])).days
+            when = "Bugün" if delta == 0 else "Yarın" if delta == 1 else DAYS[d.weekday()]
+            inner = (f'<span class="n">{d.day} {esc(MONTHS_LONG[d.month - 1])}</span><span class="w">{esc(when)}</span>'
+                     f'<span class="l">{rich(it.get("text"))}</span>')
+            ref = str(it.get("ref") or "").lstrip("#")
+            ref = ref[2:] if ref.startswith("a-") else ref
+            if ref in targets:
+                cells.append(f'<a class="fig" href="#a-{esc(ref)}">{inner}</a>')
+            elif str(it.get("url") or "").startswith("https://"):
+                cells.append(f'<a class="fig ext" href="{esc(it["url"])}" target="_blank" rel="noopener">{inner}</a>')
+            else:
+                cells.append(f'<div class="fig">{inner}</div>')
+        out.append(f'<section class="figs-wrap cal" aria-label="Takvim" style="--n:{len(cells)}"><span class="kicker">'
+                   + esc(caps("Takvim")) + '</span><div class="figs">' + "".join(cells) + "</div></section>")
     if figs:
-        # ref: "manset" ya da "<bölüm id>-<sıra>" (haberin kendi id'si varsa o); hedef bu sayıda yoksa kutu link olmaz
-        targets = {"manset"} if cur.get("lead") else set()
-        for s in secs:
-            for i, a in enumerate(s.get("articles") or []):
-                targets.add(str(a.get("id") or f"{s.get('id') or 'bolum'}-{i + 1}"))
         cells = []
         for f in figs:
             inner = f'<span class="n">{esc(f.get("n"))}</span><span class="l">{rich(f.get("l"))}</span>'
@@ -608,7 +640,7 @@ def render_issue(ctx, cur):
         arts = section_articles(ctx, s)
         sub = f'<p>{rich(s.get("subtitle"))}</p>' if s.get("subtitle") else ""
         out.append(f'<section class="sec" id="sec-{esc(sid)}"><div class="sec-h"><h2>{esc(typo(s.get("title")))}</h2>{sub}</div>'
-                   f'<div class="grid">{arts}</div></section>')
+                   f'{patch_list(s)}<div class="grid">{arts}</div></section>')
 
 
     R = cur.get("repos")
@@ -634,9 +666,47 @@ def render_issue(ctx, cur):
             ps.append(f'<p><b>{caps_rich(b.get("tag"))}</b>{rich(b.get("text"))}{tail}</p>')
         out.append(f'<section class="sec" id="sec-kisa"><div class="sec-h"><h2>Kısa Kısa</h2></div><div class="briefs">{"".join(ps)}</div></section>')
     out.append(models_band(ctx))
+    out.append(corrections_block(ctx, cur))
     out.append(end_nav(ctx, cur))
     out.append("</main>")
     return "\n".join(out)
+
+
+def patch_list(s):
+    """Güvenlik bölümünün başında “Bugün yamala”: 1-3 madde [{text, url}]."""
+    items = [m for m in s.get("patch") or [] if m.get("text")][:3]
+    if not items:
+        return ""
+    lis = "".join(f'<li>{rich(m["text"])}' + (f'\u00a0<a href="{esc(m["url"])}" target="_blank" rel="noopener" aria-label="Kaynak">↗</a>'
+                  if re.match(r"^https?://", m.get("url") or "") else "") + "</li>" for m in items)
+    return f'<aside class="patch" aria-label="Bugün yamala"><span class="kicker alert">{esc(caps("Bugün yamala"))}</span><ul>{lis}</ul></aside>'
+
+
+def correction_items(ctx, c):
+    """Düzeltmenin hedef sayısı ve haberi: (tarih, başlık, adres)."""
+    d, r = str(c.get("date") or ""), str(c.get("ref") or "")
+    it = next((x for x in ctx.issues if x["date"] == d), None)
+    if not it:
+        return None
+    head = (it.get("lead") or {}).get("headline") if r == "manset" else None
+    for s in it.get("sections") or []:
+        for i, a in enumerate(s.get("articles") or []):
+            if art_id(s, i, a) == r:
+                head = a.get("headline")
+    return d, head, ctx.href(issue_path(d)) + (f"#a-{r}" if head else "")
+
+
+def corrections_block(ctx, cur):
+    rows = []
+    for c in cur.get("corrections") or []:
+        t = correction_items(ctx, c)
+        if not t or not c.get("text"):
+            continue
+        d, head, href = t
+        rows.append(f'<p><a href="{esc(href)}">{esc(short_date(d))} · {rich(head or "Sayı")}</a> {rich(c["text"])}</p>')
+    if not rows:
+        return ""
+    return f'<section class="sec corr" id="sec-duzeltme"><div class="sec-h"><h2>Düzeltme</h2></div>{"".join(rows)}</section>'
 
 
 def toc(secs):
@@ -685,7 +755,41 @@ def render_archive(ctx):
             f'<a href="{esc(ctx.href(issue_path(i["date"])))}">{rich((i.get("lead") or {}).get("headline") or long_date(i["date"]))}</a>'
             f'<span class="an">{esc(caps("Sayı " + num3(i.get("number"))))}</span></li>' for i in items)
         blocks.append(f'<section class="arc-month"><h2>{MONTHS_LONG[m - 1]} {y}</h2><ul class="arc-list">{lis}</ul></section>')
-    return f'<main id="issue" class="arc">{"".join(blocks)}</main>'
+    # Arama verisi: her sayının haber başlıkları ve kısa haberleri (site.js filtreler)
+    idx = []
+    for it in ctx.issues:
+        L = it.get("lead") or {}
+        hs = [["manset", plain(L.get("headline"))]] if L.get("headline") else []
+        for s in it.get("sections") or []:
+            for i, a in enumerate(s.get("articles") or []):
+                if a.get("headline"):
+                    hs.append([art_id(s, i, a), plain(a.get("headline"))])
+        for b in it.get("briefs") or []:
+            if b.get("text"):
+                hs.append(["", plain(b.get("text"))])
+        for r in (it.get("repos") or {}).get("items") or []:
+            hs.append(["sec-repolar", r.get("name") or ""])
+        idx.append({"h": ctx.href(issue_path(it["date"])), "a": hs})
+    data = json.dumps(idx, ensure_ascii=False).replace("</", "<\\/")
+    search = ('<div class="arc-search" hidden><label for="arc-q">Arşivde ara</label>'
+              '<input id="arc-q" type="search" autocomplete="off" spellcheck="false" placeholder="Başlık, şirket, proje">'
+              '<p class="arc-none" hidden>Bu aramayla eşleşen haber yok.</p></div>')
+    return (f'<main id="issue" class="arc">{search}{"".join(blocks)}'
+            f'<script type="application/json" id="arc-veri">{data}</script></main>')
+
+
+def about_corrections(ctx):
+    rows = []
+    for it in ctx.issues:
+        for c in it.get("corrections") or []:
+            t = correction_items(ctx, c)
+            if t and c.get("text"):
+                d, head, href = t
+                rows.append(f'<li><a href="{esc(href)}">{esc(short_date(d))} · {rich(head or "Sayı")}</a> {rich(c["text"])} '
+                            f'<span class="cd">({esc(short_date(it["date"]))} sayısında düzeltildi)</span></li>')
+    body = f'<ul class="corr-list">{"".join(rows)}</ul>' if rows else "<p>Henüz düzeltme yok.</p>"
+    return ('<h3>Düzeltmeler</h3><p>Önceki bir sayıda yanlış bir bilgi fark edildiğinde düzeltme bir sonraki sayının sonunda yayımlanır '
+            've burada da listelenir.</p>' + body + "\n")
 
 
 def render_about(ctx):
@@ -695,7 +799,7 @@ def render_about(ctx):
 <h3>Nasıl hazırlanıyor?</h3>
 <p>Her sayı otomatik olarak, bir yapay zekâ modeli (Anthropic Claude) tarafından hazırlanır. Model son 24–48 saatin haberlerini tarar (Pazartesi sayılarında hafta sonunu da kapsar), asıl kaynakları okur ve haberleri kendi cümleleriyle özetler. Ardından ayrı bir yapay zekâ “editör”, taslağı kaynak linklerini yeniden açarak denetler; doğrulanamayan bilgi çıkarılır ya da etiketlenir.</p>
 <p>Sayılar yayımlanmadan önce bir insan tarafından tek tek okunmaz. Bu yüzden hata olabilir: bir haber sizin için önemliyse, altındaki kaynak linkinden asıl metne bakın.</p>
-<p>Gazeteyi yazan model Anthropic’in ürünü olduğu için Anthropic ve Claude haberlerinde bir çıkar çatışması vardır. Bu haberlere de diğer şirketlerle aynı etiketler ve çekinceler uygulanır; bir şirket, manşet dışında bir sayıda en fazla iki haber ve bir kısa haberle yer alır.</p>
+<p>Gazeteyi yazan model Anthropic’in ürünü olduğu için Anthropic ve Claude haberlerinde bir çıkar çatışması vardır. Bu haberlere de diğer şirketlerle aynı etiketler ve çekinceler uygulanır; bir şirket, manşet dışında bir sayıda en fazla iki haber ve bir kısa haberle yer alır. Yalnızca Anthropic’in kendi açıklamasına dayanan bir haber manşet ya da büyük haber olmaz.</p>
 <h3>Etiketler</h3>
 <ul>
 <li><span class="prov prov-claim">İDDİA</span> tek kaynağa dayanan ya da bağımsız olarak doğrulanmamış haber.</li>
@@ -703,7 +807,7 @@ def render_about(ctx):
 <li><b>Pratik çıkarım</b>: manşetin yanındaki kutu editoryal öneridir, haberin parçası değildir.</li>
 <li><b>↩ ile başlayan kaynaklar</b>: önceki bir sayıdaki habere iç atıftır.</li>
 </ul>
-<h3>Takip</h3>
+{about_corrections(ctx)}<h3>Takip</h3>
 <p>Yeni sayılar her sabah yayımlanır; tüm sayılar <a href="{esc(ctx.href("arsiv.html"))}">arşivde</a> kalır. Bir okuyucu uygulamasıyla izlemek için <a href="{esc(ctx.href("feed.xml"))}">RSS akışını</a> kullanabilirsiniz.</p>
 </main>"""
 

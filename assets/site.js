@@ -27,6 +27,13 @@
   var nav = document.querySelector('nav.index');
   if (nav && 'IntersectionObserver' in window) {
     var links = {}, active = null, scroller = nav.querySelector('.nav-links') || nav;
+    // Menü sağa taşıyorsa ok göster; sona gelince gizle
+    var more = nav.querySelector('.nav-more');
+    var edge = function () { nav.classList.toggle('more', scroller.scrollLeft + scroller.clientWidth < scroller.scrollWidth - 4); };
+    if (more && scroller !== nav) {
+      scroller.addEventListener('scroll', edge, { passive: true }); addEventListener('resize', edge); edge();
+      more.addEventListener('click', function () { scroller.scrollBy({ left: scroller.clientWidth * .6, behavior: 'smooth' }); });
+    }
     // Menü üste yapıştığında küçük logoyu göster
     var sentinel = document.querySelector('.nav-sentinel');
     if (sentinel) {
@@ -113,4 +120,43 @@
   }
   window.addEventListener('hashchange', flash);
   flash();
+
+  // Arşiv araması: sayıların haber başlıklarında, kısa haberlerde ve repo adlarında
+  var veri = document.getElementById('arc-veri'), box = document.querySelector('.arc-search');
+  if (veri && box) {
+    var data = JSON.parse(veri.textContent), q = document.getElementById('arc-q'), none = box.querySelector('.arc-none');
+    var fold = function (t) { return t.replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase().replace(/[’']/g, "'"); };
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.arc-list li'));
+    data.forEach(function (it, i) { it.li = rows[i]; it.f = it.a.map(function (x) { return fold(x[1]); }); });
+    var esc = function (t) { return t.replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+    var run = function () {
+      var words = fold(q.value.trim()).split(/\s+/).filter(Boolean), any = false;
+      data.forEach(function (it) {
+        var old = it.li && it.li.querySelector('.arc-hits');
+        if (old) old.remove();
+        if (!it.li) return;
+        var hits = [];
+        var lead = false;
+        if (words.length) it.f.forEach(function (t, k) { if (words.every(function (w) { return t.indexOf(w) > -1; })) { if (it.a[k][0] === 'manset') lead = true; else hits.push(it.a[k]); } });
+        var show = !words.length || lead || hits.length > 0;
+        it.li.hidden = !show;
+        if (show) any = true;
+        if (hits.length) {
+          var ul = document.createElement('ul');
+          ul.className = 'arc-hits';
+          ul.innerHTML = hits.slice(0, 4).map(function (x) {
+            var t = x[1].length > 140 ? x[1].slice(0, 138) + '…' : x[1];
+            return '<li><a href="' + it.h + (x[0] ? '#' + (x[0].indexOf('sec-') === 0 ? x[0] : 'a-' + x[0]) : '') + '">' + esc(t) + '</a></li>';
+          }).join('') + (hits.length > 4 ? '<li class="more-hits">+' + (hits.length - 4) + '</li>' : '');
+          it.li.appendChild(ul);
+        }
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('.arc-month'), function (m) {
+        m.hidden = !m.querySelector('.arc-list > li:not([hidden])');
+      });
+      none.hidden = any;
+    };
+    box.hidden = false;
+    q.addEventListener('input', run);
+  }
 })();

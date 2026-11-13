@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""data/modeller.json dosyasını denetler (Modeller sayfasının ve sayı içindeki bandın verisi).
+"""data/modeller.json dosyasını denetler (Benchmark sayfasının ve sayı içindeki bandın verisi).
 
 Kullanım:
     python3 tools/modeller.py            biçimi ve kuralları denetler; HATA varsa çıkış kodu 1, yayımlanmaz

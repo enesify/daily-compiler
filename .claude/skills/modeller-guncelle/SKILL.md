@@ -1,11 +1,11 @@
 ---
 name: modeller-guncelle
-description: The Daily Compiler'ın Modeller sayfasının verisini (data/modeller.json) bağımsız benchmark tablolarından yeniler. Yeni bir model çıktığında ya da tools/modeller.py "GÜNCELLE" dediğinde kullanılır.
+description: The Daily Compiler'ın Benchmark sayfasının verisini (data/modeller.json) bağımsız benchmark tablolarından yeniler. Yeni bir model çıktığında ya da tools/modeller.py "GÜNCELLE" dediğinde kullanılır.
 ---
 
-# Modeller verisini güncelle
+# Benchmark verisini güncelle
 
-`data/modeller.json`, `modeller.html` sayfasının ve her sayıdaki “Modeller” bandının tek veri kaynağıdır. Liste kodu (`assets/modeller.js`, `build.py`) bu dosyadan üretilir; bu oturum koda dokunmaz, yalnızca veri dosyasını yeniler.
+`data/modeller.json`, `benchmark.html` sayfasının ve her sayıdaki “Benchmark” bandının tek veri kaynağıdır. Liste kodu (`assets/modeller.js`, `build.py`) bu dosyadan üretilir; bu oturum koda dokunmaz, yalnızca veri dosyasını yeniler.
 
 ## Ne zaman
 
@@ -39,7 +39,7 @@ Yalnızca bu iki tablonun kendi sayfası okunur. Rakam başka bir siteden (derle
 2. Kurallara göre model listesini ve değerleri çıkar; `data/modeller.json` içinde yalnızca `updated`, `models` ve (kaynak sürümü değiştiyse) `sources.*.note` alanlarını yenile. `metrics` ve `sekmeler` olduğu gibi kalır.
 3. Yazdığın her rakamı kaynak tablodaki satırla bir kez daha tek tek karşılaştır.
 4. `python3 tools/modeller.py` çalıştır; `HATA` varsa düzelt, düzeltilemiyorsa değişikliği geri al (`git checkout data/modeller.json`).
-5. `python3 build.py` ile siteyi üret. `data/modeller.json`, `modeller.html`, `index.html` ve `sayi/` sayfaları günün sayısıyla aynı commit'e girer.
+5. `python3 build.py` ile siteyi üret. `data/modeller.json`, `benchmark.html`, `index.html` ve `sayi/` sayfaları günün sayısıyla aynı commit'e girer.
 
 ## Yeni ölçüt eklemek (günlük oturumun işi değildir)
 

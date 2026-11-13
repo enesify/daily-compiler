@@ -117,6 +117,11 @@ nav.index.stuck{border-bottom-color:transparent}
 /* Menü taşıyorsa sağ kenar solarak devamı olduğunu belli eder */
 .nav-links{padding-right:28px;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}
 .nav-links::-webkit-scrollbar{display:none}
+/* Menü sağa taşıyorsa sağ kenarda ok: kaydırılabildiğini gösterir, dokununca sağa kaydırır (site.js) */
+.nav-more{display:none;position:absolute;right:0;top:env(safe-area-inset-top,0px);bottom:0;width:30px;align-items:center;justify-content:flex-end;background:none;border:0;padding:0;color:var(--ink-soft);cursor:pointer}
+.nav-more svg{width:6px;height:10px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+nav.index.more .nav-more{display:flex}
+nav.index.more .nav-links{padding-right:34px}
 .nav-links a{text-decoration:none;padding:11px 0 9px;border-bottom:2px solid transparent;flex:none}
 .nav-links a[aria-current="true"]{color:var(--accent);border-bottom-color:currentColor}
 /* Aynı menü sekme olarak da kullanılır (Modeller: ölçüt seçimi) */
@@ -146,6 +151,12 @@ nav.index.stuck .nav-brand{max-width:230px;opacity:1;visibility:visible;margin-r
 a.fig{text-decoration:none;color:inherit}
 a.fig .l::after{content:" ↓";color:var(--accent)}
 a.fig:hover .n{color:var(--accent)}
+/* Takvim: rakam şeridiyle aynı kutu; tarih, gün ve olay */
+.cal .figs{grid-template-columns:repeat(var(--n,5),minmax(0,1fr))}
+.cal .fig .n{font-size:22px}
+.cal .fig .w{font-family:var(--f-label);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.cal .fig .l{color:var(--ink);font-size:13px}
+a.fig.ext .l::after{content:" ↗"}
 
 .lead{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);gap:36px;padding:28px 0 12px}
 .kicker{font-family:var(--f-label);font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
@@ -224,7 +235,7 @@ article p{font-size:16.5px}
 .body{display:block}
 .body p+p{margin-top:.55em}
 /* Geniş büyük haberlerde satır uzunluğunu okunur tutmak için iki sütun */
-article.big.s8 .body{columns:2 300px;column-gap:30px;column-rule:1px solid var(--rule)}
+article.big.s8 .body,article.s12 .body{columns:2 300px;column-gap:30px;column-rule:1px solid var(--rule)}
 .s12{grid-column:span 12}.s8{grid-column:span 8}.s6{grid-column:span 6}.s4{grid-column:span 4}
 .pill{display:inline-block;font-family:var(--f-label);font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border:1px solid currentColor;padding:1px 6px;margin-right:8px;vertical-align:4px;color:var(--alert)}
 .flash{animation:flash 2.4s ease-out}
@@ -265,7 +276,11 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   /* Tek sütun: 12 kolonun aralıkları (11 × 30px) dar telefonda sayfayı taşırmasın */
   .grid{grid-template-columns:minmax(0,1fr)}
   .s8,.s6,.s4{grid-column:auto}
-  .toc{display:none}
+  /* “Bu sayıda” telefonda ve tablette sayfanın başında: bir dakikalık özet */
+  .lead-side{display:contents}
+  .toc{order:-1}
+  .toc a{grid-template-columns:minmax(0,1fr);gap:2px;white-space:normal;padding:9px 0}
+  .toc .th{overflow:visible}
   .pattern{grid-template-columns:1fr}
   .repos{grid-template-columns:1fr}
   .nav-links{gap:18px}
@@ -310,6 +325,9 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   .fig{grid-column:span 2}
   .fig:nth-child(n+4){grid-column:span 3;border-top:1px solid var(--rule)}
   .fig:nth-child(4){border-left:0;padding-left:0}
+  .cal .figs{grid-template-columns:repeat(var(--n,5),minmax(0,1fr))}
+  .cal .fig,.cal .fig:nth-child(n+4){grid-column:auto;border-top:0}
+  .cal .fig:nth-child(4){border-left:1px solid var(--rule);padding-left:14px}
   /* Tam genişlikte haber metni iki sütuna bölünür: satır 110 karakter yerine 50 civarı */
   article .body{columns:2 300px;column-gap:30px;column-rule:1px solid var(--rule)}
 }
@@ -337,6 +355,13 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   .figs-wrap{padding:10px 14px 0;margin-top:12px}
   .fig{flex:0 0 72%;scroll-snap-align:start;padding-top:6px;padding-bottom:12px}
   .fig .n{font-size:24px}
+  .cal .figs{display:block}
+  .cal .fig{display:grid;grid-template-columns:7.2em minmax(0,1fr);grid-template-areas:"n l" "w l";column-gap:12px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule)}
+  .cal .fig:first-child{border-top:0}
+  .cal .fig+.fig{border-left:0;padding-left:0}
+  .cal .fig .n{grid-area:n;font-size:18px}
+  .cal .fig .w{grid-area:w}
+  .cal .fig .l{grid-area:l;font-size:14px}
   .lead{padding-top:22px}
   .deck{font-size:18px}
   .brow{grid-template-columns:minmax(0,7.5em) minmax(0,1fr) auto}
@@ -358,11 +383,23 @@ span.dial-step{opacity:.3}
 .arc-month h2{font-size:26px;font-weight:600;border-top:3px solid var(--ink);padding-top:8px;margin-bottom:6px}
 .arc-month:first-child h2{border-top:0;padding-top:0}
 .arc-list{list-style:none;margin:0;padding:0}
+.arc-search{display:grid;gap:6px;max-width:560px}
+.arc-search label{font-family:var(--f-label);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.arc-search input{font:inherit;font-size:19px;color:var(--ink);background:transparent;border:0;border-bottom:2px solid var(--ink);border-radius:0;padding:6px 0;outline:none;-webkit-appearance:none;appearance:none}
+.arc-search input:focus{border-bottom-color:var(--accent)}
+.arc-search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.arc-search input::placeholder{color:var(--ink-soft);opacity:.7}
+.arc-none{font-size:15.5px;color:var(--ink-soft);margin-top:6px}
+.arc-hits{grid-column:2/-1;list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.arc-list .arc-hits li{display:block;padding:0;border:0;line-height:1.35}
+.arc-list .arc-hits a{font-family:var(--f-body);font-size:15px;font-weight:400;line-height:1.4;color:var(--accent)}
+.arc-list .arc-hits .more-hits{font-family:var(--f-label);font-size:12px;color:var(--ink-soft)}
+.arc [hidden]{display:none}
 .arc-list li{display:grid;grid-template-columns:7.5em minmax(0,1fr) auto;gap:6px 18px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule)}
 .arc-list .ad{font-family:var(--f-label);font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .arc-list a{font-family:var(--f-display);font-size:20px;font-weight:600;line-height:1.2;text-decoration:none}
 .arc-list .an{font-family:var(--f-label);font-size:12px;letter-spacing:.06em;color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
-@media (max-width:560px){.arc-list li{grid-template-columns:1fr auto}.arc-list a{grid-column:1/-1}}
+@media (max-width:560px){.arc-list li{grid-template-columns:1fr auto}.arc-list a{grid-column:1/-1}.arc-hits{grid-column:1/-1}}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 
 /* Hakkında sayfası */
@@ -374,7 +411,17 @@ span.dial-step{opacity:.3}
 .about b{font-family:var(--f-label);font-weight:600;font-size:.82em;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
 .dial-r .sep:has(+ .theme[hidden]){display:none}
 
-/* Modeller: modeller.html ve sayı içindeki bant. Liste assets/modeller.js ile canlanır; sabit hali build.py üretir. */
+/* Bugün yamala (Güvenlik başı) ve düzeltmeler */
+.patch{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 24px;align-items:baseline;padding:10px 0 12px;margin:0 0 4px;border-bottom:1px solid var(--rule)}
+.patch ul{list-style:none;margin:0;padding:0}
+.patch li{font-size:15.5px;line-height:1.45;padding:2px 0}
+.patch li a{color:var(--accent);text-decoration:none}
+.corr p{font-size:15.5px;line-height:1.5;max-width:72ch;margin-top:8px}
+.corr p a,.corr-list a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;margin-right:4px}
+.corr-list .cd{font-family:var(--f-label);font-size:12px;color:var(--ink-soft)}
+@media (max-width:640px){.patch{grid-template-columns:1fr}}
+
+/* Benchmark: benchmark.html ve sayı içindeki bant. Liste assets/modeller.js ile canlanır; sabit hali build.py üretir. */
 .mdl-page{padding:28px 0 8px}
 .mdl-page>h2{font-size:clamp(30px,5vw,44px);font-weight:600;line-height:1.05;letter-spacing:-.01em;margin:0 0 18px}
 .mdl-cap{font-family:var(--f-label);font-size:13px;color:var(--ink-soft);margin:0;padding:12px 0 8px}
