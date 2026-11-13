@@ -19,7 +19,7 @@
    "bicim": "puan",
    "iyi": "yuksek",
    "kaynak": "aa",
-   "kisa": "Zekâ"
+   "kisa": "Zekâ endeksi"
   },
   "maliyet": {
    "ad": "Görev başına maliyet",
@@ -28,7 +28,7 @@
    "iyi": "dusuk",
    "log": true,
    "kaynak": "aa",
-   "kisa": "Maliyet, $"
+   "kisa": "Görev başına, $"
   },
   "sure": {
    "ad": "Görev başına süre",
@@ -36,25 +36,25 @@
    "bicim": "dk",
    "iyi": "dusuk",
    "kaynak": "aa",
-   "kisa": "Süre, dk",
+   "kisa": "Görev başına, dk",
    "sifir": true
   },
   "kodlama": {
-   "ad": "Kodlama",
+   "ad": "Kodlama başarısı",
    "eksen": "kodlama başarısı, %",
    "bicim": "yuzde",
    "iyi": "yuksek",
    "kaynak": "cursor",
-   "kisa": "Kodlama, %"
+   "kisa": "Kodlama başarısı, %"
   },
   "kod_maliyet": {
-   "ad": "Kodlama görevi maliyeti",
+   "ad": "Kodlama görevi başına maliyet",
    "eksen": "kodlama görevi başına maliyet, $ (log)",
    "bicim": "usd",
    "iyi": "dusuk",
    "log": true,
    "kaynak": "cursor",
-   "kisa": "Maliyet, $"
+   "kisa": "Görev başına, $"
   }
  },
  "views": [

@@ -180,7 +180,7 @@ def tr_num(v, d):
 M_FMT = {  # (değer yazımı, eksen çentiği yazımı, tabloda birimsiz yazım)
     "puan": (lambda v: str(round(v)), lambda v: f"{v:g}", lambda v: str(round(v))),
     "yuzde": (lambda v: "%" + tr_num(v, 1), lambda v: f"%{v:g}", lambda v: tr_num(v, 1)),
-    "usd": (lambda v: "$" + tr_num(v, 2), lambda v: "$" + (tr_num(v, 1) if v < 1 else f"{v:g}"), lambda v: tr_num(v, 2)),
+    "usd": (lambda v: "$" + tr_num(v, 2), lambda v: "$" + (tr_num(v, 2) if v < 1 else f"{v:g}"), lambda v: tr_num(v, 2)),
     "dk": (lambda v: tr_num(v, 1) + " dk", lambda v: f"{v:g}", lambda v: tr_num(v, 1)),
 }
 
@@ -196,7 +196,7 @@ def m_scale(D, k):
     sifir = D["metrics"][k].get("sifir")   # süre gibi oranı anlamlı ölçütlerde eksen sıfırdan başlar
     pad = (hi - (0 if sifir else lo) or 1) * .06
     lo, hi = (0 if sifir else lo - pad), hi + pad
-    raw = (hi - lo) / 4
+    raw = (hi - lo) / 5
     mag = 10 ** math.floor(math.log10(raw))
     step = [x for x in (1, 2, 5, 10) if x * mag >= raw][0] * mag
     a, b = math.floor(lo / step) * step, math.ceil(hi / step) * step
@@ -216,7 +216,23 @@ def m_has(m, v):
 
 
 def m_missing(D, v):
-    return [m.get("kisa") or m["ad"] for m in D["models"] if not m_has(m, v)]
+    """[(ölçüt adı, [model adları])]: her model için görünümde eksik olan ilk ölçüt (önce y, sonra x)."""
+    out = {}
+    for m in D["models"]:
+        for k in ([v["rank"]] if v.get("rank") else [v["y"], v["x"]]):
+            if m.get(k) is None:
+                out.setdefault(D["metrics"][k]["ad"], []).append(m.get("kisa") or m["ad"])
+                break
+    return list(out.items())
+
+
+def m_missing_text(D, v):
+    return " · ".join(f"{ad} ölçümü yok: {', '.join(ns)}" for ad, ns in m_missing(D, v))
+
+
+def m_source_line(D, v):
+    ks = [v["rank"]] if v.get("rank") else [v["x"], v["y"]]
+    return f'Kaynak: {models_sources(D, ks)} · {esc(models_updated(D))}'
 
 
 def models_svg(D, W, H, small):
@@ -251,12 +267,13 @@ def models_svg(D, W, H, small):
     for m in sorted(pts, key=lambda m: -m[ky]):   # etiket önce sağa, sonra sola; ikisi de doluysa etiketsiz kalır
         cx, cy, name = X(m[kx]), Y(m[ky]), m.get("kisa") or m["ad"]
         w = len(name) * nf * .5
-        for x0, anchor in ((cx + r + 5, "start"), (cx - r - 5, "end")):
-            bx0 = x0 if anchor == "start" else x0 - w
-            b = (bx0 - 1, cy - nf * .75, w + 2, nf * 1.1)
-            if bx0 > 1 and bx0 + w < W - 1 and not hit(b):
+        for x0, y0, anchor in ((cx + r + 5, cy + nf * .35, "start"), (cx - r - 5, cy + nf * .35, "end"),
+                               (cx, cy + r + nf + 1, "middle"), (cx, cy - r - 5, "middle")):
+            bx0 = x0 if anchor == "start" else x0 - w if anchor == "end" else x0 - w / 2
+            b = (bx0 - 1, y0 - nf * .85, w + 2, nf * 1.1)
+            if bx0 > L + 2 and bx0 + w < W - 1 and b[1] > 1 and b[1] + b[3] < H - B - 1 and not hit(b):
                 boxes.append(b)
-                labels.append(f'<text x="{x0:.1f}" y="{cy + nf * .35:.1f}" text-anchor="{anchor}" class="nm" font-size="{nf}">{esc(name)}</text>')
+                labels.append(f'<text x="{x0:.1f}" y="{y0:.1f}" text-anchor="{anchor}" class="nm" font-size="{nf}">{esc(name)}</text>')
                 break
     for m in pts:
         cx, cy, c, q = X(m[kx]), Y(m[ky]), m_color(D, m), r * 1.22
@@ -265,11 +282,13 @@ def models_svg(D, W, H, small):
     return "".join(o + labels) + "</svg>"
 
 
-def models_legend(D):
+def models_legend(D, v=None):
     seen = {}
     for m in D["models"]:
         seen.setdefault(m["saglayici"], m_color(D, m))
-    items = "".join(f'<li><i style="background:{c}"></i>{esc(p)}</li>' for p, c in seen.items())
+    shown = {m["saglayici"] for m in D["models"] if v is None or m_has(m, v)}
+    items = "".join(f'<li data-p="{esc(p)}"{"" if p in shown else " class=off"}><i style="background:{c}"></i>{esc(p)}</li>'
+                    for p, c in seen.items())
     extra = '<li class="dia"><i></i>Açık ağırlıklı</li>' if any(m.get("acik") for m in D["models"]) else ""
     return f'<ul class="mdl-legend">{items}{extra}</ul>'
 
@@ -295,9 +314,9 @@ def models_band(ctx):
     miss = m_missing(D, v)
     return (f'<section class="sec mdl-band" id="sec-modeller"><div class="sec-h"><h2>Modeller</h2>'
             f'<p>{esc(D["metrics"][v["y"]]["ad"])} ve {esc(D["metrics"][v["x"]]["ad"].lower())}</p></div>'
-            f'<div class="mdl-band-in"><div class="mdl-band-t">{models_legend(D)}'
-            + (f'<p class="src">Ölçüm yok: {esc(", ".join(miss))}</p>' if miss else "")
-            + f'<p class="src">Kaynak: {models_sources(D, [v["x"], v["y"]])} · {esc(models_updated(D))}</p>'
+            f'<div class="mdl-band-in"><div class="mdl-band-t">{models_legend(D, v)}'
+            + (f'<p class="src">{esc(m_missing_text(D, v))}</p>' if miss else "")
+            + f'<p class="src">{m_source_line(D, v)}</p>'
             f'<a class="mdl-go" href="{href}">Diğer grafikler ve tablo</a></div>'
             f'<a class="mdl-band-c" href="{href}" aria-label="Modeller sayfasını aç">{models_svg(D, 760, 360, False)}{models_svg(D, 360, 300, True)}</a></div></section>')
 
@@ -320,7 +339,7 @@ def models_table(D, keys, models, cls):
         cells = "".join(f'<td{c(k)}>{M_FMT[met[k]["bicim"]][2](m[k])}</td>' if m.get(k) is not None
                         else f'<td{c(k, " none")}>–</td>' for k in keys)
         mark = f'<i class="{"dia" if m.get("acik") else "dot"}" style="background:{m_color(D, m)}"></i>'
-        ayar = f' <span class="ayar">{esc(m["ayar"])}</span>' if m.get("ayar") else ""
+        ayar = f' <span class="ayar">{esc(m.get("ayar") or "–")}</span>'
         rows.append(f'<tr><th scope="row">{mark}{esc(m.get("kisa") or m["ad"])}{ayar}</th>{cells}</tr>')
     return (f'<table class="{cls}"><thead><tr class="grp"><td></td>{grp}</tr><tr><th scope="col">Model</th>{head}</tr></thead>'
             f'<tbody>{"".join(rows)}</tbody></table>')
@@ -340,17 +359,17 @@ def render_models(ctx):
         rest = [m.get("kisa") or m["ad"] for m in models if m not in have]
         narrow.append(models_table(D, ks, have, "mdl-t mdl-narrow")
                       + (f'<p class="mdl-src mdl-narrow">Ölçüm yok: {esc(", ".join(rest))}</p>' if rest else ""))
-    legend = ("◆ açık ağırlıklı · " if any(m.get("acik") for m in models) else "") + "– ölçüm yok · model adının yanındaki not ölçülen ayardır"
+    legend = ("◆ açık ağırlıklı · " if any(m.get("acik") for m in models) else "") + "– ölçüm yok · model adının yanındaki not: akıl yürütme ayarı"
     data = json.dumps(D, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     return f"""<main id="issue" class="mdl-page">
 <h2>Modeller</h2>
-<p class="mdl-sub">{esc(models_updated(D))} verisi · {models_sources(D)}</p>
 <div class="mdl" id="mdl">
 <div class="mdl-views" id="mdl-views"></div>
-{models_legend(D)}
+{models_legend(D, D["views"][0])}
 <svg id="mdl-chart" role="img" aria-label="Model karşılaştırma grafiği"><g id="mdl-axis"></g><g id="mdl-data"><g id="mdl-dots"></g><g id="mdl-labels"></g></g></svg>
 <div class="mdl-nojs">{models_svg(D, 1140, 500, False)}{models_svg(D, 360, 320, True)}</div>
-<p class="mdl-miss" id="mdl-miss">{esc("Ölçüm yok: " + ", ".join(m_missing(D, D["views"][0]))) if m_missing(D, D["views"][0]) else ""}</p>
+<p class="mdl-miss" id="mdl-miss">{esc(m_missing_text(D, D["views"][0]))}</p>
+<p class="mdl-miss" id="mdl-src">{m_source_line(D, D["views"][0])}</p>
 <p class="mdl-read" id="mdl-read" aria-live="polite"></p>
 </div>
 <section class="mdl-table"><h3>Bütün rakamlar</h3>

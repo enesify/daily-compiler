@@ -13,7 +13,7 @@
   var FMT = {
     puan: { v: function (v) { return String(Math.round(v)); }, t: function (v) { return String(v); } },
     yuzde: { v: function (v) { return "%" + tr(v, 1); }, t: function (v) { return "%" + v; } },
-    usd: { v: function (v) { return "$" + tr(v, 2); }, t: function (v) { return "$" + (v < 1 ? tr(v, 1) : v); } },
+    usd: { v: function (v) { return "$" + tr(v, 2); }, t: function (v) { return "$" + (v < 1 ? tr(v, 2) : v); } },
     dk: { v: function (v) { return tr(v, 1) + " dk"; }, t: function (v) { return String(v); } }
   };
   var fv = function (k, v) { return FMT[MET[k].bicim].v(v); }, ft = function (k, v) { return FMT[MET[k].bicim].t(v); };
@@ -26,7 +26,7 @@
       t = seq.filter(function (s) { return s >= a && s <= b; }); MET[k].dom = [a, b];
     } else {
       var pad = (hi - (MET[k].sifir ? 0 : lo) || 1) * .06; lo = MET[k].sifir ? 0 : lo - pad; hi += pad;
-      var raw = (hi - lo) / 4, mag = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10)), step = [1, 2, 5, 10].filter(function (s) { return s * mag >= raw; })[0] * mag;
+      var raw = (hi - lo) / 5, mag = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10)), step = [1, 2, 5, 10].filter(function (s) { return s * mag >= raw; })[0] * mag;
       var a2 = Math.floor(lo / step) * step, b2 = Math.ceil(hi / step) * step;
       for (var x = a2; x <= b2 + step / 1e6; x += step) t.push(+x.toPrecision(6)); MET[k].dom = [a2, b2];
     }
@@ -36,7 +36,8 @@
   var PAL = ["--l2", "--l3", "--l4", "--l7", "--l5", "--l6"];
   var provs = []; M.forEach(function (m) { if (provs.indexOf(m.saglayici) < 0) provs.push(m.saglayici); });
   var col = function (m) { return "var(" + PAL[Math.min(PAL.length - 1, provs.indexOf(m.saglayici))] + ")"; };
-  var gAxis = $("mdl-axis"), gData = $("mdl-data"), missEl = $("mdl-miss");
+  var gAxis = $("mdl-axis"), gData = $("mdl-data"), missEl = $("mdl-miss"), srcEl = $("mdl-src");
+  var legend = document.querySelectorAll("#mdl > .mdl-legend li[data-p]");
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches;
   var view = VIEWS[0], sel = null, G = {}, raf = 0, timers = [];
   var cvs = document.createElement("canvas").getContext("2d");
@@ -94,12 +95,14 @@
       var t = d.to; t.lx = t.x; t.ly = t.y;
       if (!t.op) return;
       var w = tw(d.m.kisa || d.m.ad, nf) + (t.val ? 7 + tw(t.val, nf * .88, true) : 0), h = nf * 1.15, x = t.x, y = t.y;
-      var c = view.rank ? [[x + r + 8, y + nf * .36]] :
-        [[x + r + 6, y + nf * .36], [x - r - 6 - w, y + nf * .36], [x - w / 2, y - r - 6], [x - w / 2, y + r + nf + 1]];
+      var o = r + 10;   // seçim halkası (r + 5) etiketin üstüne binmesin
+      var c = view.rank ? [[x + o, y + nf * .36]] :
+        [[x + o, y + nf * .36], [x - o - w, y + nf * .36], [x - w / 2, y - o], [x - w / 2, y + o + nf - 2],
+         [x + r + 3, y - r - 3], [x - r - 3 - w, y - r - 3], [x + r + 3, y + r + nf], [x - r - 3 - w, y + r + nf]];
       var best = c[0], bestP = 1e9;
       c.forEach(function (p, ci) {
         var bx = [p[0] - 2, p[1] - nf, w + 4, h], pen = ci * .1;
-        if (bx[0] < 2 || bx[0] + bx[2] > G.W - 2 || bx[1] < 2 || bx[1] + bx[3] > G.pb - 2) pen += 50;
+        if (bx[0] < G.L + 2 || bx[0] + bx[2] > G.W - 2 || bx[1] < 2 || bx[1] + bx[3] > G.pb - 2) pen += 50;
         boxes.forEach(function (b) { if (b[4] !== d && bx[0] < b[0] + b[2] && bx[0] + bx[2] > b[0] && bx[1] < b[1] + b[3] && bx[1] + bx[3] > b[1]) pen += 10; });
         if (pen < bestP) { bestP = pen; best = p; }
       });
@@ -129,10 +132,9 @@
     if (view.rank) {
       var k = view.rank, xr = R - (G.small ? 112 : 190), rowH = (pb - T) / M.length, list = ranked(k), pos = 0;
       MET[k].ticks.forEach(function (v) { var x = sc(k, v, L, xr); el("line", { x1: x, x2: x, y1: T, y2: pb, "class": "grid" }, gAxis); txt(x, ty, ft(k, v), "tick", "middle"); });
-      list.forEach(function (m, i) {   // eşit puanlar aynı sırayı alır: 5=
+      list.forEach(function (m, i) {   // eşit puanlar aynı sırayı alır: 5, 5, 7
         if (!i || m[k] !== list[i - 1][k]) pos = i + 1;
-        var tie = (i && m[k] === list[i - 1][k]) || (i + 1 < list.length && m[k] === list[i + 1][k]);
-        txt(L - 10, T + (i + .5) * rowH + fs * .36, pos + (tie ? "=" : ""), "tick", "end", fs + 1);
+        txt(L - 10, T + (i + .5) * rowH + fs * .36, String(pos), "tick", "end", fs + 1);
       });
       txt((L + xr) / 2, G.H - 6, MET[k].eksen, "axis", "middle", fs + .5);
     } else {
@@ -142,8 +144,25 @@
       txt((L + R) / 2, G.H - 6, MET[view.x].eksen, "axis", "middle", fs + .5);
       txt(L, T - 9, "↑ " + MET[view.y].eksen, "axis", "start", fs + .5);
     }
-    var miss = M.filter(function (m) { return !has(m, view); }).map(function (m) { return m.kisa || m.ad; });
-    missEl.textContent = miss.length ? "Ölçüm yok: " + miss.join(", ") : "";
+    var groups = {}, order = [];
+    M.forEach(function (m) {
+      var k = (view.rank ? [view.rank] : [view.y, view.x]).filter(function (k) { return m[k] == null; })[0];
+      if (!k) return;
+      if (!groups[k]) { groups[k] = []; order.push(k); }
+      groups[k].push(m.kisa || m.ad);
+    });
+    missEl.textContent = order.map(function (k) { return MET[k].ad + " ölçümü yok: " + groups[k].join(", "); }).join(" · ");
+    srcEl.textContent = "Kaynak: ";
+    var used = []; keys(view).forEach(function (k) { if (used.indexOf(MET[k].kaynak) < 0) used.push(MET[k].kaynak); });
+    used.forEach(function (g, i) {
+      if (i) srcEl.appendChild(document.createTextNode(", "));
+      var a = document.createElement("a"); a.href = DATA.sources[g].url; a.target = "_blank"; a.rel = "noopener"; a.textContent = DATA.sources[g].name; srcEl.appendChild(a);
+    });
+    var d = DATA.updated.split("-"), AY = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+    srcEl.appendChild(document.createTextNode(" · " + (+d[2]) + " " + AY[+d[1] - 1] + " " + d[0]));
+    Array.prototype.forEach.call(legend, function (li) {
+      li.classList.toggle("off", !M.some(function (m) { return m.saglayici === li.getAttribute("data-p") && has(m, view); }));
+    });
   }
   var ease = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
   var copy = function (o) { var c = {}; for (var k in o) c[k] = o[k]; return c; };
@@ -175,10 +194,11 @@
     sel = d;
     D.forEach(function (o) { o.g.classList.toggle("sel", o === d); o.g.classList.toggle("dimmed", !!d && o !== d); if (o.cur) paint(o); });
     var r = $("mdl-read"); r.textContent = "";
+    r.classList.toggle("hint", !d);
     if (!d) { if (G.small) r.textContent = "Ayrıntı için bir noktaya dokun."; return; }
     var m = d.m, add = function (tag, text, cls) { var e = document.createElement(tag); e.textContent = text; if (cls) e.className = cls; r.appendChild(e); return e; };
     add("b", m.ad);
-    r.appendChild(document.createTextNode(" · " + m.saglayici + (m.ayar ? " · " + m.ayar : "") + (m.acik ? " · açık ağırlıklı" : "")));
+    r.appendChild(document.createTextNode(" · " + m.saglayici + (m.ayar ? " · akıl yürütme ayarı: " + m.ayar : "") + (m.acik ? " · açık ağırlıklı" : "")));
     r.appendChild(document.createElement("br"));
     Object.keys(MET).forEach(function (k, i) {
       if (i) r.appendChild(document.createTextNode(" · "));
