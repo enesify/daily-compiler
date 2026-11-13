@@ -165,8 +165,7 @@ def load_models():
     """Model karşılaştırma verisi. Dosya yoksa ya da bozuksa sayfa ve bant hiç basılmaz."""
     try:
         D = json.load(open(os.path.join(ROOT, "data", "modeller.json"), encoding="utf-8"))
-        v = D["views"][0]
-        assert D["models"] and v["x"] in D["metrics"] and v["y"] in D["metrics"]
+        assert D["models"] and D["sekmeler"] and all(k in D["metrics"] for k in D["sekmeler"])
         return D
     except Exception as e:
         print(f"UYARI: data/modeller.json kullanılamadı, Modeller sayfası üretilmedi: {e}", file=sys.stderr)
@@ -177,113 +176,30 @@ def tr_num(v, d):
     return f"{v:.{d}f}".replace(".", ",")
 
 
-M_FMT = {  # (değer yazımı, eksen çentiği yazımı, tabloda birimsiz yazım)
-    "puan": (lambda v: str(round(v)), lambda v: f"{v:g}", lambda v: str(round(v))),
-    "yuzde": (lambda v: "%" + tr_num(v, 1), lambda v: f"%{v:g}", lambda v: tr_num(v, 1)),
-    "usd": (lambda v: "$" + tr_num(v, 2), lambda v: "$" + (tr_num(v, 2) if v < 1 else f"{v:g}"), lambda v: tr_num(v, 2)),
-    "dk": (lambda v: tr_num(v, 1) + " dk", lambda v: f"{v:g}", lambda v: tr_num(v, 1)),
+M_FMT = {   # assets/modeller.js ile aynı yazım
+    "puan": lambda v: str(round(v)),
+    "yuzde": lambda v: "%" + tr_num(v, 1),
+    "usd": lambda v: "$" + tr_num(v, 2),
+    "dk": lambda v: tr_num(v, 1) + " dk",
 }
 
 
-def m_scale(D, k):
-    """(alt, üst, çentikler, log mu): eksen aralığı veriden hesaplanır (assets/modeller.js ile aynı kural)."""
-    vs = [m[k] for m in D["models"] if m.get(k) is not None]
-    lo, hi = min(vs), max(vs)
-    if D["metrics"][k].get("log"):
-        seq = [float(f"{s * 10.0 ** e:.1g}") for e in range(-3, 7) for s in (1, 2, 5)]
-        a, b = [x for x in seq if x <= lo][-1], [x for x in seq if x >= hi][0]
-        return a, b, [x for x in seq if a <= x <= b], True
-    sifir = D["metrics"][k].get("sifir")   # süre gibi oranı anlamlı ölçütlerde eksen sıfırdan başlar
-    pad = (hi - (0 if sifir else lo) or 1) * .06
-    lo, hi = (0 if sifir else lo - pad), hi + pad
-    raw = (hi - lo) / 5
-    mag = 10 ** math.floor(math.log10(raw))
-    step = [x for x in (1, 2, 5, 10) if x * mag >= raw][0] * mag
-    a, b = math.floor(lo / step) * step, math.ceil(hi / step) * step
-    return a, b, [round(a + i * step, 6) for i in range(int(round((b - a) / step)) + 1)], False
+def m_ranked(D, k):
+    """[(sıra, model)]: ölçümü olan modeller, ölçütün yönüne göre; eşit değerler aynı sırayı alır."""
+    up = D["metrics"][k]["iyi"] == "yuksek"
+    ms = sorted([m for m in D["models"] if m.get(k) is not None], key=lambda m: -m[k] if up else m[k])
+    out, pos = [], 0
+    for i, m in enumerate(ms):
+        if i == 0 or m[k] != ms[i - 1][k]:
+            pos = i + 1
+        out.append((pos, m))
+    return out
 
 
-def m_top(D):
-    """Renk alan sağlayıcılar: dağılım grafiğinde ancak üç renk güvenle ayırt edilir. En çok modeli olan üç sağlayıcı
-    (eşitlikte listede önce gelen) --m1..--m3 alır, diğerleri gri (--m0). assets/modeller.js ile aynı kural."""
-    first = list(dict.fromkeys(x["saglayici"] for x in D["models"]))
-    cnt = {p: sum(1 for x in D["models"] if x["saglayici"] == p) for p in first}
-    return sorted(first, key=lambda p: (-cnt[p], first.index(p)))[:3]
-
-
-def m_color(D, m):
-    top = m_top(D)
-    return f"var(--m{top.index(m['saglayici']) + 1 if m['saglayici'] in top else 0})"
-
-
-def m_group(D, m):
-    return m["saglayici"] if m["saglayici"] in m_top(D) else "Diğer"
-
-
-def m_has(m, v):
-    return all(m.get(k) is not None for k in ([v["rank"]] if v.get("rank") else [v["x"], v["y"]]))
-
-
-def m_source_line(D, v):
-    ks = [v["rank"]] if v.get("rank") else [v["x"], v["y"]]
-    return f'Kaynak: {models_sources(D, ks)} · {esc(models_updated(D))}'
-
-
-def models_svg(D, W, H, small):
-    """Açılış görünümünün durağan çizimi: sayı içindeki bantta ve JavaScript kapalıyken Modeller sayfasında kullanılır."""
-    v = D["views"][0]
-    kx, ky = v["x"], v["y"]
-    L, R, T, B = (36, 10, 20, 40) if small else (46, 14, 24, 44)
-    fs, nf, r = (10.5, 11.5, 5.5) if small else (12, 13.5, 7)
-    ax, bx, tx, lx = m_scale(D, kx)
-    ay, by, tys, ly = m_scale(D, ky)
-
-    def sc(val, a, b, log, p0, p1):
-        f = (math.log(val) - math.log(a)) / (math.log(b) - math.log(a)) if log else (val - a) / (b - a)
-        return p0 + f * (p1 - p0)
-    X = lambda val: sc(val, ax, bx, lx, L, W - R)
-    Y = lambda val: sc(val, ay, by, ly, H - B, T)
-    o = [f'<svg viewBox="0 0 {W} {H}" class="mdl-static {"sm" if small else "lg"}" role="img" '
-         f'aria-label="{esc(D["metrics"][ky]["ad"])} ve {esc(D["metrics"][kx]["ad"].lower())}">']
-    for t in tys:
-        o.append(f'<line x1="{L}" x2="{W - R}" y1="{Y(t):.1f}" y2="{Y(t):.1f}" class="gl"/>'
-                 f'<text x="{L - 6}" y="{Y(t) + fs * .36:.1f}" class="tick" text-anchor="end" font-size="{fs}">{M_FMT[D["metrics"][ky]["bicim"]][1](t)}</text>')
-    for t in tx:
-        o.append(f'<line x1="{X(t):.1f}" x2="{X(t):.1f}" y1="{T}" y2="{H - B}" class="gl"/>'
-                 f'<text x="{X(t):.1f}" y="{H - B + fs + 8}" class="tick" text-anchor="middle" font-size="{fs}">{M_FMT[D["metrics"][kx]["bicim"]][1](t)}</text>')
-    o.append(f'<text x="{(L + W - R) / 2:.1f}" y="{H - 4}" class="axis" text-anchor="middle" font-size="{fs + .5}">{esc(D["metrics"][kx]["eksen"])}</text>'
-             f'<text x="{L}" y="{T - 8}" class="axis" font-size="{fs + .5}">↑ {esc(D["metrics"][ky]["eksen"])}</text>')
-    pts = [m for m in D["models"] if m_has(m, v)]
-    boxes = [(X(m[kx]) - r - 2, Y(m[ky]) - r - 2, 2 * r + 4, 2 * r + 4) for m in pts]
-    hit = lambda b: any(b[0] < c[0] + c[2] and b[0] + b[2] > c[0] and b[1] < c[1] + c[3] and b[1] + b[3] > c[1] for c in boxes)
-    labels = []
-    for m in sorted(pts, key=lambda m: -m[ky]):   # etiket önce sağa, sonra sola; ikisi de doluysa etiketsiz kalır
-        cx, cy, name = X(m[kx]), Y(m[ky]), m.get("kisa") or m["ad"]
-        w = len(name) * nf * .5
-        for x0, y0, anchor in ((cx + r + 5, cy + nf * .35, "start"), (cx - r - 5, cy + nf * .35, "end"),
-                               (cx, cy + r + nf + 1, "middle"), (cx, cy - r - 5, "middle")):
-            bx0 = x0 if anchor == "start" else x0 - w if anchor == "end" else x0 - w / 2
-            b = (bx0 - 1, y0 - nf * .85, w + 2, nf * 1.1)
-            if bx0 > L + 2 and bx0 + w < W - 1 and b[1] > 1 and b[1] + b[3] < H - B - 1 and not hit(b):
-                boxes.append(b)
-                labels.append(f'<text x="{x0:.1f}" y="{y0:.1f}" text-anchor="{anchor}" class="nm" font-size="{nf}">{esc(name)}</text>')
-                break
-    for m in pts:
-        cx, cy, c, q = X(m[kx]), Y(m[ky]), m_color(D, m), r * 1.22
-        o.append(f'<path d="M{cx:.1f} {cy - q:.1f}L{cx + q:.1f} {cy:.1f} {cx:.1f} {cy + q:.1f} {cx - q:.1f} {cy:.1f}Z" fill="{c}"/>'
-                 if m.get("acik") else f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" fill="{c}"/>')
-    return "".join(o + labels) + "</svg>"
-
-
-def models_legend(D, v=None):
-    seen = {p: f"var(--m{i + 1})" for i, p in enumerate(m_top(D))}
-    if any(m_group(D, m) == "Diğer" for m in D["models"]):
-        seen["Diğer"] = "var(--m0)"
-    shown = {m_group(D, m) for m in D["models"] if v is None or m_has(m, v)}
-    items = "".join(f'<li data-p="{esc(p)}"{"" if p in shown else " class=off"}><i style="background:{c}"></i>{esc(p)}</li>'
-                    for p, c in seen.items())
-    extra = '<li class="dia"><i></i>Açık ağırlıklı</li>' if any(m.get("acik") for m in D["models"]) else ""
-    return f'<ul class="mdl-legend">{items}{extra}</ul>'
+def m_pct(D, k, v):
+    """Çubuk boyu: sıfırdan başlar, ölçütün en yüksek değeri tam boy."""
+    mx = max(m[k] for m in D["models"] if m.get(k) is not None)
+    return f"{v / mx * 100:.2f}%"
 
 
 def models_sources(D, keys=None):
@@ -297,74 +213,47 @@ def models_updated(D):
     return f"{d.day} {MONTHS_LONG[d.month - 1]} {d.year}"
 
 
+def models_caption(D, k):
+    met = D["metrics"][k]
+    order = "yüksekten düşüğe" if met["iyi"] == "yuksek" else "düşükten yükseğe"
+    return f'{esc(met["ad"])}, {order} · Kaynak: {models_sources(D, [k])} · {esc(models_updated(D))}'
+
+
+def models_rows(D, k, limit=None, short=False):
+    """Sabit liste satırları: bantta ve JavaScript kapalıyken Modeller sayfasında."""
+    fmt = M_FMT[D["metrics"][k]["bicim"]]
+    out = []
+    for pos, m in m_ranked(D, k)[:limit]:
+        name = esc(m.get("kisa") or m["ad"]) if short else esc(m["ad"]) + f'<small>{esc(m["saglayici"])}' + (f' · {esc(m["ayar"])}' if m.get("ayar") else "") + (" · açık ağırlıklı" if m.get("acik") else "") + "</small>"
+        out.append(f'<div class="mrow"><span class="rk">{pos}</span><span class="nm">{name}</span>'
+                   f'<span class="mbar"><i style="width:{m_pct(D, k, m[k])}"></i></span><span class="val">{fmt(m[k])}</span></div>')
+    return "".join(out)
+
+
 def models_band(ctx):
-    """Her sayının sonunda duran, hep güncel veriyi gösteren bant. Yorum yok: grafik, lejant, kaynak, link."""
+    """Her sayının sonunda duran bant: ilk sekmenin ölçütüne göre ilk beş model. Yorum yok."""
     D = ctx.models
     if not D:
         return ""
-    v = D["views"][0]
-    href = esc(ctx.href("modeller.html"))
+    k = D["sekmeler"][0]
     return (f'<section class="sec mdl-band" id="sec-modeller"><div class="sec-h"><h2>Modeller</h2>'
-            f'<p>{esc(D["metrics"][v["y"]]["ad"])} ve {esc(D["metrics"][v["x"]]["ad"].lower())}</p></div>'
-            f'<div class="mdl-band-in"><div class="mdl-band-t">{models_legend(D, v)}'
-            + f'<p class="src">{m_source_line(D, v)}</p>'
-            f'<a class="mdl-go" href="{href}">Diğer grafikler ve tablo</a></div>'
-            f'<a class="mdl-band-c" href="{href}" aria-label="Modeller sayfasını aç">{models_svg(D, 760, 360, False)}{models_svg(D, 360, 300, True)}</a></div></section>')
-
-
-def models_table(D, keys, models, cls):
-    """Kaynak başlıklı tablo: birim başlıkta bir kez yazılır, ölçümü olmayan hücre “–” olur."""
-    met, src = D["metrics"], D["sources"]
-    groups = []
-    for k in keys:
-        if not groups or groups[-1][0] != met[k]["kaynak"]:
-            groups.append([met[k]["kaynak"], []])
-        groups[-1][1].append(k)
-    starts = {g[1][0] for g in groups[1:]}
-    c = lambda k, extra="": f' class="num{" gs" if k in starts else ""}{extra}"'
-    grp = "".join(f'<th scope="colgroup" colspan="{len(ks)}"{c(ks[0])}><a href="{esc(src[g]["url"])}" target="_blank" rel="noopener">'
-                  f'{esc(src[g]["name"])}</a></th>' for g, ks in groups)
-    head = "".join(f'<th scope="col"{c(k)}>{esc(met[k].get("kisa") or met[k]["ad"])}</th>' for k in keys)
-    rows = []
-    for m in models:
-        cells = "".join(f'<td{c(k)}>{M_FMT[met[k]["bicim"]][2](m[k])}</td>' if m.get(k) is not None
-                        else f'<td{c(k, " none")}>–</td>' for k in keys)
-        mark = f'<i class="{"dia" if m.get("acik") else "dot"}" style="background:{m_color(D, m)}"></i>'
-        ayar = f' <span class="ayar">{esc(m.get("ayar") or "–")}</span>'
-        rows.append(f'<tr><th scope="row">{mark}{esc(m.get("kisa") or m["ad"])}{ayar}</th>{cells}</tr>')
-    return (f'<table class="{cls}"><thead><tr class="grp"><td></td>{grp}</tr><tr><th scope="col">Model</th>{head}</tr></thead>'
-            f'<tbody>{"".join(rows)}</tbody></table>')
+            f'<p>{esc(D["metrics"][k]["ad"])} · ilk beş</p></div>'
+            f'<div class="mdl-list static">{models_rows(D, k, 5, short=True)}</div>'
+            f'<div class="mdl-ft"><span>Kaynak: {models_sources(D, [k])} · {esc(models_updated(D))}</span>'
+            f'<a class="mdl-go" href="{esc(ctx.href("modeller.html"))}">Bütün modeller ve ölçütler</a></div></section>')
 
 
 def render_models(ctx):
+    """Modeller sayfası: ölçüt sekmeleri ve sıralı liste. Liste assets/modeller.js ile canlanır; JavaScript yoksa sabit liste görünür."""
     D = ctx.models
-    met = D["metrics"]
-    keys = list(met)
-    first = keys[0]
-    models = sorted(D["models"], key=lambda m: -(m.get(first) or 0))
-    # geniş ekranda tek tablo; telefonda kaynak başına bir tablo (yatay kaydırma olmasın)
-    narrow = []
-    for g in dict.fromkeys(met[k]["kaynak"] for k in keys):
-        ks = [k for k in keys if met[k]["kaynak"] == g]
-        have = [m for m in models if any(m.get(k) is not None for k in ks)]
-        narrow.append(models_table(D, ks, have, "mdl-t mdl-narrow")
-                      )
-    legend = ("◆ açık ağırlıklı · " if any(m.get("acik") for m in models) else "") + "– ölçüm yok · model adının yanındaki not: akıl yürütme ayarı"
-    data = json.dumps(D, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    k = D["sekmeler"][0]
+    data = json.dumps({"updated": D["updated"], "sources": D["sources"], "metrics": D["metrics"], "sekmeler": D["sekmeler"],
+                       "models": D["models"]}, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     return f"""<main id="issue" class="mdl-page">
 <h2>Modeller</h2>
-<div class="mdl" id="mdl">
-<div class="mdl-views" id="mdl-views"></div>
-{models_legend(D, D["views"][0])}
-<svg id="mdl-chart" role="img" aria-label="Model karşılaştırma grafiği"><g id="mdl-axis"></g><g id="mdl-data"><g id="mdl-dots"></g><g id="mdl-labels"></g></g></svg>
-<div class="mdl-nojs">{models_svg(D, 1140, 500, False)}{models_svg(D, 360, 320, True)}</div>
-<p class="mdl-miss" id="mdl-src">{m_source_line(D, D["views"][0])}</p>
-<p class="mdl-read" id="mdl-read" aria-live="polite"></p>
-</div>
-<section class="mdl-table"><h3>Bütün rakamlar</h3>
-{models_table(D, keys, models, "mdl-t mdl-wide")}
-{"".join(narrow)}
-<p class="mdl-src">{esc(legend)}</p></section>
+<div class="mdl-top"><div class="mdl-tabs" id="mdl-tabs" role="toolbar" aria-label="Ölçüt"></div><p class="mdl-cap" id="mdl-cap">{models_caption(D, k)}</p></div>
+<div class="mdl-list static" id="mdl-static">{models_rows(D, k)}</div>
+<div class="mdl-list" id="mdl-list" hidden></div>
 <script type="application/json" id="mdl-veri">{data}</script>
 </main>"""
 

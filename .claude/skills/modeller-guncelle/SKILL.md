@@ -5,7 +5,7 @@ description: The Daily Compiler'ın Modeller sayfasının verisini (data/modelle
 
 # Modeller verisini güncelle
 
-`data/modeller.json`, `modeller.html` sayfasının ve her sayıdaki “Modeller” bandının tek veri kaynağıdır. Grafik kodu (`assets/modeller.js`, `build.py`) bu dosyadan çizer; bu oturum koda dokunmaz, yalnızca veri dosyasını yeniler.
+`data/modeller.json`, `modeller.html` sayfasının ve her sayıdaki “Modeller” bandının tek veri kaynağıdır. Liste kodu (`assets/modeller.js`, `build.py`) bu dosyadan üretilir; bu oturum koda dokunmaz, yalnızca veri dosyasını yeniler.
 
 ## Ne zaman
 
@@ -30,17 +30,17 @@ Yalnızca bu iki tablonun kendi sayfası okunur. Rakam başka bir siteden (derle
 3. **Kodlama:** `cursor` tablosunda aynı modelin **aynı ayarlı** satırı varsa `kodlama` ve `kod_maliyet` oradan alınır (“Extra High” = `xhigh`). Model ya da o ayar tabloda yoksa ikisi de `null` olur; başka ayarın ya da önceki sürümün rakamı yazılmaz.
 4. **Eksik değer:** Tabloda “--” olan ya da hiç bulunmayan her değer `null`. Tahmin, yuvarlama ya da başka kaynaktan tamamlama yok.
 5. **Sıra:** `models` dizisi zekâ endeksine göre büyükten küçüğe.
-6. **Adlar:** `ad` tablodaki tam ad (ayar parantezi olmadan), `kisa` etikette görünecek ad (en çok 22 karakter; “Claude” ön eki atılır), `saglayici` şirket adı, `acik` açık ağırlıklı ise `true`.
+6. **Adlar:** `ad` tablodaki tam ad (ayar parantezi olmadan), `kisa` sayı içindeki bantta görünecek ad (en çok 22 karakter; “Claude” ön eki atılır), `saglayici` şirket adı, `acik` açık ağırlıklı ise `true`.
 7. Anthropic modelleri dahil hiçbir model kural dışında eklenmez, çıkarılmaz ya da öne alınmaz. Sayfaya “en iyi model” türü yorum eklenmez.
 
 ## Adımlar
 
 1. İki tabloyu aç ve satırları oku. `aa` için ilk 60 satır yeterlidir; açık modelleri sayfanın “open weights” notundan ya da filtresinden doğrula.
-2. Kurallara göre model listesini ve değerleri çıkar; `data/modeller.json` içinde yalnızca `updated`, `models` ve (kaynak sürümü değiştiyse) `sources.*.note` alanlarını yenile. `metrics` ve `views` olduğu gibi kalır.
+2. Kurallara göre model listesini ve değerleri çıkar; `data/modeller.json` içinde yalnızca `updated`, `models` ve (kaynak sürümü değiştiyse) `sources.*.note` alanlarını yenile. `metrics` ve `sekmeler` olduğu gibi kalır.
 3. Yazdığın her rakamı kaynak tablodaki satırla bir kez daha tek tek karşılaştır.
 4. `python3 tools/modeller.py` çalıştır; `HATA` varsa düzelt, düzeltilemiyorsa değişikliği geri al (`git checkout data/modeller.json`).
 5. `python3 build.py` ile siteyi üret. `data/modeller.json`, `modeller.html`, `index.html` ve `sayi/` sayfaları günün sayısıyla aynı commit'e girer.
 
 ## Yeni ölçüt eklemek (günlük oturumun işi değildir)
 
-Yeni bir ölçüt ya da görünüm, ancak listedeki modellerin en az altısı için tablosu eksiksiz okunabilen bağımsız bir kaynak bulunduğunda eklenir: `sources` içine kaynak, `metrics` içine ölçüt (`kisa`: tablo başlığı, birimiyle; `bicim`: puan / yuzde / usd / dk; `iyi`: yuksek / dusuk; gerekirse `log`), `views` içine görünüm, her modele alan. Kod değişikliği gerekmez. Bu kararı gazetenin sahibi verir.
+Yeni bir ölçüt, ancak listedeki modellerin en az altısı için tablosu eksiksiz okunabilen bağımsız bir kaynak bulunduğunda eklenir: `sources` içine kaynak, `metrics` içine ölçüt (`ad`: tam ad; `detay`: açılan satırdaki kısa ad; `bicim`: puan / yuzde / usd / dk; `iyi`: yuksek / dusuk, liste bu yöne göre sıralanır; sekmede görünecekse `sekme`: kısa ad), sekme olacaksa `sekmeler` dizisine anahtarı (ilki sayı içindeki bandın ölçütüdür), her modele alan. Kod değişikliği gerekmez. Bu kararı gazetenin sahibi verir.

@@ -15,72 +15,49 @@
  "metrics": {
   "zeka": {
    "ad": "Zekâ endeksi",
-   "eksen": "zekâ endeksi",
+   "sekme": "Zekâ",
+   "detay": "Zekâ endeksi",
    "bicim": "puan",
    "iyi": "yuksek",
-   "kaynak": "aa",
-   "kisa": "Zekâ endeksi"
-  },
-  "maliyet": {
-   "ad": "Görev başına maliyet",
-   "eksen": "görev başına maliyet, $ (log)",
-   "bicim": "usd",
-   "iyi": "dusuk",
-   "log": true,
-   "kaynak": "aa",
-   "kisa": "Görev başına, $"
-  },
-  "sure": {
-   "ad": "Görev başına süre",
-   "eksen": "görev başına süre, dk",
-   "bicim": "dk",
-   "iyi": "dusuk",
-   "kaynak": "aa",
-   "kisa": "Görev başına, dk",
-   "sifir": true
+   "kaynak": "aa"
   },
   "kodlama": {
    "ad": "Kodlama başarısı",
-   "eksen": "kodlama başarısı, %",
+   "sekme": "Kodlama",
+   "detay": "Kodlama başarısı",
    "bicim": "yuzde",
    "iyi": "yuksek",
-   "kaynak": "cursor",
-   "kisa": "Kodlama başarısı, %"
+   "kaynak": "cursor"
   },
-  "kod_maliyet": {
-   "ad": "Kodlama görevi başına maliyet",
-   "eksen": "kodlama görevi başına maliyet, $ (log)",
+  "maliyet": {
+   "ad": "Görev başına maliyet",
+   "sekme": "Maliyet",
+   "detay": "Maliyet",
    "bicim": "usd",
    "iyi": "dusuk",
-   "log": true,
-   "kaynak": "cursor",
-   "kisa": "Görev başına, $"
+   "kaynak": "aa"
+  },
+  "sure": {
+   "ad": "Görev başına süre",
+   "sekme": "Süre",
+   "detay": "Süre",
+   "bicim": "dk",
+   "iyi": "dusuk",
+   "kaynak": "aa"
+  },
+  "kod_maliyet": {
+   "ad": "Kodlama görevi maliyeti",
+   "detay": "Kodlama maliyeti",
+   "bicim": "usd",
+   "iyi": "dusuk",
+   "kaynak": "cursor"
   }
  },
- "views": [
-  {
-   "id": "zeka-maliyet",
-   "label": "Zekâ × maliyet",
-   "x": "maliyet",
-   "y": "zeka"
-  },
-  {
-   "id": "kodlama-maliyet",
-   "label": "Kod × maliyet",
-   "x": "kod_maliyet",
-   "y": "kodlama"
-  },
-  {
-   "id": "zeka-sure",
-   "label": "Zekâ × süre",
-   "x": "sure",
-   "y": "zeka"
-  },
-  {
-   "id": "zeka",
-   "label": "Sıralama",
-   "rank": "zeka"
-  }
+ "sekmeler": [
+  "zeka",
+  "kodlama",
+  "maliyet",
+  "sure"
  ],
  "models": [
   {"ad": "Claude Fable 5.2", "kisa": "Fable 5.2", "saglayici": "Anthropic", "ayar": "max", "acik": false, "zeka": 65, "maliyet": 26.54, "sure": 46.8, "kodlama": 60.0, "kod_maliyet": 32.79},

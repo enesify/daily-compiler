@@ -42,27 +42,23 @@ def main():
     if not met:
         E("metrics boş")
     for k, m in met.items():
-        for f in ("ad", "eksen", "bicim", "iyi", "kaynak"):
+        for f in ("ad", "detay", "bicim", "iyi", "kaynak"):
             if not m.get(f):
                 E(f"metrics.{k}: {f} eksik")
         if m.get("bicim") not in BICIM:
             E(f"metrics.{k}: bicim {sorted(BICIM)} içinden olmalı")
         if m.get("iyi") not in ("yuksek", "dusuk"):
-            E(f"metrics.{k}: iyi 'yuksek' ya da 'dusuk' olmalı")
+            E(f"metrics.{k}: iyi 'yuksek' ya da 'dusuk' olmalı (liste bu yöne göre sıralanır)")
         if m.get("kaynak") not in src:
             E(f"metrics.{k}: kaynak '{m.get('kaynak')}' sources içinde yok")
-    views = D.get("views") or []
-    if not views:
-        E("views boş")
-    for i, v in enumerate(views):
-        if not (v.get("id") and v.get("label")):
-            E(f"views[{i}]: id ve label gerekli")
-        keys = [v.get("rank")] if v.get("rank") else [v.get("x"), v.get("y")]
-        for k in keys:
-            if k not in met:
-                E(f"views[{i}]: ölçüt '{k}' metrics içinde yok")
-    if views and views[0].get("rank"):
-        E("views[0] açılış görünümüdür ve sayı içindeki bantta da basılır; x-y görünümü olmalı")
+    tabs = D.get("sekmeler") or []
+    if not tabs:
+        E("sekmeler boş (ilki sayı içindeki bantta kullanılan ölçüttür)")
+    for k in tabs:
+        if k not in met:
+            E(f"sekmeler: '{k}' metrics içinde yok")
+        elif not met[k].get("sekme"):
+            E(f"metrics.{k}: sekmede görünecek kısa ad (sekme) eksik")
     models = D.get("models") or []
     if not 8 <= len(models) <= 14:
         E(f"model sayısı {len(models)}; kural gereği 8–14 arası olmalı (ilk 10 + en iyi 2 açık model)")
@@ -86,11 +82,10 @@ def main():
                 E(f"{w}: '{k}' alanı yok (ölçüm yoksa null yazılır)")
             elif m[k] is not None and (isinstance(m[k], bool) or not isinstance(m[k], (int, float)) or m[k] <= 0):
                 E(f"{w}: '{k}' pozitif sayı ya da null olmalı")
-    if models and views and not views[0].get("rank"):
-        v = views[0]
-        n = sum(1 for m in models if m.get(v.get("x")) is not None and m.get(v.get("y")) is not None)
-        if n < 6:
-            E(f"açılış görünümünde yalnızca {n} modelin iki ölçümü de var; en az 6 gerekli")
+    if models and tabs and tabs[0] in met:
+        n = sum(1 for m in models if m.get(tabs[0]) is not None)
+        if n < 5:
+            E(f"bandın ölçütü '{tabs[0]}' için yalnızca {n} modelin ölçümü var; en az 5 gerekli")
 
     for w in warns:
         print("UYARI:", w)
