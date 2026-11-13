@@ -99,7 +99,8 @@ EN = set(("spring java maven linux firefox openai github gitlab copilot kimi gem
           "nebius iren nscale pierre conductor cognition devin cursor windsurf antigravity bedrock agentcore azure aws "
           "vertex lambda tpu tpus inference coding agentic big tech high speed highspeed claude-code ai-native ci cd devops "
           "sonar sonarqube jacoco surefire figma eclipse skill skills anthropic combinator microsoft local first cisco "
-          "driven change insight insights pi vite vitest prisma sqlite ollama mini lite fine tuning edition engine engines it").split())
+          "driven change insight insights pi vite vitest prisma sqlite ollama mini lite fine tuning edition engine engines it "
+          "artificial analysis intelligence index cursorbench benchmark benchmarks leaderboard hydrogen gpt fable").split())
 
 
 def tr_upper(s):
