@@ -29,7 +29,7 @@ Her rakam, tarih, isim, ayrıntı ve nitelendirme kaynakta açıkça yazıyor mu
 - Manşetin AI/LLM kuralına uyup uymadığı.
 - Haber cümlesi gibi yazılmış yorum.
 - Grafik kuralları.
-- Bölüm ağırlıkları: Yapay Zeka & LLM ana bölüm mü (6-8 haber), Güvenlik 3-4 kısa haberle sınırlı mı, bölüm dışındaki güvenlik temalı haberler sınırı (1 haber, 2 kısa haber) aşıyor mu, güvenlik temalı manşet art arda ikinci kez mi.
+- Bölüm ağırlıkları: Yapay Zekâ & LLM ana bölüm mü (6-8 haber), Güvenlik 3-4 kısa haberle sınırlı mı, bölüm dışındaki güvenlik temalı haberler sınırı (1 haber, 2 kısa haber) aşıyor mu, güvenlik temalı manşet art arda ikinci kez mi.
 - Okuyucuya göre önceliklendirme ve yer dağılımı; aynı satırdaki haberlerin uzunluk dengesi; başlık uzunluğu sınırları.
 - Haber dili: giriş cümlesi kalıbı, cümle uzunluğu, grafikteki rakamların metinde tekrarı, terim tutarlılığı, açıklanmamış ya da yanlış açıklanmış jargon, İddia haberlerinde kesin kipte başlık.
 - İçerik kurgusu: şirket ağırlığı sınırı; why cümlelerinde abartı ya da haberdeki olgulara dayanmayan çıkarım; pattern notundaki her haberin ortak olguyu kendi kaynağında gerçekten yazıp yazmadığı; açık haberlerinde kimin etkilendiği ve ne yapılacağı; takip haberlerinde iç atıf.

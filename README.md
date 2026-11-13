@@ -1,6 +1,6 @@
 # The Daily Compiler
 
-Her sabah otomatik hazırlanan, yazılım · yapay zeka · güvenlik gazetesi.
+Her sabah otomatik hazırlanan, yazılım · yapay zekâ · güvenlik gazetesi.
 
 ## Yapı
 

@@ -119,6 +119,10 @@ nav.index.stuck{border-bottom-color:transparent}
 .nav-links::-webkit-scrollbar{display:none}
 .nav-links a{text-decoration:none;padding:11px 0 9px;border-bottom:2px solid transparent;flex:none}
 .nav-links a[aria-current="true"]{color:var(--accent);border-bottom-color:currentColor}
+/* Aynı menü sekme olarak da kullanılır (Modeller: ölçüt seçimi) */
+.nav-links button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:0;border-bottom:2px solid transparent;padding:11px 0 9px;flex:none;cursor:pointer}
+.nav-links button:hover{color:var(--accent)}
+.nav-links button[aria-pressed="true"]{color:var(--accent);border-bottom-color:currentColor}
 /* Küçük logo: menü yapışana kadar yer kaplamaz; yapışınca büyük halinden küçülerek yerine oturur */
 .nav-brand{flex:none;line-height:0;text-decoration:none;color:var(--ink);
   max-width:0;opacity:0;visibility:hidden;overflow:hidden;margin-right:0;padding-right:0;border-right:1px solid transparent;transform:translateY(-10px) scale(1.5);transform-origin:left center;
@@ -373,13 +377,7 @@ span.dial-step{opacity:.3}
 /* Modeller: modeller.html ve sayı içindeki bant. Liste assets/modeller.js ile canlanır; sabit hali build.py üretir. */
 .mdl-page{padding:28px 0 8px}
 .mdl-page>h2{font-size:clamp(30px,5vw,44px);font-weight:600;line-height:1.05;letter-spacing:-.01em;margin:0 0 18px}
-.mdl-top{position:sticky;top:0;z-index:5;background:var(--paper);border-top:3px solid var(--ink)}
-.mdl-tabs{display:flex;gap:0 24px;border-bottom:1px solid var(--rule)}
-.mdl-tabs:empty{display:none}
-.mdl-tabs button{font:500 15.5px/1 var(--f-label);color:var(--ink-soft);padding:13px 0 11px;border-bottom:3px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .2s}
-.mdl-tabs button:hover{color:var(--ink)}
-.mdl-tabs button[aria-pressed="true"]{color:var(--ink);font-weight:600;border-bottom-color:var(--ink)}
-.mdl-cap{font-family:var(--f-label);font-size:13px;color:var(--ink-soft);margin:0;padding:10px 0 8px}
+.mdl-cap{font-family:var(--f-label);font-size:13px;color:var(--ink-soft);margin:0;padding:12px 0 8px}
 .mdl-cap a,.mdl-ft a:not(.mdl-go){color:var(--ink-soft)}
 .mdl-list{position:relative}
 #mdl-list{transition:height .5s cubic-bezier(.2,.7,.2,1)}

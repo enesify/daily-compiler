@@ -11,7 +11,7 @@ Bu tanım haber seçimini ve önceliklendirmeyi yönlendiren bir mercektir. Gaze
 ## 2. Araştırma
 
 - Zaman penceresi: son 24 saat, en fazla 48 saat. Pazartesi sayılarında hafta sonu nedeniyle sınır 72 saattir (Cuma sabahından itibaren).
-- Her bölüm için ayrı aramalar yap. Toplam WebSearch sayısı en az 15, en fazla 25'tir; 25 kesin üst sınırdır. Aramaların en az üçte birini Yapay Zeka & LLM bölümüne ayır (model sürümleri, araştırma, benchmark, agent'lar, düzenleme gibi farklı açılardan); Güvenlik için 2-3 arama yeter. Haber azsa daha fazla arama yapma, bölümleri kısa tut.
+- Her bölüm için ayrı aramalar yap. Toplam WebSearch sayısı en az 15, en fazla 25'tir; 25 kesin üst sınırdır. Aramaların en az üçte birini Yapay Zekâ & LLM bölümüne ayır (model sürümleri, araştırma, benchmark, agent'lar, düzenleme gibi farklı açılardan); Güvenlik için 2-3 arama yeter. Haber azsa daha fazla arama yapma, bölümleri kısa tut.
 - WebFetch ile asıl kaynakları oku. Bir kaynak iki denemede 403, bot koruması ya da erişim hatası verirse o kaynağı bırak: aynı bilgiyi veren başka bir birincil kaynak ara, bulamazsan 5. bölümdeki "asıl kaynağa ulaşılamadı" kuralını uygula. Bot korumasını aşmaya çalışma (headless tarayıcı, arşiv servisleri vb. kullanma).
 - Son 3 sayıda geçen haberleri tekrar etme. Gerçek bir yeni gelişme varsa onu öne çıkar ve önceki habere iç atıf ver (7. bölüm, İç atıflar).
 
@@ -19,7 +19,7 @@ Bu tanım haber seçimini ve önceliklendirmeyi yönlendiren bir mercektir. Gaze
 
 **Manşet.** Günün bu okuyucu için en önemli ve en çok eylem gerektiren AI/LLM gelişmesi (yalnızca genel olarak en büyük haber değil). Örnekler: model sürümleri, AI kodlama araçları ve agent harness'larındaki önemli değişiklikler, ekiplerin AI kullanımını etkileyen araştırma ve benchmark'lar, fiyat/limit/politika değişiklikleri. Güvenlik haberleri (CVE'ler, ihlaller, tedarik zinciri saldırıları) manşete çıkmaz, Güvenlik bölümünde yer alır. İstisna: ana konusu bir AI aracı ya da AI destekli geliştirme pratiği olan güvenlik haberleri (ör. bir AI kodlama aracının sırları sızdırması) manşet olabilir; ama güvenlik temalı manşet art arda iki sayıda olmaz (önceki manşet özet çıktısında görünür). Pencere içinde manşete değer bir AI/LLM gelişmesi yoksa en güçlü AI/LLM haberini manşet yap; uydurma ya da abartma. Manşetin yanında "Pratik çıkarım" kutusu olur: benzer işi yapan bir yazılım ekibi için 3-4 somut madde.
 
-**Yapay Zeka & LLM** (id `ai`). Gazetenin ana bölümüdür: 6-8 haber. Model sürümleri, benchmark'lar, araştırmalar, agent'lar ve agent altyapısı, açık modeller, AI düzenlemeleri ve politika değişiklikleri. İlk satır 8+4 (büyük haber), sonraki satırlar 6+6 ya da 4+4+4. Pencere içinde 6 gerçek haber yoksa daha az yaz; dolgu koyma.
+**Yapay Zekâ & LLM** (id `ai`). Gazetenin ana bölümüdür: 6-8 haber. Model sürümleri, benchmark'lar, araştırmalar, agent'lar ve agent altyapısı, açık modeller, AI düzenlemeleri ve politika değişiklikleri. İlk satır 8+4 (büyük haber), sonraki satırlar 6+6 ya da 4+4+4. Pencere içinde 6 gerçek haber yoksa daha az yaz; dolgu koyma.
 
 **Şirketler & Altyapı** (id `is`). Yatırımlar, birleşmeler, çipler, veri merkezleri.
 
@@ -59,7 +59,7 @@ Açık haberleri için (hangi bölümde ya da Kısa Kısa'da olursa olsun):
 
 ## 4. Uzunluk ve yerleşim
 
-- Toplam içerik yaklaşık 15 dakikalık okuma olmalı: manşet 4 paragraf; Yapay Zeka & LLM 6-8 haber, Güvenlik 3-4 kısa haber, diğer bölümler 2-3 haber.
+- Toplam içerik yaklaşık 15 dakikalık okuma olmalı: manşet 4 paragraf; Yapay Zekâ & LLM 6-8 haber, Güvenlik 3-4 kısa haber, diğer bölümler 2-3 haber.
 - Yer dağılımını okuyucunun önceliklerine göre yap: 8 kolonluk büyük haberler okuyucunun işine en çok dokunan haberlere gitsin; genel piyasa/finans haberleri ve küçük sürüm notları 4 kolonla yetinsin.
 - Izgara 12 kolonludur. Her bölümde `size` değerleri satırları tam dolduracak şekilde seçilir: 8+4, 6+6 ya da 4+4+4. İlk haber genelde `big: true` olur.
 
@@ -91,6 +91,7 @@ Türkçe yaz; teknik terimler İngilizce kalabilir (context window, release cand
 - **Kısa cümle kur.** Bir cümlede en fazla bir noktalı virgül; 25 kelimeyi aşan cümleyi böl. Bir cümlede ikiden fazla karşılaştırma ya da rakam çifti sıralama.
 - **Rakam seç, rakam yığma.** Okuyucunun karar vermesine yarayan iki üç rakamı ver, gerisini kaynağa bırak. Grafikteki rakamların hepsini metinde tek tek sıralama; metin grafiğin ne gösterdiğini söylesin ve en fazla ana rakamı ansın. figures ve stat rakamları ise ilgili haberin metninde bir kez geçer.
 - **Terimler.** Bir kavram için sayı boyunca tek terim kullan (aynı sayıda hem “istem” hem “prompt” olmaz). Yerleşik Türkçe karşılığı olmayan terimi İngilizce bırak; karşılık uydurma (“skalarlaştırma”, “sınıfı örneklemek” gibi). İngilizce deyimi kelime kelime çevirme: “in the wild” için “sahada istismar” ya da “aktif istismar”, “instantiate” için “nesnesini oluşturmak”.
+- **Yazım.** “Zekâ” her yerde şapkalı yazılır: yapay zekâ, zekâ endeksi, Yapay Zekâ & LLM. (Sayfa üretilirken şapkasız yazım da düzeltilir, ama JSON'da doğru yaz.)
 - **Jargon.** Okuyucu deneyimli bir yazılımcıdır ama her alt alanın uzmanı değildir. Yaygın olmayan bir ürün, protokol, benchmark ya da kısaltmayı ilk geçtiği yerde üç-sekiz kelimeyle açıkla (ör. “Kerberos'un bilet dağıtım sunucusu KDC”). Açıklama kaynakta yazan ya da genel olarak bilinen bir tanım olmalı; emin değilsen açıklama uydurma, terimi çıkar ya da kaynağın ifadesiyle ver. Java, Docker, CVE, RAG, MCP gibi bu okuyucunun bildiği terimleri açıklama.
 - **Başlık kipi.** İddia etiketli ya da tek kaynaklı haberin başlığı kesin olgu gibi yazılmaz; başlıkta kaynak ya da “iddia” yer alır (ör. “Sentra: Qubole üzerinden müşteri AWS hesaplarına girildi”). Şirket beyanı haberlerinde başlıktaki ölçüm ya da üstünlük şirkete atfedilir.
 
@@ -99,7 +100,7 @@ Türkçe yaz; teknik terimler İngilizce kalabilir (context window, release cand
 - **Şirket ağırlığı.** Bir şirket (ürünleriyle birlikte) bir sayıda manşet dışında en fazla 2 haber ve 1 kısa haberle yer alır; aynı günün birden çok duyurusunu tek haberde birleştir. Başka bir konunun haberinde şirketin yalnızca adının geçmesi (ör. bir açığı bulan araç olarak) ve repo listesi bu sınıra girmez. Bu gazeteyi Anthropic'in Claude modeli yazıyor: Anthropic ve Claude haberlerinde diğer şirketlere uyguladığın etiketleri, çekinceleri ve ölçütleri aynen uygula, övgü sıfatı kullanma, rakip ürünleri aynı ayrıntıda ver.
 - **Neden önemli (`why`).** Bölümlerdeki her büyük haberde zorunlu, diğer haberlerde isteğe bağlı tek cümle (en fazla 25 kelime). Manşette why yazılmaz; orada "Pratik çıkarım" kutusu var. Haberin bu okuyucu kitlesi için sonucunu söyler: kim etkilenir, neyi değiştirir, ne zaman harekete geçmeli. Sayfa bunu “Neden önemli” etiketiyle metinden ayrı basar; cümleyi bu sözle başlatma. Yalnızca haberde yazan olgulardan çıkan sonucu söyler, yeni olgu ya da rakam getirmez; tahmin, abartı ve “önemli bir adım” gibi içi boş ifadeler yazma. Söyleyecek somut bir şey yoksa küçük haberde boş bırak. why cümlesi uzunluk dengesi kelime sayılarına dahil değildir.
 - **Süreklilik (açık uçlar).** Son 3 sayıda sonucu henüz belli olmayan konular vardır: tarihi verilmiş gelecek olaylar (kesinti, geçiş, GA, son tarih) ve “henüz açıklanmadı”, “düzeltme bekleniyor” denen haberler. Tarihi pencereye düşenler için toplam en fazla 3 arama ayır. Birincil kaynakta bir sonuç varsa “Takip” etiketiyle Kısa Kısa'ya ya da ilgili bölüme yaz ve önceki habere iç atıf ver; sonuç yoksa yazma, tahmin yürütme. Takip haberi tekrar sayılmaz.
-- **Günün örüntüsü (`pattern`, isteğe bağlı).** Yalnızca bu sayıdaki en az üç haber aynı olguyu paylaşıyorsa ve bu ortaklık her birinin kendi kaynağında açıkça yazıyorsa ekle (ör. üç ayrı güvenlik duyurusunun da açıkların yapay zeka araçlarıyla bulunduğunu belirtmesi). Ortaklığı adlandır ve haberleri say; nedensellik kurma, gelecek tahmini yapma. Zorlama bağlantı kurmaktansa hiç yazma; çoğu gün örüntü olmaz.
+- **Günün örüntüsü (`pattern`, isteğe bağlı).** Yalnızca bu sayıdaki en az üç haber aynı olguyu paylaşıyorsa ve bu ortaklık her birinin kendi kaynağında açıkça yazıyorsa ekle (ör. üç ayrı güvenlik duyurusunun da açıkların yapay zekâ araçlarıyla bulunduğunu belirtmesi). Ortaklığı adlandır ve haberleri say; nedensellik kurma, gelecek tahmini yapma. Zorlama bağlantı kurmaktansa hiç yazma; çoğu gün örüntü olmaz.
 
 ## 8. JSON alanları
 

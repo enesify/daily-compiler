@@ -18,7 +18,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_NAME = "The Daily Compiler"
-TAGLINE_B = "Yazılım · Yapay Zeka · LLM"
+TAGLINE_B = "Yazılım · Yapay Zekâ · LLM"
 TAGLINE = "Her sabah, son 24–48 saatin özeti"
 STRIP_DAYS = 14  # kadran şeridinde gösterilen takvim günü
 
@@ -58,10 +58,18 @@ def asset(ctx, rel):
 WJ = "\u2060"  # word joiner: sayı aralığı satır sonunda bölünmesin
 
 
+ZEKA = re.compile(r"(?<![\w])([Zz])([Ee])([Kk])([Aa])(?!i\b)")
+
+
+def zeka(s):
+    """“zeka” her yerde şapkalı yazılır: zeka → zekâ, Zekası → Zekâsı, ZEKA → ZEKÂ (Zekai gibi adlar hariç)."""
+    return ZEKA.sub(lambda m: m.group(1) + m.group(2) + m.group(3) + ("Â" if m.group(4) == "A" else "â"), s)
+
+
 def typo(text):
-    """Tipografik düzeltmeler: kesme işareti (Code'da → Code’da) ve sayı/saat aralıklarında kısa çizgi (16:00–18:00).
-    CVE numaraları ve ISO tarihler (2026-11-07) gibi çok tireli diziler aralık sayılmaz."""
-    s = str(text or "")
+    """Tipografik düzeltmeler: kesme işareti (Code'da → Code’da), sayı/saat aralıklarında kısa çizgi (16:00–18:00),
+    şapkalı “zekâ”. CVE numaraları ve ISO tarihler (2026-11-07) gibi çok tireli diziler aralık sayılmaz."""
+    s = zeka(str(text or ""))
     s = re.sub(r"(?<=[\w)”])'(?=\w)", "’", s)
     s = re.sub(r"(?<![\w\-/.,:])(%?\d+(?:[.,:]\d+)*)-(%?\d+(?:[.,:]\d+)*)(?![\w\-/])",
                lambda m: f"{m.group(1)}{WJ}–{WJ}{m.group(2)}", s)
@@ -120,7 +128,7 @@ def word_up(w):
 
 
 def caps(s):
-    toks = re.split(r"(\s+|[&·/()–—,:;+\-])", str(s or ""))
+    toks = re.split(r"(\s+|[&·/()–—,:;+\-])", zeka(str(s or "")))
     return "".join(word_up(t) if t and not t.isspace() else t for t in toks)
 
 
@@ -252,7 +260,8 @@ def render_models(ctx):
                        "models": D["models"]}, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     return f"""<main id="issue" class="mdl-page">
 <h2>Modeller</h2>
-<div class="mdl-top"><div class="mdl-tabs" id="mdl-tabs" role="toolbar" aria-label="Ölçüt"></div><p class="mdl-cap" id="mdl-cap">{models_caption(D, k)}</p></div>
+<div class="nav-sentinel" aria-hidden="true"></div><nav class="index" aria-label="Ölçüt"><a class="nav-brand" href="{esc(ctx.href("index.html"))}" tabindex="-1" aria-hidden="true">{logo("full", "full")}{logo("mono", "mono")}</a><div class="nav-links" id="mdl-tabs" role="toolbar" aria-label="Ölçüt"></div></nav>
+<p class="mdl-cap" id="mdl-cap">{models_caption(D, k)}</p>
 <div class="mdl-list static" id="mdl-static">{models_rows(D, k)}</div>
 <div class="mdl-list" id="mdl-list" hidden></div>
 <script type="application/json" id="mdl-veri">{data}</script>
@@ -479,7 +488,7 @@ def footer(ctx):
             + (f'<a href="{esc(ctx.href("modeller.html"))}">Modeller</a> · ' if ctx.models else "")
             + f'<a href="{esc(ctx.href("feed.xml"))}">RSS</a> · '
             f'<a href="{esc(ctx.href("hakkinda.html"))}">Hakkında</a></span>'
-            '<span>Haberler yapay zeka tarafından kaynaklardan özetlenir ve ayrı bir yapay zeka editörce denetlenir; '
+            '<span>Haberler yapay zekâ tarafından kaynaklardan özetlenir ve ayrı bir yapay zekâ editörce denetlenir; '
             f'hata olabilir, kaynak linklerine bakın. <a href="{esc(ctx.href("hakkinda.html"))}">Nasıl hazırlanıyor?</a></span></footer>')
 
 
@@ -682,9 +691,9 @@ def render_archive(ctx):
 def render_about(ctx):
     return f"""<main id="issue" class="about">
 <h2>Hakkında</h2>
-<p>The Daily Compiler; yazılım, yapay zeka ve güvenlik haberlerini her sabah tek sayfada toplayan günlük bir gazetedir. Kişisel, ticari olmayan bir projedir; reklam ya da sponsorlu içerik yoktur.</p>
+<p>The Daily Compiler; yazılım, yapay zekâ ve güvenlik haberlerini her sabah tek sayfada toplayan günlük bir gazetedir. Kişisel, ticari olmayan bir projedir; reklam ya da sponsorlu içerik yoktur.</p>
 <h3>Nasıl hazırlanıyor?</h3>
-<p>Her sayı otomatik olarak, bir yapay zeka modeli (Anthropic Claude) tarafından hazırlanır. Model son 24–48 saatin haberlerini tarar (Pazartesi sayılarında hafta sonunu da kapsar), asıl kaynakları okur ve haberleri kendi cümleleriyle özetler. Ardından ayrı bir yapay zeka “editör”, taslağı kaynak linklerini yeniden açarak denetler; doğrulanamayan bilgi çıkarılır ya da etiketlenir.</p>
+<p>Her sayı otomatik olarak, bir yapay zekâ modeli (Anthropic Claude) tarafından hazırlanır. Model son 24–48 saatin haberlerini tarar (Pazartesi sayılarında hafta sonunu da kapsar), asıl kaynakları okur ve haberleri kendi cümleleriyle özetler. Ardından ayrı bir yapay zekâ “editör”, taslağı kaynak linklerini yeniden açarak denetler; doğrulanamayan bilgi çıkarılır ya da etiketlenir.</p>
 <p>Sayılar yayımlanmadan önce bir insan tarafından tek tek okunmaz. Bu yüzden hata olabilir: bir haber sizin için önemliyse, altındaki kaynak linkinden asıl metne bakın.</p>
 <p>Gazeteyi yazan model Anthropic’in ürünü olduğu için Anthropic ve Claude haberlerinde bir çıkar çatışması vardır. Bu haberlere de diğer şirketlerle aynı etiketler ve çekinceler uygulanır; bir şirket, manşet dışında bir sayıda en fazla iki haber ve bir kısa haberle yer alır.</p>
 <h3>Etiketler</h3>
@@ -772,7 +781,7 @@ def main():
     write("hakkinda.html", page(ctx, f"Hakkında · {SITE_NAME}", "The Daily Compiler nasıl hazırlanıyor, etiketler ne anlama geliyor",
                                 render_about(ctx), base + "hakkinda.html" if base else None, base=base))
     if models:
-        write("modeller.html", page(ctx, f"Modeller · {SITE_NAME}", "Yapay zeka modelleri: bağımsız ölçümlerle zekâ, maliyet ve süre karşılaştırması",
+        write("modeller.html", page(ctx, f"Modeller · {SITE_NAME}", "Yapay zekâ modelleri: bağımsız ölçümlerle zekâ, kodlama, maliyet ve süre sıralaması",
                                     render_models(ctx), base + "modeller.html" if base else None, base=base,
                                     scripts=f'\n<script src="{esc(asset(ctx, "assets/modeller.js"))}" defer></script>'))
     elif os.path.exists(os.path.join(ROOT, "modeller.html")):
