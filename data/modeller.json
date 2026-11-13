@@ -36,7 +36,8 @@
    "bicim": "dk",
    "iyi": "dusuk",
    "kaynak": "aa",
-   "kisa": "Süre, dk"
+   "kisa": "Süre, dk",
+   "sifir": true
   },
   "kodlama": {
    "ad": "Kodlama",
@@ -61,31 +62,24 @@
    "id": "zeka-maliyet",
    "label": "Zekâ × maliyet",
    "x": "maliyet",
-   "y": "zeka",
-   "sinir": true,
-   "q": "Hangi model parasını hak ediyor?"
+   "y": "zeka"
   },
   {
    "id": "kodlama-maliyet",
    "label": "Kod × maliyet",
    "x": "kod_maliyet",
-   "y": "kodlama",
-   "sinir": true,
-   "q": "Kod işinde hangi model parasını hak ediyor?"
+   "y": "kodlama"
   },
   {
    "id": "zeka-sure",
    "label": "Zekâ × süre",
    "x": "sure",
-   "y": "zeka",
-   "sinir": true,
-   "q": "İyi cevap için ne kadar beklemek gerekiyor?"
+   "y": "zeka"
   },
   {
    "id": "zeka",
    "label": "Sıralama",
-   "rank": "zeka",
-   "q": "Kim önde, ne kadar farkla?"
+   "rank": "zeka"
   }
  ],
  "models": [

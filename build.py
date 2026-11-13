@@ -193,8 +193,9 @@ def m_scale(D, k):
         seq = [float(f"{s * 10.0 ** e:.1g}") for e in range(-3, 7) for s in (1, 2, 5)]
         a, b = [x for x in seq if x <= lo][-1], [x for x in seq if x >= hi][0]
         return a, b, [x for x in seq if a <= x <= b], True
-    pad = (hi - lo or 1) * .06
-    lo, hi = lo - pad, hi + pad
+    sifir = D["metrics"][k].get("sifir")   # süre gibi oranı anlamlı ölçütlerde eksen sıfırdan başlar
+    pad = (hi - (0 if sifir else lo) or 1) * .06
+    lo, hi = (0 if sifir else lo - pad), hi + pad
     raw = (hi - lo) / 4
     mag = 10 ** math.floor(math.log10(raw))
     step = [x for x in (1, 2, 5, 10) if x * mag >= raw][0] * mag
@@ -202,28 +203,28 @@ def m_scale(D, k):
     return a, b, [round(a + i * step, 6) for i in range(int(round((b - a) / step)) + 1)], False
 
 
+M_PAL = ["--l2", "--l3", "--l4", "--l7", "--l5", "--l6"]   # sitenin vurgu rengi (--l1, turkuaz) veriye verilmez
+
+
 def m_color(D, m):
     provs = list(dict.fromkeys(x["saglayici"] for x in D["models"]))
-    return f"var(--l{min(6, provs.index(m['saglayici']) + 1)})"
+    return f"var({M_PAL[min(len(M_PAL) - 1, provs.index(m['saglayici']))]})"
 
 
-def m_frontier(D, v):
-    """Aynı ya da daha düşük maliyete (süreye) daha iyisi olmayan modeller."""
-    best, out = -1e18, []
-    for m in sorted([m for m in D["models"] if m.get(v["x"]) is not None and m.get(v["y"]) is not None],
-                    key=lambda m: (m[v["x"]], -m[v["y"]])):
-        if m[v["y"]] > best:
-            out.append(m)
-            best = m[v["y"]]
-    return out
+def m_has(m, v):
+    return all(m.get(k) is not None for k in ([v["rank"]] if v.get("rank") else [v["x"], v["y"]]))
+
+
+def m_missing(D, v):
+    return [m.get("kisa") or m["ad"] for m in D["models"] if not m_has(m, v)]
 
 
 def models_svg(D, W, H, small):
     """Açılış görünümünün durağan çizimi: sayı içindeki bantta ve JavaScript kapalıyken Modeller sayfasında kullanılır."""
     v = D["views"][0]
     kx, ky = v["x"], v["y"]
-    L, R, T, B = (38, 10, 20, 40) if small else (48, 16, 24, 46)
-    fs, nf, r = (10.5, 12, 6.5) if small else (12, 14, 8.5)
+    L, R, T, B = (36, 10, 20, 40) if small else (46, 14, 24, 44)
+    fs, nf, r = (10.5, 11.5, 5.5) if small else (12, 13.5, 7)
     ax, bx, tx, lx = m_scale(D, kx)
     ay, by, tys, ly = m_scale(D, ky)
 
@@ -239,32 +240,29 @@ def models_svg(D, W, H, small):
                  f'<text x="{L - 6}" y="{Y(t) + fs * .36:.1f}" class="tick" text-anchor="end" font-size="{fs}">{M_FMT[D["metrics"][ky]["bicim"]][1](t)}</text>')
     for t in tx:
         o.append(f'<line x1="{X(t):.1f}" x2="{X(t):.1f}" y1="{T}" y2="{H - B}" class="grid"/>'
-                 f'<text x="{X(t):.1f}" y="{H - B + 15}" class="tick" text-anchor="middle" font-size="{fs}">{M_FMT[D["metrics"][kx]["bicim"]][1](t)}</text>')
+                 f'<text x="{X(t):.1f}" y="{H - B + fs + 8}" class="tick" text-anchor="middle" font-size="{fs}">{M_FMT[D["metrics"][kx]["bicim"]][1](t)}</text>')
     o.append(f'<line x1="{L}" x2="{W - R}" y1="{H - B}" y2="{H - B}" class="base"/>'
-             f'<text x="{(L + W - R) / 2:.1f}" y="{H - 5}" class="axis" text-anchor="middle" font-size="{fs + .5}">{esc(D["metrics"][kx]["eksen"])}</text>'
+             f'<text x="{(L + W - R) / 2:.1f}" y="{H - 4}" class="axis" text-anchor="middle" font-size="{fs + .5}">{esc(D["metrics"][kx]["eksen"])}</text>'
              f'<text x="{L}" y="{T - 8}" class="axis" font-size="{fs + .5}">↑ {esc(D["metrics"][ky]["eksen"])}</text>')
-    F = m_frontier(D, v) if v.get("sinir") else []
-    if F:
-        d = f"M{X(F[0][kx]):.1f} {H - B}" + "".join(
-            f"V{Y(m[ky]):.1f}H" + (f"{X(F[i + 1][kx]):.1f}" if i + 1 < len(F) else f"{W - R}") for i, m in enumerate(F))
-        o.append(f'<path d="{d}V{H - B}Z" class="under"/><path d="{d}" class="frontier"/>')
-    for m in D["models"]:
-        if m.get(kx) is None or m.get(ky) is None:
-            continue
-        cx, cy, c = X(m[kx]), Y(m[ky]), m_color(D, m)
-        q = r * 1.22
-        o.append(f'<path d="M{cx:.1f} {cy - q:.1f}L{cx + q:.1f} {cy:.1f} {cx:.1f} {cy + q:.1f} {cx - q:.1f} {cy:.1f}Z" fill="{c}" class="pt"/>'
-                 if m.get("acik") else f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" fill="{c}" class="pt"/>')
-        if m in F:   # çizgi noktadan sağa ve aşağı gider; etiket sol üstte kalır
-            name = m.get("kisa") or m["ad"]
-            if cx - r - 5 - len(name) * nf * .5 < 2:   # sola sığmıyor: üste, soldan hizalı; o da çizgiye çarpacaksa etiketsiz kalır
-                i = F.index(m)
-                nxt = X(F[i + 1][kx]) if i + 1 < len(F) else W - R
-                if max(2, cx - r) + len(name) * nf * .5 < nxt - 4:
-                    o.append(f'<text x="{max(2, cx - r):.1f}" y="{cy - r - 6:.1f}" class="nm" font-size="{nf}">{esc(name)}</text>')
-            else:
-                o.append(f'<text x="{cx - r - 5:.1f}" y="{cy - 3:.1f}" text-anchor="end" class="nm" font-size="{nf}">{esc(name)}</text>')
-    return "".join(o) + "</svg>"
+    pts = [m for m in D["models"] if m_has(m, v)]
+    boxes = [(X(m[kx]) - r - 2, Y(m[ky]) - r - 2, 2 * r + 4, 2 * r + 4) for m in pts]
+    hit = lambda b: any(b[0] < c[0] + c[2] and b[0] + b[2] > c[0] and b[1] < c[1] + c[3] and b[1] + b[3] > c[1] for c in boxes)
+    labels = []
+    for m in sorted(pts, key=lambda m: -m[ky]):   # etiket önce sağa, sonra sola; ikisi de doluysa etiketsiz kalır
+        cx, cy, name = X(m[kx]), Y(m[ky]), m.get("kisa") or m["ad"]
+        w = len(name) * nf * .5
+        for x0, anchor in ((cx + r + 5, "start"), (cx - r - 5, "end")):
+            bx0 = x0 if anchor == "start" else x0 - w
+            b = (bx0 - 1, cy - nf * .75, w + 2, nf * 1.1)
+            if bx0 > 1 and bx0 + w < W - 1 and not hit(b):
+                boxes.append(b)
+                labels.append(f'<text x="{x0:.1f}" y="{cy + nf * .35:.1f}" text-anchor="{anchor}" class="nm" font-size="{nf}">{esc(name)}</text>')
+                break
+    for m in pts:
+        cx, cy, c, q = X(m[kx]), Y(m[ky]), m_color(D, m), r * 1.22
+        o.append(f'<path d="M{cx:.1f} {cy - q:.1f}L{cx + q:.1f} {cy:.1f} {cx:.1f} {cy + q:.1f} {cx - q:.1f} {cy:.1f}Z" fill="{c}"/>'
+                 if m.get("acik") else f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" fill="{c}"/>')
+    return "".join(o + labels) + "</svg>"
 
 
 def models_legend(D):
@@ -272,7 +270,7 @@ def models_legend(D):
     for m in D["models"]:
         seen.setdefault(m["saglayici"], m_color(D, m))
     items = "".join(f'<li><i style="background:{c}"></i>{esc(p)}</li>' for p, c in seen.items())
-    extra = '<li class="dia"><i></i>Açık model</li>' if any(m.get("acik") for m in D["models"]) else ""
+    extra = '<li class="dia"><i></i>Açık ağırlıklı</li>' if any(m.get("acik") for m in D["models"]) else ""
     return f'<ul class="mdl-legend">{items}{extra}</ul>'
 
 
@@ -288,19 +286,20 @@ def models_updated(D):
 
 
 def models_band(ctx):
-    """Her sayıda aynı yerde duran, hep güncel veriyi gösteren küçük bant. Ayrıntı Modeller sayfasındadır."""
+    """Her sayının sonunda duran, hep güncel veriyi gösteren bant. Yorum yok: grafik, lejant, kaynak, link."""
     D = ctx.models
     if not D:
         return ""
     v = D["views"][0]
     href = esc(ctx.href("modeller.html"))
+    miss = m_missing(D, v)
     return (f'<section class="sec mdl-band" id="sec-modeller"><div class="sec-h"><h2>Modeller</h2>'
-            f'<p>{esc(D["metrics"][v["y"]]["ad"])} ve {esc(D["metrics"][v["x"]]["ad"].lower())} · son güncelleme {esc(models_updated(D))}</p></div>'
-            f'<div class="mdl-band-in"><div class="mdl-band-t"><p class="mdl-q">{esc(v.get("q"))}</p>'
-            f'<p>Çizgi, aynı paraya daha iyisi olmayan modelleri birleştirir.</p>'
-            f'<p class="mdl-src">{models_sources(D, [v["x"], v["y"]])}</p>'
-            f'<a class="mdl-go" href="{href}">Bütün görünümler ve rakamlar</a></div>'
-            f'<a class="mdl-band-c" href="{href}" aria-label="Modeller sayfasını aç">{models_svg(D, 660, 380, False)}{models_svg(D, 360, 330, True)}</a></div></section>')
+            f'<p>{esc(D["metrics"][v["y"]]["ad"])} ve {esc(D["metrics"][v["x"]]["ad"].lower())}</p></div>'
+            f'<div class="mdl-band-in"><div class="mdl-band-t">{models_legend(D)}'
+            + (f'<p class="src">Ölçüm yok: {esc(", ".join(miss))}</p>' if miss else "")
+            + f'<p class="src">Kaynak: {models_sources(D, [v["x"], v["y"]])} · {esc(models_updated(D))}</p>'
+            f'<a class="mdl-go" href="{href}">Diğer grafikler ve tablo</a></div>'
+            f'<a class="mdl-band-c" href="{href}" aria-label="Modeller sayfasını aç">{models_svg(D, 760, 360, False)}{models_svg(D, 360, 300, True)}</a></div></section>')
 
 
 def models_table(D, keys, models, cls):
@@ -340,19 +339,19 @@ def render_models(ctx):
         have = [m for m in models if any(m.get(k) is not None for k in ks)]
         rest = [m.get("kisa") or m["ad"] for m in models if m not in have]
         narrow.append(models_table(D, ks, have, "mdl-t mdl-narrow")
-                      + (f'<p class="mdl-src mdl-narrow">Henüz ölçülmedi: {esc(", ".join(rest))}</p>' if rest else ""))
-    legend = ("◆ açık ağırlıklı · " if any(m.get("acik") for m in models) else "") + "– henüz ölçülmedi · model adının yanındaki not ölçülen ayardır"
+                      + (f'<p class="mdl-src mdl-narrow">Ölçüm yok: {esc(", ".join(rest))}</p>' if rest else ""))
+    legend = ("◆ açık ağırlıklı · " if any(m.get("acik") for m in models) else "") + "– ölçüm yok · model adının yanındaki not ölçülen ayardır"
     data = json.dumps(D, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     return f"""<main id="issue" class="mdl-page">
 <h2>Modeller</h2>
 <p class="mdl-sub">{esc(models_updated(D))} verisi · {models_sources(D)}</p>
 <div class="mdl" id="mdl">
 <div class="mdl-views" id="mdl-views"></div>
-<p class="mdl-q" id="mdl-q">{esc(D["views"][0].get("q"))}</p>
-<svg id="mdl-chart" role="img" aria-label="Model karşılaştırma grafiği"><g id="mdl-axis"></g><g id="mdl-note"></g><path id="mdl-under"/><path id="mdl-frontier"/><g id="mdl-stems"></g><g id="mdl-dots"></g><g id="mdl-labels"></g></svg>
-<div class="mdl-nojs">{models_svg(D, 1140, 520, False)}{models_svg(D, 360, 330, True)}</div>
-<p class="mdl-read" id="mdl-read" aria-live="polite"></p>
 {models_legend(D)}
+<svg id="mdl-chart" role="img" aria-label="Model karşılaştırma grafiği"><g id="mdl-axis"></g><g id="mdl-data"><g id="mdl-dots"></g><g id="mdl-labels"></g></g></svg>
+<div class="mdl-nojs">{models_svg(D, 1140, 500, False)}{models_svg(D, 360, 320, True)}</div>
+<p class="mdl-miss" id="mdl-miss">{esc("Ölçüm yok: " + ", ".join(m_missing(D, D["views"][0]))) if m_missing(D, D["views"][0]) else ""}</p>
+<p class="mdl-read" id="mdl-read" aria-live="polite"></p>
 </div>
 <section class="mdl-table"><h3>Bütün rakamlar</h3>
 {models_table(D, keys, models, "mdl-t mdl-wide")}
@@ -643,12 +642,12 @@ def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, bas
 def render_issue(ctx, cur):
     secs = cur.get("sections") or []
     nav_items = [("manset", "Manşet")] + [(s.get("id"), s.get("title")) for s in secs]
-    if ctx.models:
-        nav_items.append(("modeller", "Modeller"))
     if cur.get("repos"):
         nav_items.append(("repolar", "GitHub Repoları"))
     if cur.get("briefs"):
         nav_items.append(("kisa", "Kısa Kısa"))
+    if ctx.models:
+        nav_items.append(("modeller", "Modeller"))
     out = [dial(ctx, cur)]
     out.append('<main id="issue">')
     # Menü üste yapışınca solunda küçük logo belirir (site.js, .nav-sentinel görünümden çıkınca "stuck" sınıfını ekler)
@@ -704,7 +703,6 @@ def render_issue(ctx, cur):
         out.append(f'<section class="sec" id="sec-{esc(sid)}"><div class="sec-h"><h2>{esc(typo(s.get("title")))}</h2>{sub}</div>'
                    f'<div class="grid">{arts}</div></section>')
 
-    out.append(models_band(ctx))
 
     R = cur.get("repos")
     if R and R.get("items"):
@@ -728,6 +726,7 @@ def render_issue(ctx, cur):
                 f'\u00a0<a href="{esc(u)}" target="_blank" rel="noopener" aria-label="Kaynak">↗</a>' if re.match(r"^https?://", u) else "")
             ps.append(f'<p><b>{caps_rich(b.get("tag"))}</b>{rich(b.get("text"))}{tail}</p>')
         out.append(f'<section class="sec" id="sec-kisa"><div class="sec-h"><h2>Kısa Kısa</h2></div><div class="briefs">{"".join(ps)}</div></section>')
+    out.append(models_band(ctx))
     out.append(end_nav(ctx, cur))
     out.append("</main>")
     return "\n".join(out)

@@ -55,17 +55,14 @@ def main():
     if not views:
         E("views boş")
     for i, v in enumerate(views):
-        if not (v.get("id") and v.get("label") and v.get("q")):
-            E(f"views[{i}]: id, label ve q gerekli")
+        if not (v.get("id") and v.get("label")):
+            E(f"views[{i}]: id ve label gerekli")
         keys = [v.get("rank")] if v.get("rank") else [v.get("x"), v.get("y")]
         for k in keys:
             if k not in met:
                 E(f"views[{i}]: ölçüt '{k}' metrics içinde yok")
-        if v.get("sinir") and not v.get("rank") and all(k in met for k in keys):
-            if met[v["x"]]["iyi"] != "dusuk" or met[v["y"]]["iyi"] != "yuksek":
-                E(f"views[{i}]: sinir yalnızca x 'dusuk', y 'yuksek' iken kullanılır")
-    if views and (views[0].get("rank") or not views[0].get("sinir")):
-        W("views[0] açılış görünümüdür ve sayı içindeki bantta da basılır; x-y görünümü ve sinir: true olması beklenir")
+    if views and views[0].get("rank"):
+        E("views[0] açılış görünümüdür ve sayı içindeki bantta da basılır; x-y görünümü olmalı")
     models = D.get("models") or []
     if not 8 <= len(models) <= 14:
         E(f"model sayısı {len(models)}; kural gereği 8–14 arası olmalı (ilk 10 + en iyi 2 açık model)")
@@ -96,7 +93,7 @@ def main():
             E(f"açılış görünümünde yalnızca {n} modelin iki ölçümü de var; en az 6 gerekli")
     provs = {m.get("saglayici") for m in models}
     if len(provs) > 6:
-        W(f"{len(provs)} sağlayıcı var; renk paleti 6 renkli, fazlası aynı gri tonu alır")
+        W(f"{len(provs)} sağlayıcı var; veri paleti 6 renkli, fazlası aynı gri tonu alır")
 
     for w in warns:
         print("UYARI:", w)
