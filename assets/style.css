@@ -218,7 +218,7 @@ article h3{font-size:21px;line-height:1.2;font-weight:600}
 article.big h3{font-size:26px;line-height:1.13}
 article p{font-size:16.5px}
 /* İri rakam: büyük haberlerde tek çarpıcı sayı */
-.stat{display:flex;align-items:baseline;gap:14px;margin:4px 0 6px;padding:6px 0 8px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.stat{display:flex;align-items:center;gap:14px;margin:4px 0 6px;padding:6px 0 8px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .stat .n{font-family:var(--f-display);font-size:34px;font-weight:600;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}
 .stat .l{font-family:var(--f-label);font-size:13.5px;line-height:1.35;color:var(--ink-soft)}
 /* Neden önemli: metinden ayrı, etiketli tek cümle (editoryal) */
