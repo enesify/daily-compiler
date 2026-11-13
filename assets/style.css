@@ -16,11 +16,11 @@ img{max-width:100%}
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#151B20;--paper-2:#1C242A;--ink:#E6E9E4;--ink-soft:#A5AEB3;--rule:#3A454C;--accent:#5FB3B3;--alert:#E58A79;--bar:#6B7A80;
+  --paper:#151B20;--paper-2:#1C242A;--ink:#E6E9E4;--ink-soft:#A5AEB3;--rule:#3A454C;--accent:#5FB3B3;--alert:#E58A79;--bar:#98A5AB;
   --flash:rgba(95,179,179,.16);
   --l1:#5FB3B3;--l2:#D9A45F;--l3:#A99BE0;--l4:#7FC48C;--l5:#E58A79;--l6:#A5AEB3;color-scheme:dark}}
 :root[data-theme="dark"]{
-  --paper:#151B20;--paper-2:#1C242A;--ink:#E6E9E4;--ink-soft:#A5AEB3;--rule:#3A454C;--accent:#5FB3B3;--alert:#E58A79;--bar:#6B7A80;
+  --paper:#151B20;--paper-2:#1C242A;--ink:#E6E9E4;--ink-soft:#A5AEB3;--rule:#3A454C;--accent:#5FB3B3;--alert:#E58A79;--bar:#98A5AB;
   --flash:rgba(95,179,179,.16);
   --l1:#5FB3B3;--l2:#D9A45F;--l3:#A99BE0;--l4:#7FC48C;--l5:#E58A79;--l6:#A5AEB3;color-scheme:dark}
 
