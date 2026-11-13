@@ -29,7 +29,7 @@
     var links = {}, active = null, scroller = nav.querySelector('.nav-links') || nav;
     // Menü sağa taşıyorsa ok göster; sona gelince gizle
     var more = nav.querySelector('.nav-more');
-    var edge = function () { nav.classList.toggle('more', scroller.scrollLeft + scroller.clientWidth < scroller.scrollWidth - 4); };
+    var edge = function () { nav.classList.toggle('has-more', scroller.scrollLeft + scroller.clientWidth < scroller.scrollWidth - 4); };
     if (more && scroller !== nav) {
       scroller.addEventListener('scroll', edge, { passive: true }); addEventListener('resize', edge); edge();
       more.addEventListener('click', function () { scroller.scrollBy({ left: scroller.clientWidth * .6, behavior: 'smooth' }); });
