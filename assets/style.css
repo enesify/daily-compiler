@@ -278,7 +278,6 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   .s8,.s6,.s4{grid-column:auto}
   /* “Bu sayıda” telefonda ve tablette sayfanın başında: bir dakikalık özet */
   .lead-side{display:contents}
-  .toc{order:-1}
   .toc a{grid-template-columns:minmax(0,1fr);gap:2px;white-space:normal;padding:9px 0}
   .toc .th{overflow:visible}
   .pattern{grid-template-columns:1fr}
@@ -356,11 +355,11 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   .fig{flex:0 0 72%;scroll-snap-align:start;padding-top:6px;padding-bottom:12px}
   .fig .n{font-size:24px}
   .cal .figs{display:block}
-  .cal .fig{display:grid;grid-template-columns:7.2em minmax(0,1fr);grid-template-areas:"n l" "w l";column-gap:12px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule)}
+  .cal .fig{display:grid;grid-template-columns:5.4em minmax(0,1fr);grid-template-areas:"n l" "w l";column-gap:12px;align-items:baseline;padding:7px 0;border-top:1px solid var(--rule)}
   .cal .fig:first-child{border-top:0}
   .cal .fig+.fig{border-left:0;padding-left:0}
-  .cal .fig .n{grid-area:n;font-size:18px}
-  .cal .fig .w{grid-area:w}
+  .cal .fig .n{grid-area:n;font-size:16px}
+  .cal .fig .w{grid-area:w;font-size:10px}
   .cal .fig .l{grid-area:l;font-size:14px}
   .lead{padding-top:22px}
   .deck{font-size:18px}

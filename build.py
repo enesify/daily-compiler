@@ -710,7 +710,7 @@ def corrections_block(ctx, cur):
 
 
 def toc(secs):
-    """Manşetin yanında, kutunun altında: her bölümün ilk haberi (yalnızca geniş ekranda görünür)."""
+    """Manşetin yanında, kutunun altında: her bölümün ilk haberi (dar ekranda manşet bloğunun sonunda)."""
     items = []
     for s in secs:
         A = s.get("articles") or []
