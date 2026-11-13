@@ -484,13 +484,14 @@ def date_parts(cur):
 
 
 def masthead(ctx, cur=None):
-    """Solda tarih (sayı sayfalarında), ortada logo, sağda slogan. Sayı sayfalarında tema düğmesi kadran satırındadır."""
+    """Solda tarih (sayı sayfalarında sayının tarihi, diğerlerinde bugün), ortada logo, sağda slogan. Sayı sayfalarında tema düğmesi kadran satırındadır."""
     if cur:
         date, day = date_parts(cur)
         left = f'<div class="mast-date"><b>{esc(date)}</b>{esc(day)}</div>'
         btn = ""
     else:
-        left, btn = '<div class="mast-date"></div>', THEME_BTN
+        # Sayı dışı sayfalarda bugünün tarihi tarayıcıda yazılır (site.js); sayfa her gün yeniden üretilmez
+        left, btn = '<div class="mast-date" data-today></div>', THEME_BTN
     return (f'<header class="mast">{left}<h1><a href="{esc(ctx.href("index.html"))}">{logo("full")}</a></h1>'
             f'<div class="tag"><span class="tag-t"><b>{esc(TAGLINE_B)}</b>{esc(TAGLINE)}</span>{btn}</div></header>')
 

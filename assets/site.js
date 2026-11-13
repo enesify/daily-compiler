@@ -1,5 +1,17 @@
 // The Daily Compiler · küçük etkileşimler: tema düğmesi, bölüm menüsü vurgusu, kadran kaydırma/klavye, iç atıf vurgusu
 (function () {
+  // Arşiv, Hakkında ve Benchmark sayfalarında başlığın solunda bugünün tarihi (İstanbul saati)
+  var today = document.querySelector('.mast-date[data-today]');
+  if (today) {
+    try {
+      var now = new Date(), o = { timeZone: 'Europe/Istanbul' };
+      var d = new Intl.DateTimeFormat('tr-TR', Object.assign({ day: 'numeric', month: 'long', year: 'numeric' }, o)).format(now);
+      var w = new Intl.DateTimeFormat('tr-TR', Object.assign({ weekday: 'long' }, o)).format(now);
+      var b = document.createElement('b'); b.textContent = d;
+      today.appendChild(b); today.appendChild(document.createTextNode(w));
+    } catch (e) {}
+  }
+
   // Tema: varsayılan sistem ayarı; seçim sistemle aynıysa kayıt silinir ve yine sistem izlenir
   var btn = document.getElementById('theme-toggle');
   if (btn && window.matchMedia) {
