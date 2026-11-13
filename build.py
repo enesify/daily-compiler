@@ -797,9 +797,9 @@ def render_about(ctx):
 <h2>Hakkında</h2>
 <p>The Daily Compiler; yazılım, yapay zekâ ve güvenlik haberlerini her sabah tek sayfada toplayan günlük bir gazetedir. Kişisel, ticari olmayan bir projedir; reklam ya da sponsorlu içerik yoktur.</p>
 <h3>Nasıl hazırlanıyor?</h3>
-<p>Her sayı otomatik olarak, bir yapay zekâ modeli (Anthropic Claude) tarafından hazırlanır. Model son 24–48 saatin haberlerini tarar (Pazartesi sayılarında hafta sonunu da kapsar), asıl kaynakları okur ve haberleri kendi cümleleriyle özetler. Ardından ayrı bir yapay zekâ “editör”, taslağı kaynak linklerini yeniden açarak denetler; doğrulanamayan bilgi çıkarılır ya da etiketlenir.</p>
+<p>Her sayı otomatik olarak, bir yapay zekâ modeli tarafından hazırlanır. Model son 24–48 saatin haberlerini tarar (Pazartesi sayılarında hafta sonunu da kapsar), asıl kaynakları okur ve haberleri kendi cümleleriyle özetler. Ardından ayrı bir yapay zekâ “editör”, taslağı kaynak linklerini yeniden açarak denetler; doğrulanamayan bilgi çıkarılır ya da etiketlenir.</p>
 <p>Sayılar yayımlanmadan önce bir insan tarafından tek tek okunmaz. Bu yüzden hata olabilir: bir haber sizin için önemliyse, altındaki kaynak linkinden asıl metne bakın.</p>
-<p>Gazeteyi yazan model Anthropic’in ürünü olduğu için Anthropic ve Claude haberlerinde bir çıkar çatışması vardır. Bu haberlere de diğer şirketlerle aynı etiketler ve çekinceler uygulanır; bir şirket, manşet dışında bir sayıda en fazla iki haber ve bir kısa haberle yer alır. Yalnızca Anthropic’in kendi açıklamasına dayanan bir haber manşet ya da büyük haber olmaz.</p>
+<p>Gazeteyi yazan modeli geliştiren şirket de gazetede haberleri çıkan yapay zekâ şirketlerinden biri olduğu için o şirketin haberlerinde bir çıkar çatışması vardır. Bu haberlere de diğer şirketlerle aynı etiketler ve çekinceler uygulanır; bir şirket, manşet dışında bir sayıda en fazla iki haber ve bir kısa haberle yer alır. Yalnızca o şirketin kendi açıklamasına dayanan bir haber manşet ya da büyük haber olmaz.</p>
 <h3>Etiketler</h3>
 <ul>
 <li><span class="prov prov-claim">İDDİA</span> tek kaynağa dayanan ya da bağımsız olarak doğrulanmamış haber.</li>
