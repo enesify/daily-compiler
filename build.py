@@ -2,7 +2,7 @@
 """The Daily Compiler · statik site üretici.
 
 issues/*.json  →  index.html (son sayı), sayi/YYYY-MM-DD.html, arsiv.html, hakkinda.html, feed.xml
-data/modeller.json  →  modeller.html ve her sayıdaki “Modeller” bandı
+data/modeller.json  →  benchmark.html ve her sayıdaki “Benchmark” bandı
 Kullanım:  python3 build.py
 Bağımlılık yok (yalnızca Python 3 standart kütüphanesi).
 """
@@ -177,7 +177,7 @@ def load_models():
         assert D["models"] and D["sekmeler"] and all(k in D["metrics"] for k in D["sekmeler"])
         return D
     except Exception as e:
-        print(f"UYARI: data/modeller.json kullanılamadı, Modeller sayfası üretilmedi: {e}", file=sys.stderr)
+        print(f"UYARI: data/modeller.json kullanılamadı, Benchmark sayfası üretilmedi: {e}", file=sys.stderr)
         return None
 
 
@@ -229,7 +229,7 @@ def models_caption(D, k):
 
 
 def models_rows(D, k, limit=None, short=False):
-    """Sabit liste satırları: bantta ve JavaScript kapalıyken Modeller sayfasında."""
+    """Sabit liste satırları: bantta ve JavaScript kapalıyken Benchmark sayfasında."""
     fmt = M_FMT[D["metrics"][k]["bicim"]]
     out = []
     for pos, m in m_ranked(D, k)[:limit]:
@@ -245,21 +245,21 @@ def models_band(ctx):
     if not D:
         return ""
     k = D["sekmeler"][0]
-    return (f'<section class="sec mdl-band" id="sec-modeller"><div class="sec-h"><h2>Modeller</h2>'
+    return (f'<section class="sec mdl-band" id="sec-benchmark"><div class="sec-h"><h2>Benchmark</h2>'
             f'<p>{esc(D["metrics"][k]["ad"])} · ilk beş</p></div>'
             f'<div class="mdl-list static">{models_rows(D, k, 5, short=True)}</div>'
             f'<div class="mdl-ft"><span>Kaynak: {models_sources(D, [k])} · {esc(models_updated(D))}</span>'
-            f'<a class="mdl-go" href="{esc(ctx.href("modeller.html"))}">Bütün modeller ve ölçütler</a></div></section>')
+            f'<a class="mdl-go" href="{esc(ctx.href("benchmark.html"))}">Bütün modeller ve ölçütler</a></div></section>')
 
 
 def render_models(ctx):
-    """Modeller sayfası: ölçüt sekmeleri ve sıralı liste. Liste assets/modeller.js ile canlanır; JavaScript yoksa sabit liste görünür."""
+    """Benchmark sayfası (benchmark.html): ölçüt sekmeleri ve sıralı liste. Liste assets/modeller.js ile canlanır; JavaScript yoksa sabit liste görünür."""
     D = ctx.models
     k = D["sekmeler"][0]
     data = json.dumps({"updated": D["updated"], "sources": D["sources"], "metrics": D["metrics"], "sekmeler": D["sekmeler"],
                        "models": D["models"]}, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     return f"""<main id="issue" class="mdl-page">
-<h2>Modeller</h2>
+<h2>Benchmark</h2>
 <div class="nav-sentinel" aria-hidden="true"></div><nav class="index" aria-label="Ölçüt"><a class="nav-brand" href="{esc(ctx.href("index.html"))}" tabindex="-1" aria-hidden="true">{logo("full", "full")}{logo("mono", "mono")}</a><div class="nav-links" id="mdl-tabs" role="toolbar" aria-label="Ölçüt"></div></nav>
 <p class="mdl-cap" id="mdl-cap">{models_caption(D, k)}</p>
 <div class="mdl-list static" id="mdl-static">{models_rows(D, k)}</div>
@@ -485,7 +485,7 @@ def masthead(ctx, cur=None):
 def footer(ctx):
     return ('<footer><span>The Daily Compiler · Her sabah yayımlanır · '
             f'<a href="{esc(ctx.href("arsiv.html"))}">Arşiv</a> · '
-            + (f'<a href="{esc(ctx.href("modeller.html"))}">Modeller</a> · ' if ctx.models else "")
+            + (f'<a href="{esc(ctx.href("benchmark.html"))}">Benchmark</a> · ' if ctx.models else "")
             + f'<a href="{esc(ctx.href("feed.xml"))}">RSS</a> · '
             f'<a href="{esc(ctx.href("hakkinda.html"))}">Hakkında</a></span>'
             '<span>Haberler yapay zekâ tarafından kaynaklardan özetlenir ve ayrı bir yapay zekâ editörce denetlenir; '
@@ -554,7 +554,7 @@ def render_issue(ctx, cur):
     if cur.get("briefs"):
         nav_items.append(("kisa", "Kısa Kısa"))
     if ctx.models:
-        nav_items.append(("modeller", "Modeller"))
+        nav_items.append(("benchmark", "Benchmark"))
     out = [dial(ctx, cur)]
     out.append('<main id="issue">')
     # Menü üste yapışınca solunda küçük logo belirir (site.js, .nav-sentinel görünümden çıkınca "stuck" sınıfını ekler)
@@ -608,7 +608,7 @@ def render_issue(ctx, cur):
         arts = section_articles(ctx, s)
         sub = f'<p>{rich(s.get("subtitle"))}</p>' if s.get("subtitle") else ""
         out.append(f'<section class="sec" id="sec-{esc(sid)}"><div class="sec-h"><h2>{esc(typo(s.get("title")))}</h2>{sub}</div>'
-                   f'<div class="gl">{arts}</div></section>')
+                   f'<div class="grid">{arts}</div></section>')
 
 
     R = cur.get("repos")
@@ -781,11 +781,19 @@ def main():
     write("hakkinda.html", page(ctx, f"Hakkında · {SITE_NAME}", "The Daily Compiler nasıl hazırlanıyor, etiketler ne anlama geliyor",
                                 render_about(ctx), base + "hakkinda.html" if base else None, base=base))
     if models:
-        write("modeller.html", page(ctx, f"Modeller · {SITE_NAME}", "Yapay zekâ modelleri: bağımsız ölçümlerle zekâ, kodlama, maliyet ve süre sıralaması",
-                                    render_models(ctx), base + "modeller.html" if base else None, base=base,
+        write("benchmark.html", page(ctx, f"Benchmark · {SITE_NAME}", "Yapay zekâ modelleri: bağımsız ölçümlerle zekâ, kodlama, maliyet ve süre sıralaması",
+                                    render_models(ctx), base + "benchmark.html" if base else None, base=base,
                                     scripts=f'\n<script src="{esc(asset(ctx, "assets/modeller.js"))}" defer></script>'))
-    elif os.path.exists(os.path.join(ROOT, "modeller.html")):
-        os.remove(os.path.join(ROOT, "modeller.html"))
+        # eski adres: gelen okur yeni sayfaya, aynı ölçüt sekmesiyle (#maliyet) yönlendirilir
+        write("modeller.html", '<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>Benchmark</title>'
+              '<link rel="canonical" href="benchmark.html"><meta name="robots" content="noindex">'
+              '<meta http-equiv="refresh" content="0; url=benchmark.html">'
+              '<script>location.replace("benchmark.html" + location.hash)</script></head>'
+              '<body><p><a href="benchmark.html">Benchmark sayfası</a></p></body></html>')
+    else:
+        for f in ("benchmark.html", "modeller.html"):
+            if os.path.exists(os.path.join(ROOT, f)):
+                os.remove(os.path.join(ROOT, f))
     if base:
         write("feed.xml", render_feed(issues, base))
     write("assets/favicon.svg", FAVICON)
