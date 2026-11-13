@@ -32,11 +32,13 @@
     }
     MET[k].ticks = t;
   });
-  // sağlayıcı renkleri: sitenin vurgu rengi (turkuaz) veriye verilmez
-  var PAL = ["--l2", "--l3", "--l4", "--l7", "--l5", "--l6"];
-  var provs = []; M.forEach(function (m) { if (provs.indexOf(m.saglayici) < 0) provs.push(m.saglayici); });
-  var col = function (m) { return "var(" + PAL[Math.min(PAL.length - 1, provs.indexOf(m.saglayici))] + ")"; };
-  var gAxis = $("mdl-axis"), gData = $("mdl-data"), missEl = $("mdl-miss"), srcEl = $("mdl-src");
+  // renk: dağılım grafiğinde ancak üç renk güvenle ayırt edilir. En çok modeli olan üç sağlayıcı renk alır
+  // (eşitlikte listede önce geleni), diğerleri gri. build.py m_groups ile aynı kural.
+  var cnt = {}, first = []; M.forEach(function (m) { if (!cnt[m.saglayici]) { cnt[m.saglayici] = 0; first.push(m.saglayici); } cnt[m.saglayici]++; });
+  var top = first.slice().sort(function (a, b) { return cnt[b] - cnt[a] || first.indexOf(a) - first.indexOf(b); }).slice(0, 3);
+  var grp = function (m) { return top.indexOf(m.saglayici) >= 0 ? m.saglayici : "Diğer"; };
+  var col = function (m) { var i = top.indexOf(m.saglayici); return "var(--m" + (i + 1) + ")"; };
+  var gAxis = $("mdl-axis"), gData = $("mdl-data"), srcEl = $("mdl-src");
   var legend = document.querySelectorAll("#mdl > .mdl-legend li[data-p]");
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches;
   var view = VIEWS[0], sel = null, G = {}, raf = 0, timers = [];
@@ -131,27 +133,19 @@
     var txt = function (x, y, s, cls, anc, size) { var e = el("text", { x: x, y: y, "class": cls, "text-anchor": anc || "start", "font-size": size || fs }, gAxis); e.textContent = s; };
     if (view.rank) {
       var k = view.rank, xr = R - (G.small ? 112 : 190), rowH = (pb - T) / M.length, list = ranked(k), pos = 0;
-      MET[k].ticks.forEach(function (v) { var x = sc(k, v, L, xr); el("line", { x1: x, x2: x, y1: T, y2: pb, "class": "grid" }, gAxis); txt(x, ty, ft(k, v), "tick", "middle"); });
+      MET[k].ticks.forEach(function (v) { var x = sc(k, v, L, xr); el("line", { x1: x, x2: x, y1: T, y2: pb, "class": "gl" }, gAxis); txt(x, ty, ft(k, v), "tick", "middle"); });
       list.forEach(function (m, i) {   // eşit puanlar aynı sırayı alır: 5, 5, 7
         if (!i || m[k] !== list[i - 1][k]) pos = i + 1;
         txt(L - 10, T + (i + .5) * rowH + fs * .36, String(pos), "tick", "end", fs + 1);
       });
+      el("line", { x1: L, x2: xr, y1: pb, y2: pb, "class": "gl" }, gAxis);
       txt((L + xr) / 2, G.H - 6, MET[k].eksen, "axis", "middle", fs + .5);
     } else {
-      MET[view.y].ticks.forEach(function (v) { var y = sc(view.y, v, pb, T); el("line", { x1: L, x2: R, y1: y, y2: y, "class": "grid" }, gAxis); txt(L - 7, y + fs * .36, ft(view.y, v), "tick", "end"); });
-      MET[view.x].ticks.forEach(function (v) { var x = sc(view.x, v, L, R); el("line", { x1: x, x2: x, y1: T, y2: pb, "class": "grid" }, gAxis); txt(x, ty, ft(view.x, v), "tick", "middle"); });
-      el("line", { x1: L, x2: R, y1: pb, y2: pb, "class": "base" }, gAxis);
+      MET[view.y].ticks.forEach(function (v) { var y = sc(view.y, v, pb, T); el("line", { x1: L, x2: R, y1: y, y2: y, "class": "gl" }, gAxis); txt(L - 7, y + fs * .36, ft(view.y, v), "tick", "end"); });
+      MET[view.x].ticks.forEach(function (v) { var x = sc(view.x, v, L, R); el("line", { x1: x, x2: x, y1: T, y2: pb, "class": "gl" }, gAxis); txt(x, ty, ft(view.x, v), "tick", "middle"); });
       txt((L + R) / 2, G.H - 6, MET[view.x].eksen, "axis", "middle", fs + .5);
       txt(L, T - 9, "↑ " + MET[view.y].eksen, "axis", "start", fs + .5);
     }
-    var groups = {}, order = [];
-    M.forEach(function (m) {
-      var k = (view.rank ? [view.rank] : [view.y, view.x]).filter(function (k) { return m[k] == null; })[0];
-      if (!k) return;
-      if (!groups[k]) { groups[k] = []; order.push(k); }
-      groups[k].push(m.kisa || m.ad);
-    });
-    missEl.textContent = order.map(function (k) { return MET[k].ad + " ölçümü yok: " + groups[k].join(", "); }).join(" · ");
     srcEl.textContent = "Kaynak: ";
     var used = []; keys(view).forEach(function (k) { if (used.indexOf(MET[k].kaynak) < 0) used.push(MET[k].kaynak); });
     used.forEach(function (g, i) {
@@ -161,7 +155,7 @@
     var d = DATA.updated.split("-"), AY = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
     srcEl.appendChild(document.createTextNode(" · " + (+d[2]) + " " + AY[+d[1] - 1] + " " + d[0]));
     Array.prototype.forEach.call(legend, function (li) {
-      li.classList.toggle("off", !M.some(function (m) { return m.saglayici === li.getAttribute("data-p") && has(m, view); }));
+      li.classList.toggle("off", !M.some(function (m) { return grp(m) === li.getAttribute("data-p") && has(m, view); }));
     });
   }
   var ease = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
@@ -202,7 +196,7 @@
     r.appendChild(document.createElement("br"));
     Object.keys(MET).forEach(function (k, i) {
       if (i) r.appendChild(document.createTextNode(" · "));
-      var s = add("span", MET[k].ad + " ", "m"); var b = document.createElement("b"); b.textContent = m[k] == null ? "ölçüm yok" : fv(k, m[k]); s.appendChild(b);
+      var s = add("span", MET[k].ad + " ", "m"); var b = document.createElement("b"); b.textContent = m[k] == null ? "–" : fv(k, m[k]); s.appendChild(b);
     });
   }
   var box = $("mdl-views");

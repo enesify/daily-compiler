@@ -203,31 +203,25 @@ def m_scale(D, k):
     return a, b, [round(a + i * step, 6) for i in range(int(round((b - a) / step)) + 1)], False
 
 
-M_PAL = ["--l2", "--l3", "--l4", "--l7", "--l5", "--l6"]   # sitenin vurgu rengi (--l1, turkuaz) veriye verilmez
+def m_top(D):
+    """Renk alan sağlayıcılar: dağılım grafiğinde ancak üç renk güvenle ayırt edilir. En çok modeli olan üç sağlayıcı
+    (eşitlikte listede önce gelen) --m1..--m3 alır, diğerleri gri (--m0). assets/modeller.js ile aynı kural."""
+    first = list(dict.fromkeys(x["saglayici"] for x in D["models"]))
+    cnt = {p: sum(1 for x in D["models"] if x["saglayici"] == p) for p in first}
+    return sorted(first, key=lambda p: (-cnt[p], first.index(p)))[:3]
 
 
 def m_color(D, m):
-    provs = list(dict.fromkeys(x["saglayici"] for x in D["models"]))
-    return f"var({M_PAL[min(len(M_PAL) - 1, provs.index(m['saglayici']))]})"
+    top = m_top(D)
+    return f"var(--m{top.index(m['saglayici']) + 1 if m['saglayici'] in top else 0})"
+
+
+def m_group(D, m):
+    return m["saglayici"] if m["saglayici"] in m_top(D) else "Diğer"
 
 
 def m_has(m, v):
     return all(m.get(k) is not None for k in ([v["rank"]] if v.get("rank") else [v["x"], v["y"]]))
-
-
-def m_missing(D, v):
-    """[(ölçüt adı, [model adları])]: her model için görünümde eksik olan ilk ölçüt (önce y, sonra x)."""
-    out = {}
-    for m in D["models"]:
-        for k in ([v["rank"]] if v.get("rank") else [v["y"], v["x"]]):
-            if m.get(k) is None:
-                out.setdefault(D["metrics"][k]["ad"], []).append(m.get("kisa") or m["ad"])
-                break
-    return list(out.items())
-
-
-def m_missing_text(D, v):
-    return " · ".join(f"{ad} ölçümü yok: {', '.join(ns)}" for ad, ns in m_missing(D, v))
 
 
 def m_source_line(D, v):
@@ -252,13 +246,12 @@ def models_svg(D, W, H, small):
     o = [f'<svg viewBox="0 0 {W} {H}" class="mdl-static {"sm" if small else "lg"}" role="img" '
          f'aria-label="{esc(D["metrics"][ky]["ad"])} ve {esc(D["metrics"][kx]["ad"].lower())}">']
     for t in tys:
-        o.append(f'<line x1="{L}" x2="{W - R}" y1="{Y(t):.1f}" y2="{Y(t):.1f}" class="grid"/>'
+        o.append(f'<line x1="{L}" x2="{W - R}" y1="{Y(t):.1f}" y2="{Y(t):.1f}" class="gl"/>'
                  f'<text x="{L - 6}" y="{Y(t) + fs * .36:.1f}" class="tick" text-anchor="end" font-size="{fs}">{M_FMT[D["metrics"][ky]["bicim"]][1](t)}</text>')
     for t in tx:
-        o.append(f'<line x1="{X(t):.1f}" x2="{X(t):.1f}" y1="{T}" y2="{H - B}" class="grid"/>'
+        o.append(f'<line x1="{X(t):.1f}" x2="{X(t):.1f}" y1="{T}" y2="{H - B}" class="gl"/>'
                  f'<text x="{X(t):.1f}" y="{H - B + fs + 8}" class="tick" text-anchor="middle" font-size="{fs}">{M_FMT[D["metrics"][kx]["bicim"]][1](t)}</text>')
-    o.append(f'<line x1="{L}" x2="{W - R}" y1="{H - B}" y2="{H - B}" class="base"/>'
-             f'<text x="{(L + W - R) / 2:.1f}" y="{H - 4}" class="axis" text-anchor="middle" font-size="{fs + .5}">{esc(D["metrics"][kx]["eksen"])}</text>'
+    o.append(f'<text x="{(L + W - R) / 2:.1f}" y="{H - 4}" class="axis" text-anchor="middle" font-size="{fs + .5}">{esc(D["metrics"][kx]["eksen"])}</text>'
              f'<text x="{L}" y="{T - 8}" class="axis" font-size="{fs + .5}">↑ {esc(D["metrics"][ky]["eksen"])}</text>')
     pts = [m for m in D["models"] if m_has(m, v)]
     boxes = [(X(m[kx]) - r - 2, Y(m[ky]) - r - 2, 2 * r + 4, 2 * r + 4) for m in pts]
@@ -283,10 +276,10 @@ def models_svg(D, W, H, small):
 
 
 def models_legend(D, v=None):
-    seen = {}
-    for m in D["models"]:
-        seen.setdefault(m["saglayici"], m_color(D, m))
-    shown = {m["saglayici"] for m in D["models"] if v is None or m_has(m, v)}
+    seen = {p: f"var(--m{i + 1})" for i, p in enumerate(m_top(D))}
+    if any(m_group(D, m) == "Diğer" for m in D["models"]):
+        seen["Diğer"] = "var(--m0)"
+    shown = {m_group(D, m) for m in D["models"] if v is None or m_has(m, v)}
     items = "".join(f'<li data-p="{esc(p)}"{"" if p in shown else " class=off"}><i style="background:{c}"></i>{esc(p)}</li>'
                     for p, c in seen.items())
     extra = '<li class="dia"><i></i>Açık ağırlıklı</li>' if any(m.get("acik") for m in D["models"]) else ""
@@ -311,11 +304,9 @@ def models_band(ctx):
         return ""
     v = D["views"][0]
     href = esc(ctx.href("modeller.html"))
-    miss = m_missing(D, v)
     return (f'<section class="sec mdl-band" id="sec-modeller"><div class="sec-h"><h2>Modeller</h2>'
             f'<p>{esc(D["metrics"][v["y"]]["ad"])} ve {esc(D["metrics"][v["x"]]["ad"].lower())}</p></div>'
             f'<div class="mdl-band-in"><div class="mdl-band-t">{models_legend(D, v)}'
-            + (f'<p class="src">{esc(m_missing_text(D, v))}</p>' if miss else "")
             + f'<p class="src">{m_source_line(D, v)}</p>'
             f'<a class="mdl-go" href="{href}">Diğer grafikler ve tablo</a></div>'
             f'<a class="mdl-band-c" href="{href}" aria-label="Modeller sayfasını aç">{models_svg(D, 760, 360, False)}{models_svg(D, 360, 300, True)}</a></div></section>')
@@ -356,9 +347,8 @@ def render_models(ctx):
     for g in dict.fromkeys(met[k]["kaynak"] for k in keys):
         ks = [k for k in keys if met[k]["kaynak"] == g]
         have = [m for m in models if any(m.get(k) is not None for k in ks)]
-        rest = [m.get("kisa") or m["ad"] for m in models if m not in have]
         narrow.append(models_table(D, ks, have, "mdl-t mdl-narrow")
-                      + (f'<p class="mdl-src mdl-narrow">Ölçüm yok: {esc(", ".join(rest))}</p>' if rest else ""))
+                      )
     legend = ("◆ açık ağırlıklı · " if any(m.get("acik") for m in models) else "") + "– ölçüm yok · model adının yanındaki not: akıl yürütme ayarı"
     data = json.dumps(D, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     return f"""<main id="issue" class="mdl-page">
@@ -368,7 +358,6 @@ def render_models(ctx):
 {models_legend(D, D["views"][0])}
 <svg id="mdl-chart" role="img" aria-label="Model karşılaştırma grafiği"><g id="mdl-axis"></g><g id="mdl-data"><g id="mdl-dots"></g><g id="mdl-labels"></g></g></svg>
 <div class="mdl-nojs">{models_svg(D, 1140, 500, False)}{models_svg(D, 360, 320, True)}</div>
-<p class="mdl-miss" id="mdl-miss">{esc(m_missing_text(D, D["views"][0]))}</p>
 <p class="mdl-miss" id="mdl-src">{m_source_line(D, D["views"][0])}</p>
 <p class="mdl-read" id="mdl-read" aria-live="polite"></p>
 </div>
@@ -720,7 +709,7 @@ def render_issue(ctx, cur):
         arts = section_articles(ctx, s)
         sub = f'<p>{rich(s.get("subtitle"))}</p>' if s.get("subtitle") else ""
         out.append(f'<section class="sec" id="sec-{esc(sid)}"><div class="sec-h"><h2>{esc(typo(s.get("title")))}</h2>{sub}</div>'
-                   f'<div class="grid">{arts}</div></section>')
+                   f'<div class="gl">{arts}</div></section>')
 
 
     R = cur.get("repos")

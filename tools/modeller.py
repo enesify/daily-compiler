@@ -91,9 +91,6 @@ def main():
         n = sum(1 for m in models if m.get(v.get("x")) is not None and m.get(v.get("y")) is not None)
         if n < 6:
             E(f"açılış görünümünde yalnızca {n} modelin iki ölçümü de var; en az 6 gerekli")
-    provs = {m.get("saglayici") for m in models}
-    if len(provs) > 6:
-        W(f"{len(provs)} sağlayıcı var; veri paleti 6 renkli, fazlası aynı gri tonu alır")
 
     for w in warns:
         print("UYARI:", w)

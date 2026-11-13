@@ -9,7 +9,7 @@ img{max-width:100%}
 :root{
   --paper:#EEF0EC;--paper-2:#E4E7E1;--ink:#18222B;--ink-soft:#4A5560;--rule:#B9C0B8;--accent:#0F5E63;--alert:#9B2D20;--bar:#8A958F;
   --flash:rgba(15,94,99,.12);
-  --l1:#0F5E63;--l2:#8A5A1E;--l3:#5B4E8C;--l4:#2F6B3A;--l5:#9B2D20;--l6:#4A5560;--l7:#2E5A88;
+  --l1:#0F5E63;--l2:#8A5A1E;--l3:#5B4E8C;--l4:#2F6B3A;--l5:#9B2D20;--l6:#4A5560;--l7:#2E5A88;--m1:#2a78d6;--m2:#eb6834;--m3:#1baf7a;--m0:#9AA2A8;
   --f-display:"Newsreader",Georgia,"Times New Roman",serif;
   --f-body:"Newsreader",Georgia,"Times New Roman",serif;
   --f-label:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;
@@ -18,11 +18,11 @@ img{max-width:100%}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --paper:#151B20;--paper-2:#1C242A;--ink:#E6E9E4;--ink-soft:#A5AEB3;--rule:#3A454C;--accent:#5FB3B3;--alert:#E58A79;--bar:#6B7A80;
   --flash:rgba(95,179,179,.16);
-  --l1:#5FB3B3;--l2:#D9A45F;--l3:#A99BE0;--l4:#7FC48C;--l5:#E58A79;--l6:#A5AEB3;--l7:#82A8D8;color-scheme:dark}}
+  --l1:#5FB3B3;--l2:#D9A45F;--l3:#A99BE0;--l4:#7FC48C;--l5:#E58A79;--l6:#A5AEB3;--l7:#82A8D8;--m1:#3987e5;--m2:#d95926;--m3:#199e70;--m0:#5F6A72;color-scheme:dark}}
 :root[data-theme="dark"]{
   --paper:#151B20;--paper-2:#1C242A;--ink:#E6E9E4;--ink-soft:#A5AEB3;--rule:#3A454C;--accent:#5FB3B3;--alert:#E58A79;--bar:#6B7A80;
   --flash:rgba(95,179,179,.16);
-  --l1:#5FB3B3;--l2:#D9A45F;--l3:#A99BE0;--l4:#7FC48C;--l5:#E58A79;--l6:#A5AEB3;--l7:#82A8D8;color-scheme:dark}
+  --l1:#5FB3B3;--l2:#D9A45F;--l3:#A99BE0;--l4:#7FC48C;--l5:#E58A79;--l6:#A5AEB3;--l7:#82A8D8;--m1:#3987e5;--m2:#d95926;--m3:#199e70;--m0:#5F6A72;color-scheme:dark}
 
 body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55;font-optical-sizing:auto;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1180px;margin:0 auto;padding-block:20px 64px;
@@ -375,8 +375,7 @@ span.dial-step{opacity:.3}
 .mdl-src a,.mdl-sub a{color:var(--ink-soft)}
 .mdl-static,#mdl-chart{display:block;width:100%;height:auto}
 .mdl-static.sm{display:none}
-.mdl-static .grid,#mdl-chart .grid{stroke:var(--rule);stroke-width:1;opacity:.55}
-.mdl-static .base,#mdl-chart .base{stroke:var(--ink-soft);stroke-width:1}
+.mdl-static .gl,#mdl-chart .gl{stroke:var(--rule);stroke-width:1;opacity:.55}
 .mdl-static .tick,#mdl-chart .tick{font-family:var(--f-mono);fill:var(--ink-soft)}
 .mdl-static .axis,#mdl-chart .axis{font-family:var(--f-label);fill:var(--ink-soft)}
 .mdl-static .nm,#mdl-chart .nm{font-family:var(--f-label);font-weight:500;fill:var(--ink);pointer-events:none}
