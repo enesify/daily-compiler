@@ -787,7 +787,7 @@ def about_corrections(ctx):
                 d, head, href = t
                 rows.append(f'<li><a href="{esc(href)}">{esc(short_date(d))} · {rich(head or "Sayı")}</a> {rich(c["text"])} '
                             f'<span class="cd">({esc(short_date(it["date"]))} sayısında düzeltildi)</span></li>')
-    body = f'<ul class="corr-list">{"".join(rows)}</ul>' if rows else "<p>Henüz düzeltme yok.</p>"
+    body = f'<ul class="corr-list">{"".join(rows)}</ul>' if rows else ""
     return ('<h3>Düzeltmeler</h3><p>Önceki bir sayıda yanlış bir bilgi fark edildiğinde düzeltme bir sonraki sayının sonunda yayımlanır '
             've burada da listelenir.</p>' + body + "\n")
 
