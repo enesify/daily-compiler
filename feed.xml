@@ -5,8 +5,16 @@
 <link href="https://dailycompiler.com/"/>
 <link rel="self" type="application/atom+xml" href="https://dailycompiler.com/feed.xml"/>
 <id>https://dailycompiler.com/</id>
-<updated>2026-11-13T07:11:00+03:00</updated>
+<updated>2026-11-14T07:11:00+03:00</updated>
 <author><name>The Daily Compiler</name></author>
+<entry>
+<title>Claude Managed Agents’ın self-hosted sürümü private beta’da</title>
+<link href="https://dailycompiler.com/sayi/2026-11-14.html"/>
+<id>https://dailycompiler.com/sayi/2026-11-14.html</id>
+<updated>2026-11-14T07:11:00+03:00</updated>
+<summary>Sayı 012 · Cumartesi, 14 Kasım 2026 · Harness, sandbox’lar, credential’lar ve oturum geçmişi artık müşterinin bulutunda ya da kendi veri merkezinde çalışabiliyor; Claude ise kurum ağının dışında kalıyor. Erişim hesap ekibi üzerinden, fiyat açıklanmadı.</summary>
+<content type="html">&lt;p&gt;Harness, sandbox’lar, credential’lar ve oturum geçmişi artık müşterinin bulutunda ya da kendi veri merkezinde çalışabiliyor; Claude ise kurum ağının dışında kalıyor. Erişim hesap ekibi üzerinden, fiyat açıklanmadı.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-manset"&gt;Claude Managed Agents’ın self-hosted sürümü private beta’da&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-ai-1"&gt;IBM’in Granite 4.1 LLMON’u talimatla veriyi ayrı token’larla ayırıyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-ai-2"&gt;Inkling 2 Small’un ağırlıkları Hugging Face’te&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-ai-3"&gt;Kodlama agent’ları doğru yamayı erken bulup geç duruyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-ai-4"&gt;ChatGPT Wallet ile dots agent’ları alışveriş yapabiliyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-is-1"&gt;LangChain 300 milyon dolar topladı, değerlemesi 3 milyar dolar&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-is-2"&gt;FT: Nvidia yönetim kurulu CEO’luk için Arm’dan Rene Haas’a yaklaştı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-gelistirme-1"&gt;GitHub Copilot altı modeli 14 Aralık’ta kaldırıyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-gelistirme-2"&gt;GitHub’ın AI Scan’i REST API ile açılıp kapatılabiliyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-java-1"&gt;Zaman aşımına uğrayan CI testinden thread dump almak&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-java-2"&gt;Jakarta EE testlerinde WeldInitiator, Arquillian ve Testcontainers&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-guvenlik-1"&gt;Ele geçirilen 4.837 GitHub hesabıyla CI sırları çalındı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-guvenlik-2"&gt;APISIX 3.20.0 yedi açığı kapattı; ikisi MCP eklentisinde&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-14.html#a-guvenlik-3"&gt;Araştırmacı: Dropbear’da soket yönlendirme kısıtı atlıyor&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+</entry>
 <entry>
 <title>Gemini 4 Hydrogen yayında: Google’a göre 3.8 Flash’tan 2,5 kat hızlı</title>
 <link href="https://dailycompiler.com/sayi/2026-11-13.html"/>

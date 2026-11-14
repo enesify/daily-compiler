@@ -1,0 +1,421 @@
+{
+  "date": "2026-11-14",
+  "number": 12,
+  "dateLabel": "Cumartesi, 14 Kasım 2026",
+  "readingMinutes": 15,
+  "calendar": [
+    {
+      "date": "2026-11-19",
+      "text": "PostgreSQL 19 GA için planlanan tarih",
+      "url": "https://www.postgresql.org/about/news/postgresql-187-1712-1616-1520-1425-and-19-rc-2-released-3442/"
+    },
+    {
+      "date": "2026-12-08",
+      "text": "GitHub'ın barındırdığı runner'larda ARM32 işleri sona eriyor",
+      "url": "https://github.blog/changelog/2026-11-12-actions-for-arm32-linux-windows-retirement"
+    },
+    {
+      "date": "2026-12-08",
+      "text": "Dependabot, hareketsiz repolarda alarmları duraklatıyor",
+      "url": "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories"
+    },
+    {
+      "date": "2026-12-14",
+      "text": "GitHub Copilot'tan altı model kaldırılıyor",
+      "ref": "gelistirme-1"
+    }
+  ],
+  "lead": {
+    "kicker": "Ürün · Agent altyapısı",
+    "alert": false,
+    "headline": "Claude Managed Agents'ın self-hosted sürümü private beta'da",
+    "deck": "Harness, sandbox'lar, credential'lar ve oturum geçmişi artık müşterinin bulutunda ya da kendi veri merkezinde çalışabiliyor; Claude ise kurum ağının dışında kalıyor. Erişim hesap ekibi üzerinden, fiyat açıklanmadı.",
+    "paragraphs": [
+      "Anthropic'in barındırılan agent servisi Claude Managed Agents, model dışındaki tüm parçalarıyla müşteri altyapısında çalıştırılabiliyor. 12 Kasım'da duyurulan self-hosted seçenek private beta'da; erişim Anthropic hesap ekibinden isteniyor. Help Net Security'nin aktardığına göre müşteriler bu sürüme kadar yalnızca agent kodunun çalıştığı sandbox'ı barındırabiliyordu. Credential yönetimi ve etkinlik kayıtları dahil geri kalan her şey Anthropic'teydi. Duyuruda fiyat bilgisi yok.",
+      "Müşterinin işlettiği parçalar üç tane: Managed Agents sunucusu, oturum geçmişini tutan bir PostgreSQL veritabanı ve agent'ların shell ve dosya araçlarını çalıştırdığı worker'lar. Geliştiriciler barındırılan servisle aynı temel API'leri kullanıyor. Model istekleri doğrudan Anthropic'e, Amazon Bedrock'a, Google'ın Agent Platform'una, Microsoft Foundry'ye ya da kurumun kendi gateway'ine yönlendirilebiliyor. Claude'un kendisi yine kurum ağının dışında çalışıyor.",
+      "Tasarımda harness ile sandbox birbirinden ayrı. Agent döngüsü, oturum geçmişi ve vault'taki sırlar sandbox'ın dışında kalıyor; sandbox yalnızca bir araç ihtiyaç duyduğunda başlıyor. MCP araçlarında ve desteklenen API çağrılarında credential'ı sandbox dışındaki bir proxy isteğe ekliyor. Anthropic bu korumanın yalnızca bu çağrıları kapsadığını, agent'ın ulaştığı diğer servislerin ayrıca incelenmesi gerektiğini belirtiyor.",
+      "Her ortam bir izinli host listesiyle sınırlanabiliyor; listede olmayan host'lara giden istekler engelleniyor. Self-hosted sandbox'ta bu sınırları kurum kendi firewall'unda uyguluyor. Agent'ın her adımı, araç çağrıları ve sonuçlarıyla birlikte kaydediliyor ve OpenTelemetry ile mevcut izleme araçlarına aktarılabiliyor. Sunucuyu, veritabanını ve firewall kurallarını çalıştırmak, yamalamak ve doğru yapılandırmak müşterinin sorumluluğunda. Zero data retention (ZDR) anlaşması olan kurumlarda Claude istekleri diğer Messages API çağrılarıyla aynı kapsamda kalıyor."
+    ],
+    "sources": [
+      {
+        "label": "Anthropic · Self-hosted Claude Managed Agents",
+        "url": "https://claude.com/resources/articles/self-hosted-claude-managed-agents"
+      },
+      {
+        "label": "Help Net Security",
+        "url": "https://www.helpnetsecurity.com/2026/11/12/anthropic-self-hosted-claude-managed-agents/"
+      }
+    ],
+    "box": {
+      "kicker": "Pratik çıkarım",
+      "title": "Self-hosted agent kurulumunda önce sınırları çizin",
+      "items": [
+        "Build düzeltme agent'ları için izinli host listesini git sunucusu ve paket registry'siyle sınırlayarak başlayın; Anthropic'in kendi örneği de bu ikili.",
+        "Agent'ların MCP dışında eriştiği servisleri tek tek listeleyin: credential proxy yalnızca MCP araçlarını ve desteklenen API çağrılarını kapsıyor, gerisi için ayrı erişim kuralı yazın.",
+        "OpenTelemetry çıktısını mevcut izleme hattına bağlayın ve agent'ın her araç çağrısını, sonucuyla birlikte, aynı denetim kayıtlarında saklayın.",
+        "Harness'ı içeri almak model bağımlılığını kaldırmıyor: Bedrock, Foundry ya da Agent Platform üzerinden ikinci bir model yolu yapılandırıp geçişi bir kesinti olmadan önce deneyin."
+      ],
+      "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
+    }
+  },
+  "sections": [
+    {
+      "id": "ai",
+      "title": "Yapay Zekâ & LLM",
+      "subtitle": "IBM'den prompt injection'a karşı işaretleme dili · Inkling 2 Small'un ağırlıkları yayında · Agent'lar doğru yamadan sonra da çalışıyor · ChatGPT Wallet",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Şirket beyanı · Açık model",
+          "headline": "IBM'in Granite 4.1 LLMON'u talimatla veriyi ayrı token'larla ayırıyor",
+          "paragraphs": [
+            "IBM'in deneysel Granite 4.1 LLMON modelleri prompt'un parçalarını ayrılmış özel token'larla işaretliyor. Talimatlar, veriler ve gereksinimler ayrı etiketler alıyor. 3B ve 8B adlı iki önizleme 12 Kasım'da Hugging Face'te yayımlandı; model sayfaları yaklaşık 4B ve 9B parametre gösteriyor. LLMON, XML'e benzeyen bir işaretleme dili. Yapı ayraçları sözlükte içerikten ayrı bir bölgede duruyor ve bir execution bloğu her talimatı işleyeceği veriye bağlıyor. Chat şablonlarının yerini almıyor, rol bilgisinin üstüne anlam ekliyor.",
+            "IBM'e göre hedef dolaylı prompt injection'ı engellemek. Şirketin ölçümünde LLMON, statik saldırılardan oluşan OPI testinde denenen en iyi frontier modelden yaklaşık %47, en iyi açık modelden yaklaşık %95 daha fazla saldırıyı savuşturuyor. ASB ve StruQ testlerinde benzer eğilim olduğu söyleniyor ama rakam verilmiyor. Genel yeteneklerde Granite 4.1 Instruct ile aynı düzeyde olduğu belirtiliyor.",
+            "Çekinceler blog yazısında açıkça yazıyor. Modeller üretim için değil; çok turda uyarlanan saldırılar üzerinde çalışma sürüyor. Yetki ayrımı garanti edilmiş bir mekanizma değil, öğrenilmiş bir davranış. Kullanım için mesaj listesinde her parça adlandırılıyor, `exec` alanı işaretleniyor ve olağan `apply_chat_template` çağrısı yapılıyor. Model kartında lisans Apache 2.0."
+          ],
+          "why": "Agent'ların işlediği dış veriden gelen talimatlara karşı savunmayı prompt metninden token düzeyine taşıyan, indirilip kendi akışlarında denenebilecek bir yaklaşım.",
+          "sources": [
+            {
+              "label": "Hugging Face · IBM Granite blog",
+              "url": "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite"
+            },
+            {
+              "label": "Model kartı · granite-4.1-8b-llmon-preview",
+              "url": "https://huggingface.co/ibm-granite/granite-4.1-8b-llmon-preview"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Takip · Thinking Machines",
+          "headline": "Inkling 2 Small'un ağırlıkları Hugging Face'te",
+          "paragraphs": [
+            "Inkling 2 Small artık indirilebiliyor: Thinking Machines Lab'in 5 Kasım'da duyurduğu modelin ağırlıkları 12 Kasım'da Hugging Face'e yüklendi. Model kartında lisans Apache 2.0. Model 594 milyar toplam, token başına 17 milyar aktif parametreli bir Mixture-of-Experts. Görsel girdi kabul ediyor, ses desteklemiyor ve en fazla 1M token context sunuyor. Nvidia'nın 4 bitlik sayı biçimi NVFP4'teki sürüm için en az 500 GB toplam VRAM gerekiyor, örneğin 2 adet B300 ya da 4 adet H200. Şirket, modelin çok sayıda skill içeren kod tabanlarında her zaman en iyi aracı seçmediğini kendisi belirtiyor."
+          ],
+          "sources": [
+            {
+              "label": "Thinking Machines · Inkling 2 Small",
+              "url": "https://thinkingmachines.ai/news/inkling-2-small/"
+            },
+            {
+              "label": "Hugging Face · model kartı",
+              "url": "https://huggingface.co/thinkingmachines/Inkling-2-Small"
+            },
+            {
+              "label": "7 Kasım sayısı: Inkling 2 Small, ağırlıklar “gelecek hafta”",
+              "url": "#2026-11-07-ai-3"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Araştırma · Kodlama agent'ları",
+          "headline": "Kodlama agent'ları doğru yamayı erken bulup geç duruyor",
+          "paragraphs": [
+            "Kodlama agent'larının başarılı koşularında adımların önemli bir kısmı doğru yamaya ulaşıldıktan sonra harcanıyor. Musa Cim, Burak Topcu ve Mahmut Taylan Kandemir'in 11 Kasım'da arXiv'e yüklediği ön baskı bunu ölçüyor. Çalışma beş model ve iki agent framework'üyle üç SWE-bench veri setinde üretilen her yamayı ayrı ayrı test etti. Başarılı koşuların %38-82'sinde ilk kaynak kod düzenlemesi zaten doğruydu. Doğru yamadan sonraki adımlar medyan olarak Qwen3-Coder'da koşunun %35-37'sini, Laguna-XS.2'de %54-60'ını oluşturdu. Bu adımlar çoğunlukla doğrulamaya ve repo keşfine gitti; vakaların %1-8'inde sonraki işlem doğru yamayı bozdu."
+          ],
+          "why": "Başarılı koşularda adımların üçte biri ile yarısından fazlası çözümden sonra geliyor; harness'taki durma ölçütü ayrıca izlenmeli.",
+          "sources": [
+            {
+              "label": "arXiv 2611.14960 · Termination Lag",
+              "url": "https://arxiv.org/abs/2611.14960"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Ürün · Agent'lar",
+          "headline": "ChatGPT Wallet ile dots agent'ları alışveriş yapabiliyor",
+          "paragraphs": [
+            "OpenAI'ın dots agent'ları artık kullanıcı adına ödeme yapabiliyor: 13 Kasım'da duyurulan ChatGPT Wallet, şimdilik yalnızca ABD'deki 18 yaş üstü Pro abonelerine açık. Kullanıcı kart bilgisini bir kez giriyor, agent'tan ürün bulmasını istiyor ve her alışverişi bir güvenlik kontrolüyle ayrıca onaylıyor. CNBC'nin aktardığına göre agent kartın tam bilgilerini hiç görmüyor. American Express, Mastercard ve Visa, agent'a yalnızca o işleme özel kart numarası, güvenlik kodu ve son kullanma tarihi taşıyan bir ödeme token'ı veriyor. Kart sahiplerinin mevcut ödül ve korumaları sürüyor. OpenAI başlangıçta işlemlerden pay almıyor."
+          ],
+          "sources": [
+            {
+              "label": "CNBC",
+              "url": "https://www.cnbc.com/2026/11/13/openai-chatgpt-wallet-dot-purchases.html"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "is",
+      "title": "Şirketler & Altyapı",
+      "subtitle": "LangChain'in değerlemesi 3 milyar dolar · Nvidia'nın CEO arayışında Arm'ın Rene Haas'ı",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Yatırım · Agent altyapısı",
+          "headline": "LangChain 300 milyon dolar topladı, değerlemesi 3 milyar dolar",
+          "paragraphs": [
+            "LangChain'in değerlemesi yaklaşık bir yılda iki katın üzerine çıktı: şirket CapitalG liderliğindeki Seri C turunda 300 milyon dolar topladı ve 3 milyar dolar değerlemeye ulaştı. TechCrunch'ın 13 Kasım tarihli haberine göre önceki tur 1,25 milyar dolar değerlemeyle 125 milyon dolardı. Tura GIC, DFJ Growth, IVP ve Sapphire Ventures da katıldı. 2022'de açık kaynak bir proje olarak başlayan şirket, odağını agent oluşturma ve yönetme yazılımı LangSmith'e kaydırdı. Şirket 7.000 LangSmith müşterisi olduğunu söylüyor; aralarında Nvidia, Toyota ve Salesforce var. Gelir rakamı açıklanmadı."
+          ],
+          "sources": [
+            {
+              "label": "TechCrunch",
+              "url": "https://techcrunch.com/2026/11/13/ai-agent-startup-langchain-hits-3b-valuation/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "İddia · Nvidia",
+          "headline": "FT: Nvidia yönetim kurulu CEO'luk için Arm'dan Rene Haas'a yaklaştı",
+          "paragraphs": [
+            "Nvidia yönetim kurulu, Jensen Huang'ın yerine geçecek isim için Arm Holdings CEO'su Rene Haas'la temas kurdu. Bunu konuya yakın kaynaklara dayanarak Financial Times yazdı; Reuters haberi bağımsız olarak doğrulayamadı. FT'ye göre Haas birkaç adaydan biri ve ona görev teklif edileceğinin ya da kabul edeceğinin garantisi yok. Arm yorum yapmadı, Nvidia da Reuters'ın sorusuna hemen yanıt vermedi. Huang 12 Kasım'da görevden ayrılmıştı. Haberin ardından Arm'ın ABD'deki hisseleri kayıplarının bir kısmını geri aldı ama düşüş %5'in üzerinde kaldı; Nvidia hisseleri %3'ün üzerinde düşüşteydi."
+          ],
+          "sources": [
+            {
+              "label": "RTÉ / Reuters",
+              "url": "https://www.rte.ie/news/business/2026/1113/1599163-nvidia-approached-arm-ceo-haas-to-succeed-huang-ft/"
+            },
+            {
+              "label": "Dünkü sayı: Jensen Huang Nvidia'dan istifa etti",
+              "url": "#2026-11-13-is-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gelistirme",
+      "title": "Geliştirme & Araçlar",
+      "subtitle": "Copilot'ta altı model 14 Aralık'ta emekli · GitHub AI Scan'e REST API",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "GitHub Copilot · Model desteği",
+          "headline": "GitHub Copilot altı modeli 14 Aralık'ta kaldırıyor",
+          "paragraphs": [
+            "Claude Fable 5, Claude Haiku 4.5, Gemini 3.8 Flash, Gemini 4 Argon, Grok 4.6 ve Kimi K3, 14 Aralık'ta Copilot'un tüm deneyimlerinden çıkıyor. GitHub'ın 13 Kasım tarihli duyurusuna göre kaldırma Copilot Chat'i, inline düzenlemeleri, ask ve agent modlarını ve kod tamamlamayı kapsıyor. Önerilen yerine geçenler sırasıyla Fable 5.2, Haiku 5.5, Gemini 4 Hydrogen, Gemini 4 Carbon ve Grok 4.7; Kimi K3'ün yerine geçecek model henüz açıklanmadı. Copilot Business ve Enterprise'da alternatifler, yönetici global varsayılanı kapatmadıysa ya da modeli açıkça devre dışı bırakmadıysa kendiliğinden açılıyor. Yıllık plandaki bireysel aboneler Haiku 4.5'i kullanmaya devam edebiliyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub Changelog",
+              "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "GitHub · Code scanning",
+          "headline": "GitHub'ın AI Scan'i REST API ile açılıp kapatılabiliyor",
+          "paragraphs": [
+            "Code scanning'deki AI Scan özelliği artık organizasyon ve repo düzeyinde REST API ile yönetilebiliyor; özellik public preview'da. Yeni uç noktalar `/orgs/{org}/code-scanning/ai-scan` ve `/repos/{owner}/{repo}/code-scanning/ai-scan`; `repository_scan` alanı `enabled` ya da `disabled` değerini alıyor. Özelliği açmak taramayı başlatmıyor: yazma yetkisi olan kullanıcılar taramayı istek üzerine çalıştırıyor ve her tarama GitHub Code Security AI kredisi harcıyor. Organizasyon özelliği kapatırsa repolar açamıyor. Private ve internal repolar için GitHub Code Security ya da Advanced Security gerekiyor; GitHub Enterprise Server desteklenmiyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub Changelog",
+              "url": "https://github.blog/changelog/2026-11-13-manage-ai-scan-for-repositories-using-the-rest-api"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "subtitle": "Son 48 saatte yeni sürüm yok · haftanın okumaları",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Okuma · CI",
+          "headline": "Zaman aşımına uğrayan CI testinden thread dump almak",
+          "paragraphs": [
+            "GitHub Actions bir JVM testini zaman aşımında iptal ettiğinde fork edilen test JVM'i `ubuntu-latest` ve `macos-latest` üzerinde bir süre ayakta kalıyor ve `jcmd` ona bağlanabiliyor. Felipe Maschio'nun 11 Kasım'da foojay'de yayımlanan yazısı bu durumdan yararlanan yöntemleri karşılaştırıyor. Maven'da maven-surefire-plugin 3.6.0 ve sonrası, kendi zaman aşımı GitHub'ınkinden kısa ayarlanırsa fork'u öldürmeden önce `jstack` çıktısını dosyaya yazıyor. Gradle ve Maven için `if: failure() || cancelled()` koşullu bir adım `jcmd <pid> Thread.print` çalıştırıp çıktıyı artifact olarak yüklüyor. Yazar bunu MIT lisanslı threadmine-action olarak paketlemiş; isteğe bağlı analiz dump'ları threadmine.dev'e gönderiyor, `analyze: false` ile dump'lar yerelde kalıyor."
+          ],
+          "sources": [
+            {
+              "label": "foojay.io",
+              "url": "https://foojay.io/today/how-i-got-a-thread-dump-from-a-timed-out-github-actions-test/"
+            },
+            {
+              "label": "threadmine-action",
+              "url": "https://github.com/maschiojv/threadmine-action"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Okuma · Jakarta EE",
+          "headline": "Jakarta EE testlerinde WeldInitiator, Arquillian ve Testcontainers",
+          "paragraphs": [
+            "WeldInitiator, Arquillian ve Testcontainers birbirinin alternatifi değil, farklı soruları cevaplayan test katmanları. Azul'dan Simon Laden'in 13 Kasım'da foojay'de yayımlanan yazısı bunu Payara Micro üzerinde çalışan bir kütüphane uygulamasıyla gösteriyor. WeldInitiator test JVM'inde Weld SE başlatıp milisaniyeler içinde çalışıyor ama `@PersistenceContext` enjekte etmiyor; JPA eşlemeleri ve named query'ler doğrulanmamış kalıyor. Arquillian testleri gerçek container'ın içinde koşuyor; yazar alfa aşamasındaki 4.0.alpha4 sürümünün bilinçli olarak sabitlenmesini öneriyor. Testcontainers ise build'in ürettiği WAR'ı `payara/micro` imajında çalıştırıp REST ve Playwright testlerine zemin oluyor."
+          ],
+          "sources": [
+            {
+              "label": "foojay.io",
+              "url": "https://foojay.io/today/jakarta-ee-testing-tools-compared-weldinitiator-arquillian-and-testcontainers/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik",
+      "subtitle": "Ele geçirilen GitHub hesaplarıyla CI sırları çalındı · APISIX'te yedi açık · Dropbear'da soket yönlendirme açığı bildirildi",
+      "articles": [
+        {
+          "size": 4,
+          "kicker": "Tedarik zinciri · GitHub Actions",
+          "alert": true,
+          "headline": "Ele geçirilen 4.837 GitHub hesabıyla CI sırları çalındı",
+          "paragraphs": [
+            "Ele geçirilen 4.837 GitHub hesabı, yazma yetkisi olan repolara CI sırlarını çalan bir betik eklemek için kullanıldı. Aikido'nun 12 Kasım'da duyurduğu kampanyada betik en az 1.806 repoda çalıştı; THN'ye göre 771, Endor Labs'in güncel sayımına göre 829'dan fazla repoya npm `postinstall` hook'u olarak girdi. Hedefte Actions sırları, OIDC token'ları, bulut ve registry credential'ları ile AI anahtarları var. `wfx-docs` dalları ve “docs: dependency audit notes” PR'ları aranmalı. Etkilenen iş akışlarının erişebildiği tüm sırlar döndürülmeli, AWS trust policy'leri ve `wfx-ci-*` Azure credential'ları temizlenmeli."
+          ],
+          "sources": [
+            {
+              "label": "The Hacker News",
+              "url": "https://thehackernews.com/2026/11/4837-hijacked-github-accounts-ran-ci.html"
+            },
+            {
+              "label": "Endor Labs · teknik analiz",
+              "url": "https://www.endorlabs.com/learn/github-actions-supply-chain-attack-targeting-ci-secrets-at-scale"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Güvenlik · Apache APISIX",
+          "headline": "APISIX 3.20.0 yedi açığı kapattı; ikisi MCP eklentisinde",
+          "paragraphs": [
+            "API gateway Apache APISIX'in 3.20.0 sürümü, 13 Kasım'da duyurulan yedi açığı kapatıyor. En yüksek puanlısı CVSS 4.0'da 7,8 alıyor: `jwe-decrypt` ve `forward-auth` eklentileri istemcinin gönderdiği kimlik başlığını upstream'e iletebiliyor. CVSS 7,0 alan bir rota atlatması da 0.9'dan beri tüm sürümleri etkiliyor; auth'suz başka bir rota aynı upstream'e gidiyorsa kodlanmış nokta segmentleriyle korumalı yollara ulaşılabiliyor. `openapi-to-mcp` eklentisindeki iki açık tanımsız uç noktaların çağrılmasına ve kimlik taklidine izin veriyor. Önerilen çözüm 3.20.0'a yükseltmek."
+          ],
+          "sources": [
+            {
+              "label": "oss-security · CVE-2026-124679",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/13/6"
+            },
+            {
+              "label": "oss-security · CVE-2026-124680",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/13/7"
+            },
+            {
+              "label": "oss-security · CVE-2026-124726",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/13/11"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "İddia · Dropbear SSH",
+          "headline": "Araştırmacı: Dropbear'da soket yönlendirme kısıtı atlıyor",
+          "paragraphs": [
+            "Hafif SSH sunucusu Dropbear'da kısıtlı bir anahtar, unix soket yönlendirmesiyle hedef kısıtlarını atlayabiliyor. `permitopen` ve `permitlisten` bu kanalları kontrol etmiyor. 13 Kasım'da oss-security'ye yazan araştırmacı, docker grubundaki bir test hesabının kısıtlı anahtarıyla `/var/run/docker.sock`'a ulaşıp Docker API çağrısı yaptı. Saldırganın geçerli bir anahtarı olmalı. Test edilen 11 Kasım tarihli commit'te düzeltme yok, CVE atanmadı ve üretici doğrulaması bulunmuyor. Araştırmacı, hedef kısıtı olan anahtarlarda unix soket kanallarının reddedilmesini öneriyor."
+          ],
+          "sources": [
+            {
+              "label": "oss-security",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/13/4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "repos": {
+    "subtitle": "GitHub Trending günlük listesinden · yıldızlar 14 Kasım",
+    "items": [
+      {
+        "name": "alibaba/open-code-review",
+        "url": "https://github.com/alibaba/open-code-review",
+        "stars": "50.761",
+        "starsValue": 50761,
+        "lang": "Go",
+        "cat": "AI kod inceleme",
+        "why": "Git diff'lerini deterministik bir pipeline ve LLM agent'ıyla inceleyip satır düzeyinde yorum bırakan, Alibaba'nın iç aracından doğan bir CLI. Gündemdeki son sürümlerden v1.13.8, 12 Kasım'da GitHub Copilot CLI entegrasyonu ekledi, 13 Kasım'da v1.13.9 geldi.",
+        "meta": "Go · AI kod inceleme"
+      },
+      {
+        "name": "backnotprop/plannotator",
+        "url": "https://github.com/backnotprop/plannotator",
+        "stars": "10.523",
+        "starsValue": 10523,
+        "lang": "TypeScript",
+        "cat": "Agent iş akışı",
+        "why": "Kodlama agent'larının planlarını, diff'lerini ve PR'larını yerel bir tarayıcı arayüzünde işaretleyip geri bildirimi agent'a gönderen bir araç. Son iki günde üç sürüm çıktı; Inbox'tan başlatılan agent'lar için model ve effort seçimi ile özel kurallar eklendi.",
+        "meta": "TypeScript · Agent iş akışı"
+      },
+      {
+        "name": "ChromeDevTools/chrome-devtools-mcp",
+        "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+        "stars": "55.572",
+        "starsValue": 55572,
+        "lang": "TypeScript",
+        "cat": "MCP sunucusu",
+        "why": "Kodlama agent'larının canlı bir Chrome'u denetleyip performans izi, ağ ve konsol hatası incelemesini sağlayan MCP sunucusu ve CLI. Yeni v1.13.0 sürümü 11 Kasım'da logpoint'ler ve sayfa kapsamlı ağ mock'ları getirdi.",
+        "meta": "TypeScript · MCP sunucusu"
+      },
+      {
+        "name": "block/buzz",
+        "url": "https://github.com/block/buzz",
+        "stars": "37.329",
+        "starsValue": 37329,
+        "lang": "Rust",
+        "cat": "İnsan-agent çalışma alanı",
+        "why": "İnsanların ve AI agent'ların ortak kanallarda çalıştığı, operatörün kendi Nostr relay'inde barındırılan bir çalışma alanı. Bugün çıkan Buzz Desktop v0.5.30 agent'lar için rol kontrolleri ve mobilde daha hızlı yeniden bağlanma getirdi.",
+        "meta": "Rust · İnsan-agent çalışma alanı"
+      },
+      {
+        "name": "we-promise/sure",
+        "url": "https://github.com/we-promise/sure",
+        "stars": "14.827",
+        "starsValue": 14827,
+        "lang": "Ruby",
+        "cat": "Kişisel finans",
+        "why": "Arşivlenen Maybe Finance'in topluluk tarafından sürdürülen, Docker ile kendi sunucunda çalışan kişisel finans uygulaması. En son 12 Kasım'da çıkan v0.7.6-hotfix.1, 31 Ekim'deki v0.7.6'ya Rails, rack ve nokogiri için güvenlik yamaları ekliyor.",
+        "meta": "Ruby · Kişisel finans"
+      },
+      {
+        "name": "ZhuLinsen/daily_stock_analysis",
+        "url": "https://github.com/ZhuLinsen/daily_stock_analysis",
+        "stars": "71.760",
+        "starsValue": 71760,
+        "lang": "Python",
+        "cat": "LLM ile piyasa analizi",
+        "why": "Haberler ve zamanlanmış koşularla birden çok piyasada LLM destekli hisse analizi yapan bir araç. Bu hafta çıkan v3.34.0 isteğe bağlı bir FastAPI güvenlik middleware'i ekledi ve Claude, Gemini, OpenAI ve DeepSeek için varsayılan modelleri güncelledi.",
+        "meta": "Python · LLM ile piyasa analizi"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending · günlük",
+        "url": "https://github.com/trending?since=daily"
+      }
+    ]
+  },
+  "briefs": [
+    {
+      "tag": "Takip",
+      "text": "Fireworks ihlalinden etkilenen Notion, sızan Notion AI sohbet kayıtlarında Notion API anahtarları ve üçüncü taraf API anahtarları da buldu. Notion kendi anahtarlarını 11 Kasım'da iptal etti, diğerlerini 12 Kasım'da sağlayıcılarına bildirdi; etkilenen çalışma alanları %1'in altında ve Notion AI'a yapıştırılan credential'ların değiştirilmesini öneriyor.",
+      "url": "https://www.notion.com/security/advisories/security-incident-involving-a-third-party-ai-vendor"
+    },
+    {
+      "tag": "Kesinti",
+      "text": "Claude'da 13 Kasım'da iki ayrı hata artışı yaşandı: 09.58-11.58 UTC arasında kimlik doğrulama sorunu claude.ai ve Claude Code'u etkiledi, 13.09-15.38 UTC arasında Claude API ve Managed Agents dahil birçok bileşende hatalar arttı. Zamanlanmış görevler iki saatten fazla gecikebildi, bazı koşular atlandı.",
+      "url": "https://status.claude.com/"
+    },
+    {
+      "tag": "GitHub",
+      "text": "GitHub Copilot uygulamasına GitHub Enterprise Server hesabı ekleme genel kullanıma açıldı; uygulamanın 1.2.0 ya da sonraki sürümü ve önce GitHub.com ya da GHE.com hesabıyla giriş gerekiyor. GHES için cloud oturumları kullanılamıyor.",
+      "url": "https://github.blog/changelog/2026-11-13-github-enterprise-server-support-in-the-github-copilot-app"
+    },
+    {
+      "tag": "Güvenlik araçları",
+      "text": "OpenAI, Daybreak çatısı altında iki güvenlik ürünü tanıttı: web uygulamalarına agent'larla sızma testi yapan Daybreak Red Team erken erişimde. GPT-6 Cyber üzerinde çalışan Daybreak Defense Factory kod tabanlarını tarayıp yama öneriyor; The Register'a göre düzeltmeler üretimden önce mühendis onayından geçiyor, erişim koşulları ve fiyat açıklanmadı.",
+      "url": "https://www.theregister.com/security/2026/11/12/openai-launches-security-products-tells-orgs-theyre-doomed-if-they-dont-use-them/5309500"
+    },
+    {
+      "tag": "Yatırım",
+      "text": "Frontier AI ar-ge araçları geliştiren Mirendil, Kleiner Perkins ve Clearlake Capital liderliğinde 1 milyar dolarlık Seri A turu kapattı; değerleme açıklanmadı. Şirkete göre özel betadaki ürünü Lor, günlerce kod yazıp deney koşan yüzlerce agent çalıştırıyor.",
+      "url": "https://www.prnewswire.com/news-releases/mirendil-raises-1b-to-democratize-frontier-ai-rd-302937248.html"
+    },
+    {
+      "tag": "Altyapı",
+      "text": "Nvidia destekli Londra merkezli GPU kiralama şirketi Nscale, güncellenen halka arz izahnamesinde üçüncü çeyrekte 307,5 milyon dolar gelire karşı 1,69 milyar dolar net zarar bildirdi; gelir bir yılda %1.344 arttı. Şirket NYSE'de işlem görmek için Eylül'de başvurmuştu, toplanacak tutarı açıklamadı.",
+      "url": "https://www.cnbc.com/2026/11/12/nscale-updates-ipo-prospectus-that-shows-widening-loss.html"
+    }
+  ]
+}
