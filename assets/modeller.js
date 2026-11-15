@@ -105,11 +105,16 @@
       o.el.classList.remove("gone"); o.el.removeAttribute("aria-hidden"); o.el.tabIndex = 0;
       o.el.classList.toggle("open", open === o); o.el.setAttribute("aria-expanded", open === o);
       Array.prototype.forEach.call(o.el.querySelectorAll(".det div"), function (d) { d.classList.toggle("on", d.getAttribute("data-k") === k); });
-      o.el.style.transitionDelay = delay + "ms"; o.bar.style.transitionDelay = delay + "ms";
+      o.delay = delay;
+    });
+    // Yükseklikler bütün sınıf değişikliklerinden sonra tek seferde okunur (her satırda ayrı düzen hesabı olmasın)
+    var hs = have.map(function (o) { return o.el.offsetHeight; });
+    have.forEach(function (o, i) {
+      o.el.style.transitionDelay = o.delay + "ms"; o.bar.style.transitionDelay = o.delay + "ms";
       o.el.style.transform = "translateY(" + y + "px)";
-      y += o.el.offsetHeight;
+      y += hs[i];
       o.bar.style.width = pct(k, o.m[k]);
-      if (changed || o.shown == null) swap(o.val, f(k, o.m[k]), delay, g);
+      if (changed || o.shown == null) swap(o.val, f(k, o.m[k]), o.delay, g);
       o.shown = o.m[k];
     });
     rows.forEach(function (o) {   // bu ölçütte ölçümü olmayan model listede yer almaz; açıksa ölçümü olan ölçüte dönünce yine açık gelir

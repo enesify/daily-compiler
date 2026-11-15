@@ -527,6 +527,9 @@ THEME_BOOT = ("<script>try{var t=localStorage.getItem('dc-theme');"
 
 def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, base="", published=None, cur=None, scripts=""):
     can = f'<link rel="canonical" href="{esc(canonical)}">' if canonical else ""
+    # Spot italiği yalnızca sayı sayfalarında kullanılır; orada önden yüklenir ki spot yazı tipi gelince yeniden kırılıp manşeti kaydırmasın
+    deck_pre = (f'\n<link rel="preload" href="{esc(ctx.href("assets/fonts/newsreader-latin-italic-deck.woff2"))}" as="font" type="font/woff2" crossorigin>'
+                if cur else "")
     og = ""
     if og_url or canonical:
         og += f'<meta property="og:url" content="{esc(og_url or canonical)}">\n'
@@ -559,7 +562,7 @@ def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, bas
 <meta name="theme-color" content="#EEF0EC" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#151B20" media="(prefers-color-scheme: dark)">
 <link rel="preload" href="{esc(ctx.href('assets/fonts/newsreader-latin-opsz-normal.woff2'))}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{esc(ctx.href('assets/fonts/ibm-plex-sans-condensed-latin-400-normal.woff2'))}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{esc(ctx.href('assets/fonts/ibm-plex-sans-condensed-latin-400-normal.woff2'))}" as="font" type="font/woff2" crossorigin>{deck_pre}
 <link rel="stylesheet" href="{esc(asset(ctx, 'assets/style.css'))}">
 </head>
 <body>

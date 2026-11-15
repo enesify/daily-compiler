@@ -159,8 +159,11 @@
   // Manşet ~6, büyük haber ~8, küçük haber ~3 satırdan sonraki cümle sonunda kesilir.
   // Sayfa açılır açılmaz kesilir (yavaş bağlantıda metin geç kapanmasın); yazı tipi gelince,
   // okur henüz dokunmadıysa kesme noktası yeni satır uzunluğuna göre yeniden hesaplanır.
+  // Üç aşamada çalışır: önce bütün DOM yazımları (eski kesmeyi geri alma), sonra yalnızca ölçümler, sonra yazımlar.
+  // Ölçümle yazım haber haber iç içe olunca tarayıcı her haberde düzeni yeniden hesaplıyordu.
   function clampAll(recut) {
     if (!phone || !phone.matches) return;
+    var todo = [];
     Array.prototype.forEach.call(document.querySelectorAll('article, #a-manset'), function (art) {
       var b = art.querySelector('.more'), body = art.querySelector('.body, .cols');
       if (!b || !body) return;
@@ -177,11 +180,14 @@
           if (!opening && art.getBoundingClientRect().top < 0) art.scrollIntoView({ block: 'start', behavior: reduceMotion() ? 'auto' : 'smooth' });
         });
       }
-      var cut = cutAt(body, art.id === 'a-manset' ? 6 : art.classList.contains('big') ? 8 : 3);
-      if (!cut) return;
-      markRest(body, cut);
-      art.classList.add('clamp');
-      b.hidden = false;
+      todo.push({ art: art, b: b, body: body });
+    });
+    todo.forEach(function (t) { t.cut = cutAt(t.body, t.art.id === 'a-manset' ? 6 : t.art.classList.contains('big') ? 8 : 3); });
+    todo.forEach(function (t) {
+      if (!t.cut) return;
+      markRest(t.body, t.cut);
+      t.art.classList.add('clamp');
+      t.b.hidden = false;
     });
   }
   clampAll(false);
