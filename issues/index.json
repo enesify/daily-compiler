@@ -1,5 +1,10 @@
 [
  {
+  "date": "2026-11-15",
+  "number": 13,
+  "headline": "llama.cpp ve ggml 1.0'da: C API'yi bozan değişiklik artık major sürüm"
+ },
+ {
   "date": "2026-11-14",
   "number": 12,
   "headline": "Claude Managed Agents'ın self-hosted sürümü private beta'da"

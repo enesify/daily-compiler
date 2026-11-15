@@ -1,0 +1,501 @@
+{
+  "date": "2026-11-15",
+  "number": 13,
+  "dateLabel": "Pazar, 15 Kasım 2026",
+  "readingMinutes": 15,
+  "calendar": [
+    {
+      "date": "2026-11-16",
+      "text": "CISA'nın Check Point ve UnrealIRCd açıkları için son tarihi",
+      "ref": "guvenlik-1"
+    },
+    {
+      "date": "2026-11-19",
+      "text": "PostgreSQL 19 GA için planlanan tarih",
+      "url": "https://www.postgresql.org/about/news/postgresql-187-1712-1616-1520-1425-and-19-rc-2-released-3442/"
+    },
+    {
+      "date": "2026-12-08",
+      "text": "GitHub'ın barındırdığı runner'larda ARM32 işleri sona eriyor",
+      "url": "https://github.blog/changelog/2026-11-12-actions-for-arm32-linux-windows-retirement"
+    },
+    {
+      "date": "2026-12-14",
+      "text": "GitHub Copilot'tan altı model kaldırılıyor",
+      "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december"
+    }
+  ],
+  "lead": {
+    "kicker": "Sürüm · Yerel çıkarım",
+    "alert": false,
+    "headline": "llama.cpp ve ggml 1.0'da: C API'yi bozan değişiklik artık major sürüm",
+    "deck": "Yerel LLM çıkarımında yaygın kullanılan iki kütüphane semantic versioning'e geçti: `include/` altındaki public C API'yi bozan her değişiklik major sürüm artışıyla gelecek. llama.cpp reposunda artık `bNNNN` yapı numaralarının yanında bir `v1.0.0` etiketi de var.",
+    "paragraphs": [
+      "Yerel LLM çıkarımı için C/C++ ile yazılan llama.cpp ve altındaki tensör kütüphanesi ggml ilk kez 1.0.0 sürümünü yayımladı. Duyuru 13 Kasım'da Hugging Face blogunda Georgi Gerganov, Daniel Bevenius ve merve imzasıyla çıktı. llama.cpp `libllama`'yı, ggml ise `libggml`'ı sunuyor; public header'lar iki projenin `include/` klasörlerinde. Proje yaklaşık 3,5 yıl önce başlamıştı.",
+      "Asıl değişiklik sürüm politikası ve tüm ggml-org projelerine uygulanıyor. `./include` altındaki public C API'yi bozan değişiklik major sürümü artırıyor. Geriye uyumlu özellikler, backend güncellemeleri, yeni model desteği ve API eklemeleri minor sürümde geliyor. API'ye dokunmayan hata düzeltmeleri patch sürümü oluyor. Yazarlara göre ileride major artışlar hem API hem ABI uyumsuzluğunu işaret edecek.",
+      "Dağıtım için yazı sekiz kanal sayıyor: ön sürüm yapıları, Docker, Debian, Homebrew, conda-forge, MacPorts, Winget ve XCFramework. Donanım desteğini NVIDIA, AMD, Qualcomm, Arm, IBM ve Intel veriyor. llama.cpp 150'den fazla mimari varyantını ve yaygın speculative decoding yöntemlerini destekliyor. Yazarlar geliştirmede LLM kullandıklarını, `master`'a giren her değişikliği Hugging Face Buckets ve Jobs ile büyütülen CI'da denetlediklerini yazıyor.",
+      "Duyuru yeni özellik listesi vermiyor; 1.0.0'ı bir istikrar taahhüdü olarak sunuyor. Semver kuralları dışında bir uyumluluk sözü, destek süresi ya da sürüm takvimi yok. llama.cpp reposundaki `v1.0.0` etiketi b12359 numaralı yapıyı gösteriyor; `bNNNN` numaralı yapılar da çıkmaya devam ediyor."
+    ],
+    "sources": [
+      {
+        "label": "Hugging Face blog · llama.cpp v1.0.0",
+        "url": "https://huggingface.co/blog/ggml-org/llama-cpp-v1"
+      },
+      {
+        "label": "llama.cpp sürümleri (GitHub)",
+        "url": "https://github.com/ggml-org/llama.cpp/releases"
+      },
+      {
+        "label": "llama.cpp etiketleri (GitHub)",
+        "url": "https://github.com/ggml-org/llama.cpp/tags"
+      }
+    ],
+    "box": {
+      "kicker": "Pratik çıkarım",
+      "title": "1.0 etiketini bağımlılık yönetimine yansıtın",
+      "items": [
+        "`libllama`'ya doğrudan bağlanan servislerde bağımlılığı `bNNNN` yapı numarası yerine `v1.0.0` etiketine sabitleyin; 2.0'a kadar minor güncellemeler public C API'yi bozmamalı.",
+        "Java'dan FFM ya da JNI ile llama.cpp çağıran sarmalayıcılarda native kütüphane sürümünü `[1.0,2.0)` aralığıyla sınırlayın; major artış ABI kırılması anlamına geliyor.",
+        "CI'daki yerel model testleri Homebrew, Docker ya da conda-forge paketinden kuruluyorsa paket sürümünü sabitleyip yükseltmeyi ayrı bir PR'la yapın."
+      ],
+      "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
+    }
+  },
+  "sections": [
+    {
+      "id": "ai",
+      "title": "Yapay Zekâ & LLM",
+      "subtitle": "MathArena'da yeni lider ve maliyet farkı, XY problemi benchmark'ı, Hydrogen'in Copilot'a gelişi, OpenAI–Databricks entegrasyonları, OpenAI'da robotik yeniden yapılanması",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Benchmark · Matematik",
+          "headline": "MathArena'da Gemini 4 Carbon birinci; maliyeti Sol'un yaklaşık 15 katı",
+          "paragraphs": [
+            "Matematik yarışmalarından oluşan bağımsız ölçüm MathArena'nın genel sıralamasında Gemini 4 Carbon (high) %85,4 beklenen skorla ilk sıraya çıktı. Claude Fable 5.2 (max) %82,8 ile ikinci, GPT-6.1 Sol (max) %80,6 ile üçüncü. Sıralama AIME ve HMMT gibi kısa cevaplı yarışmaları, USAMO ve IMO gibi ispat yarışmalarını ve Lean görevlerini kapsıyor. MathArena iki yeni modelin sonuçlarını 13 Kasım'da ekledi. Güven aralıkları örtüşüyor: Carbon için ±3,0, Fable 5.2 için ±5,3 puan. Birincilik bu yüzden istatistiksel olarak kesin değil.",
+            "Asıl fark maliyette. Carbon'un problem başına beklenen maliyeti 15,70 dolar, GPT-6.1 Sol'unki 1,07 dolar; The Decoder bunu yaklaşık 15 kat olarak hesaplıyor. Fable 5.2 ise ilk üç model içinde en pahalısı. En iyi açık model Kimi K3.1 Pro, %54,3 skor ve 3,70 dolar maliyetle listede.",
+            "The Decoder'a göre Carbon'un en sık hatası zaman sınırını aşmak; model görevden neredeyse hiç vazgeçmiyor. Bir denemede bir script'i ilerlemesini kontrol etmeden on bir saatten uzun çalıştırdı. MathArena, bir modelin sonucu olmayan sorularda skoru iki parametreli bir item-response theory modeliyle tahmin ediyor."
+          ],
+          "why": "Skor aralıkları örtüştüğü için matematik ağırlıklı agent işlerinde problem başına maliyet, model seçiminde en az skor kadar belirleyici.",
+          "chart": {
+            "title": "MathArena problem başına beklenen maliyet (dolar)",
+            "note": "MathArena, 13 Kasım güncellemesi. Skorlar: Carbon %85,4, Fable 5.2 %82,8, GPT-6.1 Sol %80,6; aralıklar örtüşüyor.",
+            "items": [
+              {
+                "label": "Claude Fable 5.2 (max)",
+                "value": 40.2,
+                "display": "40,20"
+              },
+              {
+                "label": "Gemini 4 Carbon (high)",
+                "value": 15.7,
+                "display": "15,70",
+                "highlight": true
+              },
+              {
+                "label": "GPT-6.1 Sol (max)",
+                "value": 1.07,
+                "display": "1,07"
+              }
+            ]
+          },
+          "sources": [
+            {
+              "label": "MathArena",
+              "url": "https://matharena.ai/"
+            },
+            {
+              "label": "The Decoder",
+              "url": "https://the-decoder.com/gemini-4-carbon-takes-the-matharena-crown-but-costs-15-times-more-than-gpt-6-1-sol/"
+            },
+            {
+              "label": "12 Kasım sayısı: Gemini 4 Carbon ücretli API'ye açıldı",
+              "url": "#2026-11-12-manset"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Araştırma · Benchmark",
+          "headline": "Ai2'nin XYBench'i: modeller yanlış soruya takılı kalıyor",
+          "paragraphs": [
+            "Ai2'nin XYBench'i, yanlış bir yaklaşıma dayanan soruda asistanın kullanıcının asıl hedefini fark edip etmediğini ölçüyor; buna “XY problemi” deniyor. Set 8.115 sorudan oluşuyor, 1.557'si Stack Overflow'dan. Bu sorularda modeller yanıtların %75-86'sında sorulan yaklaşıma, %59-71'inde asıl hedefe çözüm verdi. Yanıtların yalnızca %35-41'i ağırlıklı olarak asıl hedefe odaklandı. Çoktan seçmeli testte ise hedefe odaklı yanıtı %71-84 oranında seçtiler. Test edilenler Claude Sonnet 4.6, GPT-5 ve Gemini 3.1 Pro gibi önceki nesil modeller. Benchmark 13 Kasım'da Hugging Face blogunda tanıtıldı; makale Eylül'de arXiv'e yüklenmişti."
+          ],
+          "sources": [
+            {
+              "label": "Ai2 · Hugging Face blog",
+              "url": "https://huggingface.co/blog/allenai/xybench"
+            },
+            {
+              "label": "XYBench makalesi (arXiv)",
+              "url": "https://arxiv.org/abs/2609.06842"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Model desteği · GitHub Copilot",
+          "headline": "Gemini 4 Hydrogen Copilot'ta; kurumsalda varsayılan açık",
+          "paragraphs": [
+            "Google'ın Gemini 4 Hydrogen modeli GitHub Copilot'ta genel kullanıma açıldı; dağıtım kademeli olduğu için bazı kullanıcılar modeli henüz görmeyebilir. Model Pro, Pro+, Max, Business ve Enterprise planlarında. VS Code, Visual Studio, JetBrains IDE'leri, Eclipse, Xcode, Copilot CLI, coding agent ve github.com dahil yüzeylerde çalışıyor. Business ve Enterprise'da erişimi Copilot ayarlarındaki model politikası belirliyor. Varsayılan ayarda yeni modeller, yönetici genel varsayılanı ya da bu modeli kapatmadıysa kendiliğinden etkin geliyor. Kullanım bazlı faturalamada sağlayıcının liste fiyatı uygulanıyor. GitHub'ın changelog kaydı 13 Kasım tarihli."
+          ],
+          "why": "Business ve Enterprise yöneticileri model politikasını gözden geçirmezse Hydrogen kendiliğinden ekiplerin model listesine giriyor.",
+          "sources": [
+            {
+              "label": "GitHub changelog",
+              "url": "https://github.blog/changelog/2026-11-13-gemini-4-hydrogen-in-github-copilot"
+            },
+            {
+              "label": "13 Kasım sayısı: Gemini 4 Hydrogen yayında",
+              "url": "#2026-11-13-manset"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Kurumsal · Agent'lar",
+          "headline": "OpenAI modelleri ve Codex, Databricks yönetişimine bağlandı",
+          "paragraphs": [
+            "Databricks ile OpenAI'ın çok yıllı ortaklığı, veri izinlerini koruyarak OpenAI araçlarını kurum verisine bağlayan entegrasyonlara dönüştü. ChatGPT'deki Genie eklentisi Databricks verisini sorgulatıyor; kullanıcı yalnızca zaten erişebildiği veriyi görüyor. Codex, Unity Gateway üzerinden Databricks kimlik bilgisiyle çalışıyor: OpenAI anahtarı Gateway'de kalıyor, istekler kaydediliyor, yöneticiler bütçe ve görev başına model belirleyebiliyor. GPT modelleri ayrı API anahtarı gerekmeden Model Serving'de çalışıyor. Databricks'in 13 Kasım tarihli yazısı ürünlerin önizlemede mi genel kullanımda mı olduğunu, bölge ve fiyatı belirtmiyor."
+          ],
+          "sources": [
+            {
+              "label": "Databricks blog",
+              "url": "https://www.databricks.com/blog/openai-and-databricks-enterprise-ai-your-governed-data"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Organizasyon · OpenAI",
+          "headline": "OpenAI robotik araştırmacılarını ana ekiplere dağıttı",
+          "paragraphs": [
+            "OpenAI robotik ekibini yeniden yapılandırdı: araştırmacılar Mark Chen yönetimindeki ana araştırma ekibine, uygulamalı robotik ve donanım ekipleri Greg Brockman'ın Applied organizasyonuna geçiyor. The Decoder, Fortune'a dayanan haberinde OpenAI'ın GPT-6 Astra gibi genel modellerin robotları doğrudan yönetebileceğini düşünüyor olabileceğini yorumluyor. Değişiklik kısa sürede yapıldı; Austin'deki Conference on Robot Learning'de OpenAI standı boş kaldı. OpenAI sonradan ekibi araştırma ve ürünle daha yakın çalışsın diye düzenlediğini, robotik çalışmalarının sürdüğünü açıkladı. Habere göre Nvidia'nın simüle edilmiş DROID robotuyla yaptığı çalışmada Astra destekli bir agent %74,8, en iyi özel modeller %51 başarıya ulaştı."
+          ],
+          "sources": [
+            {
+              "label": "The Decoder",
+              "url": "https://the-decoder.com/openai-reassigns-robotics-researchers-to-other-teams-as-general-purpose-models-might-make-specialized-robotics-ai-unnecessary/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "is",
+      "title": "Şirketler & Altyapı",
+      "subtitle": "Nvidia yatırımcılarının Huang mektubu ve Microsoft 365 kesintisinin nedeni",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Takip · Nvidia",
+          "headline": "İki büyük yatırımcı Nvidia'dan Huang'ın dönüşünü tartmasını istedi",
+          "paragraphs": [
+            "Altimeter Capital'den Brad Gerstner ve Atreides Management'tan Gavin Baker, Nvidia yönetim kuruluna tüm liderlik seçeneklerini tartmasını önerdi. Bu seçenekler arasında Jensen Huang'ın olası dönüşü de var. 13 Kasım'da X'te paylaşılan mektup Huang'ın hemen göreve iadesini istemiyor; yavaş, ölçülü ve dikkatli bir süreç öneriyor. CNBC'ye göre iki fon 30 Haziran itibarıyla toplam yaklaşık 2,13 milyar dolarlık Nvidia hissesi tutuyordu. Haberde Nvidia'nın mektuba bir yanıtı yer almıyor. Şirketi şu an, 13 yıldır finans direktörü olan Colette Kress geçici olarak yönetiyor. Huang'ın istifa duyurusu bir gerekçe belirtmemişti."
+          ],
+          "sources": [
+            {
+              "label": "CNBC",
+              "url": "https://www.cnbc.com/2026/11/14/nvidia-investors-jensen-huang-return-board-letter.html"
+            },
+            {
+              "label": "13 Kasım sayısı: Jensen Huang Nvidia'dan istifa etti",
+              "url": "#2026-11-13-is-1"
+            },
+            {
+              "label": "Dünkü sayı: FT: Nvidia yönetim kurulu Rene Haas'a yaklaştı",
+              "url": "#2026-11-14-is-2"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Kesinti · Microsoft 365",
+          "headline": "Microsoft 365 kesintisi eski bir ağ yükseltmesindeki hatadan çıktı",
+          "paragraphs": [
+            "Küresel Microsoft 365 kesintisinin kaynağı, Microsoft'a göre önceki bir ağ kapasite yükseltmesinde oluşan ve yeni bir ağ değişikliğiyle ortaya çıkan bir hata. Kesinti 12 Kasım'da başlayıp 13 Kasım'a sarktı. Outlook, Teams, SharePoint ve Copilot etkilendi; e-posta, takvim ve toplantı özellikleri sorun çıkardı. Şirket olayın siber saldırı olmadığını ve AI agent'larla ilgisi bulunmadığını söyledi. İlk incelemede bazı sunucuların otomatik sağlık kontrollerinden kalıp devre dışı kaldığı, yükün kalanlara bindiği görülmüştü. Downdetector 74 ülke ve bölgeden şikâyet kaydetti. Olay sonrası raporu henüz yayımlanmadı. Saldırganlar kesintiyi oltalama yemi olarak da kullanıyor (Güvenlik bölümü)."
+          ],
+          "sources": [
+            {
+              "label": "Storyboard18",
+              "url": "https://www.storyboard18.com/digital/microsoft-apologises-for-global-outage-attributes-disruption-to-network-upgrade-issue-114740.htm"
+            },
+            {
+              "label": "iTnews",
+              "url": "https://www.itnews.com.au/news/phishers-quick-to-exploit-extended-m365-outage-630347"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gelistirme",
+      "title": "Geliştirme & Araçlar",
+      "subtitle": "Cloudflare'in agent tarayıcısı Kitesurf açık kaynak oldu, Qwen Code 0.27.3 izin kuralı hatasını düzeltti",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Açık kaynak · Agent altyapısı",
+          "headline": "Cloudflare, agent tarayıcı motoru Kitesurf'ü açık kaynak yaptı",
+          "paragraphs": [
+            "Chromium ya da tarayıcı konteyneri olmadan HTML'i ayrıştırıp CSS uygulayan, JavaScript çalıştıran ve ekran görüntüsü alan Kitesurf'ün kodu Apache 2.0 lisansıyla GitHub'da. Cloudflare'in 13 Kasım tarihli yazısına göre motor Workers üzerinde çalışıyor ve Chrome DevTools Protocol sunuyor; Puppeteer ve agent'lar bu porta bağlanabiliyor. Yerelde `pnpm run dev` ile açılıyor; kendi hesaba kurmak için Workers Paid planı gerekiyor. README tam bir Chrome uygulaması olmadığını, bazı DevTools özelliklerinin çalışmadığını yazıyor. Motorun yerleşik kimlik doğrulaması da yok; README önüne Cloudflare Access ya da başka bir auth katmanı koymayı öneriyor."
+          ],
+          "sources": [
+            {
+              "label": "Cloudflare blog",
+              "url": "https://blog.cloudflare.com/kitesurf-open-source"
+            },
+            {
+              "label": "cloudflare/kitesurf (GitHub)",
+              "url": "https://github.com/cloudflare/kitesurf"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Sürüm · Qwen Code",
+          "headline": "Qwen Code 0.27.3, auto-edit modundaki onay hatasını düzeltti",
+          "paragraphs": [
+            "Qwen ekibinin terminalde çalışan açık kaynak kodlama agent'ı Qwen Code'un 0.27.3 sürümü 13 Kasım'da çıktı. Sürüm, auto-edit modunda `permissions.ask` kurallarına uyan araç çağrılarının yeniden onay istemesini sağlıyor. Sürüm notları bilinen bir geriye uyumsuzluk olmadığını yazıyor. Web Shell'de bitmemiş arka plan görevleri artık yazma alanının üstünde çip olarak görünüyor. Managed Sessions büyük kaynakları object storage'da tutuyor. Kendi temposunu belirleyen `/loop` uyanmaları yeniden başlatmadan sonra da korunuyor. DingTalk webhook kanalı da eklendi. Aynı gün çıkan TypeScript SDK 0.1.33, CLI 0.27.3'ü paketliyor."
+          ],
+          "sources": [
+            {
+              "label": "Qwen Code sürümleri (GitHub)",
+              "url": "https://github.com/QwenLM/qwen-code/releases"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "subtitle": "Apache Shiro 3.0.1 ve 3.0.2'de sekiz CVE · Java backend'li tarayıcı içi analitik",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Güvenlik · Apache Shiro",
+          "alert": true,
+          "headline": "Apache Shiro'da sekiz CVE; LDAP önbelleği her şifreyi geçerli sayıyor",
+          "stat": {
+            "n": "9,1",
+            "l": "LDAP önbellek açığının CVSS 4.0 skoru (kritik)"
+          },
+          "paragraphs": [
+            "Java'nın kimlik doğrulama ve yetkilendirme kütüphanesi Apache Shiro'da sekiz CVE duyuruldu; düzeltmeler 3.0.1 ve 3.0.2'de. En ağırı CVE-2026-129349, CVSS 4.0 skoru 9,1. `DefaultLdapRealm` ya da `JndiLdapRealm` `authenticationCachingEnabled` ile kullanıldığında, kullanıcı bir kez girdikten sonra sonraki girişler her şifreyle başarılı oluyor. Önbellek LDAP bind'ını atlıyor, varsayılan `AllowAllCredentialsMatcher` da her kimlik bilgisini kabul ediyor. Önbellek varsayılan olarak kapalı; 3.0.0 ve öncesi etkileniyor.",
+            "Orta önemde üç açık daha var. CVE-2026-74763'te `@RequiresRoles` ve `@RequiresPermissions` bazı sınıf ve arayüz hiyerarşilerinde uygulanmıyor; `shiro-guice`, `shiro-aspectj`, `shiro-cdi` ve `shiro-jakarta-ee` etkileniyor. RememberMe çerezinden kullanıcı geri yüklenirken oturum yenilenmiyor ve session fixation mümkün oluyor (CVE-2026-74762). Jakarta EE modülündeki kayıtlı form tekrarı çerez güvenlik niteliklerini düşürebiliyor (CVE-2026-88019).",
+            "Kalan dört açık düşük önemde ve 3.0.2'de kapandı. Biri boş şifrenin boş kayıtlı kimlik bilgisiyle eşleşmesi, biri `PropertiesRealm` yeniden yüklenince silinen kullanıcıların kalması. Jakarta Pages ve Faces principal etiketleri çıktıyı kaçırmadığı için XSS'e açık. Elle oluşturulan `ShiroFilterFactoryBean` ise yolları varsayılan olarak büyük-küçük harfe duyarlı eşleştiriyor; Shiro Spring Boot Starter kullananlar bundan etkilenmiyor. Duyurular 13-14 Kasım'da oss-security listesinde yayımlandı."
+          ],
+          "why": "LDAP önbelleği açık Shiro uygulamalarında, daha önce giriş yapmış bir kullanıcının adını bilen saldırgan herhangi bir şifreyle giriş yapabiliyor; 3.0.2 sekiz açığın hepsini kapatıyor.",
+          "sources": [
+            {
+              "label": "oss-security · CVE-2026-129349",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/14/8"
+            },
+            {
+              "label": "oss-security · CVE-2026-74763",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/14/4"
+            },
+            {
+              "label": "oss-security · CVE-2026-74762",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/14/5"
+            },
+            {
+              "label": "oss-security · CVE-2026-114737",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/14/1"
+            },
+            {
+              "label": "oss-security · CVE-2026-129320",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/14/2"
+            },
+            {
+              "label": "oss-security · CVE-2026-88019",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/14/3"
+            },
+            {
+              "label": "oss-security · CVE-2026-129347",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/14/6"
+            },
+            {
+              "label": "oss-security · CVE-2026-129348",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/14/7"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Okuma · Tarayıcı içi analitik",
+          "headline": "DuckDB-Wasm ile analitiği tarayıcıya taşıyan Java backend'i",
+          "paragraphs": [
+            "Java sunucusunun veriyi bir kez gönderip filtre ve toplamaları tarayıcıdaki DuckDB-Wasm'a bıraktığı bir örnek, Geertjan Wielenga'nın foojay.io yazısında adım adım kuruluyor. Sunucu JDK'nın yerleşik `HttpServer`'ı; build aracı olmadan JDK 17+ üzerinde `java Server.java` ile çalışıyor. Sonraki adımda Java, DuckDB JDBC sürücüsüyle Parquet yazıyor, tarayıcı `read_parquet` ile okuyor. Yazı yaklaşımı megabaytlardan birkaç yüz megabayta kadar, kullanıcı başına veri kümelerine öneriyor. Tarayıcıya giden her veri okunabildiği için yetki filtresi Java'da uygulanmalı. Gigabaytlık veri ve anlık tazelik gereken işler için uygun değil. Yazı 13 Kasım'da yayımlandı."
+          ],
+          "sources": [
+            {
+              "label": "foojay.io",
+              "url": "https://foojay.io/today/analytics-in-the-browser-with-duckdb-wasm/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik",
+      "subtitle": "Check Point'te istismar edilen root yükseltme ve Microsoft 365 kesintisini kullanan oltalama",
+      "patch": [
+        {
+          "text": "UnrealIRCd 6.x (CVE-2026-114713): 6.2.7.1'e yükseltin; 6.0.0-6.2.7 için hot-patch var (Windows hariç).",
+          "url": "https://forums.unrealircd.org/viewtopic.php?t=9487"
+        }
+      ],
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Aktif istismar · Check Point",
+          "alert": true,
+          "headline": "Check Point Gaia'da yerel root açığı istismar ediliyor",
+          "paragraphs": [
+            "Check Point Gaia OS'taki CVE-2026-123039 istismar ediliyor; CISA açığı 13 Kasım'da kataloğuna ekledi ve federal kurumlara 16 Kasım'a kadar süre verdi. Root olarak çalışan DynamicCLI servisi, bağlananları doğrulamayan ve herkesin yazabildiği bir yerel soketi dinliyor. Check Point Research'e göre saldırganlar Mobile Access portalından girdikten sonra bu açıkla root'a yükseldi. R80.30-R82.20 arası Management, Log Server ve Security Gateway kurulumları etkileniyor. Çözüm son Jumbo Hotfix; geçici önlem `dynamic_server` sürecini durdurmak."
+          ],
+          "sources": [
+            {
+              "label": "CISA KEV kataloğu",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2026-123039"
+            },
+            {
+              "label": "Check Point Research",
+              "url": "https://research.checkpoint.com/2026/php2shell-exploitation-on-check-point-gateway/"
+            },
+            {
+              "label": "WindowsForum özeti",
+              "url": "https://windowsforum.com/news/cisa-kev-alert-patch-unrealircd-cve-2026-114713-and-check-point-cve-2026-123039.452241/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Oltalama · Microsoft 365",
+          "headline": "Microsoft 365 kesintisi sahte servis bildirimine yem oldu",
+          "paragraphs": [
+            "Microsoft Threat Intelligence'a göre saldırganlar bu haftaki Microsoft 365 kesintisini, servis sağlığı bildirimi taklidi yapan e-postalarla kullanıyor. Mesajlar bekletilen e-postaların 24 saat içinde tıklanmazsa silineceğini iddia ediyor. Konu satırları `Outage - [altı karakterlik kod]` kalıbında. Bağlantılar alıcıya özel SendGrid linklerinden başka bir alan adına yönlendiriyor. Microsoft etkinliğin kimlik bilgisi oltalamasıyla tutarlı olduğunu ama doğrulanmadığını söylüyor. Tarama için Threat Explorer'ı, EmailEvents, EmailUrlInfo ve UrlClickEvents tablolarında advanced hunting'i ve Safe Links'i öneriyor."
+          ],
+          "sources": [
+            {
+              "label": "iTnews",
+              "url": "https://www.itnews.com.au/news/phishers-quick-to-exploit-extended-m365-outage-630347"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "repos": {
+    "subtitle": "GitHub Trending günlük ve Java listelerinden · yıldızlar 15 Kasım",
+    "items": [
+      {
+        "name": "Tencent/LoopForge",
+        "url": "https://github.com/Tencent/LoopForge",
+        "stars": "974",
+        "starsValue": 974,
+        "lang": "Go",
+        "cat": "Agent orkestrasyonu",
+        "why": "CodeBuddy, Codex ve Claude Code gibi kodlama agent'larını script'ler ve insan onay adımları içeren SOP iş akışlarıyla yöneten, kendi sunucunda çalışan bir çalışma alanı. Son sürümlerden v0.3.9-rc.1 (13 Kasım) SSH repo desteği getirdi ve kimlik bilgilerini clone URL'lerinin dışında tutuyor.",
+        "meta": "Go · Agent orkestrasyonu"
+      },
+      {
+        "name": "n8n-io/nod",
+        "url": "https://github.com/n8n-io/nod",
+        "stars": "1,3 bin",
+        "starsValue": 1300,
+        "lang": "TypeScript",
+        "cat": "Kişisel agent",
+        "why": "Fatura takibi ya da deneme aboneliği iptali gibi çok adımlı web işlerini kendi bilgisayarında yürüten, onay isteyen açık kaynak agent; research preview aşamasında. Yalnızca 13 Kasım'da üç sürüm çıktı; v0.7.4 her model çağrısını ve onayı kaydeden bir kullanım günlüğü ekledi.",
+        "meta": "TypeScript · Kişisel agent"
+      },
+      {
+        "name": "libracoder/kiri",
+        "url": "https://github.com/libracoder/kiri",
+        "stars": "3,9 bin",
+        "starsValue": 3900,
+        "lang": "Rust",
+        "cat": "Konteyner runtime",
+        "why": "`docker` CLI, Compose ve buildx ile çalışan, Docker Desktop ve OrbStack'e hafif alternatif olarak sunulan macOS, Windows ve Linux konteyner runtime'ı. Geçen hafta çıkan 0.2.0 sürümü (10 Kasım) konteynerlere beta olarak USB aygıt aktarımı getirdi.",
+        "meta": "Rust · Konteyner runtime"
+      },
+      {
+        "name": "zhukunpenglinyutong/jetbrains-cc-gui",
+        "url": "https://github.com/zhukunpenglinyutong/jetbrains-cc-gui",
+        "stars": "7.667",
+        "starsValue": 7667,
+        "lang": "Java",
+        "cat": "IDE eklentisi",
+        "why": "Claude Code, OpenAI Codex ve diğer AI kodlama CLI'larına IntelliJ IDEA içinde görsel arayüz veren eklenti. Son sürüm v0.6.5 (10 Kasım) WSL yolundan açılan projelerde Codex'i çalıştırdı ve takılan Claude akışları için 10 dakikalık zaman aşımı ekledi.",
+        "meta": "Java · IDE eklentisi"
+      },
+      {
+        "name": "ag-ui-protocol/ag-ui",
+        "url": "https://github.com/ag-ui-protocol/ag-ui",
+        "stars": "17.420",
+        "starsValue": 17420,
+        "lang": "TypeScript",
+        "cat": "Agent protokolü",
+        "why": "AI agent'larını frontend uygulamalarına bağlayan açık, olay tabanlı protokol; Kotlin ve Java dahil birçok dilde SDK'sı var. Bu hafta çıkan paket sürümleri Claude Agent SDK adaptöründeki `clone()` hatasını düzeltti; LangGraph paketi artık `@ag-ui/client` için en az 1.0.0 istiyor, bu kırıcı bir değişiklik.",
+        "meta": "TypeScript · Agent protokolü"
+      },
+      {
+        "name": "JuliusBrussee/caveman",
+        "url": "https://github.com/JuliusBrussee/caveman",
+        "stars": "120.129",
+        "starsValue": 120129,
+        "lang": "Go",
+        "cat": "Token tasarrufu",
+        "why": "Kodlama agent'larını kısa, “mağara adamı” üslubuyla yanıt vermeye yönlendirerek token kullanımını azaltan skill ve proxy. Son sürüm 4.1.0 (8 Kasım), sıkıştırma dosyayı model sağlayıcısına gönderdiği için kimlik bilgisi içeren dosyaları sıkıştırmayı reddediyor.",
+        "meta": "Go · Token tasarrufu"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending · günlük",
+        "url": "https://github.com/trending?since=daily"
+      },
+      {
+        "label": "GitHub Trending · Java",
+        "url": "https://github.com/trending/java?since=daily"
+      }
+    ]
+  },
+  "briefs": [
+    {
+      "tag": "Geliştirme",
+      "text": "Simon Willison'ın `datasette-llm` eklentisinin 0.1a11 ön sürümü 14 Kasım'da çıktı. OpenAI uyumlu Chat Completions ve Responses uç noktaları artık ayrı bir LLM eklentisi olmadan tanımlanabiliyor. `key` verilmiş bir uç nokta sağlayıcının varsayılan anahtarına geri düşmüyor.",
+      "url": "https://github.com/datasette/datasette-llm/releases/tag/0.1a11"
+    },
+    {
+      "tag": "JDK 28",
+      "text": "Inside Java Newscast'in 14 Kasım bölümü, ZGC için uyarlanabilir heap boyutlandırmasını (JEP 546) JDK 28 özellikleri arasında anlatıyor. Özellik CPU ve bellek kullanımını neredeyse sıfır ayarla dengeliyor.",
+      "url": "https://inside.java/newscast/117/"
+    },
+    {
+      "tag": "İddia · OpenAI",
+      "text": "FourWeekMBA'ya göre OpenAI'ın 20 Kasım'da yürürlüğe girecek kullanım politikası, üçüncü taraflara modellere doğrudan erişim veren hizmetler için önceden onay şartı getiriyor. Çıktıların rakip model eğitiminde kullanılması da yasaklanıyor; OpenAI'ın politika sayfasına erişilemedi.",
+      "url": "https://fourweekmba.com/ai-openai-bars-rival-training-vets-model-resellers-from-nov-20/"
+    },
+    {
+      "tag": "Analiz",
+      "text": "Interconnects yazarı Nathan Lambert, Jensen Huang'ın ayrılığını ABD açık model ekosistemi için büyük bir gerileme olarak görüyor ve açık modellere giden fonun azalmasını bekliyor. Nemotron'un doğru hedefe sahip olduğunu ama işin bitmediğini yazıyor; yazı bir görüş yazısı.",
+      "url": "https://www.interconnects.ai/p/open-source-ai-without-jensen"
+    },
+    {
+      "tag": "Anthropic",
+      "text": "Anthropic'in Claude for Manufacturing eklentisi teklif, kalite raporu ve arıza analizi gibi işler için hazır skill'lerle geliyor; Autodesk Fusion, Oracle NetSuite, Microsoft 365 ve Infor'a bağlanıyor. Eklenti ekipman çalıştırmıyor; Team ve Enterprise müşterilerine açık.",
+      "url": "https://the-decoder.com/anthropics-claude-for-manufacturing-plugs-ai-directly-into-factory-software-to-automate-industrial-workflows/"
+    },
+    {
+      "tag": "Güvenlik",
+      "text": "Vim 9.2.1346, PowerShell kuruluyken hazırlanmış bir `.ps1` dosyasında Visual modda seçilen satırın `K` aramasıyla komut çalıştırmasına yol açan düşük önemli açığı kapattı. Önceki düzeltme tipografik tek tırnakları kaçırmıyordu.",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/14/11"
+    }
+  ]
+}
