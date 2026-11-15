@@ -118,7 +118,8 @@ def main():
             o = json.load(f)
         if o.get("date") == d.get("date"):
             continue
-        numbers.append(o.get("number") or 0)
+        if str(o.get("date")) < str(d.get("date")):
+            numbers.append(o.get("number") or 0)
         a = {"manset"}
         for s in o.get("sections") or []:
             for i, art in enumerate(s.get("articles") or []):
@@ -327,13 +328,18 @@ def main():
         elif words(c["text"]) > 50:
             W(f"{w}: {words(c['text'])} kelime (tek iki cümle beklenir)")
 
-    # Yalnızca Anthropic kaynaklı öne çıkarma
-    def only_anthropic(a):
-        us = [x.get("url") or "" for x in a.get("sources") or []]
-        return us and all(re.search(r"(anthropic\.com|claude\.(ai|com))", u) for u in us)
+    # Kaynak sayısı
     for where, a in [("manşet", L)] + [(k, v) for k, v in anchors.items() if k != "manset"]:
-        if only_anthropic(a) and (where == "manşet" or a.get("big") or a.get("stat") or a.get("chart")):
-            E(f"{where}: yalnızca Anthropic kaynaklı haber manşet, büyük haber, stat ya da chart olamaz")
+        n = len(a.get("sources") or [])
+        if n > 4:
+            W(f"{where}: {n} kaynak linki (en fazla 4; birincil ve en güçlü bağımsız kaynakları seç)")
+
+    # Bugün yamala: zehirlenmiş paket ya da aktif istismar haberi varken liste boş mu
+    for s in secs:
+        if s.get("id") == "guvenlik" and not s.get("patch"):
+            txt = " ".join(" ".join(a.get("paragraphs") or []) + " " + (a.get("headline") or "") for a in s.get("articles") or [])
+            if re.search(r"(zehirlen|kötü amaçlı (sürüm|paket)|aktif (olarak )?istismar|KEV)", txt, re.I):
+                W("guvenlik: zehirlenmiş paket ya da aktif istismar haberi var ama Bugün yamala (patch) boş")
 
     # Manşet: aynı şirket art arda
     older = [k for k in prev if k < str(d.get("date"))]
@@ -410,6 +416,9 @@ def main():
             W(f"briefs[{i}]: {len(sentences(b.get('text')))} cümle (tek-iki cümle beklenir)")
 
     total_words = sum(words(v) for k, v in strings(d) if not k.endswith(".url"))
+    rm = d.get("readingMinutes")
+    if isinstance(rm, (int, float)) and abs(rm - round(total_words / 200)) > 2:
+        W(f"readingMinutes {rm}; ölçülen ~{round(total_words / 200)} dk (sayfa ölçülen değeri basar)")
     for m in errors:
         print("HATA  ", m)
     for m in warns:

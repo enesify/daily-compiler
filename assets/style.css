@@ -182,11 +182,11 @@ aside.box{background:var(--paper-2);padding:20px 20px 18px;border-top:3px solid 
 /* Bu sayıda: kutunun altında, her bölümün ilk haberi tek satır */
 .toc ol{list-style:none;margin:6px 0 0;padding:0}
 .toc li{border-top:1px solid var(--rule)}
-.toc a{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;gap:10px;padding:8px 0;text-decoration:none;font-family:var(--f-display);font-size:15.5px;font-weight:500;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.toc .th{overflow:hidden;text-overflow:ellipsis}
+.toc a{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;gap:10px;padding:8px 0;text-decoration:none;font-family:var(--f-display);font-size:15.5px;font-weight:500;line-height:1.25}
+.toc .th{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 .toc .ts{font-family:var(--f-label);font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--ink-soft)}
 aside.box h3{font-size:22px;margin:6px 0 12px;line-height:1.15}
-aside.box ol{margin:0;padding-left:20px;display:grid;gap:10px;font-size:15.5px;line-height:1.45}
+aside.box ol{margin:0;padding-left:20px;display:grid;gap:10px;font-size:15.5px;line-height:1.45;max-width:68ch}
 aside.box .note{font-family:var(--f-label);font-size:12px;color:var(--ink-soft);margin-top:14px}
 
 /* Haber grafikleri: tek seri yatay çubuk; vurgulanan çubuk accent, bağlam çubukları gri. Değerler her zaman yazılı. */
@@ -281,7 +281,7 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   /* “Bu sayıda” telefonda ve tablette sayfanın başında: bir dakikalık özet */
   .lead-side{display:contents}
   .toc a{grid-template-columns:minmax(0,1fr);gap:2px;white-space:normal;padding:9px 0}
-  .toc .th{overflow:visible}
+  .toc .th{display:block;overflow:visible}
   .pattern{grid-template-columns:1fr}
   .repos{grid-template-columns:1fr}
   .nav-links{gap:18px}
@@ -342,11 +342,9 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
   /* Telefonda künye: takvim şeridi yok, tarih ve oklar tek blok */
   .dial-track{display:none}
   .dial{padding-bottom:10px}
-  /* Küçük haberler üç satırda kesilir, “Devamı” ile açılır */
-  article.clamp .body{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
-  /* Büyük haberler de kısalır, ama daha uzun bir girişle */
+  /* Haberler cümle sonunda kesilir (yükseklik site.js'te: küçük haber ~3, büyük haber ~8 satır), “Devamı” ile açılır */
+  article.clamp .body .rest{display:none}
   article.big.s8 .body{columns:auto}
-  article.big.clamp .body{-webkit-line-clamp:8}
   .endnav{grid-template-columns:1fr;gap:16px}
   .endnav .en-next{text-align:left}
   .endnav .en-top{order:3;justify-self:start}

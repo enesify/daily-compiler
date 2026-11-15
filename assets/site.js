@@ -100,8 +100,44 @@
       }, { passive: true });
     }
   }
-  // Telefonda haber metnini kes (küçük haber 3, büyük haber 8 satır); metin sığıyorsa düğme hiç görünmez
+  // Telefonda haber metnini kes: küçük haberde ~3, büyük haberde ~8 satırdan sonraki ilk uygun cümle sonunda.
+  // Metin sığıyorsa düğme hiç görünmez.
   var phone = window.matchMedia && matchMedia('(max-width: 560px)');
+  // Kesme noktası: hedef satırdan önceki son cümle sonu; o çok erkense (hedefin %60'ından önce) bir sonraki cümle sonu
+  function cutAt(body, lines) {
+    var p = body.querySelector('p') || body, lh = parseFloat(getComputedStyle(p).lineHeight) || 24;
+    var top = body.getBoundingClientRect().top, limit = top + lines * lh + 4;
+    var w = document.createTreeWalker(body, NodeFilter.SHOW_TEXT), r = document.createRange(), n, m, rx, ends = [];
+    while ((n = w.nextNode())) {
+      if (n.parentNode.closest('.rest')) continue;
+      rx = /[.!?…][”"’)]*(?=\s|$)/g;
+      while ((m = rx.exec(n.data))) {
+        r.setStart(n, m.index); r.setEnd(n, m.index + 1);
+        var rc = r.getClientRects();
+        if (rc.length) ends.push({ n: n, i: m.index + m[0].length, y: rc[rc.length - 1].bottom });
+      }
+    }
+    if (!ends.length) return null;
+    var k = -1;
+    ends.forEach(function (e, j) { if (e.y <= limit) k = j; });
+    if (k < 0) k = 0;
+    else if (ends[k].y < top + lines * lh * .6 && ends[k + 1] && ends[k + 1].y <= top + (lines * 2 + 1) * lh) k++;
+    return ends[k] === ends[ends.length - 1] ? null : ends[k];
+  }
+  // Kesme noktasından sonraki her şeyi .rest ile işaretle (paragraf yapısı bozulmaz)
+  function markRest(body, cut) {
+    var rest = cut.n.splitText(cut.i), node = rest;
+    var wrap = function (x) {
+      if (x.nodeType === 3) { if (!x.data.trim() && x !== rest) return; var sp = document.createElement('span'); sp.className = 'rest'; x.parentNode.insertBefore(sp, x); sp.appendChild(x); }
+      else if (x.nodeType === 1) x.classList.add('rest');
+    };
+    while (node && node !== body) {
+      var next = node.nextSibling;
+      if (node === rest) wrap(node);
+      for (var x = next; x; ) { var nx = x.nextSibling; wrap(x); x = nx; }
+      node = node.parentNode === body ? null : node.parentNode;
+    }
+  }
   function setOpen(art, open) {
     var b = art.querySelector('.more');
     art.classList.toggle('clamp', !open);
@@ -113,8 +149,10 @@
       var b = art.querySelector('.more'), body = art.querySelector('.body');
       if (!b || !body || b.dataset.ready) return;
       b.dataset.ready = '1';
+      var cut = cutAt(body, art.classList.contains('big') ? 8 : 3);
+      if (!cut) return;
+      markRest(body, cut);
       art.classList.add('clamp');
-      if (body.scrollHeight <= body.clientHeight + 2) { art.classList.remove('clamp'); return; }
       b.hidden = false;
       b.addEventListener('click', function () { setOpen(art, art.classList.contains('clamp')); });
     });

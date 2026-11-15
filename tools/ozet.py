@@ -99,6 +99,34 @@ def main():
         p("ÖNCEKİ TAKVİMLERDE HÂLÂ GELECEKTE KALAN TARİHLER (önemini koruyorsa yeniden girebilir; ref yerine url gerekir):")
         for (cd, t), (src, r, u) in sorted(upcoming.items()):
             p(f"  {cd} | {t} | {u or f'#{src}-{r}'}")
+    # Önceki sayıların metninde geçen ileri tarihler (Takvim adayı)
+    AY = {"Ocak":1,"Şubat":2,"Mart":3,"Nisan":4,"Mayıs":5,"Haziran":6,"Temmuz":7,"Ağustos":8,"Eylül":9,"Ekim":10,"Kasım":11,"Aralık":12}
+    rx = re.compile(r"\b(\d{1,2}) (" + "|".join(AY) + r")(?:'?\w*)?(?: (\d{4}))?")
+    fut = {}
+    for d in issues[-5:]:
+        y0 = int(d["date"][:4])
+        def walk(o, where):
+            if isinstance(o, dict):
+                for k, v in o.items():
+                    if k not in ("url", "sources"):
+                        walk(v, where)
+            elif isinstance(o, list):
+                for v in o:
+                    walk(v, where)
+            elif isinstance(o, str):
+                for m in rx.finditer(o):
+                    try:
+                        dt = datetime.date(int(m.group(3) or y0), AY[m.group(2)], int(m.group(1)))
+                    except ValueError:
+                        continue
+                    if 0 < (dt - t0).days <= 30:
+                        i = max(0, m.start() - 70)
+                        fut.setdefault(dt, f"{d['date']}: …{o[i:m.end() + 50]}…")
+        walk({k: v for k, v in d.items() if k in ("lead", "sections", "briefs")}, d["date"])
+    if fut:
+        p("ÖNCEKİ SAYILARIN METNİNDE GEÇEN İLERİ TARİHLER (Takvim'e alınmalı ya da neden alınmadığı bilinmeli):")
+        for dt in sorted(fut):
+            p(f"  {dt} | {fut[dt][:200]}")
     pr = []
     for d in last:
         for x in ((d.get("lead") or {}).get("box") or {}).get("items") or []:

@@ -36,7 +36,10 @@ Türetilmiş her rakamı (yüzde fark, oran, kat, "yaklaşık X ucuz") girdileri
 - Haber dili: giriş cümlesi kalıbı, cümle uzunluğu, grafikteki rakamların metinde tekrarı, terim tutarlılığı, açıklanmamış ya da yanlış açıklanmış jargon, İddia haberlerinde kesin kipte başlık.
 - Java & Spring'de JVM dışı haber ya da haber varken okuma yazısı.
 - Tek ve ikincil kaynağa dayanan bölüm haberi.
-- Yalnızca Anthropic kaynaklı haberin manşet, büyük haber, stat ya da chart olması.
+- Manşet ya da büyük ürün haberinde, bağımsız bir kaynakta bulunabilen önemli şart, sınır ya da yükümlülüğün (lisans, telemetri, destek yükümlülüğü, fiyat) eksik olması. Bunu kendin ara.
+- Model ya da ürün karşılaştırmasında bir modelin (Claude dahil) rakamı yerine sıfatla geçilmesi.
+- Güvenlik haberlerinde etkilenen ve yaması olmayan sürümler, giriş yolu, kontrol yöntemi ve düzeltilmiş sürümden birinin kaynakta olduğu halde yazılmaması; zehirlenmiş paket ya da aktif istismar varken Bugün yamala listesinin boş olması.
+- Haber başına 4'ten fazla kaynak ya da birincil kaynak varken zayıf kaynak (forum, toplayıcı) kullanılması.
 - Pratik çıkarımda genel ya da önceki sayılardan tekrar eden madde; why satırında şirket açıklamasının tekrarı.
 - Düz çeviri, aynı olgunun iki kez söylenmesi, dolgu cümlesi, alanın yanlış terimi.
 - Önceki sayılarda fark ettiğin olgu hatası: düzeltme (`corrections`) önerisi olarak yaz.
