@@ -35,7 +35,7 @@ Bir kaynağın `url` alanı `#YYYY-MM-DD-<bölüm id>-<sıra>` ise (ör. `#2026-
 
 | Yol | Ne |
 |---|---|
-| `kurallar/KURALLAR.md` | Yazım ve seçim kuralları (okuyucu, bölümler, uzunluk, kaynak, dil, JSON alanları) |
+| `kurallar/KURALLAR.md` | Yazım ve seçim kuralları (okuyucu, kaynak ve doğruluk, araştırma, bölümler, dil, editoryal alanlar, ölçüler, JSON alanları) |
 | `kurallar/EDITOR.md` | Editör agent'ın görevi |
 | `kurallar/ornek.json` | JSON biçim örneği |
 | `tools/ozet.py` | Yeni sayıdan önce: tarih, sıradaki numara, son sayıların başlıkları, açık uçlar |
