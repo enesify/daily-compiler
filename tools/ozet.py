@@ -20,8 +20,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DAYS = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"]
 MONTHS = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
 # Sonucu henüz belli olmayan konulara işaret eden ifadeler
-OPEN = re.compile(r"henüz|bekleniyor|beklenen|planlan|başlayacak|yayımlanacak|açıklanmadı|açıklamadı|doğrulanmadı|"
-                  r"tarih verilmedi|sürecek|itibaren|son tarih|preview|release candidate|\bRC\d?\b|canary", re.I)
+# Yalnızca ileriye dönük ifadeler: sonucu sonraki günlerde belli olacak gelişmeler.
+# (“açıklanmadı”, “itibaren” gibi kalıplar takip edilecek bir şey getirmiyordu.)
+OPEN = re.compile(r"henüz|bekleniyor|beklenen|planlan|başlayacak|yayımlanacak|açıklanacak|açıklayacak|karar verecek|"
+                  r"önümüzdeki (gün|hafta)|yakında|release candidate|\bRC\d?\b|preview|önizleme", re.I)
+OPEN_MAX = 8
 
 
 def load():
@@ -78,7 +81,7 @@ def main():
         for aid, sec, kicker, title, _ in anchors(d):
             head.append(f"#{d['date']}-{aid} | {sec} | {kicker} | {title}")
         for b in d.get("briefs") or []:
-            head.append(f"(kısa) {b.get('tag')}: {(b.get('text') or '')[:150]}")
+            head.append(f"(kısa) {b.get('tag')}: {(b.get('text') or '')[:110]}")
         head.append("")
     if issues:
         L = issues[-1].get("lead") or {}
@@ -99,7 +102,8 @@ def main():
         p("ÖNCEKİ TAKVİMLERDE HÂLÂ GELECEKTE KALAN TARİHLER (önemini koruyorsa yeniden girebilir; ref yerine url gerekir):")
         for (cd, t), (src, r, u) in sorted(upcoming.items()):
             p(f"  {cd} | {t} | {u or f'#{src}-{r}'}")
-    # Önceki sayıların metninde geçen ileri tarihler (Takvim adayı)
+    # Önceki sayıların metninde geçen ileri tarihler (Takvim adayı); önceki takvimde zaten olanlar tekrar listelenmez
+    cal_dates = {str(cd) for (cd, _) in upcoming}
     AY = {"Ocak":1,"Şubat":2,"Mart":3,"Nisan":4,"Mayıs":5,"Haziran":6,"Temmuz":7,"Ağustos":8,"Eylül":9,"Ekim":10,"Kasım":11,"Aralık":12}
     rx = re.compile(r"\b(\d{1,2}) (" + "|".join(AY) + r")(?:'?\w*)?(?: (\d{4}))?")
     fut = {}
@@ -119,7 +123,7 @@ def main():
                         dt = datetime.date(int(m.group(3) or y0), AY[m.group(2)], int(m.group(1)))
                     except ValueError:
                         continue
-                    if 0 < (dt - t0).days <= 30:
+                    if 0 < (dt - t0).days <= 30 and dt.isoformat() not in cal_dates:
                         i = max(0, m.start() - 70)
                         fut.setdefault(dt, f"{d['date']}: …{o[i:m.end() + 50]}…")
         walk({k: v for k, v in d.items() if k in ("lead", "sections", "briefs")}, d["date"])
@@ -138,15 +142,24 @@ def main():
     p("SON SAYILARIN HABERLERİ (iç atıf adresi | bölüm | kicker | başlık):")
     lines.extend(head)
 
-    p("OLASI AÇIK UÇLAR (anahtar kelimeye göre seçilmiş cümleler; hepsi açık uç değildir, kendin değerlendir):")
+    # Açık uçlar: İddia haberleri (doğrulanıp doğrulanmadığı takip edilir) ve ileriye dönük cümleler; tarihi
+    # yukarıdaki listelerde olanlar ve aynı haberden ikinci cümle atlanır. En yeni sayıdan başlayarak en fazla OPEN_MAX.
+    ops, seen = [], set()
+    listed = {dt.day for dt in fut} | {int(str(cd)[8:10]) for (cd, _) in upcoming}
     for d in reversed(last):
-        for aid, _, _, title, paras in anchors(d):
+        for aid, _, kicker, title, paras in anchors(d):
+            key = (d["date"], aid)
+            if str(kicker or "").startswith("İddia"):
+                ops.append(f"#{d['date']}-{aid} | İddia | {title[:90]}"); seen.add(key); continue
             for s in sentences(" ".join(paras)):
-                if OPEN.search(s):
-                    p(f"#{d['date']}-{aid} | {title[:50]} | {s[:260]}")
-        for b in d.get("briefs") or []:
-            if OPEN.search(b.get("text") or ""):
-                p(f"{d['date']} (kısa) {b.get('tag')}: {(b.get('text') or '')[:260]}")
+                if key in seen or not OPEN.search(s):
+                    continue
+                if any(re.search(rf"\b{n} (Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)", s) for n in listed):
+                    continue
+                ops.append(f"#{d['date']}-{aid} | {title[:50]} | {s[:220]}"); seen.add(key)
+    if ops:
+        p(f"OLASI AÇIK UÇLAR (en fazla {OPEN_MAX}; hepsi açık uç değildir, kendin değerlendir; toplam en fazla 3 arama):")
+        lines.extend(ops[:OPEN_MAX])
 
     print("\n".join(lines))
     if args.out:

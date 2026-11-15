@@ -24,6 +24,7 @@ Bu tanım seçimi ve önceliği yönlendiren bir mercektir; gazete herkese açı
 
 - **Pencere:** son 24 saat, en fazla 48 saat; Pazartesi sayılarında 72 saat (Cuma sabahından itibaren). Java okuma yazıları ve Takip haberleri bu sınırın dışındadır.
 - **Arama:** her bölüm için ayrı arama; toplam 15-25 WebSearch (25 kesin üst sınır), en az üçte biri Yapay Zekâ & LLM için ve farklı açılardan (model sürümleri, araştırma, benchmark, agent'lar, düzenleme); Güvenlik için 2-3 arama yeter. Haber azsa daha fazla arama yapma, bölümü kısa tut.
+- **Paralel:** birbirinden bağımsız aramaları ve sayfa okumalarını aynı anda gönder.
 - **Okuma:** asıl kaynakları WebFetch ile oku. İki denemede 403, bot koruması ya da erişim hatası veren kaynağı bırak, aynı bilgiyi veren başka bir birincil kaynak ara. Bot korumasını aşmaya çalışma (headless tarayıcı, arşiv servisleri vb.).
 - **Tekrar:** son 3 sayıda geçen haberi tekrar etme. Gerçek bir yeni gelişme varsa onu yaz ve önceki habere iç atıf ver.
 - **Açık uçlar:** özet çıktısı son sayılarda sonucu henüz belli olmayan konuları ve ileri tarihleri listeler. Tarihi pencereye düşenler için toplam en fazla 3 arama ayır. Birincil kaynakta bir sonuç varsa “Takip” etiketiyle Kısa Kısa'ya ya da ilgili bölüme yaz ve iç atıf ver; sonuç yoksa yazma. Takip haberi tekrar sayılmaz.
