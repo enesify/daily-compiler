@@ -127,7 +127,7 @@ Bir haber ölçüsüne sığmıyorsa metni zorla kısaltmak yerine `size` değer
 Alan adları ve biçim `kurallar/ornek.json` dosyasındadır; oradaki metinler ve uzunluklar örnek değildir.
 
 - `date` (YYYY-MM-DD), `number` (önceki en büyük + 1), `dateLabel` (“Çarşamba, 4 Kasım 2026”), `readingMinutes` (sayfa okuma süresini kendisi hesaplar; alan biçim için yazılır).
-- `lead`: `{kicker, alert, headline, deck, paragraphs[], chart?, sources[{label, url}], box{kicker, title, items[], note}}`.
+- `lead`: `{kicker, alert, headline, deck, paragraphs[], chart?, sources[{label, url}], box{kicker, title, items[], note}}`. Kaynak `label`'ında “·” kullanma (“Hugging Face blog: llama.cpp v1.0.0”); sayfa kaynakları “·” ile ayırır.
 - `sections[]`: `{id, title, subtitle?, patch?, articles[]}`; haber: `{size: 4|6|8, big?, kicker, alert?, pill?, headline, stat?, paragraphs[], why?, chart?, sources[]}`. Bölüm `subtitle`'ı sayfada basılmaz, yazmak zorunlu değildir. `patch` yalnızca Güvenlik'te: `[{text, url}]`.
 - `repos`: `{subtitle, items[{name, url, stars, starsValue, lang?, cat, why, meta}], sources[]}`.
 - `briefs[]`: `{tag, text, url}`.

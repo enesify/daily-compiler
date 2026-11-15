@@ -508,3 +508,5 @@ span.dial-step{opacity:.3}
   /* ARŞİV ile tema düğmesi yan yana: ARŞİV yalnızca dikeyde büyür, alanlar çakışmaz */
   .dial-meta a::after{width:100%}
 }
+/* Yatay telefon: iki sütunlu metin ekran yüksekliğine sığmaz, tek sütuna iner */
+@media (max-height:500px) and (orientation:landscape){.cols,article .body,article.big.s8 .body,article.s12 .body{columns:auto}}

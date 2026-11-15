@@ -154,28 +154,45 @@
     art.classList.toggle('clamp', !open);
     if (b) { b.textContent = open ? 'Kapat' : 'Devamı'; b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
   }
-  function clampAll() {
+  function unmark(body) {
+    Array.prototype.forEach.call(body.querySelectorAll('span.rest'), function (sp) {
+      while (sp.firstChild) sp.parentNode.insertBefore(sp.firstChild, sp);
+      sp.remove();
+    });
+    Array.prototype.forEach.call(body.querySelectorAll('.rest'), function (x) { x.classList.remove('rest'); });
+    body.normalize();
+  }
+  // Manşet ~6, büyük haber ~8, küçük haber ~3 satırdan sonraki cümle sonunda kesilir.
+  // Sayfa açılır açılmaz kesilir (yavaş bağlantıda metin geç kapanmasın); yazı tipi gelince,
+  // okur henüz dokunmadıysa kesme noktası yeni satır uzunluğuna göre yeniden hesaplanır.
+  function clampAll(recut) {
     if (!phone || !phone.matches) return;
-    // Manşet ~6, büyük haber ~8, küçük haber ~3 satırdan sonraki cümle sonunda kesilir
     Array.prototype.forEach.call(document.querySelectorAll('article, #a-manset'), function (art) {
       var b = art.querySelector('.more'), body = art.querySelector('.body, .cols');
-      if (!b || !body || b.dataset.ready) return;
-      b.dataset.ready = '1';
+      if (!b || !body) return;
+      if (b.dataset.ready) {
+        if (!recut || art.dataset.touched) return;
+        unmark(body); art.classList.remove('clamp'); b.hidden = true;
+      } else {
+        b.dataset.ready = '1';
+        b.addEventListener('click', function () {
+          art.dataset.touched = '1';
+          var opening = art.classList.contains('clamp');
+          setOpen(art, opening);
+          // Kapatınca haberin başı ekranın üstünde kaldıysa okur haberin başına döner
+          if (!opening && art.getBoundingClientRect().top < 0) art.scrollIntoView({ block: 'start', behavior: reduceMotion() ? 'auto' : 'smooth' });
+        });
+      }
       var cut = cutAt(body, art.id === 'a-manset' ? 6 : art.classList.contains('big') ? 8 : 3);
       if (!cut) return;
       markRest(body, cut);
       art.classList.add('clamp');
       b.hidden = false;
-      b.addEventListener('click', function () {
-        var opening = art.classList.contains('clamp');
-        setOpen(art, opening);
-        // Kapatınca haberin başı ekranın üstünde kaldıysa okur haberin başına döner
-        if (!opening && art.getBoundingClientRect().top < 0) art.scrollIntoView({ block: 'start', behavior: reduceMotion() ? 'auto' : 'smooth' });
-      });
     });
   }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(clampAll); else clampAll();
-  if (phone && phone.addEventListener) phone.addEventListener('change', clampAll);
+  clampAll(false);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { clampAll(true); });
+  if (phone && phone.addEventListener) phone.addEventListener('change', function () { clampAll(false); });
 
   function flash() {
     var id = decodeURIComponent((location.hash || '').slice(1));

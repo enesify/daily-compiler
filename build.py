@@ -233,7 +233,7 @@ def models_rows(D, k, limit=None, short=False):
     fmt = M_FMT[D["metrics"][k]["bicim"]]
     out = []
     for pos, m in m_ranked(D, k)[:limit]:
-        name = esc(m.get("kisa") or m["ad"]) if short else esc(m["ad"]) + f'<small>{esc(m["saglayici"])}' + (f' · {esc(m["ayar"])}' if m.get("ayar") else "") + (" · açık ağırlıklı" if m.get("acik") else "") + "</small>"
+        name = esc(m["ad"]) if short else esc(m["ad"]) + f'<small>{esc(m["saglayici"])}' + (f' · {esc(m["ayar"])}' if m.get("ayar") else "") + (" · açık ağırlıklı" if m.get("acik") else "") + "</small>"
         out.append(f'<div class="mrow"><span class="rk">{pos}</span><span class="nm">{name}</span>'
                    f'<span class="mbar"><i style="width:{m_pct(D, k, m[k])}"></i></span><span class="val">{fmt(m[k])}</span></div>')
     return "".join(out)
@@ -287,8 +287,10 @@ def ext_link(label, url):
 def sources(ctx, lst):
     if not lst:
         return ""
-    items = [ref_link(ctx, s.get("label"), s.get("url")) if str(s.get("url", "")).startswith("#")
-             else ext_link(s.get("label"), s.get("url")) for s in lst]
+    # Etiketin içindeki “·” linkleri ayıran “·” ile karışmasın: “A · B” → “A: B”
+    lab = lambda t: str(t or "").replace(" · ", ": ", 1).replace(" · ", ", ")
+    items = [ref_link(ctx, lab(s.get("label")), s.get("url")) if str(s.get("url", "")).startswith("#")
+             else ext_link(lab(s.get("label")), s.get("url")) for s in lst]
     pre = "Kaynaklar: " if len(lst) > 1 else "Kaynak: "
     return f'<p class="src">{pre}{" · ".join(items)}</p>'
 
