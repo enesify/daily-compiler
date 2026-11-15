@@ -561,9 +561,8 @@ def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, bas
 <link rel="apple-touch-icon" href="{esc(ctx.href('assets/apple-touch-icon.png'))}">
 <meta name="theme-color" content="#EEF0EC" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#151B20" media="(prefers-color-scheme: dark)">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="preload" href="{esc(ctx.href('assets/fonts/newsreader-latin-opsz-normal.woff2'))}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{esc(ctx.href('assets/fonts/ibm-plex-sans-condensed-latin-400-normal.woff2'))}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{esc(asset(ctx, 'assets/style.css'))}">
 </head>
 <body>
