@@ -1,5 +1,6 @@
 # The Daily Compiler · repo notları
 
+- Sürüm notları ve etiket düzeni `CHANGELOG.md` dosyasındadır; etiketler (v1.0, v1.1 …) yalnızca kod, tasarım ve kurallar için atılır, günlük sayılar etiketlenmez.
 - Günlük sayı görevinin adımları `kurallar/GOREV.md` dosyasındadır; zamanlanmış görevin metni yalnızca bu dosyaya yönlendirir, süreç değişince bu dosya güncellenir.
 - Yazım ve seçim kuralları `kurallar/KURALLAR.md`, editörün görevi `kurallar/EDITOR.md`, JSON biçim örneği `kurallar/ornek.json` dosyasındadır. Günlük sayıyı hazırlayan oturum bu dosyaları, `tools/`, `build.py` ve `assets/` altını değiştirmez; yalnızca yeni sayı dosyasını ekler ve gerektiğinde `data/modeller.json` dosyasını yeniler.
 - `python3 tools/ozet.py --out <klasör>` yeni sayıdan önce gereken özeti verir (tarih, sıradaki numara, önceki manşet, son 7 günün repoları, açık takvim tarihleri, son Pratik çıkarım maddeleri, son 3 sayının başlıkları, olası açık uçlar). `python3 tools/kontrol.py <dosya>` bir sayı dosyasını ölçülebilir kurallara göre denetler; HATA çıkarsa yayımlanmaz. `python3 tools/bulgular.py <bulgular.json>` editör bulgularını denetler ve bildirim için özet satırını üretir. `python3 tools/ara.py "<konu>"` bütün arşivde arar ve iç atıf adreslerini verir.
