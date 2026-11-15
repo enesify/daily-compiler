@@ -133,7 +133,9 @@ nav.index.has-more .nav-links{padding-right:34px}
   max-width:0;opacity:0;visibility:hidden;overflow:hidden;margin-right:0;padding-right:0;border-right:1px solid transparent;transform:translateY(-10px) scale(1.5);transform-origin:left center;
   transition:max-width .3s ease,opacity .25s ease,transform .3s ease,margin .3s ease,padding .3s ease,border-color .3s ease,visibility 0s .3s}
 .nav-brand .full{height:23px}
-.nav-brand .mono{height:16.5px}
+.nav-brand .mono{height:19px}
+.nav-brand .mono .dc-d{fill:currentColor}
+.nav-brand .mono .dc-c{fill:var(--accent)}
 nav.index.stuck .nav-brand{max-width:230px;opacity:1;visibility:visible;margin-right:18px;padding-right:18px;border-right-color:var(--rule);transform:none;transition-delay:0s}
 @media (hover:hover){.nav-brand:hover{color:var(--accent)}}
 /* Yapışık menüde tam logo; telefonda “DC” monogramı. Sığmayan bölümlere sağdaki okla ulaşılır */
