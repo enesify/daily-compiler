@@ -410,80 +410,36 @@ CHEV_L = '<svg viewBox="0 0 6 10" aria-hidden="true"><path d="M5 1 1 5l4 4"/></s
 CHEV_R = '<svg viewBox="0 0 6 10" aria-hidden="true"><path d="m1 1 4 4-4 4"/></svg>'
 
 
-CAL_ICO = '<svg class="pick-ico" viewBox="0 0 14 14" aria-hidden="true"><rect x=".75" y="2.25" width="12.5" height="11" rx="1.5"/><path d="M.75 5.75h12.5M4 .75v3M10 .75v3"/></svg>'
-CHEV_D = '<svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="m1 1 4 4 4-4"/></svg>'
-
-
-def month_grid(ctx, cur, y, m):
-    """Bir ayın takvim ızgarası: pazartesiden başlar; sayısı olan günler link, olmayanlar soluk."""
-    first = dt.date(y, m, 1)
-    nxt = dt.date(y + (m == 12), m % 12 + 1, 1)
-    cells = [f'<span class="wd" aria-hidden="true">{w}</span>' for w in DAYS_SHORT]
-    cells += ['<span class="cd pad" aria-hidden="true"></span>'] * first.weekday()
-    d = first
-    while d < nxt:
-        iso = d.isoformat()
-        it = ctx.by_date.get(iso)
-        we = " we" if d.weekday() >= 5 else ""
-        if it:
-            lbl = f"{d.day} {MONTHS_LONG[m - 1]} · Sayı {num3(it.get('number'))}"
-            cur_attr = ' aria-current="page"' if iso == cur["date"] else ""
-            cells.append(f'<a class="cd has{we}" href="{esc(ctx.href(issue_path(iso)))}" aria-label="{esc(lbl)}"{cur_attr}>{d.day}</a>')
-        else:
-            cells.append(f'<span class="cd none{we}" aria-hidden="true">{d.day}</span>')
-        d += dt.timedelta(days=1)
-    return cells
 
 
 def dial(ctx, cur):
+    """Sayılar arası gezinme: yalnızca önceki / sonraki sayı. Takvim yok; tarihe göre arama Arşiv sayfasında."""
     issues = ctx.issues
     idx = next(i for i, x in enumerate(issues) if x["date"] == cur["date"])
     older = issues[idx + 1] if idx + 1 < len(issues) else None
     newer = issues[idx - 1] if idx > 0 else None
 
-    def step(it, sym, lbl_has, lbl_none, rel):
-        # Okun yanında gideceği günün kısa tarihi: okur nereye geçeceğini önceden görür
+    def step(it, rel):
+        word, sym = ("Önceki", CHEV_L) if rel == "prev" else ("Sonraki", CHEV_R)
+        txt = f'<span class="st">{esc(caps(word))}<span class="st-w"> {esc(caps("sayı"))}</span></span>'
+        inner = sym + txt if rel == "prev" else txt + sym
         if it:
-            sd = f'<span class="sd">{esc(caps(short_date(it["date"])))}</span>'
-            inner = sym + sd if rel == "prev" else sd + sym
             return (f'<a class="dial-step" rel="{rel}" href="{esc(ctx.href(issue_path(it["date"])))}" '
-                    f'aria-label="{esc(lbl_has + ": " + long_date(it["date"]))}">{inner}</a>')
-        return f'<span class="dial-step" aria-label="{esc(lbl_none)}">{sym}</span>'
+                    f'aria-label="{esc(word + " sayı: " + long_date(it["date"]))}">{inner}</a>')
+        none = "Daha eski sayı yok" if rel == "prev" else "Bu en son sayı"
+        return f'<span class="dial-step off" aria-disabled="true" title="{esc(none)}">{inner}</span>'
 
     left = f'Sayı {num3(cur.get("number"))} · '
     left += '<span class="latest">Son sayı</span>' if idx == 0 else f'{idx} sayı önce'
     right = (f'<span class="opt">≈ {reading_minutes(cur)} dk okuma ·</span>'
              f'<a href="{esc(ctx.href("arsiv.html"))}">Arşiv</a>')
     date, day = date_parts(cur)
-
-    # Takvim: sayısı olan her ay bir ızgara; yalnızca seçili sayının ayı görünür, başlıktaki oklar aylar arasında geçer
-    months = sorted({(d_of(x["date"]).year, d_of(x["date"]).month) for x in issues})
-    c = d_of(cur["date"])
-    grids = []
-    for i, (y, m) in enumerate(months):
-        hid = "" if (y, m) == (c.year, c.month) else " hidden"
-        prv = f'<button type="button" class="cm-step" data-go="{i - 1}" aria-label="Önceki ay">{CHEV_L}</button>' if i > 0 else f'<span class="cm-step">{CHEV_L}</span>'
-        nxt = f'<button type="button" class="cm-step" data-go="{i + 1}" aria-label="Sonraki ay">{CHEV_R}</button>' if i < len(months) - 1 else f'<span class="cm-step">{CHEV_R}</span>'
-        n = sum(1 for x in issues if x["date"].startswith(f"{y}-{m:02d}"))
-        grids.append(f'<div class="cm" data-i="{i}"{hid}><div class="cm-head">{prv}'
-                     f'<span class="cm-title">{esc(caps(MONTHS_LONG[m - 1]))} {y} <span class="cm-n">· {n} {esc(caps("sayı"))}</span></span>{nxt}</div>'
-                     f'<div class="cm-grid">{"".join(month_grid(ctx, cur, y, m))}</div></div>')
-
-    # Takvimin altı: son sayıya dönüş (eski bir sayı açıksa) ve bütün arşiv
-    back = (f'<a href="{esc(ctx.href("index.html"))}">{esc(caps("Son sayıya dön"))}</a>' if idx
-            else f'<span class="on">{esc(caps("Son sayı"))}</span>')
-    foot = f'<div class="pick-foot">{back}<a href="{esc(ctx.href("arsiv.html"))}">{esc(caps("Tüm arşiv"))} ›</a></div>'
-    cal = (f'<details class="pick" id="pick"><summary aria-label="Takvimi aç: {esc(MONTHS_LONG[c.month - 1])} {c.year}">'
-           f'<span class="dial-date"><b>{esc(date)}</b> {esc(day)}</span>{CAL_ICO}'
-           f'<span class="pick-lbl">{esc(caps(MONTHS_LONG[c.month - 1]))}</span>{CHEV_D}</summary>'
-           f'<div class="pick-pop">{"".join(grids)}{foot}</div></details>')
-
-    return (f'<nav class="dial" id="archive" aria-label="Sayı arşivi"><div class="dial-head">'
-            f'{step(older, CHEV_L, "Önceki sayı", "Daha eski sayı yok", "prev")}'
-            f'<div class="dial-now">{cal}'
+    return (f'<nav class="dial" id="archive" aria-label="Sayılar arasında gezinme">'
             f'<span class="dial-meta dial-l">{caps_meta(left)}</span>'
-            f'<span class="dial-meta dial-r">{caps_meta(right)}<span class="sep">·</span>{THEME_BTN}</span></div>'
-            f'{step(newer, CHEV_R, "Sonraki sayı", "Daha yeni sayı yok", "next")}</div></nav>')
+            f'<div class="dial-head">{step(older, "prev")}'
+            f'<span class="dial-date"><b>{esc(date)}</b> {esc(day)}</span>'
+            f'{step(newer, "next")}</div>'
+            f'<span class="dial-meta dial-r">{caps_meta(right)}<span class="sep">·</span>{THEME_BTN}</span></nav>')
 
 
 def caps_meta(s):

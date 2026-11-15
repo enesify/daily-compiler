@@ -81,16 +81,6 @@
     Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
   }
 
-  // Takvim açılır parçası: dışarı tıklayınca ve Esc ile kapanır; başlıktaki oklar aylar arasında geçer
-  var cal = document.getElementById('pick');
-  if (cal) {
-    document.addEventListener('click', function (e) { if (cal.open && !cal.contains(e.target)) cal.open = false; });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && cal.open) { cal.open = false; cal.querySelector('summary').focus(); } });
-    cal.addEventListener('click', function (e) {
-      var b = e.target.closest('.cm-step[data-go]'); if (!b) return;
-      cal.querySelectorAll('.cm').forEach(function (m) { m.hidden = m.getAttribute('data-i') !== b.getAttribute('data-go'); });
-    });
-  }
   var dial = document.getElementById('archive');
   if (dial) {
     var prev = dial.querySelector('a.dial-step[rel="prev"]');
