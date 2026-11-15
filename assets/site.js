@@ -200,12 +200,27 @@
   flash();
 
   // Arşiv araması: sayıların haber başlıklarında, kısa haberlerde ve repo adlarında
-  var veri = document.getElementById('arc-veri'), box = document.querySelector('.arc-search');
-  if (veri && box) {
-    var data = JSON.parse(veri.textContent), q = document.getElementById('arc-q'), count = box.querySelector('.arc-count');
+  // Veri ay ay ayrı dosyalarda (arama/YYYY-MM.json); okur ilk kez yazınca bir kez yüklenir.
+  var box = document.querySelector('.arc-search');
+  if (box && document.querySelector('.arc-month[data-ay]')) {
+    var data = [], q = document.getElementById('arc-q'), count = box.querySelector('.arc-count'), loading = null;
     var fold = function (t) { return t.replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase().replace(/[’']/g, "'"); };
-    var rows = Array.prototype.slice.call(document.querySelectorAll('.arc-list li'));
-    data.forEach(function (it, i) { it.li = rows[i]; it.f = it.a.map(function (x) { return fold(x[1]); }); if (it.li) { it.head = it.li.querySelector(':scope > a'); it.html = it.head.innerHTML; } });
+    var load = function () {
+      if (loading) return loading;
+      var secs = Array.prototype.slice.call(document.querySelectorAll('.arc-month[data-ay]'));
+      loading = Promise.all(secs.map(function (sec) {
+        return fetch('arama/' + sec.dataset.ay + '.json').then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+          .then(function (list) {
+            var rows = sec.querySelectorAll('.arc-list > li');
+            list.forEach(function (it, i) {
+              it.li = rows[i]; it.f = it.a.map(function (x) { return fold(x[1]); });
+              if (it.li) { it.head = it.li.querySelector(':scope > a'); it.html = it.head.innerHTML; }
+            });
+            return list;
+          });
+      })).then(function (lists) { data = [].concat.apply([], lists); });
+      return loading;
+    };
     var esc = function (t) { return t.replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
     // Eşleşen kelimeleri <mark> ile sar: metin düğümlerinde aranır, iç biçim (code vb.) korunur
     var mark = function (el, words) {
@@ -260,6 +275,7 @@
       count.textContent = !words.length ? '' : nHit ? nIss + ' sayıda ' + nHit + ' sonuç' : 'Bu aramayla eşleşen haber yok.';
     };
     box.hidden = false;
-    q.addEventListener('input', run);
+    q.addEventListener('focus', load);
+    q.addEventListener('input', function () { load().then(run); });
   }
 })();

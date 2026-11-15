@@ -775,9 +775,17 @@ def render_archive(ctx):
             f'<li><span class="ad">{esc(DAYS_3[d_of(i["date"]).weekday()] + ", " + short_date(i["date"]))}</span>'
             f'<a href="{esc(ctx.href(issue_path(i["date"])))}">{rich((i.get("lead") or {}).get("headline") or long_date(i["date"]))}</a>'
             f'<span class="an">{esc(caps("Sayı " + num3(i.get("number"))))}</span></li>' for i in items)
-        blocks.append(f'<section class="arc-month"><h2>{MONTHS_LONG[m - 1]} {y}</h2><ul class="arc-list">{lis}</ul></section>')
-    # Arama verisi: her sayının haber başlıkları ve kısa haberleri (site.js filtreler)
-    idx = []
+        blocks.append(f'<section class="arc-month" data-ay="{y}-{m:02d}"><h2>{MONTHS_LONG[m - 1]} {y}</h2><ul class="arc-list">{lis}</ul></section>')
+    search = ('<div class="arc-search" hidden><label for="arc-q">Arşivde ara</label>'
+              '<input id="arc-q" type="search" autocomplete="off" spellcheck="false" placeholder="Başlık, şirket, proje">'
+              '<p class="arc-count" aria-live="polite"></p></div>')
+    return f'<main id="issue" class="arc">{search}{"".join(blocks)}</main>'
+
+
+def archive_search_data(ctx):
+    """Arşiv aramasının verisi ay ay ayrı dosyalarda (arama/YYYY-MM.json): sayfa hafif kalır, site.js veriyi
+    yalnızca okur arama kutusuna yazınca yükler. Her dosyadaki sıra, arşiv sayfasında o ayın listesindeki sırayla aynıdır."""
+    months = {}
     for it in ctx.issues:
         L = it.get("lead") or {}
         hs = [["manset", plain(L.get("headline"))]] if L.get("headline") else []
@@ -790,13 +798,8 @@ def render_archive(ctx):
                 hs.append(["", plain(b.get("text"))])
         for r in (it.get("repos") or {}).get("items") or []:
             hs.append(["sec-repolar", r.get("name") or ""])
-        idx.append({"h": ctx.href(issue_path(it["date"])), "a": hs})
-    data = json.dumps(idx, ensure_ascii=False).replace("</", "<\\/")
-    search = ('<div class="arc-search" hidden><label for="arc-q">Arşivde ara</label>'
-              '<input id="arc-q" type="search" autocomplete="off" spellcheck="false" placeholder="Başlık, şirket, proje">'
-              '<p class="arc-count" aria-live="polite"></p></div>')
-    return (f'<main id="issue" class="arc">{search}{"".join(blocks)}'
-            f'<script type="application/json" id="arc-veri">{data}</script></main>')
+        months.setdefault(it["date"][:7], []).append({"h": issue_path(it["date"]), "a": hs})
+    return {f"arama/{k}.json": json.dumps(v, ensure_ascii=False, separators=(",", ":")) for k, v in months.items()}
 
 
 def about_corrections(ctx):
@@ -901,6 +904,8 @@ def main():
     write("index.html", page(ctx, f"{SITE_NAME} · {TAGLINE_B}", plain(L.get("deck")) or head or TAGLINE,
                              render_issue(ctx, latest), base + issue_path(latest["date"]) if base else None,
                              og_title=f"{SITE_NAME} · {head}" if head else SITE_NAME, og_url=base or None, base=base, cur=latest))
+    for rel, content in archive_search_data(ctx).items():
+        write(rel, content)
     write("arsiv.html", page(ctx, f"Arşiv · {SITE_NAME}", "Tüm sayılar", render_archive(ctx),
                              base + "arsiv.html" if base else None, base=base))
     write("hakkinda.html", page(ctx, f"Hakkında · {SITE_NAME}", "The Daily Compiler nasıl hazırlanıyor, etiketler ne anlama geliyor",

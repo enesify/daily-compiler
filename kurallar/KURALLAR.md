@@ -27,6 +27,7 @@ Bu tanım seçimi ve önceliği yönlendiren bir mercektir; gazete herkese açı
 - **Paralel:** birbirinden bağımsız aramaları ve sayfa okumalarını aynı anda gönder.
 - **Okuma:** asıl kaynakları WebFetch ile oku. İki denemede 403, bot koruması ya da erişim hatası veren kaynağı bırak, aynı bilgiyi veren başka bir birincil kaynak ara. Bot korumasını aşmaya çalışma (headless tarayıcı, arşiv servisleri vb.).
 - **Tekrar:** son 3 sayıda geçen haberi tekrar etme. Gerçek bir yeni gelişme varsa onu yaz ve önceki habere iç atıf ver.
+- **Arşiv:** özet yalnızca son 3 sayıyı gösterir. Bir konunun daha önce işlenip işlenmediğini `python3 tools/ara.py "<şirket ya da konu>"` ile bütün arşivde ara; çıktıdaki adres iç atıfta aynen kullanılır. Daha eski sayıda işlenmiş bir konu da yeni bir gelişme olmadan tekrar yazılmaz.
 - **Açık uçlar:** özet çıktısı son sayılarda sonucu henüz belli olmayan konuları ve ileri tarihleri listeler. Tarihi pencereye düşenler için toplam en fazla 3 arama ayır. Birincil kaynakta bir sonuç varsa “Takip” etiketiyle Kısa Kısa'ya ya da ilgili bölüme yaz ve iç atıf ver; sonuç yoksa yazma. Takip haberi tekrar sayılmaz.
 - **Takvim için** ayrı arama yapma: okuduğun kaynaklarda geçen ileri tarihleri ve özet çıktısındaki tarihleri değerlendir (6. bölüm).
 
