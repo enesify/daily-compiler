@@ -289,10 +289,16 @@ def sources(ctx, lst):
         return ""
     # Etiketin içindeki “·” linkleri ayıran “·” ile karışmasın: “A · B” → “A: B”
     lab = lambda t: str(t or "").replace(" · ", ": ", 1).replace(" · ", ", ")
-    items = [ref_link(ctx, lab(s.get("label")), s.get("url")) if str(s.get("url", "")).startswith("#")
-             else ext_link(lab(s.get("label")), s.get("url")) for s in lst]
+    refs = [ref_link(ctx, lab(s.get("label")), s.get("url")) for s in lst if str(s.get("url", "")).startswith("#")]
+    exts = [ext_link(lab(s.get("label")), s.get("url")) for s in lst if not str(s.get("url", "")).startswith("#")]
     pre = "Kaynaklar: " if len(lst) > 1 else "Kaynak: "
-    return f'<p class="src">{pre}{" · ".join(items)}</p>'
+    # Üçten fazla dış kaynak varsa ilk üçü görünür, gerisi “+N kaynak” altında katlanır; önceki sayılara atıflar hep görünür
+    SHOW = 3
+    if len(exts) > SHOW + 1:
+        vis, rest = exts[:SHOW] + refs, exts[SHOW:]
+        return (f'<div class="src">{pre}{" · ".join(vis)}<details class="src-more"><summary>+{len(rest)} kaynak</summary>'
+                f'<span class="src-rest"> · {" · ".join(rest)}</span></details></div>')
+    return f'<p class="src">{pre}{" · ".join(exts + refs)}</p>'
 
 
 def chart(c):
@@ -511,7 +517,9 @@ def masthead(ctx, cur=None):
         btn = ""
     else:
         # Sayı dışı sayfalarda bugünün tarihi tarayıcıda yazılır (site.js); sayfa her gün yeniden üretilmez
-        left, btn = '<div class="mast-date" data-today></div>', THEME_BTN
+        left = '<div class="mast-date" data-today></div>'
+        btn = (f'<span class="mast-act"><a class="today" href="{esc(ctx.href("index.html"))}">Bugünkü sayı</a>'
+               f'<span class="sep" aria-hidden="true">·</span>{THEME_BTN}</span>')
     return (f'<header class="mast">{left}<h1><a href="{esc(ctx.href("index.html"))}">{logo("full")}</a></h1>'
             f'<div class="tag"><span class="tag-t"><b>{esc(TAGLINE_B)}</b>{esc(TAGLINE)}</span>{btn}</div></header>')
 
@@ -606,24 +614,23 @@ def render_issue(ctx, cur):
     cal = calendar_items(cur)
     figs = [] if cal else (cur.get("figures") or [])   # eski sayılar: Günün rakamları
     if cal:
-        cells = []
+        rows = []
         for it, d in cal:
             delta = (d - d_of(cur["date"])).days
             when = "Bugün" if delta == 0 else "Yarın" if delta == 1 else DAYS[d.weekday()]
-            inner = (f'<span class="n">{d.day} {esc(MONTHS_LONG[d.month - 1])}</span><span class="w">{esc(when)}</span>'
+            inner = (f'<span class="cd"><b>{d.day} {esc(MONTHS_LONG[d.month - 1])}</b><span class="w">{esc(when)}</span></span>'
                      f'<span class="l">{rich(it.get("text"))}</span>')
             ref = str(it.get("ref") or "").lstrip("#")
             ref = ref[2:] if ref.startswith("a-") else ref
             if ref in targets:
-                cells.append(f'<a class="fig" href="#a-{esc(ref)}">{inner}</a>')
+                rows.append(f'<li><a class="int" href="#a-{esc(ref)}">{inner}</a></li>')
             elif str(it.get("url") or "").startswith("https://"):
-                cells.append(f'<a class="fig ext" href="{esc(it["url"])}" target="_blank" rel="noopener">{inner}</a>')
+                rows.append(f'<li><a class="ext" href="{esc(it["url"])}" target="_blank" rel="noopener">{inner}</a></li>')
             else:
-                cells.append(f'<div class="fig">{inner}</div>')
-        # Takvim iki kez basılır: geniş ekranda manşetin üstünde (cal-top), telefonda “Bu sayıda”nın altında (cal-in); biri CSS ile gizlenir
-        cal_html = lambda where: (f'<section class="figs-wrap cal {where}" aria-label="Takvim" style="--n:{len(cells)}"><span class="kicker">'
-                                  + esc(caps("Takvim")) + '</span><div class="figs">' + "".join(cells) + "</div></section>")
-        out.append(cal_html("cal-top"))
+                rows.append(f'<li><div>{inner}</div></li>')
+        # Takvim tek kopya: yan kolonda “Bu sayıda”nın altında sade liste; tablette ve telefonda aynı sırada tam genişlik
+        cal_list = ('<section class="cal-list" aria-label="Takvim"><span class="kicker">' + esc(caps("Takvim"))
+                    + '</span><ol>' + "".join(rows) + "</ol></section>")
     if figs:
         cells = []
         for f in figs:
@@ -638,7 +645,7 @@ def render_issue(ctx, cur):
                    + esc(caps("Günün rakamları")) + '</span><div class="figs">' + "".join(cells) + "</div></section>")
 
     L = cur.get("lead")
-    cal_in = cal_html("cal-in") if cal else ""
+    cal_in = cal_list if cal else ""
     if L:
         box = ""
         if L.get("box"):
@@ -656,7 +663,9 @@ def render_issue(ctx, cur):
             + (f'<p class="deck">{rich(L.get("deck"))}</p>' if L.get("deck") else "")
             + '<div class="cols">' + "".join(f"<p>{rich(p)}</p>" for p in L.get("paragraphs") or []) + "</div>"
             + '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
-            + lc("lc-main") + sources(ctx, L.get("sources")) + f'</div><div class="lead-side">{toc(secs)}{cal_in}{box}{lc("lc-side")}</div></section>')
+            + lc("lc-main") + sources(ctx, L.get("sources")) + '</div>'
+            # Pratik çıkarım manşetin altında, ana sütunda: yan kolon “Bu sayıda” + Takvim ile kısa kalır, iki sütun dengeli biter
+            + box + f'<div class="lead-side">{toc(secs)}{cal_in}{lc("lc-side")}</div></section>')
 
     out.append(pattern(cur))
 
