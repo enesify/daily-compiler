@@ -260,10 +260,10 @@ def render_models(ctx):
                        "models": D["models"]}, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     return f"""<main id="issue" class="mdl-page">
 <h2>Benchmark</h2>
-<div class="nav-sentinel" aria-hidden="true"></div><nav class="index" aria-label="Ölçüt"><a class="nav-brand" href="{esc(ctx.href("index.html"))}" tabindex="-1" aria-hidden="true">{logo("full", "full")}{logo("mono", "mono")}</a><div class="nav-links" id="mdl-tabs" role="toolbar" aria-label="Ölçüt"></div></nav>
+<div class="nav-sentinel" aria-hidden="true"></div><nav class="index" aria-label="Ölçüt"><a class="nav-brand" href="{esc(ctx.href("index.html"))}" tabindex="-1" aria-hidden="true">{logo("full", "full")}{logo("mono", "mono")}</a><div class="nav-links" id="mdl-tabs" role="tablist" aria-label="Ölçüt"></div></nav>
 <p class="mdl-cap" id="mdl-cap">{models_caption(D, k)}</p>
 <div class="mdl-list static" id="mdl-static">{models_rows(D, k)}</div>
-<div class="mdl-list" id="mdl-list" hidden></div>
+<div class="mdl-list" id="mdl-list" role="tabpanel" aria-label="Sıralama" hidden></div>
 <script type="application/json" id="mdl-veri">{data}</script>
 </main>"""
 
@@ -567,6 +567,7 @@ def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, bas
 <link rel="stylesheet" href="{esc(asset(ctx, 'assets/style.css'))}">
 </head>
 <body>
+<a class="skip" href="#issue">İçeriğe geç</a>
 <div class="wrap" lang="tr">
 {masthead(ctx, cur)}
 {body}
@@ -618,8 +619,10 @@ def render_issue(ctx, cur):
                 cells.append(f'<a class="fig ext" href="{esc(it["url"])}" target="_blank" rel="noopener">{inner}</a>')
             else:
                 cells.append(f'<div class="fig">{inner}</div>')
-        out.append(f'<section class="figs-wrap cal" aria-label="Takvim" style="--n:{len(cells)}"><span class="kicker">'
-                   + esc(caps("Takvim")) + '</span><div class="figs">' + "".join(cells) + "</div></section>")
+        # Takvim iki kez basılır: geniş ekranda manşetin üstünde (cal-top), telefonda “Bu sayıda”nın altında (cal-in); biri CSS ile gizlenir
+        cal_html = lambda where: (f'<section class="figs-wrap cal {where}" aria-label="Takvim" style="--n:{len(cells)}"><span class="kicker">'
+                                  + esc(caps("Takvim")) + '</span><div class="figs">' + "".join(cells) + "</div></section>")
+        out.append(cal_html("cal-top"))
     if figs:
         cells = []
         for f in figs:
@@ -634,6 +637,7 @@ def render_issue(ctx, cur):
                    + esc(caps("Günün rakamları")) + '</span><div class="figs">' + "".join(cells) + "</div></section>")
 
     L = cur.get("lead")
+    cal_in = cal_html("cal-in") if cal else ""
     if L:
         box = ""
         if L.get("box"):
@@ -650,15 +654,16 @@ def render_issue(ctx, cur):
             f'<h2>{rich(L.get("headline"))}</h2>'
             + (f'<p class="deck">{rich(L.get("deck"))}</p>' if L.get("deck") else "")
             + '<div class="cols">' + "".join(f"<p>{rich(p)}</p>" for p in L.get("paragraphs") or []) + "</div>"
-            + lc("lc-main") + sources(ctx, L.get("sources")) + f'</div><div class="lead-side">{box}{lc("lc-side")}{toc(secs)}</div></section>')
+            + '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
+            + lc("lc-main") + sources(ctx, L.get("sources")) + f'</div><div class="lead-side">{toc(secs)}{cal_in}{box}{lc("lc-side")}</div></section>')
 
     out.append(pattern(cur))
 
     for s in secs:
         sid = s.get("id") or "bolum"
         arts = section_articles(ctx, s)
-        sub = f'<p>{rich(s.get("subtitle"))}</p>' if s.get("subtitle") else ""
-        out.append(f'<section class="sec" id="sec-{esc(sid)}"><div class="sec-h"><h2>{esc(typo(s.get("title")))}</h2>{sub}</div>'
+        # Bölüm spotu basılmaz: bölümün haber başlıklarını tekrar ediyordu
+        out.append(f'<section class="sec" id="sec-{esc(sid)}"><div class="sec-h"><h2>{esc(typo(s.get("title")))}</h2></div>'
                    f'{patch_list(s)}<div class="grid">{arts}</div></section>')
 
 
@@ -670,7 +675,7 @@ def render_issue(ctx, cur):
                     if re.match(r"^https?://", r.get("url") or "") else f'<span class="name">{esc(r.get("name"))}</span>')
             meta = r.get("meta") or " · ".join(x for x in [r.get("lang"), r.get("cat")] if x)
             cards.append(f'<div class="repo">{name}<span class="stars">{"★ " + esc(r["stars"]) if r.get("stars") else ""}</span>'
-                         f'<p class="why">{rich(r.get("why"))}</p>' + (f'<span class="meta">{caps_rich(meta)}</span>' if meta else "") + "</div>")
+                         f'<p class="desc">{rich(r.get("why"))}</p>' + (f'<span class="meta">{caps_rich(meta)}</span>' if meta else "") + "</div>")
         sub = R.get("subtitle") or "Trending listelerinden seçme · yıldız sayıları kaynak tarihindeki değerlerdir"
         out.append(f'<section class="sec" id="sec-repolar"><div class="sec-h"><h2>Öne Çıkan GitHub Repoları</h2><p>{rich(sub)}</p></div>'
                    f'<div class="repos">{"".join(cards)}</div>{sources(ctx, R.get("sources"))}</section>')
@@ -792,7 +797,7 @@ def render_archive(ctx):
     data = json.dumps(idx, ensure_ascii=False).replace("</", "<\\/")
     search = ('<div class="arc-search" hidden><label for="arc-q">Arşivde ara</label>'
               '<input id="arc-q" type="search" autocomplete="off" spellcheck="false" placeholder="Başlık, şirket, proje">'
-              '<p class="arc-none" hidden>Bu aramayla eşleşen haber yok.</p></div>')
+              '<p class="arc-count" aria-live="polite"></p></div>')
     return (f'<main id="issue" class="arc">{search}{"".join(blocks)}'
             f'<script type="application/json" id="arc-veri">{data}</script></main>')
 

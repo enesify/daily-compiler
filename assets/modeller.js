@@ -29,14 +29,17 @@
     var a = document.createElement("a"); a.href = s.url; a.target = "_blank"; a.rel = "noopener"; a.textContent = s.name;
     cap.appendChild(a); cap.appendChild(document.createTextNode(" · " + DATE));
   }
-  function tween(el, from, to, k, delay) {   // rakam yeni değerine akar
-    if (reduce || from == null) { el.textContent = f(k, to); return; }
-    var t0 = performance.now() + delay;
-    (function step(now) {
-      var t = Math.max(0, Math.min(1, (now - t0) / 550)), e = 1 - Math.pow(1 - t, 3);
-      el.textContent = f(k, from + (to - from) * e);
-      if (t < 1) requestAnimationFrame(step);
-    })(performance.now());
+  // Ölçüt değişince rakam akmaz (birimler farklı): kısa bir solmayla yenisi yazılır.
+  // Sıra numarası satır yeni yerine oturunca değişir. gen: hızlı sekme değişiminde eski zamanlayıcılar iptal olur.
+  var gen = 0, MOVE = 550;
+  function swap(el, text, delay, g) {
+    if (reduce || el.textContent === "") { el.textContent = text; return; }
+    if (el.textContent === text) return;
+    setTimeout(function () {
+      if (g !== gen) return;
+      el.style.opacity = "0";
+      setTimeout(function () { if (g !== gen) return; el.textContent = text; el.style.opacity = ""; }, 150);
+    }, delay);
   }
 
   var key = TABS[0], open = null;
@@ -60,19 +63,30 @@
   var tabs = $("mdl-tabs");
   TABS.forEach(function (k) {
     var b = document.createElement("button"); b.type = "button"; b.textContent = MET[k].sekme; b.setAttribute("data-k", k);
+    b.setAttribute("role", "tab"); b.setAttribute("aria-controls", "mdl-list"); b.id = "mdl-tab-" + k;
     b.addEventListener("click", function () { setKey(k, true); });
     tabs.appendChild(b);
   });
-  tabs.addEventListener("keydown", function (e) {   // sekmeler arasında ok tuşlarıyla gezinme
-    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-    var i = (TABS.indexOf(key) + (e.key === "ArrowRight" ? 1 : -1) + TABS.length) % TABS.length;
+  tabs.addEventListener("keydown", function (e) {   // sekmeler arasında ok tuşlarıyla gezinme: odaktaki sekmeden
+    var at = Array.prototype.indexOf.call(tabs.children, document.activeElement), n = TABS.length, i;
+    if (at < 0) return;
+    if (e.key === "ArrowRight") i = (at + 1) % n;
+    else if (e.key === "ArrowLeft") i = (at - 1 + n) % n;
+    else if (e.key === "Home") i = 0;
+    else if (e.key === "End") i = n - 1;
+    else return;
     setKey(TABS[i], true); tabs.children[i].focus(); e.preventDefault();
   });
   function setKey(k, fromUser, first) {
     if (TABS.indexOf(k) < 0) k = TABS[0];
     var changed = !first && k !== key; key = k;
-    Array.prototype.forEach.call(tabs.children, function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-k") === k); });
+    Array.prototype.forEach.call(tabs.children, function (b) {   // roving tabindex: yalnızca seçili sekme Tab sırasında
+      var on = b.getAttribute("data-k") === k;
+      b.setAttribute("aria-selected", on ? "true" : "false"); b.tabIndex = on ? 0 : -1;
+      if (on) list.setAttribute("aria-labelledby", b.id);
+    });
     if (fromUser && location.hash !== "#" + k) { try { history.replaceState(null, "", "#" + k); } catch (e) { location.hash = k; } }
+    else if (!fromUser && location.hash && location.hash !== "#" + k) { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {} }
     layout(changed);
   }
   function layout(changed) {
@@ -80,11 +94,14 @@
     caption(k);
     var have = rows.filter(function (o) { return o.m[k] != null; });
     have.sort(function (a, b) { return up ? b.m[k] - a.m[k] : a.m[k] - b.m[k]; });
-    var y = 0, pos = 0;
+    var y = 0, pos = 0, g = changed ? ++gen : gen;
     have.forEach(function (o, i) {
       if (!i || o.m[k] !== have[i - 1].m[k]) pos = i + 1;   // eşit değerler aynı sırayı alır
       var delay = changed && !reduce ? i * 22 : 0;            // satırlar yukarıdan aşağı dalga halinde
-      o.rk.textContent = pos;
+      var rk = String(pos);
+      if (changed && !reduce && o.rk.textContent !== rk) {   // sıra satır yerine oturunca değişir
+        (function (el, v, d) { setTimeout(function () { if (g === gen) el.textContent = v; }, d + MOVE); })(o.rk, rk, delay);
+      } else o.rk.textContent = rk;
       o.el.classList.remove("gone"); o.el.removeAttribute("aria-hidden"); o.el.tabIndex = 0;
       o.el.classList.toggle("open", open === o); o.el.setAttribute("aria-expanded", open === o);
       Array.prototype.forEach.call(o.el.querySelectorAll(".det div"), function (d) { d.classList.toggle("on", d.getAttribute("data-k") === k); });
@@ -92,7 +109,7 @@
       o.el.style.transform = "translateY(" + y + "px)";
       y += o.el.offsetHeight;
       o.bar.style.width = pct(k, o.m[k]);
-      if (changed || o.shown == null) tween(o.val, o.shown, o.m[k], k, delay);
+      if (changed || o.shown == null) swap(o.val, f(k, o.m[k]), delay, g);
       o.shown = o.m[k];
     });
     rows.forEach(function (o) {   // bu ölçütte ölçümü olmayan model listede yer almaz; açıksa ölçümü olan ölçüte dönünce yine açık gelir

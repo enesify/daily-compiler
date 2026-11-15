@@ -41,9 +41,18 @@
     var links = {}, active = null, scroller = nav.querySelector('.nav-links') || nav;
     // Menü sağa taşıyorsa ok göster; sona gelince gizle
     var more = nav.querySelector('.nav-more');
-    var edge = function () { nav.classList.toggle('has-more', scroller.scrollLeft + scroller.clientWidth < scroller.scrollWidth - 4); };
+    // Sağda devamı varsa ok ve solma, solda kaydırılmış kısım varsa soldan solma
+    var edge = function () {
+      // Okun yer açmak için eklediği sağ boşluk ölçüme katılmaz (yoksa ok kendini açık tutar)
+      var pr = nav.classList.contains('has-more') ? parseFloat(getComputedStyle(scroller).paddingRight) || 0 : 0;
+      nav.classList.toggle('has-more', scroller.scrollLeft + scroller.clientWidth < scroller.scrollWidth - pr - 4);
+      nav.classList.toggle('has-less', scroller.scrollLeft > 4);
+    };
     if (more && scroller !== nav) {
       scroller.addEventListener('scroll', edge, { passive: true }); addEventListener('resize', edge); edge();
+      // Yapışınca logo menüye girer ve menünün genişliği değişir: geçiş bitince de yeniden ölç
+      var brand = nav.querySelector('.nav-brand');
+      if (brand) brand.addEventListener('transitionend', function (e) { if (e.propertyName === 'max-width') edge(); });
       more.addEventListener('click', function () { scroller.scrollBy({ left: scroller.clientWidth * .6, behavior: 'smooth' }); });
     }
     // Menü üste yapıştığında küçük logoyu göster
@@ -52,6 +61,7 @@
       new IntersectionObserver(function (es) {
         var e = es[es.length - 1];
         nav.classList.toggle('stuck', !e.isIntersecting && e.boundingClientRect.top < 1);
+        if (typeof edge === 'function') edge();
       }).observe(sentinel);
     }
     Array.prototype.forEach.call(nav.querySelectorAll('a[href^="#"]'), function (a) { links[a.getAttribute('href').slice(1)] = a; });
@@ -138,6 +148,7 @@
       node = node.parentNode === body ? null : node.parentNode;
     }
   }
+  var reduceMotion = function () { return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; };
   function setOpen(art, open) {
     var b = art.querySelector('.more');
     art.classList.toggle('clamp', !open);
@@ -145,16 +156,22 @@
   }
   function clampAll() {
     if (!phone || !phone.matches) return;
-    Array.prototype.forEach.call(document.querySelectorAll('article'), function (art) {
-      var b = art.querySelector('.more'), body = art.querySelector('.body');
+    // Manşet ~6, büyük haber ~8, küçük haber ~3 satırdan sonraki cümle sonunda kesilir
+    Array.prototype.forEach.call(document.querySelectorAll('article, #a-manset'), function (art) {
+      var b = art.querySelector('.more'), body = art.querySelector('.body, .cols');
       if (!b || !body || b.dataset.ready) return;
       b.dataset.ready = '1';
-      var cut = cutAt(body, art.classList.contains('big') ? 8 : 3);
+      var cut = cutAt(body, art.id === 'a-manset' ? 6 : art.classList.contains('big') ? 8 : 3);
       if (!cut) return;
       markRest(body, cut);
       art.classList.add('clamp');
       b.hidden = false;
-      b.addEventListener('click', function () { setOpen(art, art.classList.contains('clamp')); });
+      b.addEventListener('click', function () {
+        var opening = art.classList.contains('clamp');
+        setOpen(art, opening);
+        // Kapatınca haberin başı ekranın üstünde kaldıysa okur haberin başına döner
+        if (!opening && art.getBoundingClientRect().top < 0) art.scrollIntoView({ block: 'start', behavior: reduceMotion() ? 'auto' : 'smooth' });
+      });
     });
   }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(clampAll); else clampAll();
@@ -174,13 +191,33 @@
   // Arşiv araması: sayıların haber başlıklarında, kısa haberlerde ve repo adlarında
   var veri = document.getElementById('arc-veri'), box = document.querySelector('.arc-search');
   if (veri && box) {
-    var data = JSON.parse(veri.textContent), q = document.getElementById('arc-q'), none = box.querySelector('.arc-none');
+    var data = JSON.parse(veri.textContent), q = document.getElementById('arc-q'), count = box.querySelector('.arc-count');
     var fold = function (t) { return t.replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase().replace(/[’']/g, "'"); };
     var rows = Array.prototype.slice.call(document.querySelectorAll('.arc-list li'));
-    data.forEach(function (it, i) { it.li = rows[i]; it.f = it.a.map(function (x) { return fold(x[1]); }); });
+    data.forEach(function (it, i) { it.li = rows[i]; it.f = it.a.map(function (x) { return fold(x[1]); }); if (it.li) { it.head = it.li.querySelector(':scope > a'); it.html = it.head.innerHTML; } });
     var esc = function (t) { return t.replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+    // Eşleşen kelimeleri <mark> ile sar: metin düğümlerinde aranır, iç biçim (code vb.) korunur
+    var mark = function (el, words) {
+      var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [], n;
+      while ((n = w.nextNode())) nodes.push(n);
+      nodes.forEach(function (node) {
+        var f = fold(node.data), rs = [];
+        if (f.length !== node.data.length) return;
+        words.forEach(function (wd) { var i = f.indexOf(wd); while (i > -1) { rs.push([i, i + wd.length]); i = f.indexOf(wd, i + wd.length); } });
+        if (!rs.length) return;
+        rs.sort(function (a, b) { return a[0] - b[0]; });
+        var frag = document.createDocumentFragment(), at = 0;
+        rs.forEach(function (r) {
+          if (r[0] < at) { if (r[1] > at) r[0] = at; else return; }
+          frag.appendChild(document.createTextNode(node.data.slice(at, r[0])));
+          var m = document.createElement('mark'); m.textContent = node.data.slice(r[0], r[1]); frag.appendChild(m); at = r[1];
+        });
+        frag.appendChild(document.createTextNode(node.data.slice(at)));
+        node.parentNode.replaceChild(frag, node);
+      });
+    };
     var run = function () {
-      var words = fold(q.value.trim()).split(/\s+/).filter(Boolean), any = false;
+      var words = fold(q.value.trim()).split(/\s+/).filter(Boolean), nIss = 0, nHit = 0;
       data.forEach(function (it) {
         var old = it.li && it.li.querySelector('.arc-hits');
         if (old) old.remove();
@@ -190,7 +227,11 @@
         if (words.length) it.f.forEach(function (t, k) { if (words.every(function (w) { return t.indexOf(w) > -1; })) { if (it.a[k][0] === 'manset') lead = true; else hits.push(it.a[k]); } });
         var show = !words.length || lead || hits.length > 0;
         it.li.hidden = !show;
-        if (show) any = true;
+        // Manşet eşleşmiyorsa soluk: okur eşleşmenin alttaki satırlarda olduğunu görür
+        it.head.innerHTML = it.html;
+        it.li.classList.toggle('dim', words.length > 0 && !lead);
+        if (lead) mark(it.head, words);
+        if (words.length && show) { nIss++; nHit += hits.length + (lead ? 1 : 0); }
         if (hits.length) {
           var ul = document.createElement('ul');
           ul.className = 'arc-hits';
@@ -199,12 +240,13 @@
             return '<li><a href="' + it.h + (x[0] ? '#' + (x[0].indexOf('sec-') === 0 ? x[0] : 'a-' + x[0]) : '') + '">' + esc(t) + '</a></li>';
           }).join('') + (hits.length > 4 ? '<li class="more-hits">+' + (hits.length - 4) + '</li>' : '');
           it.li.appendChild(ul);
+          Array.prototype.forEach.call(ul.querySelectorAll('a'), function (a) { mark(a, words); });
         }
       });
       Array.prototype.forEach.call(document.querySelectorAll('.arc-month'), function (m) {
         m.hidden = !m.querySelector('.arc-list > li:not([hidden])');
       });
-      none.hidden = any;
+      count.textContent = !words.length ? '' : nHit ? nIss + ' sayıda ' + nHit + ' sonuç' : 'Bu aramayla eşleşen haber yok.';
     };
     box.hidden = false;
     q.addEventListener('input', run);
