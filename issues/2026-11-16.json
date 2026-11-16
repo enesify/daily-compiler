@@ -1,0 +1,414 @@
+{
+  "date": "2026-11-16",
+  "number": 14,
+  "dateLabel": "Pazartesi, 16 Kasım 2026",
+  "readingMinutes": 12,
+  "calendar": [
+    {
+      "date": "2026-11-17",
+      "text": "Nvidia üçüncü çeyrek sonuçlarını açıklıyor",
+      "ref": "is-1"
+    },
+    {
+      "date": "2026-11-19",
+      "text": "Anthropic halka arzı için planlanan tarih",
+      "ref": "is-2"
+    },
+    {
+      "date": "2026-11-19",
+      "text": "PostgreSQL 19 GA için planlanan tarih",
+      "url": "https://www.postgresql.org/about/news/postgresql-187-1712-1616-1520-1425-and-19-rc-2-released-3442/"
+    },
+    {
+      "date": "2026-12-08",
+      "text": "Dependabot, hareketsiz repolarda alarmları duraklatıyor",
+      "url": "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories"
+    },
+    {
+      "date": "2026-12-14",
+      "text": "GitHub Copilot'tan altı model kaldırılıyor",
+      "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december"
+    }
+  ],
+  "lead": {
+    "kicker": "Model sürümü · Fiyat",
+    "alert": false,
+    "headline": "Qwen4-Max genel erişimde: milyon token girdi 1,50, çıktı 4,50 dolar",
+    "deck": "Alibaba'nın amiral modeli önizlemeden çıktı ve kullandıkça öde API'sine açıldı; fiyat Qwen3.8-Max'in %25 altında. Model açık ağırlıklı değil, fine-tuning ve batch inference desteklenmiyor; başlıktaki fiyat Singapur listesi.",
+    "paragraphs": [
+      "Qwen4-Max artık yalnızca abonelikle değil, kullandıkça öde API'siyle de kullanılabiliyor. Yalnızca Token Plan aboneliğine açık önizleme 11 Kasım'da başlamıştı; model 16 Kasım'da genel erişime açıldı. Singapur'daki uluslararası listede milyon token fiyatı girdi için 1,50, çıktı için 4,50 dolar. Bu, Qwen3.8-Max'in 2 ve 6 dolarlık fiyatının %25 altında. Örtük önbellekten okunan token'ın milyonu 0,075 dolar.",
+      "QwenCloud belgelerine göre context window 1M token. Düşünme kapalıyken çıktı 131.072 token'a, açıkken düşünme ve yanıt toplamı 262.144 token'a kadar çıkıyor. Model metin, görsel ve video girdisi alıyor; OpenAI Chat Completions, Responses ve Anthropic Messages API'leriyle uyumlu. Erişim Singapur, Pekin, Frankfurt, Hong Kong, Tokyo ve ABD'nin Virginia bölgesinden veriliyor. Frankfurt, Hong Kong, Tokyo ve Virginia'daki Global fiyat Singapur'dan ayrı; kaynaklar bu fiyatı vermiyor. Singapur'daki kullandıkça öde hesaplarına 1 milyon ücretsiz token tanımlanıyor.",
+      "Alibaba'nın kendi ölçümüne göre model, şirket içi iş görevleri testi Work360'ta 52,69 puanla Qwen3.8-Max'in 47,74'ünü geçiyor. Aynı testte görev başına ortalama maliyet 4,43 dolardan 1,67 dolara iniyor. Şirketin paylaştığı karşılaştırmada terminal görevlerini ölçen Terminal-Bench 4.0'da ise tablo farklı: Qwen4-Max 48,5 puan alırken Kimi K3.1 67,2, Opus 5.5 59,6 puanda. Qwen karşılaştırmadaki modellerin ayarını belirtmiyor.",
+      "Qwen4-Max'in ağırlıkları yayımlanmıyor. Alibaba daha küçük Qwen4 modellerini açık ağırlıklı yayımlayacağını söylüyor ama boyut ve tarih vermiyor. Fine-tuning, model dağıtımı ve batch inference desteklenmiyor. Önizleme `qwen4-max-preview` adıyla ayrı bir model olarak duruyor; genel sürümün kimliği `qwen4-max`. Önizleme için 13 Kasım'da duyurulan bitiş tarihi 25 Kasım'dı; güncel belge bitiş tarihi vermiyor."
+    ],
+    "sources": [
+      {
+        "label": "Qwen blog: Qwen4-Max",
+        "url": "https://qwen.ai/blog?id=qwen4-max"
+      },
+      {
+        "label": "QwenCloud: Qwen4-Max model belgesi",
+        "url": "https://docs.qwencloud.com/developer-guides/getting-started/latest-model"
+      },
+      {
+        "label": "ShiftDelete.Net: fiyat ve benchmark ayrıntıları",
+        "url": "https://shiftdelete.net/en/qwen4-max-launch"
+      },
+      {
+        "label": "13 Kasım sayısı: Qwen4-Max önizlemede",
+        "url": "#2026-11-13-ai-2"
+      }
+    ],
+    "box": {
+      "kicker": "Pratik çıkarım",
+      "title": "Önizlemeden genel sürüme geçiş",
+      "items": [
+        "`qwen4-max-preview` çağıran entegrasyonlarda model kimliğini 25 Kasım'dan önce `qwen4-max` yapın ve düşünme açıkken çıktı bütçesini 262.144 token sınırına göre yeniden ayarlayın.",
+        "Uzun repo ve log bağlamı gönderen agent akışlarında sabit sistem talimatını ve bağlamı isteğin başına koyun; örtük önbellekten okuma milyon token başına 0,075 dolar.",
+        "Gece çalışan toplu sınıflandırma ve özetleme işlerini batch inference destekleyen bir modelde tutun; Qwen4-Max'te batch yok.",
+        "Maliyet hesabını Frankfurt ya da Virginia bölgesine göre yapıyorsanız 1,50 ve 4,50 dolarlık Singapur fiyatını değil, QwenCloud fiyat sayfasındaki Global fiyatı kullanın."
+      ],
+      "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
+    }
+  },
+  "sections": [
+    {
+      "id": "ai",
+      "title": "Yapay Zekâ & LLM",
+      "subtitle": "Perplexity'nin açık karar modeli, OpenAI'ın bilim blogu",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Açık model · Sınıflandırma",
+          "headline": "Perplexity'nin karar modeli Decider v1.3 Apache 2.0 ile açık",
+          "paragraphs": [
+            "Metin üretmek yerine sınıflandırma, yönlendirme ve puanlama kararı veren Perplexity Decider'ın 1.3 sürümü Apache 2.0 lisansıyla Hugging Face'te. Perplexity'nin 12 Kasım tarihli yazısına göre büyük model Qwen3.8-27B üzerine kurulu; Flash sürümü Qwen3.5-4B tabanına damıtıldı. Modeller OpenRouter ve Perplexity'nin Decisions API'si üzerinden de kullanılabiliyor. Model kartına göre BF16 ağırlıklar yaklaşık 49 GiB GPU belleği istiyor; eğitimde 30.720 token'a kadar girdi kullanıldı.",
+            "Model, seçenekler arasından seçim, evet-hayır olasılığı ve sıralı ölçekte puanlama gibi karar şemalarıyla çalışıyor. Bu sürümdeki yeni “locate” şeması, talimata uyan metin parçalarını karakter konumlarıyla döndürüyor; Perplexity bunu kişisel veri tespiti ve alıntı çıkarma için öneriyor. Şirketin saydığı kullanım alanları arasında çıktı denetimi, istekleri zorluğa göre yönlendirme ve araç çıktılarında prompt injection tespiti var.",
+            "Perplexity'nin kendi ölçümünde 63 sorgu sınıflandırma görevinde ortalama doğruluk %91,6; bu, şirketin üretimdeki sınıflandırıcılarından 6,54 puan yüksek. Model kartı kalibrasyonun tek bir sıcaklık değeriyle yapıldığını yazıyor ve her görev için kendi verinizle ayrı kalibrasyon öneriyor. Perplexity, hatanın pahalı olduğu ayrıntılı yargılar için 1.3'ü, yüksek hacimli yönlendirme, etiketleme ve filtreleme için Flash'ı öneriyor."
+          ],
+          "why": "Çıktı denetimi ve istek yönlendirme için kendi altyapısında çalışan açık lisanslı bir sınıflandırıcı arayan ekiplere yeni bir seçenek.",
+          "sources": [
+            {
+              "label": "Perplexity: Decider v1.3",
+              "url": "https://www.perplexity.ai/hub/blog/perplexity-decider"
+            },
+            {
+              "label": "Hugging Face: pplx-decider-v1.3",
+              "url": "https://huggingface.co/perplexity-ai/pplx-decider-v1.3"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Şirket beyanı · Bilim",
+          "headline": "OpenAI bilim blogu açtı; ilk yazı GPT-6 Astra'lı fizik",
+          "paragraphs": [
+            "GPT-6 Astra'nın bilimsel araştırmada kullanımını anlatan yazılar artık OpenAI'ın ayrı bir bilim blogunda toplanıyor; CASRAI'ye göre blog 15 Kasım'da açıldı. İlk konuk yazıda UC Santa Barbara'dan fizikçi Nathaniel Craig, Standart Model'in örgü (lattice) üzerinde tanımı için aday bir yapıyı ve ispatında Astra'nın katkısını anlatıyor. Makale 6 Ekim'de arXiv'e yüklendi; ekinde bir Lean formalizasyonu var. Craig yapının uzman tartışmasıyla doğrulanması gerektiğini yazıyor; matematikçi Peter Woit ilerlemeyi mütevazı buldu."
+          ],
+          "sources": [
+            {
+              "label": "OpenAI: bilim blogu duyurusu",
+              "url": "https://openai.com/index/our-new-blog-for-science/"
+            },
+            {
+              "label": "arXiv: A gauge-invariant measure for lattice chiral fermions",
+              "url": "https://arxiv.org/abs/2610.09093"
+            },
+            {
+              "label": "Peter Woit: Not Even Wrong",
+              "url": "https://www.math.columbia.edu/~woit/wordpress/?p=15915"
+            },
+            {
+              "label": "CASRAI",
+              "url": "https://casrai.org/news/openai-science-blog-launch-2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "is",
+      "title": "Şirketler & Altyapı",
+      "subtitle": "Nvidia'ya Hazine'den baskı, Anthropic halka arzında talep",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Takip · Nvidia",
+          "headline": "ABD Hazine Bakanı, Nvidia'nın dışarıdan CEO seçmesini istedi",
+          "paragraphs": [
+            "ABD Hazine Bakanı Scott Bessent, Jensen Huang'ın istifasının ardından Nvidia'da “köklü bir değişiklik” istedi ve yönetim kurulunun yeni CEO'yu şirket dışından seçmesini önerdi. Bessent, şirketin Çin'e şüpheli satışları gelirini artırmak için zorlayıp zorlamadığını sorguladı; bu bir banka olsaydı denetçinin şimdiden içeride olacağını söyledi. CNBC'ye göre Bessent, Çin satışları düşerken Singapur'da raporlanan gelirin arttığına dikkat çekti; Nvidia bu geliri Kasım 2025'ten beri ayrı raporlamıyor. Haberlerde Nvidia'nın bir yanıtı yok. Şirket 17 Kasım'da Huang'sız ilk çeyrek sonuçlarını açıklayacak."
+          ],
+          "sources": [
+            {
+              "label": "CNBC",
+              "url": "https://www.cnbc.com/2026/11/15/bessent-nvidia-ceo-lutnick-megaspeed.html"
+            },
+            {
+              "label": "Dünkü sayı: İki büyük yatırımcı Nvidia'dan Huang'ın dönüşünü tartmasını istedi",
+              "url": "#2026-11-15-is-1"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "İddia · Anthropic",
+          "headline": "Bloomberg: Anthropic halka arzına arzın birkaç katı talep",
+          "paragraphs": [
+            "Bloomberg'e göre Anthropic'in halka arzına gelen talep, satışa sunulan hisselerin birkaç katı. The Decoder'ın Bloomberg'e dayanarak aktardığına göre şirket halka arzla 64,4 milyar dolara kadar, ayrıca özel satışla 26 milyar dolar toplamayı planlıyor; bu, tarihin en büyük halka arzı olabilir. Halka arz 19 Kasım'a planlanıyor. Dario Amodei 13 Kasım'da JPMorgan'ın New York'taki yatırımcı etkinliğinde gelecek yıl için “büyük bir belirsizlik” olduğunu söyledi. Hesaplama kapasitesini de şirketin en derin iş ikilemi olarak tanımladı."
+          ],
+          "sources": [
+            {
+              "label": "Stock Analysis: Bloomberg aktarımı",
+              "url": "https://stockanalysis.com/news/anthropic-ipo-multiple-times-oversubscribed/"
+            },
+            {
+              "label": "The Decoder",
+              "url": "https://the-decoder.com/anthropic-ceo-amodei-admits-theres-a-huge-uncertainty-in-whats-going-to-happen-next-year-days-before-a-record-ipo/"
+            },
+            {
+              "label": "11 Kasım sayısı: Anthropic halka arzda hisse başına 70-78 dolar aralığı belirledi",
+              "url": "#2026-11-11-is-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gelistirme",
+      "title": "Geliştirme & Araçlar",
+      "subtitle": "Claude Code ve Codex CLI'da gözetimsiz çalışmayı etkileyen varsayılan değişiklikleri",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Sürüm · Claude Code",
+          "headline": "Claude Code 2.1.325: sandbox'taki Bash komutları yine izin soruyor",
+          "paragraphs": [
+            "Claude Code'da sandbox içinde çalışan Bash komutları, 13 Kasım'da çıkan 2.1.325 sürümüyle varsayılan olarak normal izin akışından geçiyor. Sorulmadan çalışmaya devam etmeleri için `sandbox.autoAllowBashIfSandboxed: true` ayarı gerekiyor; sandbox'ı yönetilen ayarlarla açan kurumlar bunu en üst öncelikli yönetilen kaynağa yazmalı. Zamanlanmış görevler ve `/loop`, `allowed-tools` ya da hook tanımlayan bir skill'i çalıştırmadan önce artık soruyor. Sürüm ayrıca bazı birleşik Bash komutlarının izin sorulmadan çalışabildiği bir açığı ve zstd sıkıştırmalı yanıtların çözümündeki bir güvenlik sorununu kapattı."
+          ],
+          "why": "Claude Code'u CI'da ya da zamanlanmış görevlerle çalıştıran ekipler ayarlarını güncellemezse işler izin isteminde takılabilir.",
+          "sources": [
+            {
+              "label": "Claude Code değişiklik günlüğü",
+              "url": "https://code.claude.com/docs/en/changelog"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Sürüm · Codex CLI",
+          "headline": "Codex CLI 0.169, güvenilmeyen dizinde proje ayarını yüklemiyor",
+          "paragraphs": [
+            "OpenAI'ın Codex CLI aracında `codex exec`, güvenilmeyen dizinlerde proje yapılandırmasını ve MCP sunucularını artık kapalı tutuyor. Bu, `--sandbox workspace-write` verildiğinde de geçerli. 13 Kasım'da çıkan 0.169.0 sürümünün notlarına göre güveni açıkça kaydetmek için `codex exec` ya da `codex review` komutuna `--trust` eklemek gerekiyor. Aynı sürüm Windows sandbox'ında tırnaklı `cmd.exe` yollarındaki ve üst dizini okunamayan PowerShell oturumlarındaki hataları düzeltti. Terminal arayüzüne ise yeniden başlatmadan sonra geri açılan birden çok yan sohbet sekmesi eklendi."
+          ],
+          "why": "`codex exec`'i CI'da proje ayarı ya da MCP sunucusuyla çalıştıran ekipler `--trust` eklemezse bu yapılandırma devreye girmiyor.",
+          "sources": [
+            {
+              "label": "GitHub: Codex rust-v0.169.0 sürüm notları",
+              "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0"
+            },
+            {
+              "label": "13 Kasım sayısı: Codex CLI 0.168",
+              "url": "#2026-11-13-gelistirme-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "subtitle": "Spring Boot'ta yapılandırma içe aktarma sırası · JVM çalışma zamanını MCP ile agent'lara açmak",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Okuma · Spring Boot",
+          "headline": "spring.config.import'un üç geçişi ve sessiz hataları",
+          "paragraphs": [
+            "Spring Boot 2.4'ten beri `spring.config.import` ile çalışan Config Data API, kaynakları üç geçişte yüklüyor: önce koşulsuz içe aktarmalar, sonra bulut platformuna, en son aktif profillere bağlı kaynaklar. Axelix projesine katkı veren Dmitry Mazurov'un 16 Kasım tarihli foojay yazısı bu sıranın sonuçlarını anlatıyor. `optional:` öneki, önekteki bir yazım hatasını da gizliyor; hata ile devre dışı kaynak aynı görünüyor. `configserver:` iki kez sorgulanıyor ve profil dosyası Vault değerlerini ezebiliyor. Yazar yükleme sırasını görmek için `org.springframework.boot.context.config` için TRACE log açmayı ve `/actuator/env` çıktısını kontrol etmeyi öneriyor."
+          ],
+          "sources": [
+            {
+              "label": "foojay: Spring Config Import Demystified",
+              "url": "https://foojay.io/today/spring-config-import-demystified/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Okuma · JVM ve MCP",
+          "headline": "BoxLang çalışma zamanını MCP ile agent'lara açmak",
+          "paragraphs": [
+            "JVM dili BoxLang için yazılan bx-mcp modülü, çalışan bir uygulamanın heap, GC, thread dump, veri kaynağı havuzu ve yavaş SQL bilgilerini 150'yi aşkın MCP aracıyla kodlama agent'larına açıyor. Ortus Solutions CEO'su Luis Majano'nun 16 Kasım tarihli foojay yazısı kurulumu ve güvenlik ayarlarını anlatıyor. Bazı araçlar uygulamayı yeniden başlatma ve önbellek temizleme gibi işlemler de yapıyor. Erişim varsayılan olarak localhost'la sınırlı; yazar bearer token, IP izin listesi ve yalnızca okuma araçlarına izin veren `readonly` profilini öneriyor. Modül ücretsiz ama kapalı lisanslı; BoxLang 1.18+ ve Java 21 istiyor."
+          ],
+          "sources": [
+            {
+              "label": "foojay: Giving AI Agents Live Observability into a JVM Runtime with MCP",
+              "url": "https://foojay.io/today/giving-ai-agents-live-observability-into-a-jvm-runtime-with-mcp/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik",
+      "subtitle": "Linux TCP yığınında uzaktan çökme, Datasette'te gizli sorgu sızıntısı, eski bit.ly linklerinin ele geçirilmesi",
+      "articles": [
+        {
+          "size": 4,
+          "kicker": "Güvenlik · Linux çekirdeği",
+          "headline": "NoisyTCP: Linux TCP kodunda uzaktan bellek bozulması",
+          "paragraphs": [
+            "Linux çekirdeğinin TCP kodundaki bir yarış durumu (CVE-2026-99288, NoisyTCP), kimlik doğrulama öncesi uzaktan bellek bozulmasına yol açıyor: çekirdek çöküyor, konteynerde bütün host düşüyor; ikinci yolda use-after-free da mümkün. Varsayılan ayarlı Nginx, Apache ve SSH gibi TCP dinleyicileri hedef olabilir; kaynağa göre neredeyse bütün dağıtımlar etkileniyor. Düzeltme 4e2b3ef19e0e commit'inde; önce dağıtımın çekirdek yamasını uygulayın. Geçici çözüm tek RX kuyruğu ve RPS ile RFS'yi kapatmak ya da SYN flood korumasını zayıflatan `tcp_syncookies=0`."
+          ],
+          "sources": [
+            {
+              "label": "oss-security: NoisyTCP",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/15/2"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Güvenlik · Datasette",
+          "headline": "Datasette 1.0a43, gizli kayıtlı sorgu sızıntısını kapattı",
+          "paragraphs": [
+            "Datasette'in 1.0a31-1.0a42 alfa sürümlerinde sorgu listesindeki `owner_id` filtresinde bir yetki açığı vardı. Bu filtreyle oturum açmamış biri bile başka bir kullanıcının gizli kayıtlı sorgularının adını, açıklamasını ve SQL'ini okuyabiliyordu; saldırganın hedefin actor ID'sini bilmesi gerekiyor, sorgu çalıştırmak mümkün değil (GHSA-mw6v-83vp-7c4c, CVSS 5,3). Düzeltme 1.0a43'te; 0.65.x etkilenmiyor. Yükseltemeyenler `owner_id` parametreli `/-/queries` isteklerini proxy'de reddedebilir. Kararlı 0.65.6 ise farklı route'la kayıtlı veritabanının izinsiz indirilmesini önlüyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub: GHSA-mw6v-83vp-7c4c",
+              "url": "https://github.com/simonw/datasette/security/advisories/GHSA-mw6v-83vp-7c4c"
+            },
+            {
+              "label": "Simon Willison: datasette 0.65.6",
+              "url": "https://simonwillison.net/2026/Nov/15/datasette-2/"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Bağlantı kaçırma · Bitly",
+          "headline": "Eski bit.ly linkleri yeniden kaydedilip yönlendirildi",
+          "paragraphs": [
+            "Silinmiş bit.ly linklerinin sonekleri yeniden kaydedilerek Burger King ve McDonald's'ın 2011 tarihli tweet'lerindeki linkler alakasız sayfalara yönlendirildi; hesaplar ele geçirilmedi. Ransomnews'in Donald Trump'ın 2009-2013 tweet'lerinden incelediği 97 linkin 7'si alakasız içeriğe gidiyordu; ikisi kripto servislerini taklit eden alan adlarıydı. Bitly 15 Kasım'da sorunu doğruladı, ilgili hesapları askıya aldığını ve linkleri devre dışı bıraktığını söyledi; sayı vermedi. Linkin sonuna `+` eklemek hedefi ve oluşturma tarihini gösteriyor; belgelerdeki eski linkleri bu tarihle karşılaştırın."
+          ],
+          "sources": [
+            {
+              "label": "Ransomnews",
+              "url": "https://ransomnews.com/burger-king-tweet-bitly-link-hijack-2026/"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "repos": {
+    "subtitle": "GitHub Trending günlük ve Java listelerinden · yıldızlar 16 Kasım",
+    "items": [
+      {
+        "name": "google-labs-code/stitch-skills",
+        "url": "https://github.com/google-labs-code/stitch-skills",
+        "stars": "9.406",
+        "starsValue": 9406,
+        "lang": "TypeScript",
+        "cat": "Agent skill'leri",
+        "why": "Google Stitch MCP sunucusu için tasarım üretme, tasarım sistemi yönetme ve React bileşeni çıkarma gibi işleri yapan skill ve eklenti kütüphanesi; Claude Code, Codex, Gemini CLI ve Cursor'a kuruluyor. GitHub'ın günlük trending listesinde 16 Kasım'da 247 yıldızla üçüncü sırada.",
+        "meta": "TypeScript · Agent skill'leri"
+      },
+      {
+        "name": "ggml-org/ggml",
+        "url": "https://github.com/ggml-org/ggml",
+        "stars": "15.964",
+        "starsValue": 15964,
+        "lang": "C++",
+        "cat": "Makine öğrenmesi",
+        "why": "llama.cpp'nin üzerine kurulduğu, bağımlılıksız C/C++ tensör kütüphanesi. Proje 13 Kasım'da llama.cpp ile birlikte semantic versioning'e geçti; public C API'yi bozan değişiklikler artık major sürümle geliyor.",
+        "meta": "C++ · Makine öğrenmesi"
+      },
+      {
+        "name": "elementalsouls/Claude-BugHunter",
+        "url": "https://github.com/elementalsouls/Claude-BugHunter",
+        "stars": "6.619",
+        "starsValue": 6619,
+        "lang": "Python",
+        "cat": "Güvenlik testi",
+        "why": "Yalnızca yetkili hedefler için bug bounty ve dış red team çalışmalarına yönelik Claude Code skill paketi; iç ağ saldırıları, C2 ve EDR atlatma kapsam dışı. Günlük trending listesine 16 Kasım'da 98 yıldızla girdi.",
+        "meta": "Python · Güvenlik testi"
+      },
+      {
+        "name": "tradermonty/claude-trading-skills",
+        "url": "https://github.com/tradermonty/claude-trading-skills",
+        "stars": "5.691",
+        "starsValue": 5691,
+        "lang": "Python",
+        "cat": "Agent skill'leri",
+        "why": "Hisse yatırımcıları için piyasa rejimi, temettü, pozisyon boyutlama ve backtest gibi alanlarda Claude Code skill'leri; README emir vermediğini ve sinyal üretmediğini belirtiyor. Repo 16 Kasım'da bir günde 706 yıldız aldı.",
+        "meta": "Python · Agent skill'leri"
+      },
+      {
+        "name": "NVIDIA/SkillEvaluator",
+        "url": "https://github.com/NVIDIA/SkillEvaluator",
+        "stars": "1.851",
+        "starsValue": 1851,
+        "lang": "Python",
+        "cat": "Agent değerlendirme",
+        "why": "Agent skill'lerini üç katmanda değerlendiren deneysel çatı: yapı ve güvenlik denetimi, tekrar tespiti, sandbox'ta skill'li ve skill'siz canlı koşu. Günlük trending listesine 16 Kasım'da 122 yıldızla girdi.",
+        "meta": "Python · Agent değerlendirme"
+      },
+      {
+        "name": "StarRocks/starrocks",
+        "url": "https://github.com/StarRocks/starrocks",
+        "stars": "12.255",
+        "starsValue": 12255,
+        "lang": "Java",
+        "cat": "Analitik veritabanı",
+        "why": "Veri gölü üzerinde ve dışında saniye altı analitik sorgular için sorgu motoru. Java trending listesinde yer alan projenin 26 Ekim'de çıkan son sürümü 4.1.7, kimlik bilgilerini config görünümlerinde ve HTTP loglarında maskeliyor.",
+        "meta": "Java · Analitik veritabanı"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending · günlük",
+        "url": "https://github.com/trending?since=daily"
+      },
+      {
+        "label": "GitHub Trending · Java",
+        "url": "https://github.com/trending/java?since=daily"
+      }
+    ]
+  },
+  "briefs": [
+    {
+      "tag": "Kesinti",
+      "text": "GitHub Copilot'ta GPT-6.1 Terra, GPT-5.6 Sol ve GPT-6 Luna modelleri 13 Kasım'da 19.05-21.27 UTC arasında yüksek hata oranı verdi. GitHub nedenin bir üst model sağlayıcısındaki sorun olduğunu söyledi ve olay süresince başka modele ya da “Auto” seçeneğine geçmeyi önerdi.",
+      "url": "https://www.githubstatus.com/incidents/51drrqvsv66g"
+    },
+    {
+      "tag": "Kesinti",
+      "text": "GitHub'da 13 Kasım'da 15.47-18.29 UTC arasında pull request birleştirme denemelerinin bir kısmı zaman aşımına uğradı; etkilenen istekler önce %3, sonra %1'in altındaydı. GitHub kök neden analizini daha sonra paylaşacağını söyledi.",
+      "url": "https://www.githubstatus.com/incidents/1xzmt89vv61l"
+    },
+    {
+      "tag": "Geliştirme",
+      "text": "LLVM/Clang üzerine C++23 ile sıfırdan yazılan C/C++ language server'ı clice, 15 Kasım'da ilk kararlı sürüm 1.0'a ulaştı. Derlemeyi süreç havuzunda yaptığı için bir worker çökünce sunucu çalışmaya devam ediyor; C++20 modüllerini isteğe bağlı derleyip diskte önbelleğe alıyor.",
+      "url": "https://ykiko.me/en/articles/2105384023094834022/"
+    },
+    {
+      "tag": "Açık model",
+      "text": "Zyphra'nın konuşma sentezi modeli ZONOS3-Mini Apache 2.0 lisansıyla Hugging Face'te: toplam 800M, token başına yaklaşık 100M aktif parametre ve 43 dil. Model kartına göre tek H100'de 8 eşzamanlı istekte ilk sese medyan süre 80 ms.",
+      "url": "https://huggingface.co/Zyphra/ZONOS3-Mini"
+    },
+    {
+      "tag": "Hukuk · Bellek",
+      "text": "Samsung, SK Hynix ve Micron'un DRAM arzını kısmak için anlaştığı iddiasıyla açılan toplu dava, 14 Kasım'da Kuzey Kaliforniya federal mahkemesinde düşürülme talebini aştı. Karar sorumluluk tespiti değil; şirketlerin 7 Aralık'a kadar yanıt vermesi gerekiyor.",
+      "url": "https://www.courtlistener.com/docket/73532135/garciaguirre-v-samsung-electronics-co-ltd/"
+    },
+    {
+      "tag": "Araştırma · Apple",
+      "text": "Apple, insanların sağlık sorularında AI'ı nasıl kullandığını ölçen bir çalışma uygulamasını ABD'de yayımladı; yanıtları OpenEvidence üretiyor. 21 yaş üstü ve iPhone 15 ya da sonrası kullanıcılara açık çalışma 12 aydan uzun sürecek ve 200 bine kadar katılımcı alacak; Apple verilerin AI modeli eğitiminde kullanılmayacağını söylüyor.",
+      "url": "https://techcrunch.com/2026/11/15/apple-launches-new-app-to-study-how-people-use-ai-for-health/"
+    }
+  ]
+}

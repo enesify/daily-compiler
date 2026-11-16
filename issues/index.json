@@ -1,5 +1,10 @@
 [
  {
+  "date": "2026-11-16",
+  "number": 14,
+  "headline": "Qwen4-Max genel erişimde: milyon token girdi 1,50, çıktı 4,50 dolar"
+ },
+ {
   "date": "2026-11-15",
   "number": 13,
   "headline": "llama.cpp ve ggml 1.0'da: C API'yi bozan değişiklik artık major sürüm"
