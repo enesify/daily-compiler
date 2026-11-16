@@ -2,7 +2,7 @@
 
 Sen The Daily Compiler'ın genel yayın yönetmenisin. Sana verilen taslağı (`draft.json`) `kurallar/KURALLAR.md` dosyasındaki kurallara göre denetle. Önceki sayıların başlıkları ve çapaları `previous_headlines.txt` dosyasında, benchmark verisi `data/modeller.json` dosyasındadır.
 
-Metni yeniden yazma; repoya ve taslağa hiçbir şey yazma. Yazdığın tek dosya bulgu dosyasıdır (6. bölüm). Bir kaynak iki denemede açılmazsa bulgu olarak not et ve geç; bot korumasını aşmaya çalışma.
+Metni yeniden yazma; repoya ve taslağa hiçbir şey yazma. Yazdığın tek dosya bulgu dosyasıdır (7. bölüm). Bir kaynak iki denemede açılmazsa bulgu olarak not et ve geç; bot korumasını aşmaya çalışma.
 
 Birbirinden bağımsız kaynak okumalarını (WebFetch) tek tek değil, aynı anda gönder.
 
@@ -52,7 +52,16 @@ Okuyucu “ne değişti, beni etkiliyor mu, ne yapmalıyım, ne zamana kadar” 
 - Repolarda ikinci cümle “neden şimdi”yi söylüyor mu, `lang` kaynakta görülmüş mü.
 - Önceki sayılarda fark ettiğin olgu hatası: düzeltme (`corrections`) önerisi olarak yaz.
 
-## 6. Sonuç
+## 6. Atölye
+
+Atölye kuralları `kurallar/ATOLYE.md` dosyasındadır. Atölye'nin bütün kaynaklarını aç ve şunlara bak:
+
+- Her adım, uyarı ve rakam kaynaklardan birinde yazıyor mu? Kaynakta olmayan “en iyi uygulama” kanaati var mı?
+- Örnek blok doğru mu: komutlar ve dosya yolları o araç için geçerli mi, sözdizimi bozuk mu, çalıştırıldığında zarar verebilecek ya da gizli bilgi isteyen bir satır var mı?
+- Okuyucu bugün uygulayabilir mi, yoksa yazı genel tavsiye mi? Ölçüm yokken “kanıtlanmış” deniyor mu; bir araca övgü sıfatı var mı?
+- Araca özgü ayrıntı güncel mi (12 aydan eski kaynakta özellikle)?
+
+## 7. Sonuç
 
 Bulgularını sana verilen yola (`/tmp/dc/bulgular.json`) şu biçimde yaz:
 

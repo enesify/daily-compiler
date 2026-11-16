@@ -68,6 +68,8 @@ Pencere içinde haber yoksa bunu gizleme ve dolgu koyma: son 7 günde yayımlanm
 - Aynı kuruluştan en fazla 1 repo. Son 7 günde yer almış repo (aynı kuruluşun benzer adlı reposu dahil) tekrar girmez; liste özet çıktısında. Trending listelerinde bir JVM reposu (Java, Kotlin, Scala, Groovy) varsa en az biri girer. Telif açısından şüpheli projeleri (ticari oyun emülatörleri, recomp) seçme.
 - `stars` mümkünse repo sayfasındaki güncel değer, kaynaktaki hassasiyette: tam sayı “1.932”, yuvarlanmış “13,4 bin”; `starsValue` aynı değerin sayısı (13400). `lang` yalnızca kaynakta açıkça görüldüyse; `meta` = “Dil · Kategori” (dil yoksa yalnızca kategori).
 
+**Atölye.** Her sayıda bir uygulama yazısı: yapay zekâyı ve agent'ları yazılım geliştirmede, araştırma ve analizde verimli kullanmanın somut bir yolu. Konu seçimi, kaynak, yapı ve konu bankası `kurallar/ATOLYE.md` dosyasındadır; bu dosyadaki kaynak ve dil kuralları Atölye için de geçerlidir.
+
 **Kısa Kısa.** Tek-iki cümlelik haberler. Tek ve ikincil kaynağa dayanan bir gelişme ancak burada, “İddia” ile başlayarak yer alabilir. Yaygın kullanılan bir hizmetin (bulut, Microsoft 365, GitHub, büyük model API'leri) pencere içindeki saatler süren kesintisi atlanmaz, en azından burada yer alır; link status sayfasındaki olay kaydına verilir. Tüketici ürünü ve magazin haberlerini, sayıyı doldurmak için haber koyma.
 
 **Yer dağılımı.** 8 kolonluk büyük haberler okuyucunun işine en çok dokunan haberlere gider; genel piyasa ve finans haberleri ve küçük sürüm notları 4 kolonla yetinir. Bir şirket (ürünleriyle birlikte) manşet dışında en fazla 2 haber ve 1 kısa haberle yer alır; aynı günün duyurularını tek haberde birleştir. Başka bir haberde adının geçmesi ve repo listesi bu sınıra girmez.
@@ -102,7 +104,7 @@ Türkçe yaz; yerleşik karşılığı olmayan teknik terimler İngilizce kalır
 
 | Öğe | Ölçü |
 |---|---|
-| Toplam | yaklaşık 12-15 dakikalık okuma |
+| Toplam | yaklaşık 12-15 dakikalık okuma (Atölye dahil) |
 | Manşet | 4 paragraf; başlık en fazla 80 karakter; Pratik çıkarım 3-4 madde |
 | Yapay Zekâ & LLM | 6-8 haber; ilk satır 8+4, sonra 6+6 ya da 4+4+4 |
 | Diğer haber bölümleri | 2-3 haber |
@@ -118,6 +120,7 @@ Türkçe yaz; yerleşik karşılığı olmayan teknik terimler İngilizce kalır
 | Takvim | 2-5 öğe; 0-30 gün ileride; `text` en fazla 60 karakter |
 | Bugün yamala | 1-3 madde, her biri en fazla 110 karakter |
 | pattern | başlık en fazla 60 karakter, metin 30-60 kelime, en az 3 ref |
+| Atölye | 250-550 kelime (örnek blok hariç); 3-6 adım; örnek en fazla 25 satır; 1-4 kaynak |
 | Repolar | 6-8 |
 | Kısa Kısa | 6-10 |
 | Kaynak | haber başına 1-4 link |
@@ -132,6 +135,7 @@ Alan adları ve biçim `kurallar/ornek.json` dosyasındadır; oradaki metinler v
 - `lead`: `{kicker, alert, headline, deck, paragraphs[], chart?, sources[{label, url}], box{kicker, title, items[], note}}`. Kaynak `label`'ında “·” kullanma (“Hugging Face blog: llama.cpp v1.0.0”); sayfa kaynakları “·” ile ayırır.
 - `sections[]`: `{id, title, subtitle?, patch?, articles[]}`; haber: `{size: 4|6|8, big?, kicker, alert?, pill?, headline, stat?, paragraphs[], why?, chart?, sources[]}`. Bölüm `subtitle`'ı sayfada basılmaz, yazmak zorunlu değildir. `patch` yalnızca Güvenlik'te: `[{text, url}]`.
 - `repos`: `{subtitle, items[{name, url, stars, starsValue, lang?, cat, why, meta}], sources[]}`.
+- `atolye`: `{konu, kicker, title, intro, when, steps[], example{label, lang, code}, pitfall, sources[]}`; `konu` konu bankasındaki kimlik ya da `"haber"`.
 - `briefs[]`: `{tag, text, url}`.
 - İsteğe bağlı: `calendar[{date, text, ref?, url?}]`, `corrections[{date, ref, text}]`, `pattern{title, text, refs[]}`. `figures` artık yazılmaz.
 - `stat`: `{"n": "%65-80", "l": "rakamın neyi ölçtüğü"}`. `chart`: `{"title": "Ölçü ve birim", "note"?: "...", "items": [{"label", "value": sayı >= 0, "display": "%48,5", "highlight"?: true}]}`.

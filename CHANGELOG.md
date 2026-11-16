@@ -6,6 +6,15 @@ Etiketler yalnızca sitenin kodu, tasarımı ve sabah görevinin kuralları değ
 - **Ara sürüm (v1.1):** yeni özellik ya da tasarım değişikliği
 - **Düzeltme (v1.0.1):** hata düzeltmeleri
 
+## v1.1 · 17 Kasım 2026
+
+### Yeni bölüm: Atölye
+- Her sayıda bir uygulama yazısı: yapay zekâyı ve agent'ları yazılım geliştirmede (SDLC, mimari, agentic geliştirme, CI/CD), araştırma ve analizde kullanmanın somut bir yolu; 2-3 dakikalık okuma
+- Masaüstünde solda giriş, “Ne zaman” ve numaralı adımlar (ilk cümle kalın), sağda kopyalanabilir örnek blok, sık yapılan hata ve kaynaklar; telefonda tek sütun, “Devamı” ile açılır
+- Kopyalama düğmesi tema düğmesiyle aynı çizgi ikon; kopyalanınca onay işaretine döner
+- Kurallar `kurallar/ATOLYE.md`: konu seçimi (önce günün haberi, yoksa konu bankası), her önerinin kaynağa dayanması, ölçüm dürüstlüğü, esnek araç tarafsızlığı, 6 kategoride 89 konuluk banka
+- Denetim: `tools/kontrol.py` alanları, uzunluğu, 45 gün içinde konu tekrarını, örnekte zararlı komut ya da gizli bilgiyi denetler; `tools/ozet.py` son 45 günün konularını ve aday konuları verir; editör Atölye'nin kaynaklarını ve örneğini ayrıca doğrular
+
 ## v1.0 · 16 Kasım 2026
 
 Gazetenin ilk tutarlı sürümü. 3 Kasım'daki ilk sayıdan bu yana yapılan işler; değerlendirme puanları: okuyucu 7,3/10 (Sayı 12-13), tasarım 7,5/10.

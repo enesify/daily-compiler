@@ -295,6 +295,8 @@ def main():
 
     # Atölye (kurallar/ATOLYE.md)
     A = d.get("atolye")
+    if A is None and str(d.get("date") or "") >= "2026-11-17":
+        E("atolye eksik (17 Kasım 2026'dan itibaren her sayıda; kurallar/ATOLYE.md)")
     if A is not None:
         bank = atolye_bank()
         w = "atolye"

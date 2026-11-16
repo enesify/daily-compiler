@@ -85,6 +85,21 @@
     ],
     "sources": [{"label": "GitHub Trending · günlük", "url": "https://github.com/trending"}]
   },
+  "atolye": {
+    "konu": "agent-talimat-dosyasi",
+    "kicker": "Agentic geliştirme",
+    "title": "Yapılacak işi söyleyen başlık, en fazla 80 karakter",
+    "intro": "Sorun ve okuyucunun kazancı, 1-2 cümle.",
+    "when": "Yöntemin işe yaradığı ve yaramadığı durum, 1-2 cümle.",
+    "steps": [
+      "Kısa buyrukla başlayın. Ardından kaynağa atfedilen açıklama (“GitHub'ın belgeleri ... öneriyor”).",
+      "Agent'ın tahmin edemeyeceğini yazın: iki noktayla biten buyruk da olur; sayfa ilk cümleyi kalın basar.",
+      "3-6 adım; her adım tek bir uygulanabilir eylem ve en az bir kaynağa dayanır."
+    ],
+    "example": {"label": "Örnek AGENTS.md: çok modüllü Spring Boot projesi", "lang": "markdown", "code": "# AGENTS.md\n\n## Komutlar\n- Derleme: `./mvnw -q -DskipTests package`"},
+    "pitfall": "Kaynakta geçen bir hata ya da sınır, 1-2 cümle.",
+    "sources": [{"label": "agents.md: AGENTS.md biçimi", "url": "https://agents.md/"}]
+  },
   "briefs": [
     {"tag": "Güvenlik", "text": "Tek-iki cümlelik kısa haber.", "url": "https://example.com/kisa"},
     {"tag": "Takip", "text": "Önceki bir haberin sonucu.", "url": "#2026-01-14-gelistirme-1"}

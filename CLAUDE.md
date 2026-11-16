@@ -12,6 +12,7 @@
 - `calendar[]` (Takvim) öğelerindeki `ref` alanı (`"manset"` ya da `"<bölüm id>-<sıra>"`, ör. `"java-1"`) tarihi o habere link yapar; `url` varsa dış kaynağa gider. Güvenlik bölümündeki `patch[]` “Bugün yamala” listesini, kökteki `corrections[]` sayının sonundaki düzeltmeleri basar (Hakkında sayfasında da listelenir). Eski sayılardaki `figures[]` rakam şeridi olarak basılmaya devam eder; yeni sayıda yazılmaz.
 - Büyük haberlerde (`big: true`) isteğe bağlı `stat: {n, l}` alanı başlığın altına iri bir rakam basar; grafik varsa basılmaz.
 - Haberlerde isteğe bağlı `why` alanı (tek cümle) “Neden önemli” etiketiyle metinden ayrı basılır. Sayının kökünde isteğe bağlı `pattern: {title, text, refs[]}` alanı manşetin altına “Günün örüntüsü” notu basar; `refs` haber çapalarıdır (`"java-2"` gibi).
+- Sayının kökündeki `atolye` alanı (kurallar `kurallar/ATOLYE.md`, konu bankası dahil) Güvenlik'ten sonra, repolardan önce “Atölye” bölümünü basar; menüde de yer alır. 17 Kasım 2026'dan itibaren her sayıda zorunludur.
 - Bölümler JSON'daki `sections` dizisinden gelir; menü bu diziden kendiliğinden oluşur.
 - `build.py` metne tipografik düzeltme uygular (kesme işareti ’, sayı aralıklarında kısa çizgi –); JSON'da düz `'` ve `-` yazılır.
 - Sayfalar `assets/style.css` ve `assets/site.js` dosyalarını içerik özetiyle (`?v=...`) çağırır; bu dosyalar değişmedikçe özet de değişmez.
