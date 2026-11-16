@@ -421,6 +421,27 @@ span.dial-step{opacity:.3}
 .about b{font-family:var(--f-label);font-weight:600;font-size:.82em;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
 .dial-r .sep:has(+ .theme[hidden]){display:none}
 
+/* Atölye: uygulama bölümü. Solda metin ve numaralı adımlar, sağda örnek blok, sık yapılan hata ve kaynaklar */
+.atolye{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:0 40px;align-items:start}
+.atolye h3{font-size:26px;line-height:1.18;margin:4px 0 12px}
+.atolye .body{font-size:17px;line-height:1.55}
+.at-intro{margin-bottom:12px}
+.at-when{max-width:68ch;margin-bottom:14px;color:var(--ink-soft)}
+.at-when b,.at-pit b{display:block;font-family:var(--f-label);font-size:12px;font-weight:600;letter-spacing:.07em;color:var(--accent);margin-bottom:3px}
+.at-steps{margin:0;padding:0;list-style:none;counter-reset:at;display:grid;gap:12px;max-width:68ch}
+.at-steps li{counter-increment:at;display:grid;grid-template-columns:28px minmax(0,1fr);align-items:baseline}
+.at-steps li::before{content:counter(at);font-family:var(--f-label);font-size:15px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
+.at-side{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;min-width:0}
+.at-ex{margin:0;position:relative;border-top:2px solid var(--ink)}
+.at-ex figcaption{font-family:var(--f-label);font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);padding:8px 84px 6px 0}
+.at-ex pre{margin:0;padding:12px 14px;background:var(--paper-2);border-radius:4px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;tab-size:2}
+.at-ex pre code{font-size:inherit;overflow-wrap:normal;white-space:pre}
+.at-copy{position:absolute;top:4px;right:0;font-family:var(--f-label);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);background:none;border:0;padding:4px 0;cursor:pointer}
+@media (hover:hover){.at-copy:hover{color:var(--accent)}}
+.at-pit{font-size:15.5px;line-height:1.5}
+.atolye .src{margin-top:0}
+@media (max-width:900px){.atolye{grid-template-columns:minmax(0,1fr)}.at-side{margin-top:18px}.atolye h3{font-size:24px}}
+
 /* Bugün yamala (Güvenlik başı) ve düzeltmeler */
 .patch{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 24px;align-items:baseline;padding:10px 0 12px;margin:0 0 4px;border-bottom:1px solid var(--rule)}
 .patch ul{list-style:none;margin:0;padding:0}

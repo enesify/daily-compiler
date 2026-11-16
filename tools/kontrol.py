@@ -16,6 +16,23 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def atolye_bank():
+    """kurallar/ATOLYE.md konu bankası: {kimlik: (kategori, başlık)}."""
+    bank, cat = {}, None
+    try:
+        lines = open(os.path.join(ROOT, "kurallar", "ATOLYE.md"), encoding="utf-8").read().split("\n")
+    except OSError:
+        return bank
+    for ln in lines:
+        m = re.match(r"^### (\w+) · ", ln)
+        if m:
+            cat = m.group(1)
+        m = re.match(r"^- `([a-z0-9-]+)`: (.+)$", ln)
+        if m and cat:
+            bank[m.group(1)] = (cat, m.group(2))
+    return bank
 MONTHS = "Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık"
 errors, warns = [], []
 E = errors.append
@@ -275,6 +292,47 @@ def main():
         E(f"{stats} stat var (bir sayıda en fazla 3)")
     if charts > 3:
         E(f"{charts} grafik var (bir sayıda en fazla 3)")
+
+    # Atölye (kurallar/ATOLYE.md)
+    A = d.get("atolye")
+    if A is not None:
+        bank = atolye_bank()
+        w = "atolye"
+        for k in ("konu", "title", "intro", "steps", "sources"):
+            if not A.get(k):
+                E(f"{w}: {k} eksik")
+        konu = A.get("konu")
+        if konu and konu != "haber" and konu not in bank:
+            E(f"{w}: konu {konu!r} konu bankasında yok (kurallar/ATOLYE.md; haberden çıkan konu için \"haber\")")
+        if len(A.get("title") or "") > 80:
+            E(f"{w}: başlık {len(A['title'])} karakter (en fazla 80)")
+        st = A.get("steps") or []
+        if st and not 3 <= len(st) <= 6:
+            E(f"{w}: {len(st)} adım (3-6 olmalı)")
+        n = sum(words(x) for x in [A.get("intro"), A.get("when"), A.get("pitfall")] + list(st))
+        if not 250 <= n <= 550:
+            (E if n > 550 else W)(f"{w}: {n} kelime (250-550; örnek blok sayılmaz)")
+        ex = A.get("example")
+        if ex:
+            code = (ex or {}).get("code") or ""
+            if code.count("\n") + 1 > 25:
+                E(f"{w}: örnek {code.count(chr(10)) + 1} satır (en fazla 25)")
+            if re.search(r"(rm -rf /|--force\b|push -f\b|DROP (TABLE|DATABASE)|(api[_-]?key|password|secret)\s*[:=]\s*['\"]?\w{6,})", code, re.I):
+                E(f"{w}: örnekte zararlı komut ya da gizli bilgiye benzeyen ifade var")
+        else:
+            W(f"{w}: örnek blok yok (beklenir)")
+        srcs = A.get("sources") or []
+        if not 1 <= len(srcs) <= 4:
+            E(f"{w}: {len(srcs)} kaynak (1-4)")
+        # Son 45 günde aynı konu
+        try:
+            t0 = datetime.date.fromisoformat(d.get("date"))
+        except (TypeError, ValueError):
+            t0 = None
+        if t0 and konu and konu != "haber":
+            for pd, o in prev.items():
+                if (o.get("atolye") or {}).get("konu") == konu and 0 < (t0 - datetime.date.fromisoformat(pd)).days <= 45:
+                    E(f"{w}: {konu!r} {pd} sayısında işlendi (45 gün içinde tekrar olmaz)")
 
     # Takvim
     if d.get("figures"):

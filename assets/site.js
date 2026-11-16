@@ -205,6 +205,19 @@
   window.addEventListener('hashchange', flash);
   flash();
 
+  // Atölye örnek bloğu: panoya kopyalama (pano erişimi yoksa düğme görünmez)
+  Array.prototype.forEach.call(document.querySelectorAll('.at-copy'), function (b) {
+    if (!navigator.clipboard) return;
+    b.hidden = false;
+    b.addEventListener('click', function () {
+      var code = b.parentNode.querySelector('code');
+      navigator.clipboard.writeText(code.textContent).then(function () {
+        b.textContent = 'Kopyalandı';
+        setTimeout(function () { b.textContent = 'Kopyala'; }, 1600);
+      });
+    });
+  });
+
   // Arşiv araması: sayıların haber başlıklarında, kısa haberlerde ve repo adlarında
   // Veri ay ay ayrı dosyalarda (arama/YYYY-MM.json); okur ilk kez yazınca bir kez yüklenir.
   var box = document.querySelector('.arc-search');

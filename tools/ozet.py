@@ -17,6 +17,23 @@ import sys
 from zoneinfo import ZoneInfo
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def atolye_bank():
+    """kurallar/ATOLYE.md konu bankası: {kimlik: (kategori, başlık)}."""
+    bank, cat = {}, None
+    try:
+        lines = open(os.path.join(ROOT, "kurallar", "ATOLYE.md"), encoding="utf-8").read().split("\n")
+    except OSError:
+        return bank
+    for ln in lines:
+        m = re.match(r"^### (\w+) · ", ln)
+        if m:
+            cat = m.group(1)
+        m = re.match(r"^- `([a-z0-9-]+)`: (.+)$", ln)
+        if m and cat:
+            bank[m.group(1)] = (cat, m.group(2))
+    return bank
 DAYS = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"]
 MONTHS = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
 # Sonucu henüz belli olmayan konulara işaret eden ifadeler
@@ -86,6 +103,30 @@ def main():
     if issues:
         L = issues[-1].get("lead") or {}
         p(f"ÖNCEKİ MANŞET (aynı şirket art arda manşet olmaz): {L.get('kicker')} | {L.get('headline')}")
+    # Atölye: son 45 günde işlenen konular, son 7 sayının kategori dağılımı, sıradaki adaylar
+    bank = atolye_bank()
+    if bank:
+        used = {}
+        for d in issues:
+            k = (d.get("atolye") or {}).get("konu")
+            if k and 0 < (now.date() - datetime.date.fromisoformat(d["date"])).days <= 45:
+                used.setdefault(k, d["date"])
+        cats = {}
+        for d in issues[-7:]:
+            k = (d.get("atolye") or {}).get("konu")
+            if k in bank:
+                cats[bank[k][0]] = cats.get(bank[k][0], 0) + 1
+        allc = sorted({c for c, _ in bank.values()}, key=lambda c: (cats.get(c, 0), c))
+        p("ATÖLYE (kurallar/ATOLYE.md):")
+        p("  son 45 günde işlenen (tekrar olmaz): " + (", ".join(f"{k} ({v})" for k, v in sorted(used.items(), key=lambda x: x[1])) or "yok"))
+        p("  son 7 sayıda kategori: " + ", ".join(f"{c} {cats.get(c, 0)}" for c in allc))
+        free = [k for k in bank if k not in used]
+        p(f"  bankada kalan: {len(free)} konu; en az işlenen kategoriden adaylar:")
+        shown = 0
+        for c in allc:
+            for k in free:
+                if bank[k][0] == c and shown < 6:
+                    p(f"    {k}: {bank[k][1]}"); shown += 1
     t0 = now.date()
     recent = []
     for d in issues:

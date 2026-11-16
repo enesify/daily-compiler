@@ -107,7 +107,7 @@ EN = set(("spring java maven linux firefox openai github gitlab copilot kimi gem
           "vertex lambda tpu tpus inference coding agentic big tech high speed highspeed claude-code ai-native ci cd devops "
           "sonar sonarqube jacoco surefire figma eclipse skill skills anthropic combinator microsoft local first cisco "
           "driven change insight insights pi vite vitest prisma sqlite ollama mini lite fine tuning edition engine engines it "
-          "artificial analysis intelligence index cursorbench benchmark benchmarks leaderboard hydrogen gpt fable").split())
+          "artificial analysis intelligence index cursorbench benchmark benchmarks leaderboard hydrogen gpt fable boot agents claude cursor codex windsurf junie aider").split())
 
 
 def tr_upper(s):
@@ -363,6 +363,31 @@ def article(ctx, a, aid):
             f'<div class="body">{body}</div>{more}{why}{chart(a.get("chart"))}{sources(ctx, a.get("sources"))}</article>')
 
 
+def atolye(ctx, A):
+    """Atölye: haber değil uygulama. {konu, kicker, title, intro, when, steps[], example{label, lang, code}, pitfall, sources[]}
+    Masaüstünde solda metin ve adımlar, sağda örnek blok ve sık yapılan hata; telefonda tek sütun, metin “Devamı” ile açılır."""
+    if not isinstance(A, dict) or not A.get("title"):
+        return ""
+    # Madde içeriği tek span içinde: li ızgarasında satır içi kod ayrı hücreye düşmesin
+    steps = "".join(f"<li><span>{rich(x)}</span></li>" for x in A.get("steps") or [])
+    when = f'<p class="at-when"><b>{esc(caps("Ne zaman"))}</b>{rich(A.get("when"))}</p>' if A.get("when") else ""
+    body = (f'<p class="at-intro">{rich(A.get("intro"))}</p>{when}'
+            + (f'<ol class="at-steps">{steps}</ol>' if steps else ""))
+    ex = A.get("example") if isinstance(A.get("example"), dict) else {}
+    code = ""
+    if ex.get("code"):
+        lab = f'<figcaption>{esc(typo(ex.get("label") or "Örnek"))}</figcaption>'
+        code = (f'<figure class="at-ex">{lab}<pre tabindex="0"><code>{esc(ex["code"].rstrip())}</code></pre>'
+                f'<button class="at-copy" type="button" hidden>Kopyala</button></figure>')
+    pit = f'<p class="at-pit"><b>{esc(caps("Sık yapılan hata"))}</b>{rich(A.get("pitfall"))}</p>' if A.get("pitfall") else ""
+    more = '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
+    k = kicker(A.get("kicker"), default="Atölye")
+    return (f'<section class="sec" id="sec-atolye"><div class="sec-h"><h2>Atölye</h2></div>'
+            f'<article class="atolye big" id="a-atolye"><div class="at-main">{k}<h3>{rich(A["title"])}</h3>'
+            f'<div class="body">{body}</div>{more}</div>'
+            f'<div class="at-side">{code}{pit}{sources(ctx, A.get("sources"))}</div></article></section>')
+
+
 def pattern(cur):
     """Günün örüntüsü: birkaç haberin ortak noktasını adlandıran isteğe bağlı editoryal not {title, text, refs[]}."""
     P = cur.get("pattern")
@@ -581,6 +606,8 @@ def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, bas
 def render_issue(ctx, cur):
     secs = cur.get("sections") or []
     nav_items = [("manset", "Manşet")] + [(s.get("id"), s.get("title")) for s in secs]
+    if (cur.get("atolye") or {}).get("title"):
+        nav_items.append(("atolye", "Atölye"))
     if cur.get("repos"):
         nav_items.append(("repolar", "GitHub Repoları"))
     if cur.get("briefs"):
@@ -666,6 +693,8 @@ def render_issue(ctx, cur):
         out.append(f'<section class="sec" id="sec-{esc(sid)}"><div class="sec-h"><h2>{esc(typo(s.get("title")))}</h2></div>'
                    f'{patch_list(s)}<div class="grid">{arts}</div></section>')
 
+
+    out.append(atolye(ctx, cur.get("atolye")))
 
     R = cur.get("repos")
     if R and R.get("items"):
