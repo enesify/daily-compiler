@@ -363,22 +363,37 @@ def article(ctx, a, aid):
             f'<div class="body">{body}</div>{more}{why}{chart(a.get("chart"))}{sources(ctx, a.get("sources"))}</article>')
 
 
+# Kopyala düğmesi: tema düğmesiyle aynı çizgi ikon dili; kopyalanınca onay işaretine döner
+COPY_ICO = ('<svg class="cp" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/>'
+            '<path d="M10.5 3.5v-.5A1.5 1.5 0 0 0 9 1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.5"/></svg>'
+            '<svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8.5 3.2 3L13 4.5"/></svg>')
+
+
+def at_step(x):
+    """Adımın ilk cümlesi kısa bir buyruksa (“Dosyayı seçin.”) kalın basılır; okur adımları göz atarak tarayabilsin."""
+    x = str(x or "")
+    m = re.match(r"([^.`:]{3,48}[.:])\s+(\S.*)$", x, re.S)
+    if not m:
+        return rich(x)
+    return f"<b class=\"at-lead\">{rich(m.group(1))}</b> {rich(m.group(2))}"
+
+
 def atolye(ctx, A):
     """Atölye: haber değil uygulama. {konu, kicker, title, intro, when, steps[], example{label, lang, code}, pitfall, sources[]}
     Masaüstünde solda metin ve adımlar, sağda örnek blok ve sık yapılan hata; telefonda tek sütun, metin “Devamı” ile açılır."""
     if not isinstance(A, dict) or not A.get("title"):
         return ""
     # Madde içeriği tek span içinde: li ızgarasında satır içi kod ayrı hücreye düşmesin
-    steps = "".join(f"<li><span>{rich(x)}</span></li>" for x in A.get("steps") or [])
+    steps = "".join(f"<li><span>{at_step(x)}</span></li>" for x in A.get("steps") or [])
     when = f'<p class="at-when"><b>{esc(caps("Ne zaman"))}</b>{rich(A.get("when"))}</p>' if A.get("when") else ""
     body = (f'<p class="at-intro">{rich(A.get("intro"))}</p>{when}'
             + (f'<ol class="at-steps">{steps}</ol>' if steps else ""))
     ex = A.get("example") if isinstance(A.get("example"), dict) else {}
     code = ""
     if ex.get("code"):
-        lab = f'<figcaption>{esc(typo(ex.get("label") or "Örnek"))}</figcaption>'
-        code = (f'<figure class="at-ex">{lab}<pre tabindex="0"><code>{esc(ex["code"].rstrip())}</code></pre>'
-                f'<button class="at-copy" type="button" hidden>Kopyala</button></figure>')
+        lab = (f'<figcaption><span>{esc(typo(ex.get("label") or "Örnek"))}</span>'
+               f'<button class="at-copy" type="button" aria-label="Örneği kopyala" title="Kopyala" hidden>{COPY_ICO}</button></figcaption>')
+        code = f'<figure class="at-ex">{lab}<pre><code>{esc(ex["code"].rstrip())}</code></pre></figure>'
     pit = f'<p class="at-pit"><b>{esc(caps("Sık yapılan hata"))}</b>{rich(A.get("pitfall"))}</p>' if A.get("pitfall") else ""
     more = '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
     k = kicker(A.get("kicker"), default="Atölye")

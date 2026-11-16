@@ -210,10 +210,10 @@
     if (!navigator.clipboard) return;
     b.hidden = false;
     b.addEventListener('click', function () {
-      var code = b.parentNode.querySelector('code');
+      var code = b.closest('figure').querySelector('code');
       navigator.clipboard.writeText(code.textContent).then(function () {
-        b.textContent = 'Kopyalandı';
-        setTimeout(function () { b.textContent = 'Kopyala'; }, 1600);
+        b.classList.add('done'); b.setAttribute('aria-label', 'Kopyalandı'); b.title = 'Kopyalandı';
+        setTimeout(function () { b.classList.remove('done'); b.setAttribute('aria-label', 'Örneği kopyala'); b.title = 'Kopyala'; }, 1600);
       });
     });
   });
