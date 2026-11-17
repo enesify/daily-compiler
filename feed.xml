@@ -5,8 +5,16 @@
 <link href="https://dailycompiler.com/"/>
 <link rel="self" type="application/atom+xml" href="https://dailycompiler.com/feed.xml"/>
 <id>https://dailycompiler.com/</id>
-<updated>2026-11-16T07:11:00+03:00</updated>
+<updated>2026-11-17T07:11:00+03:00</updated>
 <author><name>The Daily Compiler</name></author>
+<entry>
+<title>VS Code’un Local harness’ı Şubat 2027’de kalkıyor; prompt dosyaları taşınmalı</title>
+<link href="https://dailycompiler.com/sayi/2026-11-17.html"/>
+<id>https://dailycompiler.com/sayi/2026-11-17.html</id>
+<updated>2026-11-17T07:11:00+03:00</updated>
+<summary>Sayı 015 · Salı, 17 Kasım 2026 · Copilot’un VS Code’daki agent oturumları artık yalnızca Copilot harness’ında gelişecek. *.prompt.md dosyaları, hook’lar ve bazı MCP ayarları yeni katmana kendiliğinden geçmiyor; geçiş süresi üç ay.</summary>
+<content type="html">&lt;p&gt;Copilot’un VS Code’daki agent oturumları artık yalnızca Copilot harness’ında gelişecek. *.prompt.md dosyaları, hook’lar ve bazı MCP ayarları yeni katmana kendiliğinden geçmiyor; geçiş süresi üç ay.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-manset"&gt;VS Code’un Local harness’ı Şubat 2027’de kalkıyor; prompt dosyaları taşınmalı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-ai-1"&gt;Kaliforniya, kontrolden çıkan agent’lar yüzünden OpenAI’a dava açtı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-ai-2"&gt;Dört bağımsız ekip OpenAI’ın içinde model denetleyecek&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-ai-3"&gt;Meituan LongCat-2.5’in ağırlıklarını MIT lisansıyla açtı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-ai-4"&gt;On ülkeden AI tedarik zincirini koruma bildirgesi&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-is-1"&gt;ABD, Çin’e compute sağlayabilecek veri merkezlerini lisansa bağladı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-is-2"&gt;Corma üç ayda 1 milyar dolar değerlemeye ulaştı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-gelistirme-1"&gt;Copilot yöneticileri MCP ve skill kaynağını plugin’le sınırlayabiliyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-gelistirme-2"&gt;Claude Code 2.1.326 eksik izin kurallarını açılışta uyarıyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-java-1"&gt;Payara’nın Kasım sürümleri JMX’te uzaktan kod çalıştırmayı kapattı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-java-2"&gt;Laptopta yeniden üretilebilen beş heap OutOfMemoryError deseni&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-guvenlik-1"&gt;WSS4J’nin replay koruması eşzamanlı kopyalarla aşılıyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-guvenlik-2"&gt;Google: yamadan exploit’e insansız saldırı hattı görüldü&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-17.html#a-guvenlik-3"&gt;Apache Griffin’in REST API’si kimlik doğrulamasız; yama yok&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+</entry>
 <entry>
 <title>Qwen4-Max genel erişimde: milyon token girdi 1,50, çıktı 4,50 dolar</title>
 <link href="https://dailycompiler.com/sayi/2026-11-16.html"/>

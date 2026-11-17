@@ -1,5 +1,10 @@
 [
  {
+  "date": "2026-11-17",
+  "number": 15,
+  "headline": "VS Code'un Local harness'ı Şubat 2027'de kalkıyor; prompt dosyaları taşınmalı"
+ },
+ {
   "date": "2026-11-16",
   "number": 14,
   "headline": "Qwen4-Max genel erişimde: milyon token girdi 1,50, çıktı 4,50 dolar"
