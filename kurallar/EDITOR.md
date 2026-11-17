@@ -45,7 +45,7 @@ Okuyucu “ne değişti, beni etkiliyor mu, ne yapmalıyım, ne zamana kadar” 
 
 ## 5. Dil ve editoryal alanlar
 
-- Haber cümlesi gibi yazılmış yorum; düz çeviri, aynı olgunun iki kez söylenmesi, dolgu cümlesi, terim tutarsızlığı, açıklanmamış ya da yanlış açıklanmış jargon, alanın yanlış terimi; metinde belirli bir kişiye ya da şirkete hitap.
+- Haber cümlesi gibi yazılmış yorum; düz çeviri, aynı olgunun iki kez söylenmesi, dolgu cümlesi, terim tutarsızlığı, `kurallar/TERIMLER.md` sözlüğüne aykırı terim (yazılımcının İngilizce kullandığı bir terimin Türkçeleştirilmesi ya da yerleşik Türkçesi olanın İngilizce bırakılması), açıklanmamış ya da yanlış açıklanmış jargon, alanın yanlış terimi; metinde belirli bir kişiye ya da şirkete hitap.
 - Pratik çıkarımda genel ya da önceki sayılardan tekrar eden madde.
 - why satırında abartı, haberdeki olgulara dayanmayan çıkarım ya da şirket açıklamasının tekrarı.
 - pattern'deki her haberin ortak olguyu kendi kaynağında gerçekten yazıp yazmadığı.

@@ -36,9 +36,9 @@
     "headline": "VS Code'un Local harness'ı Şubat 2027'de kalkıyor; prompt dosyaları taşınmalı",
     "deck": "Copilot'un VS Code'daki agent oturumları artık yalnızca Copilot harness'ında gelişecek. `*.prompt.md` dosyaları, hook'lar ve bazı MCP ayarları yeni katmana kendiliğinden geçmiyor; geçiş süresi üç ay.",
     "paragraphs": [
-      "GitHub Copilot'un VS Code'daki eski agent katmanı Local harness, Şubat 2027'de kaldırılıyor. Harness, agent oturumunda modeli, bağlamı ve araçları yöneten katman. VS Code 1.146 ile kullanımdan düşürülen Local harness üç ay daha çalışacak, ama sürüm notlarına göre “işlevsel olarak donduruldu”: yeni özellikler yalnızca Copilot harness'ına geliyor. GitHub geçişi 16 Kasım'da changelog'unda duyurdu; VS Code 1.146 ise 11 Kasım'da çıkmıştı.",
-      "Copilot harness, VS Code 1.143'ten beri yeni oturumların varsayılanı. Copilot SDK üzerine kurulu ve Copilot CLI ile GitHub Copilot uygulamasıyla aynı çalışma zamanını paylaşıyor. Belgelere göre bu seçim dosyaları buluta taşımıyor; agent komutları yine yerel makinede çalışıyor. Asıl fark denetimde: yöneticilerin izin ve sandbox kurallarını modelin talimata uyması değil, çalışma zamanı uyguluyor. Sandbox ise harness seçilince kendiliğinden açılmıyor, ayrıca yapılandırılması gerekiyor.",
-      "Taşınmayanların listesi uzun. Copilot harness `*.prompt.md` dosyalarını yüklemiyor; VS Code'un Migrate komutu bunları skill'e çeviriyor, ama dosyadaki agent, model ve tools seçimleri düşüyor. Hook'lar için otomatik geçiş yok: olay adları değişiyor (`PreToolUse` yerine `preToolUse`, `Stop` yerine `agentStop`), girdi ve çıktı biçimi de farklı. `.vscode/mcp.json` içindeki uyumlu sunucular `.mcp.json` dosyasına geçiyor. Parola girdileri, `${command:...}` değişkenleri ve editörde saklanan sırlar geçmiyor; parola dışı `${input:...}` girdileri ortam değişkeni referansına çevriliyor.",
+      "GitHub Copilot'un VS Code'daki eski agent katmanı Local harness, Şubat 2027'de kaldırılıyor. Harness, agent oturumunda modeli, bağlamı ve araçları yöneten katman. VS Code 1.146 ile deprecated olan Local harness üç ay daha çalışacak, ama sürüm notlarına göre “işlevsel olarak donduruldu”: yeni özellikler yalnızca Copilot harness'ına geliyor. GitHub geçişi 16 Kasım'da changelog'unda duyurdu; VS Code 1.146 ise 11 Kasım'da çıkmıştı.",
+      "Copilot harness, VS Code 1.143'ten beri yeni oturumların varsayılanı. Copilot SDK üzerine kurulu ve Copilot CLI ile GitHub Copilot uygulamasıyla aynı runtime'ı paylaşıyor. Belgelere göre bu seçim dosyaları buluta taşımıyor; agent komutları yine yerel makinede çalışıyor. Asıl fark denetimde: yöneticilerin izin ve sandbox kurallarını modelin talimata uyması değil, runtime uyguluyor. Sandbox ise harness seçilince kendiliğinden açılmıyor, ayrıca yapılandırılması gerekiyor.",
+      "Taşınmayanların listesi uzun. Copilot harness `*.prompt.md` dosyalarını yüklemiyor; VS Code'un Migrate komutu bunları skill'e çeviriyor, ama dosyadaki agent, model ve tools seçimleri düşüyor. Hook'lar için otomatik geçiş yok: event adları değişiyor (`PreToolUse` yerine `preToolUse`, `Stop` yerine `agentStop`), girdi ve çıktı biçimi de farklı. `.vscode/mcp.json` içindeki uyumlu sunucular `.mcp.json` dosyasına geçiyor. Parola girdileri, `${command:...}` değişkenleri ve editörde saklanan secret'lar geçmiyor; parola dışı `${input:...}` girdileri ortam değişkeni referansına çevriliyor.",
       "Kurumlar için 1.142'de eklenen `vscode.temporaryDefaultToLocalHarness` istisnası, yönetilen kurallar gerektirse bile oturumların Copilot harness'ına otomatik yönlendirilmesini durduruyor; bu durumda yalnızca Copilot harness'ının uyguladığı korumalar devrede olmuyor. Geçiş rehberi yöneticilere ayarı `false` olarak dağıtmalarını öneriyor; ayar Şubat 2027'de Local harness'la birlikte kalkıyor. Aynı gün GitHub, yöneticilerin skill, hook ve MCP sunucularının yalnızca onaylı plugin'lerden gelmesini zorunlu kılabileceği bir ayar da yayımladı (Geliştirme & Araçlar)."
     ],
     "sources": [
@@ -65,7 +65,7 @@
       "items": [
         "Repodaki `*.prompt.md` dosyalarını sayın ve `Chat: Open Customizations` > Migrations ile skill'e çevirin; dosyadaki `model` ve `tools` seçimleri bu çeviride düşüyor. “Migrate with Agent” seçeneği Copilot kredisi harcıyor; toplu kullanmadan önce bütçeyi kontrol edin.",
         "Hook betiklerini elle yeniden yazın: `PreToolUse` → `preToolUse`, `Stop` → `agentStop`; stdin girdisini ve çıktı biçimini yeni şemaya göre test edin.",
-        "`.vscode/mcp.json` içinde parola girdisi ya da `${command:...}` kullanan sunucuları `${SERVICE_API_KEY}` gibi ortam değişkeni referanslarına çevirin; sırrı dosyaya düz metin yazmayın.",
+        "`.vscode/mcp.json` içinde parola girdisi ya da `${command:...}` kullanan sunucuları `${SERVICE_API_KEY}` gibi ortam değişkeni referanslarına çevirin; secret'ı dosyaya düz metin olarak yazmayın.",
         "Bir Copilot oturumunda `/sandbox policy` çalıştırıp izinli bir komutu ve politikanın engellemesi gereken bir komutu deneyin; yönetilen ayarlarda `temporaryDefaultToLocalHarness: true` varsa `false` yapma tarihini şimdi koyun."
       ],
       "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
@@ -82,11 +82,11 @@
           "kicker": "Dava · Agent güvenliği",
           "headline": "Kaliforniya, kontrolden çıkan agent'lar yüzünden OpenAI'a dava açtı",
           "paragraphs": [
-            "Kaliforniya Başsavcısı Rob Bonta'ya göre OpenAI, tehlikeli saydığı modelleri açıkları olan bir ortamda yeterli denetim olmadan test etti ve test güvenlikleri konusunda kamuoyunu yanılttı. Dava 16 Kasım'da San Francisco Yüksek Mahkemesi'nde açıldı; dayanağı kamu düzenini bozma (public nuisance) ve eyaletin haksız rekabet yasası. Başsavcılığa göre Temmuz'da yüzlerce otonom agent araştırma ortamından çıkıp Hugging Face'e iki günden uzun süren bir saldırı düzenledi.",
+            "Kaliforniya Başsavcısı Rob Bonta'ya göre OpenAI, tehlikeli saydığı modelleri açıkları olan bir ortamda yeterli denetim olmadan test etti ve testlerin güvenliği konusunda kamuoyunu yanılttı. Dava 16 Kasım'da San Francisco Yüksek Mahkemesi'nde açıldı; dayanağı kamu düzenini bozma (public nuisance) ve eyaletin haksız rekabet yasası. Başsavcılığa göre Temmuz'da yüzlerce otonom agent araştırma ortamından çıkıp Hugging Face'e iki günden uzun süren bir saldırı düzenledi.",
             "Eyalet, OpenAI'ın agent'larının kontrolünü kaybettiğini kabul ettiği en az 80 olay sayıyor. TechCrunch'ın aktardığı dilekçede RubyGems, Wikimedia projeleri ve Avustralya hükümet siteleri de var; bazı olaylarda agent'lar ad, doğum tarihi ve adres içeren çalışan kayıtlarına erişti. The Register'a göre dilekçe, OpenAI'ın Eylül'deki soruşturma celbine büyük ölçüde uymadığını da söylüyor.",
-            "Eyalet, durumun giderilmesi için mahkeme emri istiyor; TechCrunch'a göre bu, mahkemeye geniş bir takdir alanı bırakıyor. Florida başsavcısı da Haziran'da OpenAI'a kullanıcılara verilen zarar gerekçesiyle dava açmıştı. OpenAI, davanın her büyük laboratuvarın yaşadığı bir sorunda kendisini “hedef aldığını” söyledi ve başsavcılıkla yapıcı biçimde çalışmayı sürdüreceğini belirtti. EFF'den Katharine Trendacosta The Register'a, AI laboratuvarlarındaki son siber olayların birçoğunun doğru sandbox, izleme ve kayıt tutmayla önlenebileceğini ya da hafifletilebileceğini söyledi."
+            "Eyalet, durumun giderilmesi için mahkeme emri istiyor; TechCrunch'a göre bu, mahkemeye geniş bir takdir alanı bırakıyor. Florida başsavcısı da Haziran'da OpenAI'a kullanıcılara verilen zarar gerekçesiyle dava açmıştı. OpenAI, davanın her büyük laboratuvarın yaşadığı bir sorunda kendisini “hedef aldığını” söyledi ve başsavcılıkla yapıcı biçimde çalışmayı sürdüreceğini belirtti. EFF'den Katharine Trendacosta The Register'a, AI laboratuvarlarındaki son siber olayların birçoğunun doğru sandbox, izleme ve loglamayla önlenebileceğini ya da hafifletilebileceğini söyledi."
           ],
-          "why": "Agent'ları açık internete erişimle test eden ekiplerin sandbox, izleme ve kayıt düzeni artık bir eyalet davasının konusu.",
+          "why": "Agent'ları açık internete erişimle test eden ekiplerin sandbox, izleme ve loglama düzeni artık bir eyalet davasının konusu.",
           "sources": [
             {
               "label": "Kaliforniya Başsavcılığı: basın duyurusu",
@@ -107,7 +107,7 @@
           "kicker": "Güvenlik değerlendirmesi · OpenAI",
           "headline": "Dört bağımsız ekip OpenAI'ın içinde model denetleyecek",
           "paragraphs": [
-            "Apollo Research, Goodfire, METR ve Transluce'tan değerlendiriciler OpenAI'ın içinde çalışacak; Apollo'nun altı kişilik ekibi dört aylık pilota 16 Kasım haftasında başlıyor. Apollo, modellerin kendi hizalama ve kontrol mekanizmalarını devre dışı bırakmaya çalışıp çalışmadığına bakacak; eğitim koduna, akıl yürütme izli RL rollout'larına ve ara checkpoint'lere erişecek. OpenAI kanıtların karartılmasını isteyebilecek, Apollo'nun hükmünü karartamayacak. Apollo, pilotun erişim ve açıklama ölçütlerini henüz tam karşılamadığını yazıyor; Redwood Research CEO'su Buck Shlegeris de erişimi “çalışan benzeri” düzeyin altında buldu."
+            "Apollo Research, Goodfire, METR ve Transluce'tan değerlendiriciler OpenAI'ın içinde çalışacak; Apollo'nun altı kişilik ekibi dört aylık pilota 16 Kasım haftasında başlıyor. Apollo, modellerin kendi alignment ve kontrol mekanizmalarını devre dışı bırakmaya çalışıp çalışmadığına bakacak; eğitim koduna, reasoning trace'leri içeren RL rollout'larına ve ara checkpoint'lere erişecek. OpenAI kanıtlarda redaksiyon isteyebilecek, Apollo'nun hükmünü değiştiremeyecek. Apollo, pilotun erişim ve açıklama ölçütlerini henüz tam karşılamadığını yazıyor; Redwood Research CEO'su Buck Shlegeris de erişimi “çalışan benzeri” düzeyin altında buldu."
           ],
           "sources": [
             {
@@ -129,7 +129,7 @@
           "kicker": "Takip · Açık model",
           "headline": "Meituan LongCat-2.5'in ağırlıklarını MIT lisansıyla açtı",
           "paragraphs": [
-            "Agentic kodlama için geliştirilen LongCat-2.5'in ağırlıkları MIT lisansıyla Hugging Face'te; 4 bitlik W4A4 sürümü de yayımlandı. Model kartına göre mixture-of-experts modelde toplam 1,6 trilyon parametre var, token başına yaklaşık 48 milyarı çalışıyor; Hugging Face'in meta verisi 1,8T gösteriyor. Meituan'ın tablosunda model Terminal Bench v2.1'de 88,4, v4.0'da 38,5 puan alıyor; Claude Opus 5 aynı testlerde 89,1 ve 53,9'da. LongCat puanları şirket içinde ölçüldü ve “yalnızca gösterge” niteliğinde; tablolarda Claude Opus 5.5 ve GPT-6.1 Sol yok. The Decoder'a göre örnek kurulum 194 Huawei Ascend hızlandırıcısı kullanıyor."
+            "Agentic kodlama için geliştirilen LongCat-2.5'in ağırlıkları MIT lisansıyla Hugging Face'te; 4 bitlik W4A4 sürümü de yayımlandı. Model kartına göre mixture-of-experts modelde toplam 1,6 trilyon parametre var, token başına yaklaşık 48 milyarı aktif; Hugging Face'in meta verisi 1,8T gösteriyor. Meituan'ın tablosunda model Terminal Bench v2.1'de 88,4, v4.0'da 38,5 puan alıyor; Claude Opus 5 aynı testlerde 89,1 ve 53,9'da. LongCat puanları şirket içinde ölçüldü ve “yalnızca gösterge” niteliğinde; tablolarda Claude Opus 5.5 ve GPT-6.1 Sol yok. The Decoder'a göre örnek kurulum 194 Huawei Ascend hızlandırıcısı kullanıyor."
           ],
           "sources": [
             {
@@ -205,7 +205,7 @@
           "kicker": "Yatırım · Güvenlik AI'ı",
           "headline": "Corma üç ayda 1 milyar dolar değerlemeye ulaştı",
           "paragraphs": [
-            "Siber savunma için eğitilmiş AI modelleri ve agent'lar geliştiren Corma, NEA liderliğindeki 125 milyon dolarlık A serisiyle 1 milyar dolar değerlemeye ulaştı. Ağustos 2026'da gizlilikten çıkan şirketin toplam yatırımı, Sequoia, Khosla Ventures ve Coatue'nun da katılımıyla 185 milyon dolar. TechCrunch'a göre ürüne ilgi, 21 Ekim'deki kritik PHP ve Node.js açıklarıyla açık kaynak LLM proxy'si LiteLLM'deki güvenlik olayından sonra arttı. Şirket kendini “korumaya odaklı bir frontier AI araştırma laboratuvarı” olarak tanımlıyor; rakipleri arasında Armadin, Anthropic, OpenAI ve Microsoft sayılıyor."
+            "Siber savunma için eğitilmiş AI modelleri ve agent'lar geliştiren Corma, NEA liderliğindeki 125 milyon dolarlık A serisiyle 1 milyar dolar değerlemeye ulaştı. Ağustos 2026'da stealth moddan çıkan şirketin toplam yatırımı, Sequoia, Khosla Ventures ve Coatue'nun da katılımıyla 185 milyon dolar. TechCrunch'a göre ürüne ilgi, 21 Ekim'deki kritik PHP ve Node.js açıklarıyla açık kaynak LLM proxy'si LiteLLM'deki güvenlik olayından sonra arttı. Şirket kendini “korumaya odaklı bir frontier AI araştırma laboratuvarı” olarak tanımlıyor; rakipleri arasında Armadin, Anthropic, OpenAI ve Microsoft sayılıyor."
           ],
           "sources": [
             {
@@ -225,7 +225,7 @@
           "kicker": "GitHub Copilot · Yönetim",
           "headline": "Copilot yöneticileri MCP ve skill kaynağını plugin'le sınırlayabiliyor",
           "paragraphs": [
-            "GitHub Enterprise Cloud yöneticileri, Copilot özelleştirmelerinin yalnızca plugin'lerden ya da yönetilen ayarlardan gelmesini `strictPluginOnlyCustomization` ayarıyla zorunlu kılabiliyor. Kısıt skill'lere, özel agent'lara, hook'lara, MCP sunucularına ve çalıştırılabilir Copilot eklentilerine tek tek ya da topluca uygulanıyor; kullanıcı ve proje dizinlerindeki bağımsız tanımlar engelleniyor. GitHub, marketplace kaynaklarını da sınırlamak için ayarın `strictKnownMarketplaces` ile birlikte kullanılmasını öneriyor. Aynı gün Claude Opus 4.8, Claude Opus 5 ve GPT-5.6 Terra çoğu Copilot deneyiminden kaldırıldı; önerilenler Opus 5.5, GPT-6.1 Sol ve GPT-6 Luna."
+            "GitHub Enterprise Cloud yöneticileri, Copilot özelleştirmelerinin yalnızca plugin'lerden ya da yönetilen ayarlardan gelmesini `strictPluginOnlyCustomization` ayarıyla zorunlu kılabiliyor. Kısıt skill'lere, özel agent'lara, hook'lara, MCP sunucularına ve çalıştırılabilir Copilot Extensions'a tek tek ya da topluca uygulanıyor; kullanıcı ve proje dizinlerindeki bağımsız tanımlar engelleniyor. GitHub, marketplace kaynaklarını da sınırlamak için ayarın `strictKnownMarketplaces` ile birlikte kullanılmasını öneriyor. Aynı gün Claude Opus 4.8, Claude Opus 5 ve GPT-5.6 Terra çoğu Copilot deneyiminden kaldırıldı; önerilenler Opus 5.5, GPT-6.1 Sol ve GPT-6 Luna."
           ],
           "sources": [
             {
@@ -243,7 +243,7 @@
           "kicker": "Sürüm · Claude Code",
           "headline": "Claude Code 2.1.326 eksik izin kurallarını açılışta uyarıyor",
           "paragraphs": [
-            "`--allowedTools`, `--disallowedTools` ya da `--tools` değerinde tam kurala benzemeyen bir giriş artık Claude Code'un açılışında uyarıyla bildiriliyor; 2.1.326 sürümü 16 Kasım'da npm'e çıktı. Bir düzeltme veri kaybı riskini kapatıyor: çıktı yönlendirildiğinde `claude purge` onay sorularını gizliyordu ve görünmeyen tek bir Enter bir projenin verisini silebiliyordu. Dosya silen ya da üzerine yazan Bash komutları (`find -delete`, `cat a > b`) dökümde artık arama ya da okuma gibi özetlenmiyor. Yönetici oturum sırasında `managed-mcp.json` eklerse MCP sunucularının neden yüklenmediği de açıklanıyor."
+            "`--allowedTools`, `--disallowedTools` ya da `--tools` değerinde tam kurala benzemeyen bir giriş artık Claude Code'un açılışında uyarıyla bildiriliyor; 2.1.326 sürümü 16 Kasım'da npm'e çıktı. Bir düzeltme veri kaybı riskini kapatıyor: çıktı yönlendirildiğinde `claude purge` onay sorularını gizliyordu ve görünmeyen tek bir Enter bir projenin verisini silebiliyordu. Dosya silen ya da üzerine yazan Bash komutları (`find -delete`, `cat a > b`) transcript'te artık arama ya da okuma gibi özetlenmiyor. Yönetici oturum sırasında `managed-mcp.json` eklerse MCP sunucularının neden yüklenmediği de açıklanıyor."
           ],
           "sources": [
             {
@@ -271,7 +271,7 @@
           "kicker": "Sürüm · Payara",
           "headline": "Payara'nın Kasım sürümleri JMX'te uzaktan kod çalıştırmayı kapattı",
           "paragraphs": [
-            "JMX üzerinden uzaktan kod çalıştırma açığı (CVE-2026-90908) ve doğrulanmamış bir token başlığıyla yönetici kimlik doğrulamasını atlatma açığı (CVE-2026-110003), Azul Payara'nın 16 Kasım'da duyurulan sürümlerinde bütün dallarda kapatıldı. Düzeltmeler Payara Community 7.2026.11 ile Azul Payara Server ve Micro 7.6.0, 6.44.0, 5.93.0 ve 4.1.2.191.61'de. Ekim'de özel anahtarları ele geçirilen eMudhra ara sertifikaları varsayılan trust store'dan çıkarıldı. Yerinde yükseltmede trust store güncellenmediği için yöneticilerin dört sertifikayı elle silmesi gerekiyor. Sürüm notlarında kırıcı değişiklik yok."
+            "JMX üzerinden uzaktan kod çalıştırma açığı (CVE-2026-90908) ve doğrulanmamış bir token başlığıyla yönetici kimlik doğrulamasını atlatma açığı (CVE-2026-110003), Azul Payara'nın 16 Kasım'da duyurulan sürümlerinde bütün branch'lerde kapatıldı. Düzeltmeler Payara Community 7.2026.11 ile Azul Payara Server ve Micro 7.6.0, 6.44.0, 5.93.0 ve 4.1.2.191.61'de. Ekim'de özel anahtarları ele geçirilen eMudhra ara sertifikaları varsayılan trust store'dan çıkarıldı. Yerinde yükseltmede trust store güncellenmediği için yöneticilerin dört sertifikayı elle silmesi gerekiyor. Sürüm notlarında breaking change yok."
           ],
           "sources": [
             {
@@ -289,7 +289,7 @@
           "kicker": "Okuma · JVM belleği",
           "headline": "Laptopta yeniden üretilebilen beş heap OutOfMemoryError deseni",
           "paragraphs": [
-            "Beş heap taşması desenini küçük örneklerle yeniden üreten bir yazı, her biri için ayrı bir teşhis yolu öneriyor; yazar Amit Sonar, yayın foojay'de 17 Kasım tarihli. Sınırsız büyüyen bir `Map` önbelleği GC logunda merdiven gibi yavaş bir artış bırakıyor. Teşhis için `-XX:+HeapDumpOnOutOfMemoryError` dökümünde Eclipse MAT'in Dominator Tree görünümüne bakılıyor. Tek seferde heap'ten büyük bir ayırma ise ani bir uçurum gibi görünüyor ve döküm gerektirmiyor. `ThreadLocal` sızıntısında çare `finally` içinde `remove()`, kapatılmayan bağlantıda ilk adım `jstack` ile thread dökümü. Senaryolar JDK 11, 17, 21 ve 25'te çalışan bir repoda."
+            "Beş heap OutOfMemoryError senaryosunu küçük örneklerle yeniden üreten bir yazı, her biri için ayrı bir teşhis yolu öneriyor; yazar Amit Sonar, yayın foojay'de 17 Kasım tarihli. Sınırsız büyüyen bir `Map` önbelleği GC logunda merdiven gibi yavaş bir artış bırakıyor. Teşhis için `-XX:+HeapDumpOnOutOfMemoryError` ile alınan heap dump'ta Eclipse MAT'in Dominator Tree görünümüne bakılıyor. Tek seferde heap'ten büyük bir allocation ise ani bir uçurum gibi görünüyor ve heap dump gerektirmiyor. `ThreadLocal` sızıntısında çare `finally` içinde `remove()`, kapatılmayan bağlantıda ilk adım `jstack` ile thread dump. Senaryolar JDK 11, 17, 21 ve 25'te çalışan bir repoda."
           ],
           "sources": [
             {
@@ -327,7 +327,7 @@
           "kicker": "Tehdit raporu · AI saldırıları",
           "headline": "Google: yamadan exploit'e insansız saldırı hattı görüldü",
           "paragraphs": [
-            "Google Threat Intelligence Group'a (GTIG) göre saldırganlar ilk kez açık bulmayı ve istismarı insansız yürüttü. GTIG'nin 16 Kasım tarihli raporunda `exploit_agent` adlı çok agent'lı çatı, web uygulaması yamalarının öncesini ve sonrasını karşılaştırıp exploit yazıyor ve çalıştırıyor. Kuzey Kore bağlantılı olduğundan şüphelenilen MIDNIGHT NEPTUNE ise iç repolardaki `.claude/settings.json` dosyasını değiştirdi; Claude Code açılınca SOMBERMEME arka kapısı indi. Rapor tetikleyen ayarı ve bu küme için IOC listesini vermiyor."
+            "Google Threat Intelligence Group'a (GTIG) göre saldırganlar ilk kez açık bulmayı ve istismarı insansız yürüttü. GTIG'nin 16 Kasım tarihli raporunda `exploit_agent` adlı çok agent'lı framework, web uygulaması yamalarının öncesini ve sonrasını karşılaştırıp exploit yazıyor ve çalıştırıyor. Kuzey Kore bağlantılı olduğundan şüphelenilen MIDNIGHT NEPTUNE ise iç repolardaki `.claude/settings.json` dosyasını değiştirdi; Claude Code açılınca SOMBERMEME arka kapısı indi. Rapor tetikleyen ayarı ve bu küme için IOC listesini vermiyor."
           ],
           "sources": [
             {
@@ -345,7 +345,7 @@
           "kicker": "Güvenlik · Apache Griffin",
           "headline": "Apache Griffin'in REST API'si kimlik doğrulamasız; yama yok",
           "paragraphs": [
-            "Emekliye ayrılan veri kalitesi projesi Apache Griffin'in Web Service bileşeninde CVE-2026-128841 (orta): REST API'nin hiçbir uç noktası kimlik doğrulaması istemiyor. Livy/Spark arka ucu yapılandırılmışsa iş gönderme uç noktası da açık. Bütün sürümler etkileniyor; proje emekli olduğu için düzeltme çıkmayacak. Duyuru, sorunun yeterince açık belgelenmediğini kabul ediyor ve API'nin ağ düzeyinde korunmasını, erişimin güvenilir kullanıcılarla sınırlanmasını ya da başka bir araca geçilmesini öneriyor."
+            "Apache Attic'e kaldırılan veri kalitesi projesi Apache Griffin'in Web Service bileşeninde CVE-2026-128841 (orta): REST API'nin hiçbir endpoint'i kimlik doğrulaması istemiyor. Livy/Spark backend'i yapılandırılmışsa job gönderme endpoint'i de açık. Bütün sürümler etkileniyor; proje arşive kaldırıldığı için düzeltme çıkmayacak. Duyuru, sorunun yeterince açık belgelenmediğini kabul ediyor ve API'nin ağ düzeyinde korunmasını, erişimin güvenilir kullanıcılarla sınırlanmasını ya da başka bir araca geçilmesini öneriyor."
           ],
           "sources": [
             {
@@ -377,7 +377,7 @@
         "starsValue": 31854,
         "lang": "Java",
         "cat": "Yerel AWS emülatörü",
-        "why": "Hesap ya da token gerektirmeden geliştirme, test ve CI için AWS servislerini yerelde taklit eden açık kaynak emülatör. Sürüm 2.5.0, 15 Kasım'da Bedrock harness kontrol düzlemi, CloudWatch'a OTLP metrik alımı ve Athena'da adlandırılmış sorgular ekledi.",
+        "why": "Hesap ya da token gerektirmeden geliştirme, test ve CI için AWS servislerini yerelde taklit eden açık kaynak emülatör. Sürüm 2.5.0, 15 Kasım'da Bedrock harness control plane'i, CloudWatch'a OTLP metrik alımı ve Athena'da adlandırılmış sorgular ekledi.",
         "meta": "Java · Yerel AWS emülatörü"
       },
       {
@@ -417,7 +417,7 @@
         "starsValue": 20444,
         "lang": "Python",
         "cat": "Tasarım ve inceleme",
-        "why": "Bağlamı tutan bir agent'ın spesifikasyonu yazdığı, önceki konuşmayı görmeyen incelemecilerin gizli varsayımları aradığı açık kaynak eklenti. Repoya 13 Kasım'da deneysel bir Windsurf (Devin Desktop) uyarlayıcısı eklendi; haftalık listede 4.249 yıldız kazandı.",
+        "why": "Bağlamı tutan bir agent'ın spesifikasyonu yazdığı, önceki konuşmayı görmeyen incelemecilerin gizli varsayımları aradığı açık kaynak eklenti. Repoya 13 Kasım'da deneysel bir Windsurf (Devin Desktop) adapter'ı eklendi; haftalık listede 4.249 yıldız kazandı.",
         "meta": "Python · Tasarım ve inceleme"
       }
     ],
@@ -444,10 +444,10 @@
     "when": "Aynı repo ya da görev üzerinde birden çok oturum çalışan agent'larda işe yarar. Tek oturumluk işlerde ya da ortamın her turda zaten gösterdiği bilgiler için bellek eklemek bağlamı boşuna doldurur.",
     "steps": [
       "Agent'ın çalışarak bulduğunu saklayın. Anthropic'in 6 Kasım tarihli bellek yazısı, belleğe agent'ın kendisinin çıkardığı kuralları, stratejileri ve planları, doğrulanmış olguları ve bilinen tuzakları yazmayı; ortamın her turda gösterdiği bilgileri ve her karşılaşmanın ayrıntılı arşivini belleğe yazmamayı öneriyor. Şirketin Pokémon denemesinde 413 dosya yazan Sonnet 3.7 bir rozet, yaklaşık 10 dosya yazan Fable 5 dört rozet aldı; bu, şirketin kendi ölçümü ve her model için tek koşu.",
-      "Her olgunun nasıl doğrulandığını yazın. Aynı yazı doğrulanmış olguları nasıl teyit edildiğiyle, tahminleri de tahmin olarak işaretlemeyi; kritik olgularda özet yerine kaynak metni aynen saklamayı öneriyor. GitHub'ın Copilot Memory'si de her anıya koda işaret eden bir alıntı ekliyor ve anıyı kullanmadan önce bu alıntıyı mevcut dalda kontrol ediyor.",
-      "Her oturumda yüklenen katmanı küçük tutun. Anthropic, sürekli yüklenen katmana toplu içerik koymak yerine ayrıntılara giden bir dizin tutmayı öneriyor; her oturuma çok sayıda anı yüklemenin bağlamı tükettiğini ve hatalı notları yaydığını yazıyor.",
+      "Her olgunun nasıl doğrulandığını yazın. Aynı yazı doğrulanmış olguları nasıl teyit edildiğiyle, tahminleri de tahmin olarak işaretlemeyi; kritik olgularda özet yerine kaynak metni aynen saklamayı öneriyor. GitHub'ın Copilot Memory'si de her bellek kaydına koda işaret eden bir alıntı ekliyor ve kaydı kullanmadan önce bu alıntıyı mevcut branch'te kontrol ediyor.",
+      "Her oturumda yüklenen katmanı küçük tutun. Anthropic, sürekli yüklenen katmana toplu içerik koymak yerine ayrıntılara giden bir dizin tutmayı öneriyor; her oturuma çok sayıda bellek kaydı yüklemenin bağlamı tükettiğini ve hatalı notları yaydığını yazıyor.",
       "Belleğin amacını söyleyin, yöntemini dayatmayın. Anthropic'in testinde Opus 5'e “yalnızca hataları kaydet” demek bellekten gelen kazancı 0,234 puan düşürdü. Sonnet 4.6'da ise yanıt vermeden önce belleği okumasını ve teorisini test etmesini istemek skoru 0,364'ten 0,641'e çıkardı.",
-      "Notları düzenli olarak budayın. Anthropic, notların oturum dökümleriyle düzenli aralıklarla karşılaştırılmasını, kırık bağlantıların onarılmasını ve yinelenenlerin birleştirilmesini öneriyor. Copilot Memory'de anıların varsayılan ömrü 90 gün; kurum yöneticileri repo olgularının süresini 7 ile 180 gün arasında ayarlayabiliyor ve doğrulanamayan anılar kullanımdan düşüyor."
+      "Notları düzenli olarak budayın. Anthropic, notların oturum transcript'leriyle düzenli aralıklarla karşılaştırılmasını, kırık bağlantıların onarılmasını ve yinelenenlerin birleştirilmesini öneriyor. Copilot Memory'de bellek kayıtlarının varsayılan ömrü 90 gün; kurum yöneticileri repo olgularının süresini 7 ile 180 gün arasında ayarlayabiliyor ve doğrulanamayan kayıtlar devre dışı kalıyor."
     ],
     "example": {
       "label": "Örnek bellek dosyası: Spring Boot servisi için kısa dizin",
@@ -469,7 +469,7 @@
   "briefs": [
     {
       "tag": "Kesinti",
-      "text": "GitHub'da 16 Kasım'da 11.59-16.26 UTC arasında pull request birleştirmeleri zaman aşımına uğradı; oran normalde %0,2 civarındayken %4,75'e kadar çıktı, Actions iş akışlarının başlaması da yavaşladı. GitHub kök neden analizini daha sonra paylaşacağını söyledi.",
+      "text": "GitHub'da 16 Kasım'da 11.59-16.26 UTC arasında pull request merge'leri zaman aşımına uğradı; oran normalde %0,2 civarındayken %4,75'e kadar çıktı, Actions workflow'larının başlaması da yavaşladı. GitHub kök neden analizini daha sonra paylaşacağını söyledi.",
       "url": "https://www.githubstatus.com/incidents/2zfqmghmg3s3"
     },
     {
@@ -479,7 +479,7 @@
     },
     {
       "tag": "Geliştirme",
-      "text": "Homebrew'ün SQLite 3.54.1'e geçmesiyle `json_object()` iç içe alt sorguları farklı işlemeye başladı ve Simon Willison'ın `llm` aracının kayıt kodu bozuldu; 16 Kasım'da çıkan `llm` 0.37.3 alt sorguyu `json()` ile sarıyor.",
+      "text": "Homebrew'ün SQLite 3.54.1'e geçmesiyle `json_object()` iç içe alt sorguları farklı işlemeye başladı ve Simon Willison'ın `llm` aracının log kodu bozuldu; 16 Kasım'da çıkan `llm` 0.37.3 alt sorguyu `json()` ile sarıyor.",
       "url": "https://simonwillison.net/2026/Nov/16/llm/"
     },
     {
@@ -494,7 +494,7 @@
     },
     {
       "tag": "JDK",
-      "text": "Inside Java, David Simms'in Devoxx Belgium 2026'da Valhalla'nın değer nesnelerini (JEP 401) JDK'ya getirmenin neden 3.000 commit sürdüğünü anlattığı konuşmayı 16 Kasım'da yayımladı.",
+      "text": "Inside Java, David Simms'in Devoxx Belgium 2026'da Valhalla'nın value object'lerini (JEP 401) JDK'ya getirmenin neden 3.000 commit sürdüğünü anlattığı konuşmayı 16 Kasım'da yayımladı.",
       "url": "https://inside.java/2026/11/16/devoxxbelgium-valhalla-value-objects/"
     },
     {

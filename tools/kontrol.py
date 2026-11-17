@@ -33,6 +33,22 @@ def atolye_bank():
         if m and cat:
             bank[m.group(1)] = (cat, m.group(2))
     return bank
+
+
+def terim_kaliplari():
+    """kurallar/TERIMLER.md “Yasak çeviriler” tablosu: [(derlenmiş kalıp, yerine)]."""
+    out = []
+    try:
+        lines = open(os.path.join(ROOT, "kurallar", "TERIMLER.md"), encoding="utf-8").read().split("\n")
+    except OSError:
+        return out
+    for ln in lines:
+        m = re.match(r"^\| `(.+)` \| (.+?) \|$", ln)
+        if m:
+            out.append((re.compile(m.group(1)), m.group(2)))
+    return out
+
+
 MONTHS = "Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık"
 errors, warns = [], []
 E = errors.append
@@ -156,7 +172,14 @@ def main():
         E(f"number {d.get('number')} yanlış; {max(numbers) + 1} olmalı")
 
     # Metin geneli
+    kaliplar = terim_kaliplari()
     for where, s in strings(d):
+        if not where.endswith((".url", ".code")):
+            duz = re.sub(r"`[^`]*`", "", s).replace("I", "ı").replace("İ", "i").lower()
+            for rx, yerine in kaliplar:
+                m = rx.search(duz)
+                if m:
+                    W(f"{where}: “{m.group(0)}” yerine {yerine} (kurallar/TERIMLER.md)")
         if where.endswith(".url"):
             continue
         if "«" in s or "»" in s:

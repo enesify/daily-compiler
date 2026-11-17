@@ -77,7 +77,7 @@ Pencere içinde haber yoksa bunu gizleme ve dolgu koyma: son 7 günde yayımlanm
 
 ## 5. Haber dili
 
-Türkçe yaz; yerleşik karşılığı olmayan teknik terimler İngilizce kalır (context window, release candidate, sandbox). Her haberi kendi cümlelerinle özetle.
+Türkçe yaz; yerleşik karşılığı olmayan teknik terimler İngilizce kalır (context window, release candidate, sandbox). Hangi terimin İngilizce kalacağı, hangisinin Türkçe yazılacağı ve yasak çeviriler `kurallar/TERIMLER.md` dosyasındadır; ölçüt, Türk yazılımcının işte kullandığı kelimedir (secret, runtime, branch, endpoint; ama yama, açık, bellek sızıntısı). Her haberi kendi cümlelerinle özetle.
 
 - **Giriş cümlesi** sonucu söyler: ne değişti, ne bulundu, ne bozuldu. Tarihle ya da “X şirketi … duyurdu” kalıbıyla açma; tarih ve duyuran cümle sonuna ya da ikinci cümleye gider. İddia ve Şirket beyanı haberlerinde kaynak yine ilk cümlede anılır (“X'e göre”). Aynı sayıda iki haber aynı kalıpla açılmaz.
 - **Kısa cümle.** 25 kelimeyi aşan cümleyi böl; bir cümlede en fazla bir noktalı virgül ve en fazla iki karşılaştırma ya da rakam çifti.
