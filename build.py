@@ -274,7 +274,7 @@ def ref_link(ctx, label, url):
         return f'<span class="ref-gone" title="Bu sayı bulunamadı">{esc(label)}</span>'
     date, anchor = m.group(1), m.group(2)
     h = ctx.href(issue_path(date)) + (f"#a-{anchor}" if anchor else "")
-    return f'<a class="ref" href="{esc(h)}" title="{esc(short_date(date))} sayısındaki habere git">↩ {esc(plain(label))}</a>'
+    return f'<a class="ref" href="{esc(h)}" title="{esc(short_date(date))} sayısındaki habere git"><i class="xi xr" aria-hidden="true"></i>{esc(plain(label))}</a>'
 
 
 def ext_link(label, url):
@@ -742,7 +742,7 @@ def render_issue(ctx, cur):
         for b in briefs:
             u = b.get("url") or ""
             tail = (" " + ref_link(ctx, "önceki sayı", u)) if u.startswith("#") else (
-                f'\u00a0<a href="{esc(u)}" target="_blank" rel="noopener" aria-label="Kaynak">↗</a>' if re.match(r"^https?://", u) else "")
+                f'\u00a0<a href="{esc(u)}" target="_blank" rel="noopener" aria-label="Kaynak"><i class="xi" aria-hidden="true"></i></a>' if re.match(r"^https?://", u) else "")
             ps.append(f'<p><b>{caps_rich(b.get("tag"))}</b>{rich(b.get("text"))}{tail}</p>')
         out.append(f'<section class="sec" id="sec-kisa"><div class="sec-h"><h2>Kısa Kısa</h2></div><div class="briefs">{"".join(ps)}</div></section>')
     out.append(models_band(ctx))
@@ -757,7 +757,7 @@ def patch_list(s):
     items = [m for m in s.get("patch") or [] if m.get("text")][:3]
     if not items:
         return ""
-    lis = "".join(f'<li>{rich(m["text"])}' + (f'\u00a0<a href="{esc(m["url"])}" target="_blank" rel="noopener" aria-label="Kaynak">↗</a>'
+    lis = "".join(f'<li>{rich(m["text"])}' + (f'\u00a0<a href="{esc(m["url"])}" target="_blank" rel="noopener" aria-label="Kaynak"><i class="xi" aria-hidden="true"></i></a>'
                   if re.match(r"^https?://", m.get("url") or "") else "") + "</li>" for m in items)
     return f'<aside class="patch" aria-label="Bugün yamala"><span class="kicker alert">{esc(caps("Bugün yamala"))}</span><ul>{lis}</ul></aside>'
 
@@ -888,7 +888,7 @@ def render_about(ctx):
 <li><span class="prov prov-claim">İDDİA</span> tek kaynağa dayanan ya da bağımsız olarak doğrulanmamış haber.</li>
 <li><span class="prov prov-company">ŞİRKET BEYANI</span> bir şirketin yalnızca kendisi hakkındaki ölçümü ya da açıklaması (kendi benchmark’ı, kendi vaka çalışması).</li>
 <li><b>Pratik çıkarım</b>: manşetin yanındaki kutu editoryal öneridir, haberin parçası değildir.</li>
-<li><b>↩ ile başlayan kaynaklar</b>: önceki bir sayıdaki habere iç atıftır.</li>
+<li><b><i class="xi xr" aria-hidden="true"></i> ile başlayan kaynaklar</b>: önceki bir sayıdaki habere iç atıftır.</li>
 </ul>
 {about_corrections(ctx)}<h3>Takip</h3>
 <p>Yeni sayılar her sabah yayımlanır; tüm sayılar <a href="{esc(ctx.href("arsiv.html"))}">arşivde</a> kalır. Bir okuyucu uygulamasıyla izlemek için <a href="{esc(ctx.href("feed.xml"))}">RSS akışını</a> kullanabilirsiniz.</p>
