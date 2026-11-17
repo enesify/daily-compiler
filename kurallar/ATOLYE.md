@@ -21,7 +21,7 @@ Bu dosya yazar ve editör için bağlayıcıdır; `KURALLAR.md`'deki kaynak ve d
   - Araştırma ve ölçüm: DORA raporları, METR, arXiv'deki deneysel çalışmalar (yöntemleri ve çekinceleriyle), büyük şirketlerin ölçüm içeren mühendislik blogları (Google, Meta, Uber, Shopify, Spotify, Netflix, Stripe).
   - Java ekosistemi: spring.io/blog, docs.spring.io, inside.java, foojay.io, JetBrains blogları.
 - Forum, içerik toplayıcı ve SEO sitelerini birincil ya da güçlü bir kaynak varken kullanma.
-- **Ölçüm dürüstlüğü.** Bir yöntemin işe yaradığına dair ölçüm varsa rakamı ve kimin ölçtüğünü yaz; yoksa “kanıtlanmış”, “kesin işe yarar” deme. Şirketin kendi ölçümü Şirket beyanı gibi atfedilir.
+- **Ölçüm dürüstlüğü.** Bir yöntemin işe yaradığına dair ölçüm varsa rakamı ve kimin ölçtüğünü yaz; yoksa “kanıtlanmış”, “kesin işe yarar” deme. Şirketin kendi ölçümü Şirket beyanı gibi atfedilir. Rakam okurun yorumlayabileceği biçimde yazılır: neyin, hangi ölçekte ölçüldüğü söylenir (“0-1 arası ortalama görev puanı 0,36'dan 0,64'e çıktı”). Ölçeği kaynakta yoksa ya da bir cümleyle anlatılamıyorsa rakamı yazma, yalnızca yönünü ve kimin ölçtüğünü söyle. Okura uygulanabilir bir şey katmayan deney anekdotlarına (oyun denemeleri gibi) yer verme; bir adımı destekliyorsa tek cümleyle geç.
 - **Tarih.** Araç davranışı hızla değişir. Bir araca özgü ayrıntıda kaynağın tarihine bak; 12 aydan eski bir belgeye dayanıyorsa güncel belgede hâlâ geçerli olduğunu doğrula.
 
 ## 3. Araç tarafsızlığı

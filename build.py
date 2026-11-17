@@ -369,6 +369,18 @@ COPY_ICO = ('<svg class="cp" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5
             '<svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8.5 3.2 3L13 4.5"/></svg>')
 
 
+def code_lines(src):
+    """Örnek bloğun her satırı ayrı bir span: telefonda alt satıra sarılan kısım satırın kendi girintisinden
+    (ve varsa liste işaretinden) sonra başlar. Kopyalama satırları yeniden \\n ile birleştirir."""
+    out = []
+    for line in src.rstrip().split("\n"):
+        m = re.match(r"[ \t]*(?:[-*+] |\d+\. |#+ )?", line)
+        n = len(m.group(0).replace("\t", "  "))
+        st = f' style="--h:{n}ch"' if n else ""
+        out.append(f'<span class="l"{st}>{esc(line)}</span>')
+    return "".join(out)
+
+
 def at_step(x):
     """Adımın ilk cümlesi kısa bir buyruksa (“Dosyayı seçin.”) kalın basılır; okur adımları göz atarak tarayabilsin."""
     x = str(x or "")
@@ -393,7 +405,7 @@ def atolye(ctx, A):
     if ex.get("code"):
         lab = (f'<figcaption><span>{esc(typo(ex.get("label") or "Örnek"))}</span>'
                f'<button class="at-copy" type="button" aria-label="Örneği kopyala" title="Kopyala" hidden>{COPY_ICO}</button></figcaption>')
-        code = f'<figure class="at-ex">{lab}<pre><code>{esc(ex["code"].rstrip())}</code></pre></figure>'
+        code = f'<figure class="at-ex">{lab}<pre><code>{code_lines(ex["code"])}</code></pre></figure>'
     pit = f'<p class="at-pit"><b>{esc(caps("Sık yapılan hata"))}</b>{rich(A.get("pitfall"))}</p>' if A.get("pitfall") else ""
     more = '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
     k = kicker(A.get("kicker"), default="Atölye")

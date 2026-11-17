@@ -210,8 +210,9 @@
     if (!navigator.clipboard) return;
     b.hidden = false;
     b.addEventListener('click', function () {
-      var code = b.closest('figure').querySelector('code');
-      navigator.clipboard.writeText(code.textContent).then(function () {
+      var code = b.closest('figure').querySelector('code'), ls = code.querySelectorAll('.l');
+      var text = ls.length ? Array.prototype.map.call(ls, function (l) { return l.textContent; }).join('\n') : code.textContent;
+      navigator.clipboard.writeText(text).then(function () {
         b.classList.add('done'); b.setAttribute('aria-label', 'Kopyalandı'); b.title = 'Kopyalandı';
         setTimeout(function () { b.classList.remove('done'); b.setAttribute('aria-label', 'Örneği kopyala'); b.title = 'Kopyala'; }, 1600);
       });

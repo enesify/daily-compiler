@@ -28,7 +28,7 @@ Her birinde sor:
 Okuyucu “ne değişti, beni etkiliyor mu, ne yapmalıyım, ne zamana kadar” sorularının cevabını alıyor mu? Özellikle:
 
 - **Manşet ve büyük ürün haberleri:** bağımsız bir kaynakta bulunabilen önemli şart, sınır ya da yükümlülük (lisans, telemetri, destek yükümlülüğü, fiyat) eksik mi? Bunu kendin ara. Fiyat, son tarih, uyumluluk gibi pratik bilgi ilk paragrafta mı?
-- **Güvenlik haberleri:** etkilenen ve yaması olmayan sürümler, giriş yolu, kontrol yöntemi ve düzeltilmiş sürümden kaynakta olduğu halde yazılmayan var mı? Aktif istismar ya da zehirlenmiş paket varken Bugün yamala boş mu?
+- **Güvenlik haberleri:** etkilenen ve yaması olmayan sürümler, giriş yolu, kontrol yöntemi ve düzeltilmiş sürümden kaynakta olduğu halde yazılmayan var mı? Aktif istismar ya da zehirlenmiş paket varken Bugün yamala boş mu? Geliştirici araçlarını (AI kodlama aracı ayarları, hook, MCP, IDE eklentisi, CI) hedef alan bulguda okurun bugün yapabileceği bir kontrol adımı var mı?
 - Pencere içinde atlanmış büyük bir gelişme var mı: yaygın bir hizmetin saatler süren kesintisi, önemli bir model ya da araç sürümü?
 
 ## 3. Etiket ve eşit muamele
@@ -60,6 +60,7 @@ Atölye kuralları `kurallar/ATOLYE.md` dosyasındadır. Atölye'nin bütün kay
 - Örnek blok doğru mu: komutlar ve dosya yolları o araç için geçerli mi, sözdizimi bozuk mu, çalıştırıldığında zarar verebilecek ya da gizli bilgi isteyen bir satır var mı?
 - Okuyucu bugün uygulayabilir mi, yoksa yazı genel tavsiye mi? Ölçüm yokken “kanıtlanmış” deniyor mu; bir araca övgü sıfatı var mı?
 - Araca özgü ayrıntı güncel mi (12 aydan eski kaynakta özellikle)?
+- Rakamların ölçeği ve neyi ölçtüğü yazıyor mu? Okurun yorumlayamayacağı rakam ya da uygulamaya bir şey katmayan deney anekdotu var mı?
 
 ## 7. Sonuç
 
