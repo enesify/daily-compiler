@@ -21,7 +21,7 @@ KATEGORI = ("dogruluk", "kaynak", "eksik-bilgi", "secim", "dil", "terim", "edito
 ONEM = ("kritik", "onemli", "kucuk")
 DURUM = ("duzeltildi", "duzeltme-listesinde", "oneri", "birakildi")
 KOK = ("yok", "denetlenebilir", "belirsiz", "uygulanmadi", "eksik", "kod")
-PUAN = ("icerik", "dogruluk", "dil", "tasarim")
+PUAN = ("icerik", "dil", "tasarim")
 
 
 def denetle(d, yol):
@@ -39,8 +39,6 @@ def denetle(d, yol):
             continue
         if not isinstance(v, (int, float)) or not 0 <= v <= 10:
             s.append(f"puan.{k} 0-10 arası sayı olmalı")
-    if not isinstance(d.get("dogrulanan"), int):
-        s.append("dogrulanan (kaynağından doğrulanan haber sayısı) tam sayı olmalı")
     ids = set()
     for i, b in enumerate(d.get("bulgular") or []):
         w = f"bulgular[{i}]"
@@ -68,8 +66,8 @@ def satir(d):
     p = d.get("puan") or {}
     vs = [p[k] for k in PUAN if isinstance(p.get(k), (int, float))]
     ort = sum(vs) / len(vs) if vs else 0
-    return (f"İnceleme · Sayı {d.get('sayi')}: {ort:.1f}/10 (içerik {p.get('icerik')}, doğruluk {p.get('dogruluk')}, "
-            f"dil {p.get('dil')}, tasarım {p.get('tasarim')}) · {d.get('dogrulanan')} haber doğrulandı · "
+    return (f"İnceleme · Sayı {d.get('sayi')}: {ort:.1f}/10 (içerik {p.get('icerik')}, "
+            f"dil {p.get('dil')}, tasarım {p.get('tasarim')}) · "
             f"{o['kritik']} kritik, {o['onemli']} önemli, {o['kucuk']} küçük bulgu · "
             f"{st['duzeltildi'] + st['duzeltme-listesinde']} düzeltildi, {st['oneri']} öneri · {kural} kural sinyali")
 
@@ -88,7 +86,7 @@ def ozet(gun):
         print(f"Son {gun} günde inceleme kaydı yok.")
         return
     print(f"Son {gun} gün · {len(kay)} kayıt ({kay[0]['tarih']} – {kay[-1]['tarih']})")
-    print("\nPuanlar (içerik / doğruluk / dil / tasarım):")
+    print("\nPuanlar (içerik / dil / tasarım):")
     for d in kay:
         p = d.get("puan") or {}
         print(f"  {d['tarih']}  " + " / ".join(str(p.get(k, '?')) for k in PUAN))

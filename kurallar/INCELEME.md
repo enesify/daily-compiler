@@ -28,7 +28,7 @@ Görevin iki işi var:
    - `python3 tools/kontrol.py issues/<bugün>.json` çalıştır; çıkan UYARI satırları da bulgudur.
    - `python3 build.py` ve ardından `python3 tools/ekran.py <bugün> --out /tmp/inc/ekran` çalıştır. Betiğin yazdığı taşma, JavaScript hatası ve kırık bağlantı satırları bulgudur. Playwright yoksa betik kendisi kurar; ayrıca kurmaya ya da tarayıcı indirmeye çalışma. “ARAÇ YOK” yazarsa tasarım incelemesini atla, `puan.tasarim` alanına `null` yaz (tahmini puan verme) ve bunu `gerekce.tasarim` alanında ve bildirimde belirt.
 
-2. **Üç bağımsız inceleme (paralel).** Agent aracıyla (subagent_type "general-purpose") üç agent'ı aynı anda başlat. Her birine yalnızca şunları ver:
+2. **İki bağımsız inceleme (paralel).** Agent aracıyla (subagent_type "general-purpose") iki agent'ı aynı anda başlat. Her birine yalnızca şunları ver:
    - görevi (aşağıda);
    - ilgili dosyaların tam yolları;
    - bulgularını yazacağı dosya: `/tmp/inc/<rol>.json`;
@@ -36,13 +36,8 @@ Görevin iki işi var:
 
    Sabah görevinin editör bulgularını ya da kendi kanaatini verme.
 
-   - **Doğruluk.** Kaynakları WebFetch ile kendisi açar. Kapsam:
-     - manşetin tamamı;
-     - bütün `big` haberler, Güvenlik bölümü ve Atölye;
-     - `stat`, grafik ve Takvim'deki her rakam ve tarih;
-     - bunlara ek en az 6 haber.
+   **Kapsam dışı (tekrar etme):** Kaynak doğrulaması ve linklerin açılması sabah görevinin editöründe yapılır. `kontrol.py`'nin ölçtüğü şeyler (uzunluk, sayı, alanlar, etiketin varlığı, tekrar eden repo, yasak çeviri) ve `ekran.py`'nin ölçtüğü şeyler (taşma, JavaScript hatası, kırık iç bağlantı) de agent'lara tekrar baktırılmaz; bu çıktılar doğrudan bulgu olur. Agent'lar okur gözüyle ve gözle görülebilen şeylere bakar.
 
-     Her rakam, tarih, isim ve nitelendirme kaynakta açıkça yazıyor mu? Kaynağın çekincesi habere yansımış mı? Linkler açılıyor ve asıl kaynağa mı gidiyor? İç atıflar doğru habere mi gidiyor? Bağımsız sayfa okumalarını paralel yap. Puanı: `dogruluk`.
    - **Editoryal ve dil.** `kurallar/KURALLAR.md`, `kurallar/TERIMLER.md`, `kurallar/ATOLYE.md` ve sayının JSON'u. Bakacağı yerler:
      - okuyucu için seçim ve önem sırası (KURALLAR §1);
      - eksik bilgi ve “ne yapmalıyım” adımı;
@@ -53,8 +48,8 @@ Görevin iki işi var:
      - Atölye kuralları;
      - Türkçe: çeviri kokan cümle, sözlüğe aykırı terim, 25 kelimeyi aşan cümle, yanlış ek.
 
-     Puanları: `icerik` (seçim, değer, editoryal kalite) ve `dil`.
-   - **Tasarım.** `/tmp/inc/ekran/` altındaki bütün görüntüler (telefon, tablet, masaüstü) ve `tools/ekran.py` çıktısı. Görüntülere tek tek bakar; şunları arar:
+     Kaynak açmaz. Tek istisna: bir cümle kendi içinde çelişiyor ya da başka bir haberle çelişiyorsa o cümlenin kaynağını açar (en çok 3 sayfa) ve bulguyu `dogruluk` kategorisinde yazar. Puanları: `icerik` (seçim, değer, editoryal kalite) ve `dil`.
+   - **Tasarım.** `/tmp/inc/ekran/` altındaki görüntüler (telefon ve masaüstü; tablet yalnızca ölçülür) ve `tools/ekran.py` çıktısı. Görüntülere tek tek bakar; şunları arar:
      - hizalama ve boşluk dengesi;
      - erken kırılan ya da taşan satır;
      - emoji gibi çizilen karakter;
@@ -121,9 +116,8 @@ Görevin iki işi var:
 {
   "tarih": "2026-11-18",
   "sayi": 16,
-  "puan": {"icerik": 7.5, "dogruluk": 8, "dil": 7, "tasarim": 8},
-  "gerekce": {"icerik": "…", "dogruluk": "…", "dil": "…", "tasarim": "…"},
-  "dogrulanan": 14,
+  "puan": {"icerik": 7.5, "dil": 7, "tasarim": 8},
+  "gerekce": {"icerik": "…", "dil": "…", "tasarim": "…"},
   "bulgular": [
     {
       "id": "b1",
@@ -150,4 +144,4 @@ Alanlar:
   - `kucuk`: dil ve biçim.
 - `konum`: JSON yolu ya da ekran ve bölüm (`telefon · sec-atolye`).
 - `kanit`: kaynakta ne yazdığı ve URL'si; ya da görüntü dosyasının adı.
-- `puan`: 0-10. Ölçek bütün günlerde aynıdır: 9, okurun hiçbir düzeltme istemeyeceği bir sayıdır.
+- `puan`: 0-10. Ölçek bütün günlerde aynıdır: 9, okurun hiçbir düzeltme istemeyeceği bir sayıdır. Doğruluk puanı verilmez; doğruluk sabah editörünün işidir.

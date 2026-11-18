@@ -79,8 +79,11 @@ async def main(a):
                 # Telefonda katlanan metinler de görünsün diye “Devamı” açılır
                 await pg.evaluate("document.querySelectorAll('.rest').forEach(e => e.classList.remove('rest'))")
                 o = await pg.evaluate(OLC)
-                for sel in ["header.mast", "section.lead", "section.cal-list"] + [f"#{i}" for i in await pg.evaluate(
-                        "[...document.querySelectorAll('main section.sec[id]')].map(s => s.id)")]:
+                # Görüntü yalnızca telefon ve masaüstü için, yalnızca günden güne değişen bölümlerden alınır
+                # (başlık ve Benchmark bandı sabit bileşen); tablet yalnızca ölçülür.
+                secs = [] if ad == "tablet" else ["section.lead", "section.cal-list"] + [f"#{i}" for i in await pg.evaluate(
+                    "[...document.querySelectorAll('main section.sec[id]')].map(s => s.id)") if i != "sec-benchmark"]
+                for sel in secs:
                     el = await pg.query_selector(sel)
                     if el and await el.is_visible():
                         isim = sel.replace("#", "").replace("section.", "").replace("header.", "")
