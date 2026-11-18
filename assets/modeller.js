@@ -6,7 +6,9 @@
   var list = document.getElementById("mdl-list"), src = document.getElementById("mdl-veri");
   if (!list || !src) return;
   var D; try { D = JSON.parse(src.textContent); } catch (e) { return; }
-  var M = D.models, MET = D.metrics, KEYS = Object.keys(MET), TABS = D.sekmeler;
+  var M = D.models, MET = D.metrics, KEYS = Object.keys(MET), TABS = D.sekmeler, N = D.ilk || M.length;
+  // Bir model bir sekmede, o ölçütte değeri varsa ve yalnızca başka bir sekmenin listesine ait değilse görünür (build.py m_ranked ile aynı)
+  var inTab = function (m, k) { return m[k] != null && (!m.yalniz || m.yalniz === k); };
   var $ = function (id) { return document.getElementById(id); };
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches;
   var tr = function (v, d) { return v.toFixed(d).replace(".", ","); };
@@ -92,8 +94,9 @@
   function layout(changed) {
     var k = key, up = MET[k].iyi === "yuksek";
     caption(k);
-    var have = rows.filter(function (o) { return o.m[k] != null; });
+    var have = rows.filter(function (o) { return inTab(o.m, k); });
     have.sort(function (a, b) { return up ? b.m[k] - a.m[k] : a.m[k] - b.m[k]; });
+    have = have.slice(0, N);   // her sekmede ilk N model
     var y = 0, pos = 0, g = changed ? ++gen : gen;
     have.forEach(function (o, i) {
       if (!i || o.m[k] !== have[i - 1].m[k]) pos = i + 1;   // eşit değerler aynı sırayı alır

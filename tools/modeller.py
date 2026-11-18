@@ -60,8 +60,23 @@ def main():
         elif not met[k].get("sekme"):
             E(f"metrics.{k}: sekmede görünecek kısa ad (sekme) eksik")
     models = D.get("models") or []
-    if not 8 <= len(models) <= 14:
-        E(f"model sayısı {len(models)}; kural gereği 8–14 arası olmalı (ilk 10 + en iyi 2 açık model)")
+    ilk = D.get("ilk")
+    if not isinstance(ilk, int) or ilk < 5:
+        E("ilk: her sekmede gösterilecek model sayısı (tam sayı, en az 5) gerekli")
+        ilk = 20
+    ana = [m for m in models if not m.get("yalniz")]
+    eksik_liste = len(ana) < ilk
+    if not 8 <= len(ana) <= ilk:
+        E(f"ana listede {len(ana)} model var; en az 8, en çok {ilk} (Zekâ sıralamasında ilk {ilk})")
+    for i, m in enumerate(models):
+        y = m.get("yalniz")
+        if y is not None and (y not in met or y == (tabs[0] if tabs else None)):
+            E(f"models[{i}] ({m.get('ad')}): yalniz yalnızca bir sekmenin ölçüt anahtarı olabilir, ilk sekme olamaz")
+    for k in tabs[1:]:
+        if k in met and met[k].get("kaynak") != met[tabs[0]].get("kaynak"):
+            n = sum(1 for m in models if m.get(k) is not None)
+            if n < min(ilk, 10):
+                W(f"'{k}' sekmesinde {n} modelin ölçümü var; kaynak tablosunda yeterli model varsa ilk {ilk} doldurulmalı")
     names = set()
     for i, m in enumerate(models):
         w = f"models[{i}] ({m.get('ad')})"
@@ -97,7 +112,12 @@ def main():
         except (IndexError, ValueError):
             lim = 7
         age = (dt.date.today() - upd).days
-        print(f"GÜNCELLE: veri {age} günlük (sınır {lim})" if age > lim else f"veri {age} günlük; güncelleme gerekmiyor")
+        if age > lim:
+            print(f"GÜNCELLE: veri {age} günlük (sınır {lim})")
+        elif eksik_liste:
+            print(f"GÜNCELLE: ana listede {len(ana)} model var, kural ilk {ilk}")
+        else:
+            print(f"veri {age} günlük; güncelleme gerekmiyor")
     print(f"modeller.json: {len(models)} model, {len(met)} ölçüt · {len(errors)} hata, {len(warns)} uyarı")
     return 1 if errors else 0
 

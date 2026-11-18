@@ -9,7 +9,7 @@ description: The Daily Compiler'ın Benchmark sayfasının verisini (data/modell
 
 ## Ne zaman
 
-- `python3 tools/modeller.py --yas 7` çıktısında `GÜNCELLE` varsa, ya da
+- `python3 tools/modeller.py --yas 7` çıktısında `GÜNCELLE` varsa (veri eskiyse ya da ana listede 20'den az model varsa), ya da
 - bugünkü sayıda listedeki ya da listeye girebilecek bir modelin yeni sürüm haberi varsa.
 
 İkisi de yoksa bu adımlar atlanır; tablo her gün değişmek zorunda değildir.
@@ -25,17 +25,19 @@ Yalnızca bu iki tablonun kendi sayfası okunur. Rakam başka bir siteden (derle
 
 ## Kurallar (editoryal seçim yoktur)
 
-1. **Hangi modeller:** `aa` tablosunda zekâ endeksine göre ilk 10 farklı model. Listede en az 2 açık ağırlıklı model olmalıdır; ilk 10'da 2'den az varsa, eksik kalan kadar en yüksek puanlı açık model sona eklenir (toplam en çok 12 model). Aynı ailenin farklı adlı modelleri (ör. “Muse Wonder” ile “Muse Wonder Full”) ayrı modeldir.
+Her sekme ilk `ilk` (şu an 20) modeli gösterir. Veri iki listeden oluşur:
+
+1. **Ana liste (Zekâ, Maliyet, Süre sekmeleri):** `aa` tablosunda zekâ endeksine göre ilk 20 farklı model. Listede en az 2 açık ağırlıklı model olmalıdır; ilk 20'de 2'den az varsa, eksik kalan kadar sondaki kapalı model çıkarılır ve yerine en yüksek puanlı açık model girer (liste yine 20). Aynı ailenin farklı adlı modelleri (ör. “Muse Wonder” ile “Muse Wonder Full”) ayrı modeldir. Maliyet ve Süre sekmeleri bu 20 modeli kendi ölçütlerine göre sıralar; tablonun en ucuz ya da en hızlı modelleri ayrıca eklenmez.
 2. **Hangi ayar:** Aynı modelin birden çok satırı varsa (max, xhigh, high…) zekâ endeksi en yüksek satır alınır; eşitlikte maliyeti düşük olan. Seçilen ayar `ayar` alanına küçük harfle yazılır (ayarı olmayan modelde boş metin).
-3. **Kodlama:** `cursor` tablosunda aynı modelin **aynı ayarlı** satırı varsa `kodlama` ve `kod_maliyet` oradan alınır (“Extra High” = `xhigh`). Model ya da o ayar tabloda yoksa ikisi de `null` olur; başka ayarın ya da önceki sürümün rakamı yazılmaz.
+3. **Kodlama sekmesi:** `cursor` tablosunda ilk 20 farklı model. Ana listedeki bir modelin `kodlama` ve `kod_maliyet` değeri, `cursor` tablosundaki **aynı ayarlı** satırdan alınır (“Extra High” = `xhigh`); model ya da o ayar tabloda yoksa ikisi de `null`, başka ayarın ya da önceki sürümün rakamı yazılmaz. Ana listede olmayan bir model, `cursor` tablosundaki en yüksek puanlı satırıyla ve `"yalniz": "kodlama"` alanıyla eklenir: `ayar` o satırın ayarı, `kodlama` ve `kod_maliyet` o satırdan, diğer ölçütleri `null`. Kodlama sekmesi bütün modelleri puana göre sıralayıp ilk 20'yi gösterir; `cursor` tablosunun ilk 20 farklı modelinin her biri ya ana listede ya `yalniz` olarak dosyada olmalıdır.
 4. **Eksik değer:** Tabloda “--” olan ya da hiç bulunmayan her değer `null`. Tahmin, yuvarlama ya da başka kaynaktan tamamlama yok.
-5. **Sıra:** `models` dizisi zekâ endeksine göre büyükten küçüğe.
+5. **Sıra:** `models` dizisinde önce ana liste zekâ endeksine göre büyükten küçüğe, sonra `yalniz` modeller kodlama puanına göre.
 6. **Adlar:** `ad` tablodaki tam ad (ayar parantezi olmadan), `kisa` sayı içindeki bantta görünecek ad (en çok 22 karakter; “Claude” ön eki atılır), `saglayici` şirket adı, `acik` açık ağırlıklı ise `true`.
 7. Anthropic modelleri dahil hiçbir model kural dışında eklenmez, çıkarılmaz ya da öne alınmaz. Sayfaya “en iyi model” türü yorum eklenmez.
 
 ## Adımlar
 
-1. İki tabloyu aç ve satırları oku. `aa` için ilk 60 satır yeterlidir; açık modelleri sayfanın “open weights” notundan ya da filtresinden doğrula.
+1. İki tabloyu aç ve satırları oku. `aa` için ilk 80 satır, `cursor` için bütün tablo okunur; açık modelleri sayfanın “open weights” notundan ya da filtresinden doğrula.
 2. Kurallara göre model listesini ve değerleri çıkar; `data/modeller.json` içinde yalnızca `updated`, `models` ve (kaynak sürümü değiştiyse) `sources.*.note` alanlarını yenile. `metrics` ve `sekmeler` olduğu gibi kalır.
 3. Yazdığın her rakamı kaynak tablodaki satırla bir kez daha tek tek karşılaştır.
 4. `python3 tools/modeller.py` çalıştır; `HATA` varsa düzelt, düzeltilemiyorsa değişikliği geri al (`git checkout data/modeller.json`).

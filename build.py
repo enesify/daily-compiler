@@ -195,7 +195,8 @@ M_FMT = {   # assets/modeller.js ile aynı yazım
 def m_ranked(D, k):
     """[(sıra, model)]: ölçümü olan modeller, ölçütün yönüne göre; eşit değerler aynı sırayı alır."""
     up = D["metrics"][k]["iyi"] == "yuksek"
-    ms = sorted([m for m in D["models"] if m.get(k) is not None], key=lambda m: -m[k] if up else m[k])
+    ms = sorted([m for m in D["models"] if m.get(k) is not None and m.get("yalniz") in (None, k)], key=lambda m: -m[k] if up else m[k])
+    ms = ms[:D.get("ilk") or len(ms)]   # her sekmede ilk N model (assets/modeller.js ile aynı)
     out, pos = [], 0
     for i, m in enumerate(ms):
         if i == 0 or m[k] != ms[i - 1][k]:

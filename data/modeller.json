@@ -59,6 +59,7 @@
   "maliyet",
   "sure"
  ],
+ "ilk": 20,
  "models": [
   {"ad": "Claude Fable 5.2", "kisa": "Fable 5.2", "saglayici": "Anthropic", "ayar": "max", "acik": false, "zeka": 65, "maliyet": 26.54, "sure": 41.1, "kodlama": 60.0, "kod_maliyet": 32.79},
   {"ad": "GPT-6.2 Astra", "kisa": "GPT-6.2 Astra", "saglayici": "OpenAI", "ayar": "max", "acik": false, "zeka": 62, "maliyet": 4.0, "sure": 11.5, "kodlama": null, "kod_maliyet": null},
