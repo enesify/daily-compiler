@@ -402,7 +402,10 @@ def main():
     for i, c in enumerate(d.get("corrections") or []):
         w = f"corrections[{i}]"
         cd, r = c.get("date"), c.get("ref")
-        if cd not in dates:
+        if cd == d.get("date"):   # aynı gün düzeltme (inceleme işi): çapa bu sayıda olmalı
+            if r not in anchors:
+                E(f"{w}: bu sayıda {r!r} çapası yok")
+        elif cd not in dates:
             E(f"{w}: {cd!r} tarihli önceki sayı yok")
         elif r not in dates[cd]:
             E(f"{w}: {cd} sayısında {r!r} çapası yok")
