@@ -4,7 +4,8 @@
 Kullanım:
     python3 tools/ekran.py 2026-11-18 --out /tmp/inc/ekran
 
-Önce `python3 build.py` çalıştırılmış olmalı. Sistemdeki Chrome kullanılır (/usr/bin/google-chrome); Playwright yoksa betik kendisi kurar
+Önce `python3 build.py` çalıştırılmış olmalı. Sistemdeki Chrome (/usr/bin/google-chrome), yoksa Playwright'ın kurulu Chromium'u
+(PLAYWRIGHT_BROWSERS_PATH, ör. /opt/pw-browsers) kullanılır; Playwright yoksa betik kendisi kurar
 (yalnızca Python paketi, ~10 sn; tarayıcı indirmez). Araç eksikse “ARAÇ YOK” satırı yazar ve 2 ile çıkar.
 Çıktı: <out>/<genişlik>-<bölüm>.png dosyaları ve her genişlik için bir satır:
     telefon  hata yok            ya da
@@ -14,6 +15,7 @@ kırık iç bağlantı, yüklenemeyen dosya).
 """
 import argparse
 import asyncio
+import glob
 import os
 import subprocess
 import sys
@@ -66,7 +68,8 @@ async def main(a):
     sorun_var = False
     try:
         async with async_playwright() as p:
-            b = await p.chromium.launch(executable_path=a.chrome, args=["--no-sandbox"])
+            kw = {"executable_path": a.chrome} if a.chrome else {}   # yoksa Playwright'ın kendi Chromium'u (PLAYWRIGHT_BROWSERS_PATH)
+            b = await p.chromium.launch(args=["--no-sandbox"], **kw)
             for ad, kw in EKRANLAR:
                 ctx = await b.new_context(**kw)
                 pg = await ctx.new_page()
@@ -115,9 +118,12 @@ if __name__ == "__main__":
     ap.add_argument("--out", default="/tmp/inc/ekran")
     ap.add_argument("--chrome", default="/usr/bin/google-chrome")
     args = ap.parse_args()
-    if not os.path.exists(args.chrome):
-        print(f"ARAÇ YOK: Chrome bulunamadı ({args.chrome}); tasarım incelemesi ekran görüntüsü olmadan yapılamaz")
-        sys.exit(2)
     if not playwright_hazirla():
+        sys.exit(2)
+    if args.chrome and not os.path.exists(args.chrome):
+        args.chrome = None
+    if not args.chrome and not (glob.glob(os.path.join(os.environ.get("PLAYWRIGHT_BROWSERS_PATH", "/opt/pw-browsers"), "chromium*"))
+                                or glob.glob(os.path.expanduser("~/.cache/ms-playwright/chromium*"))):
+        print("ARAÇ YOK: Chrome bulunamadı (/usr/bin/google-chrome yok, Playwright Chromium'u da yok); tasarım incelemesi ekran görüntüsü olmadan yapılamaz")
         sys.exit(2)
     sys.exit(asyncio.run(main(args)))
