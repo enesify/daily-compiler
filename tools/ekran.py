@@ -2,7 +2,7 @@
 """Bir sayının sayfasını üç ekran genişliğinde açar; bölüm bölüm ekran görüntüsü alır ve ölçülebilir tasarım sorunlarını yazar.
 
 Kullanım:
-    python3 tools/ekran.py 2026-11-18 --out /tmp/inc/ekran
+    python3 tools/ekran.py 2026-11-18 --out /tmp/dc/ekran
 
 Önce `python3 build.py` çalıştırılmış olmalı. Sistemdeki Chrome (/usr/bin/google-chrome), yoksa Playwright'ın kurulu Chromium'u
 (PLAYWRIGHT_BROWSERS_PATH, ör. /opt/pw-browsers) kullanılır; Playwright yoksa betik kendisi kurar
@@ -29,9 +29,12 @@ EKRANLAR = (("telefon", dict(viewport={"width": 390, "height": 844}, is_mobile=T
 OLC = r"""() => {
   const W = document.documentElement.clientWidth, out = {tasma: document.documentElement.scrollWidth - W, ogeler: [], kirik: []};
   const sec = el => (el.closest('section[id]') || {}).id || '';
+  // Yatay kaydırılan şeritlerin (ör. eski sayılardaki rakam şeridi) içindeki öğeler ekran dışında olabilir; sorun değildir
+  const kaydirmali = el => { for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+    const o = getComputedStyle(p).overflowX; if (o === 'auto' || o === 'scroll') return true; } return false; };
   for (const el of document.querySelectorAll('main *')) {
     const r = el.getBoundingClientRect();
-    if (r.width && (r.right > W + 1 || r.left < -1) && !el.closest('pre') && !el.closest('.nav-links') && getComputedStyle(el).position !== 'fixed')
+    if (r.width && (r.right > W + 1 || r.left < -1) && !el.closest('pre') && !el.closest('.nav-links') && getComputedStyle(el).position !== 'fixed' && !kaydirmali(el))
       out.ogeler.push(el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.split(' ')[0] : '') + ' (' + sec(el) + ')');
   }
   for (const a of document.querySelectorAll('a[href^="#"]')) {
@@ -115,7 +118,7 @@ async def main(a):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("tarih")
-    ap.add_argument("--out", default="/tmp/inc/ekran")
+    ap.add_argument("--out", default="/tmp/dc/ekran")
     ap.add_argument("--chrome", default="/usr/bin/google-chrome")
     args = ap.parse_args()
     if not playwright_hazirla():

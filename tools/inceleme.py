@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Günlük inceleme kaydını (data/inceleme/YYYY-MM-DD.json) denetler, bildirim satırını üretir ve kayıtları özetler.
+"""Sabah görevinin bulgu kaydını (data/inceleme/YYYY-MM-DD.json) denetler, bildirim satırını üretir ve kayıtları özetler.
 
 Kullanım:
     python3 tools/inceleme.py data/inceleme/2026-11-18.json   kaydı denetler, bildirim satırını yazar (sorun varsa çıkış kodu 1)
     python3 tools/inceleme.py --ozet 14                       son 14 günün kayıtlarını özetler (haftalık kural analizi için)
 
-Kayıt biçimi ve alanların anlamı: kurallar/INCELEME.md, “Kayıt” bölümü.
+Kayıt biçimi ve alanların anlamı: kurallar/GOREV.md, “Bulgu kaydı” bölümü.
 """
 import datetime as dt
 import glob
@@ -17,11 +17,11 @@ from collections import Counter, defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIR = os.path.join(ROOT, "data", "inceleme")
-KATEGORI = ("dogruluk", "kaynak", "eksik-bilgi", "secim", "dil", "terim", "editoryal", "atolye", "tasarim", "teknik")
+KATEGORI = ("dogruluk", "kaynak", "eksik-bilgi", "etiket", "secim", "dil", "terim", "editoryal", "atolye", "tasarim", "teknik")
 ONEM = ("kritik", "onemli", "kucuk")
-DURUM = ("duzeltildi", "duzeltme-listesinde", "oneri", "birakildi")
+DURUM = ("duzeltildi", "duzeltme-listesinde", "oneri", "birakildi", "reddedildi")
 KOK = ("yok", "denetlenebilir", "belirsiz", "uygulanmadi", "eksik", "kod")
-PUAN = ("icerik", "dil", "tasarim")
+PUAN = ("icerik", "dogruluk", "dil", "tasarim")
 
 
 def denetle(d, yol):
@@ -35,10 +35,12 @@ def denetle(d, yol):
     p = d.get("puan") or {}
     for k in PUAN:
         v = p.get(k)
-        if k == "tasarim" and v is None:   # ekran aracı çalışmadıysa
+        if k == "tasarim" and v is None:   # ekran aracı çalışmadıysa tasarım editörü çalışmaz
             continue
         if not isinstance(v, (int, float)) or not 0 <= v <= 10:
             s.append(f"puan.{k} 0-10 arası sayı olmalı")
+    if d.get("dogrulanan") is not None and not isinstance(d.get("dogrulanan"), int):
+        s.append("dogrulanan tam sayı olmalı")
     ids = set()
     for i, b in enumerate(d.get("bulgular") or []):
         w = f"bulgular[{i}]"
@@ -50,8 +52,8 @@ def denetle(d, yol):
                 s.append(f"{w}.{f} boş")
         if b.get("kok") not in (None, "yok") and not str(b.get("kural") or "").strip():
             s.append(f"{w}: kok '{b.get('kok')}' ise kural alanı (hangi kural ya da dosya, ne eksik) yazılmalı")
-        if b.get("onem") == "kritik" and b.get("kategori") in ("dogruluk", "kaynak") and b.get("durum") not in ("duzeltildi", "duzeltme-listesinde"):
-            s.append(f"{w}: kritik doğruluk bulgusu düzeltilmeden bırakılamaz")
+        if b.get("onem") == "kritik" and b.get("kategori") in ("dogruluk", "kaynak") and b.get("durum") not in ("duzeltildi", "reddedildi", "duzeltme-listesinde"):
+            s.append(f"{w}: kritik doğruluk bulgusu yalnızca düzeltilir ya da kaynağa bakılarak reddedilir")
         if b.get("id") in ids:
             s.append(f"{w}: id tekrar ediyor")
         ids.add(b.get("id"))
@@ -66,10 +68,11 @@ def satir(d):
     p = d.get("puan") or {}
     vs = [p[k] for k in PUAN if isinstance(p.get(k), (int, float))]
     ort = sum(vs) / len(vs) if vs else 0
-    return (f"İnceleme · Sayı {d.get('sayi')}: {ort:.1f}/10 (içerik {p.get('icerik')}, "
-            f"dil {p.get('dil')}, tasarım {p.get('tasarim')}) · "
+    dg = f"{d['dogrulanan']} haber doğrulandı · " if isinstance(d.get("dogrulanan"), int) else ""
+    return (f"Editörler: taslak {ort:.1f}/10 (içerik {p.get('icerik')}, doğruluk {p.get('dogruluk')}, "
+            f"dil {p.get('dil')}, tasarım {p.get('tasarim') if p.get('tasarim') is not None else '–'}) · {dg}"
             f"{o['kritik']} kritik, {o['onemli']} önemli, {o['kucuk']} küçük bulgu · "
-            f"{st['duzeltildi'] + st['duzeltme-listesinde']} düzeltildi, {st['oneri']} öneri · {kural} kural sinyali")
+            f"{st['duzeltildi'] + st['duzeltme-listesinde']} düzeltildi, {st['reddedildi']} reddedildi, {st['oneri']} öneri · {kural} kural sinyali")
 
 
 def ozet(gun):
@@ -86,7 +89,7 @@ def ozet(gun):
         print(f"Son {gun} günde inceleme kaydı yok.")
         return
     print(f"Son {gun} gün · {len(kay)} kayıt ({kay[0]['tarih']} – {kay[-1]['tarih']})")
-    print("\nPuanlar (içerik / dil / tasarım):")
+    print("\nPuanlar (içerik / doğruluk / dil / tasarım):")
     for d in kay:
         p = d.get("puan") or {}
         print(f"  {d['tarih']}  " + " / ".join(str(p.get(k, '?')) for k in PUAN))

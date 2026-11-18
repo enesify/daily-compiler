@@ -208,6 +208,7 @@ figure.chart{margin:10px 0 2px;padding:10px 0 2px;border-top:1px solid var(--rul
 .cal-list .l{font-family:var(--f-display);font-size:15.5px;font-weight:500;line-height:1.3}
 .cal-list a.int .l::after,.cal-list a.ext .l::after{content:"";margin-left:.3em;background:var(--accent)}
 .cal-list a.int .l::after{-webkit-mask-image:var(--i-dn);mask-image:var(--i-dn)}
+.nw,code.nb{white-space:nowrap}
 .xi.xr{-webkit-mask-image:var(--i-rt);mask-image:var(--i-rt);width:.72em;height:.72em;margin-right:.3em}
 @media (hover:hover){.cal-list a:hover .l{color:var(--accent)}}
 .lc-side figure.chart{margin:0;padding-bottom:0}

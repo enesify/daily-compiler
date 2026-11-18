@@ -70,7 +70,9 @@ def typo(text):
     şapkalı “zekâ”. CVE numaraları ve ISO tarihler (2026-11-07) gibi çok tireli diziler aralık sayılmaz."""
     s = zeka(str(text or ""))
     s = re.sub(r"(?<=[\w)”])'(?=\w)", "’", s)
-    s = re.sub(r"(?<![\w\-/.,:])(%?\d+(?:[.,:]\d+)*)-(%?\d+(?:[.,:]\d+)*)(?![\w\-/])",
+    s = re.sub(r"(?<=\ws)'(?=\s)", "’", s)   # İngilizce çoğul iyelik: Agents' Last Exam
+    # Sayı aralığı; paket sürümleri (3.6-4+deb12u3, 1.2-3~bpo) aralık sayılmaz
+    s = re.sub(r"(?<![\w\-/.,:+~])(%?\d+(?:[.,:]\d+)*)-(%?\d+(?:[.,:]\d+)*)(?![\w\-/+~])",
                lambda m: f"{m.group(1)}{WJ}–{WJ}{m.group(2)}", s)
     return s
 
@@ -90,10 +92,17 @@ def num3(n):
     return str(n or "").zfill(3)
 
 
+def code_html(p):
+    """Satır içi kod. Boşluksuz ve kısa kod (bayrak, sürüm, dosya adı) satır sonunda kendi tiresinden bölünmesin diye
+    tek parça kalır (okur `-XX:-UseBASE64Intrinsics` bayrağını eksik kopyalamasın); uzun kod dar ekranda taşmasın diye bölünebilir."""
+    nb = ' class="nb"' if len(p) <= 32 and not re.search(r"\s", p) else ""
+    return f"<code{nb}>{esc(p)}</code>"
+
+
 def rich(text):
     """`backtick` → <code>, gerisi kaçışlı metin."""
     parts = re.split(r"`([^`]+)`", str(text or ""))
-    return "".join(f"<code>{esc(p)}</code>" if i % 2 else esc(_text(p, i)) for i, p in enumerate(parts) if p)
+    return "".join(code_html(p) if i % 2 else esc(_text(p, i)) for i, p in enumerate(parts) if p)
 
 
 # Büyük harf: Türkçe kelimelerde i→İ, İngilizce terim/özel isimlerde i→I (SPRING, GITHUB)
@@ -134,7 +143,7 @@ def caps(s):
 def caps_rich(text):
     """Büyük harfe çevrilecek alanlar: kod parçaları korunur."""
     parts = re.split(r"`([^`]+)`", str(text or ""))
-    return "".join(f"<code>{esc(p)}</code>" if i % 2 else esc(caps(_text(p, i))) for i, p in enumerate(parts) if p)
+    return "".join(code_html(p) if i % 2 else esc(caps(_text(p, i))) for i, p in enumerate(parts) if p)
 
 
 # ---------------------------------------------------------------- veri
@@ -385,7 +394,7 @@ def code_lines(src):
 def at_step(x):
     """Adımın ilk cümlesi kısa bir buyruksa (“Dosyayı seçin.”) kalın basılır; okur adımları göz atarak tarayabilsin."""
     x = str(x or "")
-    m = re.match(r"([^.`:]{3,48}[.:])\s+(\S.*)$", x, re.S)
+    m = re.match(r"([^.`:]{3,72}[.:])\s+(\S.*)$", x, re.S)
     if not m:
         return rich(x)
     return f"<b class=\"at-lead\">{rich(m.group(1))}</b> {rich(m.group(2))}"
@@ -742,9 +751,10 @@ def render_issue(ctx, cur):
         ps = []
         for b in briefs:
             u = b.get("url") or ""
-            tail = (" " + ref_link(ctx, "önceki sayı", u)) if u.startswith("#") else (
-                f'\u00a0<a href="{esc(u)}" target="_blank" rel="noopener" aria-label="Kaynak"><i class="xi" aria-hidden="true"></i></a>' if re.match(r"^https?://", u) else "")
-            ps.append(f'<p><b>{caps_rich(b.get("tag"))}</b>{rich(b.get("text"))}{tail}</p>')
+            if u.startswith("#"):
+                ps.append(f'<p><b>{caps_rich(b.get("tag"))}</b>{rich(b.get("text"))} {ref_link(ctx, "önceki sayı", u)}</p>')
+            else:
+                ps.append(f'<p><b>{caps_rich(b.get("tag"))}</b>{with_ext(b.get("text"), u)}</p>')
         out.append(f'<section class="sec" id="sec-kisa"><div class="sec-h"><h2>Kısa Kısa</h2></div><div class="briefs">{"".join(ps)}</div></section>')
     out.append(models_band(ctx))
     out.append(corrections_block(ctx, cur))
@@ -753,13 +763,23 @@ def render_issue(ctx, cur):
     return "\n".join(out)
 
 
+def with_ext(text, url):
+    """Metin + dış kaynak oku. Ok son kelimeden ayrılıp tek başına alt satıra düşmesin diye son kelime ile ok bir arada tutulur."""
+    text = str(text or "")
+    if not re.match(r"^https?://", url or ""):
+        return rich(text)
+    ok = f'<a href="{esc(url)}" target="_blank" rel="noopener" aria-label="Kaynak"><i class="xi" aria-hidden="true"></i></a>'
+    i = text.rstrip().rfind(" ")
+    head, last = (text[:i + 1], text[i + 1:].rstrip()) if i >= 0 and text[i + 1:].count("`") % 2 == 0 and text[:i].count("`") % 2 == 0 else ("", text)
+    return f'{rich(head)}<span class="nw">{rich(last)}\u00a0{ok}</span>'
+
+
 def patch_list(s):
     """Güvenlik bölümünün başında “Bugün yamala”: 1-3 madde [{text, url}]."""
     items = [m for m in s.get("patch") or [] if m.get("text")][:3]
     if not items:
         return ""
-    lis = "".join(f'<li>{rich(m["text"])}' + (f'\u00a0<a href="{esc(m["url"])}" target="_blank" rel="noopener" aria-label="Kaynak"><i class="xi" aria-hidden="true"></i></a>'
-                  if re.match(r"^https?://", m.get("url") or "") else "") + "</li>" for m in items)
+    lis = "".join(f'<li>{with_ext(m["text"], m.get("url"))}</li>' for m in items)
     return f'<aside class="patch" aria-label="Bugün yamala"><span class="kicker alert">{esc(caps("Bugün yamala"))}</span><ul>{lis}</ul></aside>'
 
 

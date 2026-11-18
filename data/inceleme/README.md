@@ -1,4 +1,5 @@
-# İnceleme kayıtları
+# Bulgu kayıtları
 
-Her gün 09.47'de çalışan inceleme görevinin kayıtları (`YYYY-MM-DD.json`). Biçim ve alanlar: `kurallar/INCELEME.md`, “Kayıt” bölümü.
+Sabah görevinde taslağı yayından önce inceleyen üç editörün bulguları ve yazarın kararları (`YYYY-MM-DD.json`). Biçim ve alanlar: `kurallar/GOREV.md`, “Bulgu kaydı” bölümü. 18 Kasım 2026 kaydı, ayrı çalışan ilk inceleme görevinin deneme turudur (yayından sonra yapıldı).
+
 Özet: `python3 tools/inceleme.py --ozet 14`.
