@@ -26,7 +26,7 @@ Görevin iki işi var:
    - Bugünün tarihini al: `TZ=Europe/Istanbul date +%F`.
    - `kurallar/KURALLAR.md`, `kurallar/TERIMLER.md` ve `kurallar/ATOLYE.md` dosyalarını oku, sonra `issues/<bugün>.json` dosyasını oku.
    - `python3 tools/kontrol.py issues/<bugün>.json` çalıştır; çıkan UYARI satırları da bulgudur.
-   - `python3 build.py` ve ardından `python3 tools/ekran.py <bugün> --out /tmp/inc/ekran` çalıştır. Betiğin yazdığı taşma, JavaScript hatası ve kırık bağlantı satırları bulgudur.
+   - `python3 build.py` ve ardından `python3 tools/ekran.py <bugün> --out /tmp/inc/ekran` çalıştır. Betiğin yazdığı taşma, JavaScript hatası ve kırık bağlantı satırları bulgudur. Playwright yoksa betik kendisi kurar; ayrıca kurmaya ya da tarayıcı indirmeye çalışma. “ARAÇ YOK” yazarsa tasarım incelemesini atla, `puan.tasarim` alanına `null` yaz (tahmini puan verme) ve bunu `gerekce.tasarim` alanında ve bildirimde belirt.
 
 2. **Üç bağımsız inceleme (paralel).** Agent aracıyla (subagent_type "general-purpose") üç agent'ı aynı anda başlat. Her birine yalnızca şunları ver:
    - görevi (aşağıda);

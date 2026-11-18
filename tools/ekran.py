@@ -4,7 +4,8 @@
 Kullanım:
     python3 tools/ekran.py 2026-11-18 --out /tmp/inc/ekran
 
-Önce `python3 build.py` çalıştırılmış olmalı. Chrome ve Playwright gerekir (/usr/bin/google-chrome, `pip install playwright`).
+Önce `python3 build.py` çalıştırılmış olmalı. Sistemdeki Chrome kullanılır (/usr/bin/google-chrome); Playwright yoksa betik kendisi kurar
+(yalnızca Python paketi, ~10 sn; tarayıcı indirmez). Araç eksikse “ARAÇ YOK” satırı yazar ve 2 ile çıkar.
 Çıktı: <out>/<genişlik>-<bölüm>.png dosyaları ve her genişlik için bir satır:
     telefon  hata yok            ya da
     telefon  TAŞMA 24px: pre.code (sec-atolye) · JS: ... · KESİK: .nm "..."
@@ -38,6 +39,22 @@ OLC = r"""() => {
   out.ogeler = [...new Set(out.ogeler)].slice(0, 8);
   return out;
 }"""
+
+
+def playwright_hazirla():
+    """Playwright yoksa bir kez kurar (yaklaşık 10 sn; tarayıcı indirmez, sistemdeki Chrome kullanılır)."""
+    try:
+        import playwright  # noqa: F401
+        return True
+    except ImportError:
+        pass
+    print("Playwright kuruluyor (pip, ~10 sn)…", file=sys.stderr)
+    r = subprocess.run([sys.executable, "-m", "pip", "install", "-q", "--break-system-packages", "playwright"],
+                       stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
+    if r.returncode:
+        print("ARAÇ YOK: playwright kurulamadı: " + r.stderr.strip()[-200:])
+        return False
+    return True
 
 
 async def main(a):
@@ -94,4 +111,10 @@ if __name__ == "__main__":
     ap.add_argument("tarih")
     ap.add_argument("--out", default="/tmp/inc/ekran")
     ap.add_argument("--chrome", default="/usr/bin/google-chrome")
-    sys.exit(asyncio.run(main(ap.parse_args())))
+    args = ap.parse_args()
+    if not os.path.exists(args.chrome):
+        print(f"ARAÇ YOK: Chrome bulunamadı ({args.chrome}); tasarım incelemesi ekran görüntüsü olmadan yapılamaz")
+        sys.exit(2)
+    if not playwright_hazirla():
+        sys.exit(2)
+    sys.exit(asyncio.run(main(args)))

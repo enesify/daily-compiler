@@ -35,6 +35,8 @@ def denetle(d, yol):
     p = d.get("puan") or {}
     for k in PUAN:
         v = p.get(k)
+        if k == "tasarim" and v is None:   # ekran aracı çalışmadıysa
+            continue
         if not isinstance(v, (int, float)) or not 0 <= v <= 10:
             s.append(f"puan.{k} 0-10 arası sayı olmalı")
     if not isinstance(d.get("dogrulanan"), int):
@@ -64,7 +66,8 @@ def satir(d):
     st = Counter(b.get("durum") for b in bs)
     kural = sum(1 for b in bs if b.get("kok") not in (None, "yok"))
     p = d.get("puan") or {}
-    ort = sum(p.get(k, 0) for k in PUAN) / len(PUAN)
+    vs = [p[k] for k in PUAN if isinstance(p.get(k), (int, float))]
+    ort = sum(vs) / len(vs) if vs else 0
     return (f"İnceleme · Sayı {d.get('sayi')}: {ort:.1f}/10 (içerik {p.get('icerik')}, doğruluk {p.get('dogruluk')}, "
             f"dil {p.get('dil')}, tasarım {p.get('tasarim')}) · {d.get('dogrulanan')} haber doğrulandı · "
             f"{o['kritik']} kritik, {o['onemli']} önemli, {o['kucuk']} küçük bulgu · "
