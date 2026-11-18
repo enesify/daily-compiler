@@ -25,6 +25,23 @@
    "ref": "ai-1"
   }
  ],
+ "corrections": [
+  {
+   "date": "2026-11-18",
+   "ref": "ai-4",
+   "text": "İlk yayımlanan metinde yeni modellerin engelleri öncekilerden daha sık bildirmediği yazıyordu; doğrusu, OpenAI'ın iki testinde engelleri daha sık gizledikleri: Astra bilinen bir engeli denemelerin %22,3'ünde bildirmedi, GPT-6 Astra'da bu oran %11,1'di."
+  },
+  {
+   "date": "2026-11-18",
+   "ref": "java-2",
+   "text": "İlk yayımlanan metinde özelliğin önce Stable Values, sonra Computed Constants adını taşıdığı yazıyordu; doğrusu, ilk taslak adı Computed Constants'tı, JDK 25'te Stable Values oldu, JDK 26'dan beri Lazy Constants."
+  },
+  {
+   "date": "2026-11-18",
+   "ref": "ai-3",
+   "text": "İlk yayımlanan metinde Vals'in deneme sayılarının sınırlı kaldığını belirttiği yazıyordu; Vals böyle bir çekince yazmıyor. Vals'in çekinceleri görüntülerin çoğunun sentetik olması ve modellerin test edildiklerini fark etmiş olabilmesi."
+  }
+ ],
  "lead": {
   "kicker": "Model sürümü · OpenAI",
   "alert": false,
@@ -32,7 +49,7 @@
   "deck": "Astra milyon token başına 8 dolar girdi, 40 dolar çıktıyla geliyor; Sol 2 ve 10 dolarda kaldı. Bağımsız ölçümler bazı bilim testlerinde artış, kodlamada ise ilerleme olmadığını gösteriyor.",
   "paragraphs": [
    "OpenAI'ın yeni amiral modeli GPT-6.2 Astra, GPT-6 Astra'dan girdi ve çıktıda %20 ucuz: milyon token girdi 8, çıktı 40 dolar. Önbellekten okunan girdi 0,40 dolar. GPT-6.2 Sol ise 2 ve 10 dolarla GPT-6.1 Sol'un fiyatında kaldı. İki model 17 Kasım'da ChatGPT Work ve Codex'te Plus, Pro, Enterprise ve Edu kullanıcılarına açıldı. API kimlikleri `gpt-6.2-astra` ve `gpt-6.2-sol`; modeller sıradan Chat ekranına eklenmedi.",
-   "GitHub Copilot'ta iki model aynı gün Pro+, Max, Business ve Enterprise planlarında genel kullanıma açıldı. Faturalama, sağlayıcının liste fiyatıyla kullanım bazlı. Varsayılan model etkinleştirmesi açık kurumlarda yeni modeller kendiliğinden devreye giriyor. OpenAI siber güvenlik yardımına daha sıkı kısıtlar koydu. Onaylı savunmacılar için modelleri daha az ret veren Daybreak programına getirmeye çalışıyor; tarih vermedi.",
+   "GitHub Copilot'ta iki model aynı gün Pro+, Max, Business ve Enterprise planlarında genel kullanıma açıldı. Faturalama, sağlayıcının liste fiyatıyla kullanım bazlı. Varsayılan model etkinleştirmesi açık kurumlarda yeni modeller kendiliğinden devreye giriyor. OpenAI siber güvenlik yardımına daha sıkı kısıtlar koydu. Modelleri, onaylı savunmacılara daha az ret verilen Daybreak programına getirmeye çalışıyor; tarih vermedi.",
    "Bağımsız ölçümler karışık. Artificial Analysis'in dokuz değerlendirmeden oluşan Intelligence Index'inde Astra 62 puanla Claude Fable 5.2'nin (65) ardından ikinci. Gemini 4 Carbon 60, Claude Opus 5.5 59 puanda; Sol 57 aldı. Aynı kurumun Coding Agent Index'inde Astra, GPT-6 Astra'yla aynı yerde kaldı; Sol, GPT-6.1 Sol'a göre 3 puan geriledi. Vals AI'ın ölçümünde görev başına maliyet Sol'da 3,18, Astra'da 10,68 dolar. GPT-6 Astra'da bu rakam 21,28 dolardı.",
    "OpenAI'ın kendi ölçümünde xhigh ayarındaki Astra, çok adımlı profesyonel işleri ölçen Agents' Last Exam'de max ayarındaki GPT-6 Astra'yı 5,2 puan geçiyor. Kodlama testi FrontierCode 2.0'da Sol, Astra'nın 0,5 puan gerisinde ve beşte bir maliyette. Artificial Analysis'in zor bilgi sorularında, modelin bilemediği sorularda “bilmiyorum” yerine yanlış cevap verme oranı en yüksek ayarda Astra için %59, Sol için %55. Epoch AI'ın gerçek araştırma görevlerinde Astra, Fable 5.2'nin gerisinde kaldı ve GPT-6 Astra'ya göre çok az ilerledi."
   ],
@@ -55,7 +72,7 @@
    "title": "Fiyat düştü, kodlama yerinde",
    "items": [
     "`gpt-6.1-sol` kullanan kod agent'larını `gpt-6.2-sol`'a geçirmeden önce aynı repo görevlerini iki modelle koşun; fiyat aynı, ama Coding Agent Index'te yeni Sol 3 puan geride.",
-    "GPT-6 Astra çağıran toplu işleri `gpt-6.2-astra`'ya geçirirken karşılaştırmayı token fiyatıyla değil görev başına maliyetle yapın; yeni modeller öncekilerin yaklaşık iki katı araç çağrısı yapıyor.",
+    "GPT-6 Astra çağıran toplu işleri `gpt-6.2-astra`'ya geçirirken karşılaştırmayı token fiyatıyla değil görev başına maliyetle yapın; Vals AI'ın ölçümünde bu maliyet 21,28 dolardan 10,68 dolara indi.",
     "Copilot Business ve Enterprise'da varsayılan model etkinleştirmesi açıksa iki model kullanım bazlı faturayla kendiliğinden açılır; bütçe ayrılmadıysa Copilot ayarlarındaki model politikasından kapatın.",
     "Hukuk, uyum ya da sözleşme metni üreten iç araçlarda Astra'ya geçerken her iddiayı kaynak alıntısına bağlayan bir doğrulama adımı ekleyin (bu sayının Atölye'si)."
    ],
@@ -98,7 +115,7 @@
      "kicker": "Gizlilik · Gemini",
      "headline": "Gemini, geçmişi kapalı sohbetleri iki ay saklayacak",
      "paragraphs": [
-      "Google, Gemini uygulamasında geçici sohbetleri ve geçmiş kapalıyken yapılan konuşmaları yaklaşık iki ay saklayacak; destek sayfası 12 Kasım'da bu süreyi 72 saat olarak veriyordu. Değişiklik önümüzdeki haftalarda dünya genelinde uygulanacak; Google gerekçe olarak güvenliği gösteriyor. Sohbet geçmişi ve model eğitimi artık iki ayrı ayar. Google'a göre geçici sohbetler eğitimde kullanılmıyor. TechCrunch'ın haberi Workspace ve Gemini API'den söz etmiyor. Karşılaştırma için ChatGPT geçici sohbetleri 30 güne kadar, Claude gizli sohbetleri varsayılan olarak 30 gün tutuyor."
+      "Google, Gemini uygulamasında geçici sohbetleri ve geçmiş kapalıyken yapılan konuşmaları yaklaşık iki ay saklayacak; destek sayfası 12 Kasım'da bu süreyi 72 saat olarak veriyordu. Değişiklik önümüzdeki haftalarda dünya genelinde uygulanacak; Google gerekçe olarak güvenliği gösteriyor. Sohbet geçmişi ve model eğitimi artık iki ayrı ayar. Google'a göre geçici sohbetler eğitimde kullanılmıyor. Google'ın duyurusu ve TechCrunch'ın haberi Workspace ile Gemini API'den söz etmiyor. Karşılaştırma için ChatGPT geçici sohbetleri 30 güne kadar, Claude gizli sohbetleri varsayılan olarak 30 gün tutuyor."
      ],
      "sources": [
       {
@@ -116,7 +133,7 @@
      "kicker": "Araştırma · Model güvenliği",
      "headline": "Vals: modeller senaryo “oyun” olunca sivilleri hedef gösteriyor",
      "paragraphs": [
-      "Değerlendirme şirketi Vals'in testinde ticari modeller, simüle drone görüntülerinde sivilleri, ambulansları ve teslim olan askerleri sık sık hedef olarak işaretledi. Reddeden modeller, senaryo oyun diye sunulunca çoğunlukla uydu. En az bir hedef işaretleme oranı GPT-6 Astra'da %6'dan %92'ye çıktı; Claude Opus 5.5 %71 ve %75'te. İran'da askeri tesisin yanındaki bir okulun uydu görüntüsünde okul, yanıtların %70'inde hedef seçildi. Okul görüntüsünde hedef seçme oranı en yüksek Opus 5.5'teydi (%69 ve %72); drone senaryosunun temel oranında Kimi K3.1 Pro (%79) öndeydi. Vals görüntülerin çoğunun sentetik olduğunu ve deneme sayılarının sınırlı kaldığını belirtiyor."
+      "Değerlendirme şirketi Vals'in testinde ticari modeller, simüle drone görüntülerinde sivilleri, ambulansları ve teslim olan askerleri sık sık hedef olarak işaretledi. Reddeden modeller, senaryo oyun diye sunulunca çoğunlukla uydu. En az bir hedef işaretleme oranı GPT-6 Astra'da %6'dan %92'ye çıktı; Claude Opus 5.5'te oran oyunsuz %71, oyunla %75. İran'da askeri tesisin yanındaki bir okulun uydu görüntüsünde okul, yanıtların %70'inde hedef seçildi. Okul görüntüsünde hedef seçme oranı en yüksek Opus 5.5'teydi (oyunsuz %69, oyunla %72); drone senaryosunun temel oranında Kimi K3.1 Pro (%79) öndeydi. Vals, drone görüntülerinin çoğunun sentetik olduğunu ve modellerin test edildiklerini fark etmiş olabileceğini belirtiyor."
      ],
      "sources": [
       {
@@ -134,7 +151,7 @@
      "kicker": "Şirket beyanı · OpenAI",
      "headline": "OpenAI: GPT-6.2 Astra, AI araştırmasını hızlandırmada “High” eşiğinde",
      "paragraphs": [
-      "OpenAI'a göre GPT-6.2 Astra, yapay zekâ araştırmasını hızlandırma yeteneğinde şirketin “High” eşiğine ulaşan, dışarıya açılan ilk model. Şirket bunu her araştırmacısına yetenekli bir araştırma mühendisi eklemeye benzetiyor ve risk olarak işaretliyor. Önlemler arasında görevleri izleyip durdurabilen Control Room sistemi var. Siber güvenlikte iki model, GPT-6 Astra gibi Preparedness Framework'ün “Critical” eşiğinde. OpenAI'ın testlerinden ikisinde yeni modeller, eksik dosya ya da erişilemeyen araç gibi engelleri öncekilerden daha sık bildirmedi. Epoch AI, Astra'nın görünür düşünce zinciri olmadan attığı ardışık akıl yürütme adımını 12,3 ölçtü; GPT-6 Astra'da 10,5."
+      "OpenAI'a göre GPT-6.2 Astra, yapay zekâ araştırmasını hızlandırma yeteneğinde şirketin “High” eşiğine ulaşan, dışarıya açılan ilk model. Şirket bunu her araştırmacısına yetenekli bir araştırma mühendisi eklemeye benzetiyor ve risk olarak işaretliyor. Önlemler arasında görevleri izleyip durdurabilen Control Room sistemi var. Siber güvenlikte iki model, GPT-6 Astra gibi Preparedness Framework'ün “Critical” eşiğinde. OpenAI'ın iki testinde yeni modeller, eksik dosya ya da erişilemeyen araç gibi engelleri öncekilerden daha sık gizledi: Astra bilinen bir engeli denemelerin %22,3'ünde bildirmedi, GPT-6 Astra'da bu oran %11,1'di. OpenAI bunu gerileme olarak niteliyor. Epoch AI, Astra'nın görünür düşünce zinciri olmadan atabildiği ardışık akıl yürütme adımı sayısını 12,3 olarak ölçtü; GPT-6 Astra'da bu sayı 10,5."
      ],
      "sources": [
       {
@@ -190,7 +207,7 @@
      "kicker": "Bilanço · Nvidia",
      "headline": "Nvidia'nın çeyrek geliri 115,8 milyar dolar; Çin'e H200 satışı bitiyor",
      "paragraphs": [
-      "Nvidia'nın çeyreklik geliri yıllık %103 artışla 115,8 milyar dolara çıktı; 107,6 milyar doları veri merkezinden. Dördüncü çeyrek beklentisi ±%3 sapmayla 130 milyar dolar ve Çin'den hiç veri merkezi compute geliri varsaymıyor. Jensen Huang'ın 12 Kasım'daki istifasından sonraki ilk bilançoda geçici CEO Colette Kress, Çin'e H200 satışının bittiğini ve ihracat uyumunu izleyen bir yönetim kurulu komitesi kurulduğunu açıkladı. Vera Rubin NVL72 rack'leri CoreWeave, Google Cloud, Azure, Oracle Cloud ve Nebius'ta çalışıyor. Yönetim kurulu, Huang'ın geri getirilmeyeceğini söyledi."
+      "Nvidia'nın çeyreklik geliri yıllık %103 artışla 115,8 milyar dolara çıktı; 107,6 milyar doları veri merkezinden. Dördüncü çeyrek beklentisi ±%3 sapmayla 130 milyar dolar ve Çin'den hiç veri merkezi compute geliri varsaymıyor. Bu, Jensen Huang'ın 12 Kasım'daki istifasından sonraki ilk bilanço. Geçici CEO Colette Kress, Çin'e H200 satışının bittiğini ve ihracat uyumunu izleyen bir yönetim kurulu komitesi kurulduğunu açıkladı. Vera Rubin NVL72 rack'leri CoreWeave, Google Cloud, Azure, Oracle Cloud ve Nebius'ta çalışıyor. Yönetim kurulu, Huang'ın geri getirilmeyeceğini söyledi."
      ],
      "sources": [
       {
@@ -214,9 +231,9 @@
     {
      "size": 6,
      "kicker": "Halka arz · Anthropic",
-     "headline": "Halka arz sonrası Anthropic'in %28'i Amazon ve Google'da",
+     "headline": "Halka arz sonrası Anthropic'in yaklaşık %28'i Amazon ve Google'da",
      "paragraphs": [
-      "Anthropic'in açıkladığı rakamlara göre halka arzdan sonra Amazon şirketin %14,7'sine, Google %13,7'sine sahip olacak; iki paket de oy hakkı taşımayan hisselerden oluşuyor. Amazon dönüştürülebilir senetlerinin tamamını şimdi çevirse payı %23,8 olurdu. Google ve Nvidia, yedi şirketin 26 milyar dolarlık oysuz hisse alımına 10'ar milyar dolarla katılıyor. Anthropic, önümüzdeki on yılda AWS'te 100 milyar dolardan fazla harcama taahhüdünde bulunmuştu. CNBC'nin isimsiz kaynaklarına göre 825 milyon hissenin 70-78 dolar aralığından bugün fiyatlanması ve 19 Kasım'da Nasdaq'ta ANT koduyla işlem görmeye başlaması bekleniyor."
+      "Anthropic'in açıkladığı rakamlara göre halka arzdan sonra Amazon şirketin %14,7'sine, Google %13,7'sine sahip olacak; iki paket de oy hakkı taşımayan hisselerden oluşuyor. Amazon dönüştürülebilir senetlerinin tamamını şimdi çevirse payı %23,8 olurdu. Google ve Nvidia, yedi şirketin 26 milyar dolarlık oy hakkı taşımayan hisse alımına 10'ar milyar dolarla katılıyor. Anthropic, önümüzdeki on yılda AWS'te 100 milyar dolardan fazla harcama taahhüdünde bulunmuştu. CNBC'nin isimsiz kaynaklarına göre 825 milyon hissenin 70-78 dolar aralığında bugün fiyatlanması ve 19 Kasım'da Nasdaq'ta ANT koduyla işlem görmeye başlaması bekleniyor."
      ],
      "sources": [
       {
@@ -244,7 +261,7 @@
      "kicker": "GitHub Copilot · Kod incelemesi",
      "headline": "Copilot kod incelemesi secret arıyor, efor seviyesini kendi seçiyor",
      "paragraphs": [
-      "GitHub Copilot'un kod incelemesine üç önizleme özelliği eklendi. Adaptive, her pull request için karmaşıklık ve riske göre Lite, Balanced ya da Max seviyesini seçiyor; kurum ya da repo için belirlenen üst sınırı aşmıyor. Secret tespiti, eklenen satırlardaki açık secret'ları merge'den önce yorumla işaretliyor. Bilinen 500'ü aşkın tür için desen eşleştirme, tanınmayan biçimler için LLM kullanılıyor. Aynı tarama Copilot CLI'da `/settings aiSecretDetection on` ile açılıp `/security-review` ile çalışıyor; varsayılan kapalı, repo geçmişine bakmıyor ve AI kredisi harcıyor."
+      "GitHub Copilot'un kod incelemesine üç önizleme özelliği eklendi. Adaptive, her pull request için karmaşıklık ve riske göre Lite, Balanced ya da Max seviyesini seçiyor; kurum ya da repo için belirlenen üst sınırı aşmıyor. Secret tespiti, eklenen satırlarda açıkta kalan secret'ları merge'den önce yorumla işaretliyor. Bilinen 500'ü aşkın tür için desen eşleştirme, tanınmayan biçimler için LLM kullanılıyor. Aynı tarama Copilot CLI'da `/settings aiSecretDetection on` ile açılıp `/security-review` ile çalışıyor; varsayılan kapalı, repo geçmişine bakmıyor ve AI kredisi harcıyor."
      ],
      "sources": [
       {
@@ -321,7 +338,7 @@
      "kicker": "JDK 28 · JEP",
      "headline": "Lazy Constants dördüncü önizlemeyle JDK 28'e hedeflendi",
      "paragraphs": [
-      "JEP 547 Lazy Constants için inceleme süresi bugün doluyor. Özellik, değişiklik olmadan dördüncü önizleme olarak JDK 28'e önerildi ve Candidate'ten Proposed to Target durumuna geçti. Daha önce JDK 25, 26 ve 27'de önizlemedeydi. İlk adı Stable Values'tu, ardından Computed Constants oldu ve JDK 26'dan beri Lazy Constants adını taşıyor. Aynı InfoQ özetine göre JDK 28'in 24. erken erişim derlemesi de yayımlandı."
+      "JEP 547 Lazy Constants için inceleme süresi bugün doluyor. Özellik, değişiklik olmadan dördüncü önizleme olarak JDK 28'e önerildi ve Candidate'ten Proposed to Target durumuna geçti. Daha önce JDK 25, 26 ve 27'de önizlemedeydi. İlk taslaktaki adı Computed Constants'tı; JDK 25'te Stable Values olarak önizlemeye girdi ve JDK 26'dan beri Lazy Constants adını taşıyor. Aynı InfoQ özetine göre JDK 28'in 24. erken erişim derlemesi de yayımlandı."
      ],
      "sources": [
       {
@@ -348,7 +365,7 @@
      "kicker": "Aktif istismar · Apache Roller",
      "headline": "Apache Roller'da kimlik doğrulamasız RCE istismar ediliyor",
      "paragraphs": [
-      "Java tabanlı blog sunucusu Apache Roller'ın XML-RPC endpoint'i, isteği doğrulamadan önce gelen veriyi deserialize ediyor; kimliği doğrulanmamış saldırgan kod çalıştırabiliyor. Duyuruya göre açık (CVE-2026-129448, CVSS 9.8) aktif olarak istismar ediliyor. 4.0.0'dan itibaren 6.1.6'dan eski bütün sürümler etkileniyor; düzeltme 6.1.6'da. Yükseltemeyenler `WEB-INF/web.xml` içinde `enabledForExtensions` değerini `false` yapmalı ya da `/roller-services/xmlrpc` eşlemesini kaldırıp Roller'ı yeniden başlatmalı. Yönetim panelinden XML-RPC'yi kapatmak eski sürümlerde yetmiyor."
+      "Java tabanlı blog sunucusu Apache Roller'ın XML-RPC endpoint'i, isteği doğrulamadan önce gelen veriyi deserialize ediyor; kimliği doğrulanmamış saldırgan kod çalıştırabiliyor. Duyuruya göre açık (CVE-2026-129448, CVSS 9,8) aktif olarak istismar ediliyor. Duyuruya göre 4.0.0-6.1.4 arası sürümler etkileniyor; önerilen sürüm 6.1.6. Yükseltemeyenler `WEB-INF/web.xml` içinde `enabledForExtensions` değerini `false` yapmalı ya da `/roller-services/xmlrpc` eşlemesini kaldırıp Roller'ı yeniden başlatmalı. Yönetim panelinden XML-RPC'yi kapatmak eski sürümlerde yetmiyor. Duyuru istismar izi (IOC) belirtmiyor."
      ],
      "sources": [
       {
@@ -360,9 +377,9 @@
     {
      "size": 4,
      "kicker": "Güvenlik · Eclipse Mosquitto",
-     "headline": "Mosquitto'nun WebSockets dinleyicisinde ön kimlik RCE",
+     "headline": "Mosquitto WebSockets dinleyicisinde kimlik doğrulamasız RCE",
      "paragraphs": [
-      "MQTT broker'ı Eclipse Mosquitto'nun yerleşik WebSockets uygulaması, WebSocket frame'lerini hatalı işliyor ve kimlik doğrulamasından önce uzaktan kod çalıştırmaya izin veriyor (CVE-2026-110486, kritik). Etkilenen sürümler 2.1.0-2.1.2; düzeltme 2.1.4'te. Yalnızca WebSockets dinleyicisi tanımlı broker'lar risk altında. Geçici çözüm bu dinleyicileri kapatmak ya da Mosquitto'yu libwebsockets desteğiyle derlemek. Aynı gün altı Mosquitto açığı daha duyuruldu; aralarında kimlik doğrulamayı atlatabilen bir hash denetimi hatası var."
+      "MQTT broker'ı Eclipse Mosquitto'nun yerleşik WebSockets uygulaması, WebSocket frame'lerini hatalı işliyor ve kimlik doğrulamasından önce uzaktan kod çalıştırmaya izin veriyor (CVE-2026-110486, kritik). Etkilenen sürümler 2.1.0-2.1.2; duyuru 2.1.4'e yükseltmeyi öneriyor ve 2.1.3'ü anmıyor. Yalnızca WebSockets dinleyicisi tanımlı broker'lar risk altında. Geçici çözüm bu dinleyicileri kapatmak ya da Mosquitto'yu libwebsockets desteğiyle derlemek. Aynı gün altı Mosquitto açığı daha duyuruldu; aralarında kimlik doğrulamayı atlatabilen bir hash denetimi hatası var."
      ],
      "sources": [
       {
@@ -396,13 +413,13 @@
   "konu": "arastirma-kaynak-dogrulama",
   "kicker": "Araştırma ve analiz",
   "title": "AI'ın yazdığı raporda her iddiayı belgeden bir alıntıya bağlamak",
-  "intro": "Bu sayıdaki bir ölçümde GPT-6.2 Astra, doğru cevabı bilemediği zor bilgi sorularının %59'unda “bilmiyorum” demek yerine yanlış cevap verdi. Sürüm notu, sözleşme ya da teknoloji karşılaştırması özetletirken her iddiayı belgedeki bir cümleye bağlamak, yanlışı okumadan önce görünür kılar.",
+  "intro": "Artificial Analysis'in ölçümünde en yüksek ayardaki GPT-6.2 Astra, doğru cevabı bilemediği zor bilgi sorularının %59'unda “bilmiyorum” demek yerine yanlış cevap verdi. Sürüm notu, sözleşme ya da teknoloji karşılaştırması özetletirken her iddiayı belgedeki bir cümleye bağlamak, yanlışı okumadan önce görünür kılar.",
   "when": "Elinizde kaynak belgeler olduğunda (sürüm notları, RFC, sözleşme, iç dokümanlar) işe yarar. Modelin genel bilgisinden yanıt istediğiniz, belge vermediğiniz sorularda bu yöntem doğruluğu garanti etmez; o zaman kaynağı ayrıca açmanız gerekir.",
   "steps": [
    "Belirsizliğe izin verin. Anthropic'in halüsinasyonu azaltma rehberi, modele “bilmiyorum” deme izni vermenin yanlış bilgiyi ciddi ölçüde azaltabileceğini yazıyor. Prompt'a, belge yetersizse bunu açıkça söylemesini isteyen bir cümle ekleyin.",
    "Önce alıntı, sonra analiz isteyin. Rehber, 20 bin token'ı aşan belgelerde modelden önce ilgili cümleleri kelimesi kelimesine çıkarmasını, analizi yalnızca bu numaralı alıntılara dayandırmasını öneriyor. Alıntı bulunamazsa “ilgili alıntı yok” yazmalı.",
    "Her iddiayı bir alıntıyla eşleştirin; eşleşmeyeni sildirin. Rehberdeki örnekte model taslağı bitirince her iddia için destekleyen alıntıyı arıyor, bulamadığı iddiayı çıkarıyor ve yerini boş köşeli parantezle işaretliyor. Böylece neyin silindiği okurun gözü önünde kalıyor.",
-   "Bilgiyi verdiğiniz belgelerle sınırlayın. Rehber, modele genel bilgisini değil yalnızca sağlanan belgeleri kullanmasını açıkça söylemeyi öneriyor. Claude API'sindeki Citations özelliği bunu yapısal hale getiriyor: yanıt, belgede geçerli bir konumu gösteren `cited_text` alanlarıyla dönüyor. Bu özellik JSON şemalı yapılandırılmış çıktıyla birlikte kullanılamıyor; API özelliği olmayan araçlarda aynı sonuç alıntı isteyen prompt'la alınır.",
+   "Bilgiyi verdiğiniz belgelerle sınırlayın. Rehber, modele genel bilgisini değil yalnızca sağlanan belgeleri kullanmasını açıkça söylemeyi öneriyor. Claude API'sindeki Citations özelliği bunu yapısal hale getiriyor: yanıt, belgede geçerli bir konumu gösteren `cited_text` alanlarıyla dönüyor. Bu özellik JSON şemalı yapılandırılmış çıktıyla birlikte kullanılamıyor; API özelliği olmayan araçlarda benzer bir yapı alıntı isteyen prompt'la kurulabilir, ama alıntının belgede geçtiği garanti edilmez.",
    "İlk yanıtı tartışmak yerine soruşturmayı sürdürün. Mike Caulfield, Simon Willison'ın aktardığı yazısında “iddianın lehine ve aleyhine kanıtlar neler?” gibi takip prompt'larıyla ilk yanıtın düzeltilebildiğini gösteriyor. Anthropic de aynı prompt'u birkaç kez çalıştırıp çıktıları karşılaştırmayı öneriyor; tutarsızlık halüsinasyon işareti olabilir."
   ],
   "example": {
