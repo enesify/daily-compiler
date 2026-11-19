@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18",
+ "updated": "2026-11-19",
  "sources": {
   "aa": {
    "name": "Artificial Analysis",
@@ -9,7 +9,7 @@
   "cursor": {
    "name": "CursorBench",
    "url": "https://cursor.com/evals",
-   "note": "CursorBench 4.0"
+   "note": "CursorBench 4.1"
   }
  },
  "metrics": {
@@ -61,17 +61,284 @@
  ],
  "ilk": 20,
  "models": [
-  {"ad": "Claude Fable 5.2", "kisa": "Fable 5.2", "saglayici": "Anthropic", "ayar": "max", "acik": false, "zeka": 65, "maliyet": 26.54, "sure": 41.1, "kodlama": 60.0, "kod_maliyet": 32.79},
-  {"ad": "GPT-6.2 Astra", "kisa": "GPT-6.2 Astra", "saglayici": "OpenAI", "ayar": "max", "acik": false, "zeka": 62, "maliyet": 4.0, "sure": 11.5, "kodlama": null, "kod_maliyet": null},
-  {"ad": "Gemini 4 Carbon", "kisa": "Gemini 4 Carbon", "saglayici": "Google", "ayar": "high", "acik": false, "zeka": 60, "maliyet": 5.48, "sure": 34.2, "kodlama": 60.4, "kod_maliyet": 9.22},
-  {"ad": "Claude Opus 5.5", "kisa": "Opus 5.5", "saglayici": "Anthropic", "ayar": "max", "acik": false, "zeka": 59, "maliyet": 10.04, "sure": 24.5, "kodlama": 57.8, "kod_maliyet": 13.43},
-  {"ad": "GPT-6.2 Sol", "kisa": "GPT-6.2 Sol", "saglayici": "OpenAI", "ayar": "max", "acik": false, "zeka": 57, "maliyet": 1.01, "sure": 7.9, "kodlama": null, "kod_maliyet": null},
-  {"ad": "Claude Sonnet 5.5", "kisa": "Sonnet 5.5", "saglayici": "Anthropic", "ayar": "max", "acik": false, "zeka": 55, "maliyet": 10.02, "sure": 32.3, "kodlama": 55.5, "kod_maliyet": 7.05},
-  {"ad": "Gemini 4 Hydrogen", "kisa": "Gemini 4 Hydrogen", "saglayici": "Google", "ayar": "xhigh", "acik": false, "zeka": 54, "maliyet": 3.16, "sure": 14.9, "kodlama": 57.8, "kod_maliyet": 5.86},
-  {"ad": "GPT-6.1 Terra", "kisa": "GPT-6.1 Terra", "saglayici": "OpenAI", "ayar": "max", "acik": false, "zeka": 51, "maliyet": 0.96, "sure": 14.3, "kodlama": null, "kod_maliyet": null},
-  {"ad": "Gemini 4 Argon", "kisa": "Gemini 4 Argon", "saglayici": "Google", "ayar": "high", "acik": false, "zeka": 50, "maliyet": 4.97, "sure": 29.2, "kodlama": 52.9, "kod_maliyet": 4.57},
-  {"ad": "Muse Wonder Full", "kisa": "Muse Wonder Full", "saglayici": "Meta", "ayar": "max", "acik": false, "zeka": 50, "maliyet": null, "sure": null, "kodlama": null, "kod_maliyet": null},
-  {"ad": "Kimi K3.1 Pro", "kisa": "Kimi K3.1 Pro", "saglayici": "Kimi", "ayar": "", "acik": true, "zeka": 46, "maliyet": 3.68, "sure": 38.4, "kodlama": null, "kod_maliyet": null},
-  {"ad": "DeepSeek V4.1 Flash 1017", "kisa": "DeepSeek V4.1 Flash", "saglayici": "DeepSeek", "ayar": "max", "acik": true, "zeka": 33, "maliyet": 0.6, "sure": 13.2, "kodlama": 47.7, "kod_maliyet": 0.98}
+  {
+   "ad": "Claude Fable 5.2",
+   "kisa": "Fable 5.2",
+   "saglayici": "Anthropic",
+   "ayar": "max",
+   "acik": false,
+   "zeka": 65,
+   "maliyet": 26.54,
+   "sure": 41.8,
+   "kodlama": 61.3,
+   "kod_maliyet": 48.11
+  },
+  {
+   "ad": "GPT-6.2 Astra",
+   "kisa": "GPT-6.2 Astra",
+   "saglayici": "OpenAI",
+   "ayar": "max",
+   "acik": false,
+   "zeka": 62,
+   "maliyet": 4.0,
+   "sure": 13.9,
+   "kodlama": null,
+   "kod_maliyet": null
+  },
+  {
+   "ad": "Gemini 4 Neon",
+   "kisa": "Gemini 4 Neon",
+   "saglayici": "Google",
+   "ayar": "xhigh",
+   "acik": false,
+   "zeka": 61,
+   "maliyet": 6.44,
+   "sure": 21.5,
+   "kodlama": 65.4,
+   "kod_maliyet": 10.67
+  },
+  {
+   "ad": "Gemini 4 Carbon",
+   "kisa": "Gemini 4 Carbon",
+   "saglayici": "Google",
+   "ayar": "high",
+   "acik": false,
+   "zeka": 60,
+   "maliyet": 7.76,
+   "sure": 37.1,
+   "kodlama": 61.5,
+   "kod_maliyet": 8.52
+  },
+  {
+   "ad": "Claude Opus 5.5",
+   "kisa": "Opus 5.5",
+   "saglayici": "Anthropic",
+   "ayar": "max",
+   "acik": false,
+   "zeka": 59,
+   "maliyet": 10.04,
+   "sure": 25.2,
+   "kodlama": 58.1,
+   "kod_maliyet": 11.88
+  },
+  {
+   "ad": "GPT-6.2 Sol",
+   "kisa": "GPT-6.2 Sol",
+   "saglayici": "OpenAI",
+   "ayar": "max",
+   "acik": false,
+   "zeka": 57,
+   "maliyet": 1.01,
+   "sure": 8.7,
+   "kodlama": null,
+   "kod_maliyet": null
+  },
+  {
+   "ad": "Claude Sonnet 5.5",
+   "kisa": "Sonnet 5.5",
+   "saglayici": "Anthropic",
+   "ayar": "max",
+   "acik": false,
+   "zeka": 55,
+   "maliyet": 10.02,
+   "sure": 32.7,
+   "kodlama": 54.4,
+   "kod_maliyet": 8.63
+  },
+  {
+   "ad": "Gemini 4 Hydrogen",
+   "kisa": "Gemini 4 Hydrogen",
+   "saglayici": "Google",
+   "ayar": "xhigh",
+   "acik": false,
+   "zeka": 54,
+   "maliyet": 3.16,
+   "sure": 15.3,
+   "kodlama": 61.4,
+   "kod_maliyet": 8.09
+  },
+  {
+   "ad": "GPT-6.1 Terra",
+   "kisa": "GPT-6.1 Terra",
+   "saglayici": "OpenAI",
+   "ayar": "max",
+   "acik": false,
+   "zeka": 51,
+   "maliyet": 0.96,
+   "sure": 15.3,
+   "kodlama": null,
+   "kod_maliyet": null
+  },
+  {
+   "ad": "Gemini 4 Argon",
+   "kisa": "Gemini 4 Argon",
+   "saglayici": "Google",
+   "ayar": "high",
+   "acik": false,
+   "zeka": 50,
+   "maliyet": 4.97,
+   "sure": 29.7,
+   "kodlama": 56.5,
+   "kod_maliyet": 9.14
+  },
+  {
+   "ad": "Muse Wonder Full",
+   "kisa": "Muse Wonder Full",
+   "saglayici": "Meta",
+   "ayar": "max",
+   "acik": false,
+   "zeka": 50,
+   "maliyet": null,
+   "sure": null,
+   "kodlama": null,
+   "kod_maliyet": null
+  },
+  {
+   "ad": "Kimi K3.1 Pro",
+   "kisa": "Kimi K3.1 Pro",
+   "saglayici": "Kimi",
+   "ayar": "",
+   "acik": true,
+   "zeka": 46,
+   "maliyet": 3.68,
+   "sure": 39.3,
+   "kodlama": null,
+   "kod_maliyet": null
+  },
+  {
+   "ad": "Muse Wonder",
+   "kisa": "Muse Wonder",
+   "saglayici": "Meta",
+   "ayar": "max",
+   "acik": false,
+   "zeka": 44,
+   "maliyet": 6.95,
+   "sure": 13.8,
+   "kodlama": null,
+   "kod_maliyet": null
+  },
+  {
+   "ad": "Qwen4 Max",
+   "kisa": "Qwen4 Max",
+   "saglayici": "Alibaba",
+   "ayar": "",
+   "acik": false,
+   "zeka": 43,
+   "maliyet": 3.27,
+   "sure": 31.4,
+   "kodlama": null,
+   "kod_maliyet": null
+  },
+  {
+   "ad": "Claude Haiku 5.5",
+   "kisa": "Haiku 5.5",
+   "saglayici": "Anthropic",
+   "ayar": "max",
+   "acik": false,
+   "zeka": 36,
+   "maliyet": 0.41,
+   "sure": 14.8,
+   "kodlama": 48.4,
+   "kod_maliyet": 1.14
+  },
+  {
+   "ad": "Muse Ember",
+   "kisa": "Muse Ember",
+   "saglayici": "Meta",
+   "ayar": "max",
+   "acik": false,
+   "zeka": 36,
+   "maliyet": 0.14,
+   "sure": 3.0,
+   "kodlama": null,
+   "kod_maliyet": null
+  },
+  {
+   "ad": "Grok 4.7",
+   "kisa": "Grok 4.7",
+   "saglayici": "SpaceXAI",
+   "ayar": "xhigh",
+   "acik": false,
+   "zeka": 35,
+   "maliyet": 7.77,
+   "sure": 24.8,
+   "kodlama": 48.6,
+   "kod_maliyet": 10.19
+  },
+  {
+   "ad": "Tencent Hy4",
+   "kisa": "Tencent Hy4",
+   "saglayici": "Tencent",
+   "ayar": "",
+   "acik": false,
+   "zeka": 35,
+   "maliyet": 1.03,
+   "sure": 13.6,
+   "kodlama": null,
+   "kod_maliyet": null
+  },
+  {
+   "ad": "DeepSeek V4.1 Flash 1017",
+   "kisa": "DeepSeek V4.1 Flash",
+   "saglayici": "DeepSeek",
+   "ayar": "max",
+   "acik": true,
+   "zeka": 33,
+   "maliyet": 0.6,
+   "sure": 14.0,
+   "kodlama": null,
+   "kod_maliyet": null
+  },
+  {
+   "ad": "GLM-5.3",
+   "kisa": "GLM-5.3",
+   "saglayici": "Z AI",
+   "ayar": "max",
+   "acik": true,
+   "zeka": 32,
+   "maliyet": 5.01,
+   "sure": 24.2,
+   "kodlama": null,
+   "kod_maliyet": null
+  },
+  {
+   "ad": "Grok 4.6",
+   "kisa": "Grok 4.6",
+   "saglayici": "SpaceXAI",
+   "ayar": "xhigh",
+   "acik": false,
+   "zeka": null,
+   "maliyet": null,
+   "sure": null,
+   "kodlama": 44.3,
+   "kod_maliyet": 5.26,
+   "yalniz": "kodlama"
+  },
+  {
+   "ad": "Muse Spark 1.3",
+   "kisa": "Muse Spark 1.3",
+   "saglayici": "Meta",
+   "ayar": "max",
+   "acik": false,
+   "zeka": null,
+   "maliyet": null,
+   "sure": null,
+   "kodlama": 41.9,
+   "kod_maliyet": 2.89,
+   "yalniz": "kodlama"
+  },
+  {
+   "ad": "GPT-5.6 Sol",
+   "kisa": "GPT-5.6 Sol",
+   "saglayici": "OpenAI",
+   "ayar": "max",
+   "acik": false,
+   "zeka": null,
+   "maliyet": null,
+   "sure": null,
+   "kodlama": 40.9,
+   "kod_maliyet": 7.6,
+   "yalniz": "kodlama"
+  }
  ]
 }

@@ -1,0 +1,564 @@
+{
+  "date": "2026-11-19",
+  "number": 17,
+  "dateLabel": "Perşembe, 19 Kasım 2026",
+  "readingMinutes": 14,
+  "calendar": [
+    {
+      "date": "2026-11-21",
+      "text": "Axis 1.x açığı için CISA'nın son tarihi",
+      "ref": "java-1"
+    },
+    {
+      "date": "2026-12-01",
+      "text": "Gemini 4 Carbon API fiyatı iki katına çıkıyor",
+      "ref": "manset"
+    },
+    {
+      "date": "2026-12-08",
+      "text": "Dependabot, hareketsiz repolarda alarmları duraklatıyor",
+      "url": "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories"
+    },
+    {
+      "date": "2026-12-08",
+      "text": "GitHub runner'larında ARM32 işleri sona eriyor",
+      "url": "https://github.blog/changelog/2026-11-12-actions-for-arm32-linux-windows-retirement"
+    },
+    {
+      "date": "2026-12-14",
+      "text": "GitHub Copilot'tan altı model kaldırılıyor",
+      "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december"
+    }
+  ],
+  "lead": {
+    "kicker": "Model sürümü · Google",
+    "alert": false,
+    "headline": "Gemini 4 Neon yayında: milyon token 3 dolar girdi, 15 dolar çıktı",
+    "deck": "Model ücretli API'de, Gemini uygulamasında ve GitHub Copilot'ta; ücretsiz katmanda yok. Gemini 4 Carbon'un API fiyatı ise 1 Aralık'ta iki katına çıkıyor.",
+    "paragraphs": [
+      "Google'ın Gemini 4 Neon modeli 18 Kasım'dan itibaren ücretli Gemini API'de `gemini-4-neon` kimliğiyle çağrılabiliyor. Milyon token girdi 3, çıktı 15 dolar; önbellekten okunan girdi 0,15 dolar. Batch katmanında girdi 1,50, çıktı 7,50 dolar. Context window 1 milyon token. Fiyat sayfasına göre model ücretsiz katmanda yok ve ücretli katmanda gönderilen veri ürün geliştirmede kullanılmıyor. Google, Neon'u uzun projeler için Carbon ile hızlı işler için Hydrogen arasında konumluyor.",
+      "GitHub Copilot'ta model aynı gün genel erişime açıldı: Pro+, Max, Business ve Enterprise planlarında; VS Code, JetBrains IDE'leri, Eclipse, Xcode, Copilot CLI ve coding agent dahil. Faturalama, sağlayıcının liste fiyatıyla kullanım bazlı. Business ve Enterprise'da yönetici varsayılan model etkinleştirmesini kapatmadıysa model kendiliğinden açılıyor. Gemini uygulamasında ve Antigravity'de Google AI Pro ve Ultra aboneleri modeli seçebiliyor.",
+      "Artificial Analysis'in tablosunda Neon, xhigh ayarında zekâ endeksinde 61 puan alıyor; görev başına maliyeti 6,44 dolar. Tabloda her model en yüksek puanlı ayarıyla yer alıyor. Gemini 4 Carbon high ayarında 60 puan ve 7,76 dolar, GPT-6.2 Astra max ayarında 62 puan ve 4,00 dolar, Claude Fable 5.2 max ayarında 65 puan ve 26,54 dolar. Google'a göre Neon, high ayarında Carbon'dan görev başına %32 daha ucuz.",
+      "Google modeli preview ya da kararlı diye etiketlemiyor. Ücretsiz katmanda Gemini 4 ailesinden yalnızca Hydrogen var; Carbon da Neon gibi yalnızca ücretli katmanda. Carbon'un milyon token fiyatı 30 Kasım'a kadar 2 ve 10 dolar, 1 Aralık'tan itibaren 4 ve 20 dolar. Batch katmanında da Carbon'un fiyatı aynı gün iki katına çıkıyor."
+    ],
+    "sources": [
+      {
+        "label": "Google blog: Introducing Gemini 4 Neon",
+        "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/"
+      },
+      {
+        "label": "Google AI Studio: Gemini API fiyatları",
+        "url": "https://aistudio.google.com/docs/pricing"
+      },
+      {
+        "label": "GitHub changelog: Gemini 4 Neon in GitHub Copilot",
+        "url": "https://github.blog/changelog/2026-11-18-gemini-4-neon-in-github-copilot"
+      },
+      {
+        "label": "Artificial Analysis: model tablosu",
+        "url": "https://artificialanalysis.ai/leaderboards/models"
+      }
+    ],
+    "box": {
+      "kicker": "Pratik çıkarım",
+      "title": "Neon'a geçmeden önce",
+      "items": [
+        "API'de Gemini 4 Carbon çağıran işleri 1 Aralık'tan önce aynı istek setiyle Neon'da da koşun: Carbon o gün milyon token başına 4 ve 20 dolara çıkıyor, Neon 3 ve 15 dolarda.",
+        "Ücretsiz katman anahtarıyla prototip geliştiren ekipler Neon'u çağıramaz; Gemini 4 ailesinde ücretsiz katmanda yalnızca Hydrogen var, Neon için ücretli bir proje gerekiyor.",
+        "Copilot Pro kullananlar Neon'u model listesinde görmez; Neon için Pro+, Max, Business ya da Enterprise planı gerekiyor.",
+        "Gece çalışan toplu işleri Neon'da Batch katmanından gönderin: girdi 1,50, çıktı 7,50 dolar."
+      ],
+      "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
+    }
+  },
+  "sections": [
+    {
+      "id": "ai",
+      "title": "Yapay Zekâ & LLM",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Benchmark · GitHub Copilot",
+          "headline": "Copilot Fusion, Terminal-Bench 4.1 tablosunda %71,2 ile birinci",
+          "chart": {
+            "title": "Terminal-Bench 4.1 çözülen görev oranı (%)",
+            "note": "tbench.ai tablosu; her satır model ve agent harness'ının birlikte sonucu. Grafikte tablonun ilk dört satırı ve OpenAI'ın en iyi satırı var; beşinci sıradaki Sonnet 5.5 (%63,9) gösterilmedi.",
+            "items": [
+              {
+                "label": "Copilot Fusion (max)",
+                "value": 71.2,
+                "display": "%71,2",
+                "highlight": true
+              },
+              {
+                "label": "Opus 5.5 (max) · Claude Code",
+                "value": 65.8,
+                "display": "%65,8"
+              },
+              {
+                "label": "Fable 5.2 (max) · Claude Code",
+                "value": 65.8,
+                "display": "%65,8"
+              },
+              {
+                "label": "Gemini 4 Carbon (high) · Antigravity CLI",
+                "value": 64.5,
+                "display": "%64,5"
+              },
+              {
+                "label": "GPT-6.2 Astra (max) · Codex",
+                "value": 62.1,
+                "display": "%62,1"
+              }
+            ]
+          },
+          "paragraphs": [
+            "GitHub Copilot'un görev başına model seçen yönlendiricisi Fusion, max ayarında Terminal-Bench 4.1'de görevlerin %71,2'sini çözdü; hata payı ±2,9 puan. Agent'ların terminalde zor ve gerçekçi görevleri tamamlama oranını ölçen tabloda ikinci sırayı Claude Code'la çalışan Opus 5.5 ve Fable 5.2 paylaşıyor. Gemini 4 Carbon Antigravity CLI'da, GPT-6.2 Astra Codex'te ölçüldü. GitHub, Fusion'ın Stanford, Harbor ve Laude Institute'un yürüttüğü herkese açık tablolara girdiğini 17 Kasım'da duyurdu.",
+            "Fusion'da kullanıcı yalnızca efor seviyesini seçiyor; görev için hangi modelin çalışacağına ve modellerin nasıl birlikte çalışacağına Fusion karar veriyor. GitHub'ın kendi hesabına göre Fusion Max bu koşuda Fable 5.2'den %88, Opus 5.5'ten %57 daha ucuza mal oldu; tablo maliyet vermiyor ve hesabın yöntemi açıklanmadı. Tablodaki satırlar model ile agent harness'ının birlikte sonucunu veriyor: Fusion kendi harness'ında birden çok model kullanıyor, diğer satırlar tek modelle ve kendi CLI'larıyla ölçüldü.",
+            "Fusion artık github.com'da, Visual Studio'da ve GitHub Mobile'ın beta sürümlerinde de seçilebiliyor; mobil uygulamaların kararlı sürümlerine desteğin yakında geleceği belirtiliyor. Model havuzu da genişledi. Claude Sonnet 5.5 Fusion Max'e, GPT-6.1 Terra Fusion High'a, MAI-Code-2 Fusion Standard'a eklendi. Changelog, Fusion'ın plan ve fiyat ayrıntısını vermiyor."
+          ],
+          "why": "Copilot kullanan ekipler model seçmeden tablonun en yüksek sonucunu alabiliyor; ama bu sonuç tek bir modele değil, yönlendirici ve harness'ın birleşimine ait.",
+          "sources": [
+            {
+              "label": "Terminal-Bench 4.1 tablosu",
+              "url": "https://www.tbench.ai/leaderboard"
+            },
+            {
+              "label": "GitHub changelog: Copilot Fusion updates",
+              "url": "https://github.blog/changelog/2026-11-17-github-copilot-fusion-updates-more-availability-benchmarks-and-models"
+            },
+            {
+              "label": "3 Kasım sayısı: Copilot Fusion",
+              "url": "#2026-11-03-gelistirme-1"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Şirket beyanı · Açık model",
+          "headline": "RadixArk'ın ilk modeli DaisyRose-27B Hugging Face'te",
+          "paragraphs": [
+            "Qwen3.8-27B üzerine kurulu DaisyRose-27B, RadixArk'ın ilk modeli olarak 18 Kasım'da Hugging Face'te BF16, FP8 ve NVFP4 biçimlerinde yayımlandı. Modelin 27 milyar parametresinin hepsi aktif; sayfa lisans, context window ve inference için donanım gereksinimi belirtmiyor. Şirketin kendi harness'larıyla, birden çok koşunun ortalamasıyla ölçtüğü puanlara göre model Terminal-Bench 4.1'de ilk denemede görevlerin %12,0'ını çözüyor, temel model %5,6'da kalıyor. DeepSWE v1.1'de fark 46,2'ye 42,2. Eğitim, 1 milyon token'a kadar uzanan agent oturumlarıyla 144 H200 GPU'da 18 gün sürdü."
+          ],
+          "sources": [
+            {
+              "label": "RadixArk blog: DaisyRose-27B",
+              "url": "https://www.radixark.com/blog/daisyrose-27b"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Şirket beyanı · Microsoft",
+          "headline": "Microsoft Ignite'ta güvenlik, ses ve yönlendirme modelleri",
+          "paragraphs": [
+            "Microsoft'un Ignite'ta tanıttığı yedi modelden MAI Cyber 2 Flash, sürekli izleme ve yama yapan güvenlik agent'ları için tasarlandı; Microsoft modeli MDASH müşterilerine, çıktı token'larında MAI Cyber 1.1 Flash'tan %86 ucuza sunduğunu söylüyor. Decision 1.1, istekleri yalnızca gerektiğinde daha büyük ve pahalı modellere yönlendiriyor; şirkete göre 4.000 müşteri kullanıyor. Konuşmadan konuşmaya çalışan MAI Realtime 1'in fiyatı ses dakikası başına 0,01 dolardan başlıyor. Duyuru 17 Kasım tarihli; aynı ailedeki MAI Code 2'yi dünkü sayıda yazmıştık."
+          ],
+          "sources": [
+            {
+              "label": "Microsoft AI: Ignite 2026 modelleri",
+              "url": "https://microsoft.ai/news/microsoft-ignite-2026/"
+            },
+            {
+              "label": "Dünkü sayı: MAI Code 2 Copilot'ta",
+              "url": "#2026-11-18-ai-1"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Politika · New York",
+          "headline": "New York Başsavcılığı AI güvenlik yasaları için birim kurdu",
+          "paragraphs": [
+            "New York Başsavcısı Letitia James, 17 Kasım'da yapay zekâ güvenliği yasalarını uygulayacak AI Safety, Standards, Enforcement, and Transparency (ASSET) birimini kurdu. Birim, 1 Ocak 2027'de yürürlüğe girecek RAISE Act'in uygulanmasına öncülük edecek. Yasa, AI geliştiricilerinin güvenlik önlemlerini kamuya açıklamasını ve güvenlik olaylarını hızla bildirmesini istiyor. James, OpenAI'daki agent'ların başka bir AI şirketini hacklediğine dair haberleri anarak AI şirketi çalışanlarını ihbara çağırdı. Açıklama bu haberleri doğrulamıyor."
+          ],
+          "sources": [
+            {
+              "label": "New York Başsavcılığı: ASSET Unit duyurusu",
+              "url": "https://ag.ny.gov/press-release/2026/attorney-general-james-announces-creation-ai-safety-standards-enforcement-and"
+            },
+            {
+              "label": "17 Kasım sayısı: Kaliforniya'nın OpenAI davası",
+              "url": "#2026-11-17-ai-1"
+            },
+            {
+              "label": "11 Kasım sayısı: RAISE Act",
+              "url": "#2026-11-11-ai-2"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Dünya modeli · Google DeepMind",
+          "headline": "Genie 4, Project Genie'de Ultra abonelerine açıldı",
+          "paragraphs": [
+            "Google DeepMind'ın dünya modeli Genie 4, 18 Kasım'dan itibaren Project Genie'de uygun Google AI Ultra abonelerine açık; Pro üyeleri bekleme listesine yazılabiliyor. Kullanıcı oturum sırasında yeni bir prompt yazarak dünyanın havasını ya da karakterlerini değiştirebiliyor; model sahneye uyan gerçek zamanlı ses de üretiyor. Duyuru bir API'den söz etmiyor. Google kamera gecikmesi, karmaşık fiziksel etkileşimler ve uzun süreli sahne kalıcılığı üzerinde hâlâ çalıştığını yazıyor; üretilen video ve sese SynthID filigranı ekleniyor."
+          ],
+          "sources": [
+            {
+              "label": "Google blog: Genie 4 now available",
+              "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/genie-4-now-available-project-genie/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "is",
+      "title": "Şirketler & Altyapı",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Halka arz · Anthropic",
+          "headline": "Anthropic halka arzı hisse başına 83 dolardan fiyatlandı",
+          "paragraphs": [
+            "Anthropic'in halka arzında hisse fiyatı 83 dolar oldu ve fiyat 18 Kasım'da belirlendi; 10 Kasım'daki roadshow duyurusunda aralık 70-78 dolar, arz 825 milyon hisseydi. Son duyuruya göre arz 980 milyon A sınıfı hisseye çıktı: 956.351.354 hisseyi şirket, 23.648.646 hisseyi mevcut hissedarlar satıyor ve şirket bu payın gelirini almıyor. Bu fiyatla arzın toplamı yaklaşık 81,3 milyar dolar ediyor. Hisseler 19 Kasım'da Nasdaq Global Select'te ANT koduyla işlem görmeye başlıyor; kapanış 20 Kasım'da bekleniyor. Aracı kurumların 147 milyon ek hisse için 30 günlük opsiyonu var."
+          ],
+          "sources": [
+            {
+              "label": "Anthropic: Anthropic prices initial public offering",
+              "url": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering"
+            },
+            {
+              "label": "Anthropic: roadshow duyurusu",
+              "url": "https://anthropic.com/news/roadshow-launch"
+            },
+            {
+              "label": "Dünkü sayı: Halka arz sonrası Anthropic'in ortakları",
+              "url": "#2026-11-18-is-2"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Satın alma · Palo Alto Networks",
+          "headline": "Palo Alto Networks, Applied Compute'u 4,5 milyar dolara alıyor",
+          "paragraphs": [
+            "Palo Alto Networks, açık ağırlıklı modeller için post-training ve inference platformu geliştiren Applied Compute'u almak için 18 Kasım'da anlaşma imzaladı. Bedel 4,5 milyar dolar ve tamamı hisseyle ödenecek; tutar kapanışta ayarlanabilir. Şirket, işletmelerin bu modelleri kamu ya da egemen bulutlarda güvenli biçimde eğitip uyarlamasına yardım etmeyi ve ekibi kendi AI modellerini geliştirmekte kullanmayı planlıyor. Applied Compute CEO'su Yash Patil kapanıştan sonra Co-Chief AI Officer olacak. İşlemin Palo Alto'nun 2027 mali yılının üçüncü çeyreğinde tamamlanması bekleniyor."
+          ],
+          "sources": [
+            {
+              "label": "SEC: Palo Alto Networks basın bülteni (8-K eki)",
+              "url": "https://www.sec.gov/Archives/edgar/data/0001327567/000132756726000030/ex992pressrelease_november.htm"
+            },
+            {
+              "label": "6 Kasım sayısı: Applied Compute'un yatırım turu",
+              "url": "#2026-11-06-is-6"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gelistirme",
+      "title": "Geliştirme & Araçlar",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Sürüm · Claude Code",
+          "headline": "Claude Code 2.1.328: bulut sağlayıcılarında auto mode varsayılan",
+          "paragraphs": [
+            "Claude Code'u Amazon Bedrock, Google Cloud'un Agent Platform'u, Microsoft Foundry ya da Claude apps gateway üzerinden kullananlarda yeni bir varsayılan var. İzin modu verilmeden açılan etkileşimli oturumlar artık auto mode'da başlıyor. 19 Kasım'da yayımlanan 2.1.328, izin kararlarını bir sınıflandırıcıya bırakan bu modu bu platformlarda Opus 4.6 ve Sonnet 4.6 için açtı. Aynı sürümde çağrısı başarısız olan bir `mcp_tool` hook'u da işlemi engelleyebiliyor: hook'un `onFailure` alanı, komut ve HTTP hook'larında olduğu gibi `block` değerini alıyor. `/status` ve `claude doctor`, endpoint'i tanımlanmamış bir OpenTelemetry exporter'ında verinin kaybolacağını bildiriyor."
+          ],
+          "sources": [
+            {
+              "label": "Claude Code CHANGELOG: 2.1.328",
+              "url": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md"
+            },
+            {
+              "label": "GitHub: Claude Code sürümleri",
+              "url": "https://github.com/anthropics/claude-code/releases"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Agent güvenliği · Sandbox",
+          "headline": "External sandbox: agent dışarıda, komutları ayrı bir Linux'ta",
+          "paragraphs": [
+            "Prime Radiant'ın Simon Willison'la geliştirdiği external sandbox deseninde agent host'ta kalıyor, çalıştırdığı komutlar ise yalnızca izin verilen klasörleri ve host'ları gören bir Linux sandbox'ına gidiyor. WebAssembly'de çalışan x86 emülatörü v86, Apple Containers ve QEMU tabanlı Quicksand ile yazılan üç prototip aynı localhost API'yi sunuyor. Ağ varsayılan olarak kapalı; isteğe bağlı proxy yalnızca listelenen origin ve HTTP metotlarına izin veriyor. Claude Code'da yalnızca Bash komutları sandbox'a gidiyor, Read ve Edit araçları host'ta kalıyor; Codex ve kodlama agent'ı Pi da destekleniyor. Yazarlar prototiplerin denetlenmediğini ve hassas işlerde kullanılmaması gerektiğini yazıyor."
+          ],
+          "sources": [
+            {
+              "label": "Prime Radiant blog: External sandboxes for coding agents",
+              "url": "https://blog.primeradiant.com/external-sandboxes-for-coding-agents/"
+            },
+            {
+              "label": "Simon Willison: External sandboxes for coding agents",
+              "url": "https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "alert": true,
+          "kicker": "Takip · Apache Axis",
+          "headline": "Axis 1.x'teki kimlik doğrulamasız RCE açığı aktif istismar ediliyor",
+          "paragraphs": [
+            "Apache Axis 1.x'teki CVE-2026-90436, CISA'nın istismar edildiği bilinen açıklar kataloğu KEV'e 18 Kasım'da girdi; federal kurumlara verilen son tarih 21 Kasım. Açıkta Axis, gelen SOAP fault mesajında adı verilen sınıfı yükleyip nesnesini oluşturuyor. Uygulamanın classpath'inde uygun bir sınıf varsa kimlik doğrulaması olmayan bir saldırgan uzaktan kod çalıştırabiliyor. CISA bu kayıt için adli inceleme de istiyor, ürünün ömrünü tamamlamış olabileceğini not ediyor ve fidye yazılımı kullanımını “bilinmiyor” olarak işaretliyor.",
+            "Apache, 6 Kasım'daki duyurusunda Axis 1.4 dahil bütün 1.x sürümlerinin etkilendiğini ve yeni bir 1.x sürümü planlanmadığını yazmıştı. Fault, servis başına handler zinciri çalışmadan parse edildiği için servis düzeyindeki kimlik doğrulama saldırıyı durdurmuyor. Apache'nin önerisi Axis2/Java'ya geçmek ya da upstream'deki yama commit'iyle kendi build'ini almak. CISA ise geçici önlem uygulanamıyorsa ürünün kullanımının bırakılmasını ve her varlığın internete açıklığının değerlendirilmesini istiyor.",
+            "Kaynaklar, bir sistemin saldırıya uğrayıp uğramadığını anlamak için iz ya da kontrol yöntemi belirtmiyor; saldırıların kime yöneldiği de açıklanmadı. Aynı duyuru setinde Axis2/Java'nın 2.0.2 sürümü 6 Kasım'da ayrı yedi açığı kapatmıştı; o açıklar KEV'e girmedi."
+          ],
+          "why": "Eski SOAP entegrasyonlarında Axis 1.x taşıyan Java servisleri için yayımlanmış bir yama yok; geçiş ya da yama commit'iyle kendi build'iniz tek yol.",
+          "sources": [
+            {
+              "label": "CISA KEV: CVE-2026-90436",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-90436"
+            },
+            {
+              "label": "oss-security: Apache Axis 1.x duyurusu",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/06/12"
+            },
+            {
+              "label": "8 Kasım sayısı: Axis2/Java 2.0.2 ve Axis 1.x açığı",
+              "url": "#2026-11-08-java-1"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "IDE · GitHub Copilot",
+          "headline": "JetBrains'teki Copilot'ta Maven açık taraması geri geldi",
+          "paragraphs": [
+            "Bağımlılıklardaki güvenlik açıklarını arayan otomatik Maven kontrolleri, GitHub Copilot'un JetBrains eklentisinde yeniden çalışıyor. Bir Maven projesi açıldığında ya da içe aktarıldığında bağımlılık koordinatları GitHub Advisories'e gönderiliyor. 17 Kasım sürümünde Java modernizasyon bulguları da Problems görünümünde listeleniyor. Kurumsal yönetilen ayarlar, yönetici politikası istisna tanımadıkça eklentideki Claude ve Codex'i kapatıyor. Cloud sandbox, tarayıcı kullanımı ve uzaktan erişim public preview'da. JetBrains IDE 2025.2 desteği bitti; güncelleme için 2025.3 ya da sonrası gerekiyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub changelog: Copilot in JetBrains, Ignite releases",
+              "url": "https://github.blog/changelog/2026-11-17-github-copilot-in-jetbrains-ignite-releases"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik",
+      "patch": [
+        {
+          "text": "Apache Axis 1.x (tümü): Axis2/Java'ya geçin ya da yama commit'iyle build alın; son tarih 21 Kasım",
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-90436"
+        },
+        {
+          "text": "Synology DSM (CVE-2024-10441): üreticinin düzeltmesini uygulayın; CISA son tarihi 21 Kasım",
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2024-10441"
+        }
+      ],
+      "articles": [
+        {
+          "size": 4,
+          "alert": true,
+          "kicker": "Güvenlik · Nginx",
+          "headline": "Nginx'in HTTP/2 kodunda iki kimlik doğrulamasız RCE açığı",
+          "paragraphs": [
+            "HTTP/2 etkin varsayılan yapılandırmadaki bir Nginx sunucusunda kimlik doğrulaması olmadan kod çalıştırmaya izin veren CVE-2026-123007, 1.9.5-1.31.8 arasını etkiliyor. F5'in 18 Kasım'da yamaladığı ikinci açık CVE-2026-123633, HTTP/2 proxy kullanan 1.19.7-1.31.8 arasında RCE'ye varabilen bir use-after-free. Düzeltme 1.30.7 (stable) ve 1.31.9 (mainline); Nginx Plus'ta 37.0.8.1 ve 37.3.0.1. Geçici çözüm, 1.25.1 ve sonrasında `http2 off;` ile `listen` satırlarından `http2`'yi kaldırmak. GitHub'da bir exploit yayımlandı; aktif istismar bildirilmedi."
+          ],
+          "sources": [
+            {
+              "label": "Wiz: NGINX HTTP/2 RCE vulnerabilities",
+              "url": "https://www.wiz.io/blog/nginx-http2-rce-vulnerabilities"
+            },
+            {
+              "label": "oss-security: nginx RCE via HTTP/2",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/18/16"
+            },
+            {
+              "label": "GitHub: CVE-2026-123007 PoC",
+              "url": "https://github.com/sfewer-r7/CVE-2026-123007"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "alert": true,
+          "kicker": "Tedarik zinciri · PyPI",
+          "headline": "Microsoft'un agent-framework paketi PyPI'de zehirlendi",
+          "paragraphs": [
+            "Microsoft'un `agent-framework` paketinin 1.26.1 ve 1.26.2 sürümleri, her Python başlangıcında çalışan bir `.pth` dosyasıyla Azure, AWS, GitHub ve OpenAI secret'larını, CI token'larını ve kimlik dosyalarını çalıyordu. Kod, paket import edilmese bile çalışıyordu. İki sürüm 17 Kasım'da yüklendi ve bir saat içinde kaldırıldı; temiz sürüm 1.26.0. Lock dosyalarında ve imajlarda bu iki sürümü, site-packages'ta `agent_framework_meta.pth` ya da `af_runtime_diag.pth` dosyasını arayın. Etkilenen ortamdaki bütün secret'ları yenileyin; 1.26.2, GitHub Actions OIDC token'larını da hedefliyordu."
+          ],
+          "sources": [
+            {
+              "label": "Wiz: Microsoft agent-framework compromised",
+              "url": "https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi"
+            },
+            {
+              "label": "BleepingComputer: Agent Framework PyPI package compromised",
+              "url": "https://www.bleepingcomputer.com/news/security/microsofts-agent-framework-pypi-package-compromised-to-steal-credentials/"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Güvenlik · Ruby",
+          "headline": "Ruby'nin Regexp ve string kodunda yedi bellek açığı",
+          "paragraphs": [
+            "Ruby'nin düzenli ifade derlemesinde ve string'lerin büyük-küçük harf dönüşümünde bulunan yedi bellek açığı 18 Kasım'da kapatıldı; bazıları için uzaktan kod çalıştırmayı gösteren PoC'ler var. Risk en çok saldırganın verdiği düzenli ifadeyi derleyen ya da hazırlanmış bir string'in harf düzenini değiştiren uygulamalarda. Etkilenen sürümler 3.3.13 ve öncesi, 3.4.0-3.4.12 ve 4.0.0-4.0.9. Düzeltmeler 4.0.10, 3.4.13 ve 3.3.14'te; 3.2 ve öncesi yama almayacak. CVE numaraları henüz atanmadı."
+          ],
+          "sources": [
+            {
+              "label": "ruby-lang.org: Regexp and String vulnerabilities",
+              "url": "https://www.ruby-lang.org/en/news/2026/11/18/multiple-vulnerabilities-in-regexp-and-string/"
+            }
+          ],
+          "alert": true
+        }
+      ]
+    }
+  ],
+  "atolye": {
+    "konu": "cicd-gizli-bilgi",
+    "kicker": "CI/CD ve güvenlik",
+    "title": "Coding agent'ın secret'lara erişimini dosya, ortam ve ağ düzeyinde daraltmak",
+    "intro": "Bir coding agent'ın çalıştırdığı komutlar, sizin ortam değişkenlerinizi ve kimlik dosyalarınızı okuyabilir; bu sayıdaki `agent-framework` saldırısı da tam bu yüzeyi hedefledi. Aşağıdaki adımlar agent'ın ihtiyacı olmayan secret'ları dosya, ortam değişkeni ve ağ düzeyinde görünmez kılar.",
+    "when": "Agent'ın yerel makinede ya da bir CI runner'ında komut çalıştırdığı her kurulumda işe yarar. Agent'ın gerçekten bir API'yi çağırması gerekiyorsa secret'ı saklamak yetmez; o zaman 4. adımdaki yer tutucu yöntemi gerekir.",
+    "steps": [
+      "Secret dosyalarını okuma iznini kapatın. Claude Code belgeleri `.env` dosyalarını `permissions.deny` altında `Read(./.env)` ve `Read(./.env.*)` kurallarıyla engellemeyi örnek veriyor. Belgeye göre repodaki `.claude/settings.json` dosyasından gelen deny kuralları, klasör güveni beklenmeden hemen uygulanıyor.",
+      "Komutların okuyabildiği dizinleri daraltın. Claude Code'un sandbox belgesi, varsayılan okuma izninin bütün bilgisayarı kapsadığını ve kimlik dosyalarının okunmasına hâlâ izin verdiğini yazıyor. `sandbox.filesystem` altında `denyRead` ile ev dizinini kapatıp `allowRead` ile yalnızca proje klasörünü açın; `sandbox.credentials` ile `~/.aws/credentials` gibi dosyaları ve `GITHUB_TOKEN` gibi değişkenleri `deny` moduna alın.",
+      "Ortam değişkenlerini süzün. Claude Code belgesine göre sandbox'taki komutlar ortamı, içindeki secret'larla birlikte Claude Code'dan devralıyor. Codex'te `[shell_environment_policy]` tablosundaki `ignore_default_excludes` varsayılan olarak `true`; yani adında KEY, SECRET ya da TOKEN geçen değişkenler alt süreçlere geçiyor. Değeri `false` yapınca bunlar otomatik olarak dışlanıyor; `inherit` ile de başlangıç ortamını `all`, `core` ya da `none` olarak seçebilirsiniz.",
+      "Gereken secret'ı agent'a değil proxy'ye verin. Prime Radiant'ın external sandbox prototiplerinde sandbox yalnızca bir yer tutucu görüyor; izin verilen host'a giden istekte proxy bunu host'taki `GITHUB_TOKEN` değeriyle değiştiriyor. Claude Code sandbox'ı aynı işi `mask` moduyla yapıyor; bunun için `network.tlsTerminate` açık olmalı.",
+      "Ağ çıkışını allowlist ile sınırlayın. Claude Code sandbox'ında izin verilen domain listesi boş başlıyor ve proxy her bağlantının host adını bu listeyle karşılaştırıyor; Prime Radiant sandbox'larında da ağ varsayılan olarak kapalı. Listeye yalnızca paket deposu ve agent'ın gerçekten çağırdığı API host'larını ekleyin."
+    ],
+    "example": {
+      "label": "Örnek ~/.codex/config.toml: secret adlı değişkenleri ve ağ erişimini kapatmak",
+      "lang": "toml",
+      "code": "# Yalnızca temel ortam değişkenleri\n[shell_environment_policy]\ninherit = 'core'\n# KEY/SECRET/TOKEN içerenler dışlanır\nignore_default_excludes = false\n\n# Sandbox'ta dışarıya ağ kapalı\n[sandbox_workspace_write]\nnetwork_access = false"
+    },
+    "pitfall": "Sandbox kuralları yalnızca shell komutlarını kapsar: Claude Code belgelerine göre yerleşik dosya ve web araçları, hook'lar ve yerel MCP sunucuları sandbox dışında çalışır; 1. adımdaki deny kuralları bu yüzden ayrıca gerekir. Prime Radiant da izin verilen bir host'un secret'ı yanıtında geri yansıtabileceği uyarısını yapıyor.",
+    "sources": [
+      {
+        "label": "Claude Code docs: Sandboxing",
+        "url": "https://code.claude.com/docs/en/sandboxing"
+      },
+      {
+        "label": "Claude Code docs: Settings",
+        "url": "https://code.claude.com/docs/en/settings"
+      },
+      {
+        "label": "Codex: Config reference",
+        "url": "https://learn.chatgpt.com/docs/config-file/config-reference"
+      },
+      {
+        "label": "Prime Radiant blog: External sandboxes for coding agents",
+        "url": "https://blog.primeradiant.com/external-sandboxes-for-coding-agents/"
+      }
+    ]
+  },
+  "repos": {
+    "subtitle": "GitHub Trending günlük ve haftalık listeleri, Java haftalık listesi ve Trendshift · yıldızlar 19 Kasım",
+    "items": [
+      {
+        "name": "spring-projects/spring-boot",
+        "url": "https://github.com/spring-projects/spring-boot",
+        "stars": "81.869",
+        "starsValue": 81869,
+        "lang": "Java",
+        "cat": "Framework",
+        "why": "Spring uygulamalarını üretime hazır biçimde kurmak için kullanılan framework. Bu hafta Java listesinde; GA öncesi son aday 4.2.0-RC2, LDAP SSL yeniden yükleme desteğini kaldırdı ve Reactor Netty'de X-Forwarded-Prefix desteği ekledi.",
+        "meta": "Java · Framework"
+      },
+      {
+        "name": "astral-sh/uv",
+        "url": "https://github.com/astral-sh/uv",
+        "stars": "92.269",
+        "starsValue": 92269,
+        "lang": "Rust",
+        "cat": "Paket yöneticisi",
+        "why": "Python paket ve proje yöneticisi. Bu hafta 17 Kasım'da çıkan 0.13.9, bir index'in farklı paket adıyla sunduğu wheel'leri reddediyor ve PEP 832 `.venv` yönlendirme dosyalarını önizleme olarak destekliyor.",
+        "meta": "Rust · Paket yöneticisi"
+      },
+      {
+        "name": "vercel-labs/agent-browser",
+        "url": "https://github.com/vercel-labs/agent-browser",
+        "stars": "52.678",
+        "starsValue": 52678,
+        "lang": "Rust",
+        "cat": "Agent aracı",
+        "why": "AI agent'ları için tarayıcı otomasyonu CLI'ı. Geçen hafta çıkan 0.43.0, sayfayı Chrome'un modern web rehberine göre denetleyen bir skill ekledi ve kurulumda yalnızca platformun ikili dosyasını indiriyor.",
+        "meta": "Rust · Agent aracı"
+      },
+      {
+        "name": "appwrite/appwrite",
+        "url": "https://github.com/appwrite/appwrite",
+        "stars": "58.263",
+        "starsValue": 58263,
+        "lang": "TypeScript",
+        "cat": "Backend platformu",
+        "why": "Uygulamalar ve agent'lar için açık kaynak backend platformu. Güvenlik düzeltmeleri içeren 2.7.2 sürümü 12 Kasım'da, imaj açıklarını temizleyen 2.7.3 sürümü 17 Kasım'da çıktı; ikisi de şema değişikliği gerektirmiyor.",
+        "meta": "TypeScript · Backend platformu"
+      },
+      {
+        "name": "sveltejs/svelte",
+        "url": "https://github.com/sveltejs/svelte",
+        "stars": "89.652",
+        "starsValue": 89652,
+        "lang": "JavaScript",
+        "cat": "Web UI",
+        "why": "Derleyici tabanlı web arayüzü framework'ü. Dün çıkan 5.58.0 sunucu tarafı render'ı hızlandırdı ve `<title>`'ın sunucu ile istemcide farklı render edilmesini düzeltti.",
+        "meta": "JavaScript · Web UI"
+      },
+      {
+        "name": "bitwarden/agent-access",
+        "url": "https://github.com/bitwarden/agent-access",
+        "stars": "364",
+        "starsValue": 364,
+        "cat": "Agent güvenliği",
+        "why": "Agent'lara bütün kasayı açmadan, uçtan uca şifreli bir tünelle tek tek secret veren protokol, CLI ve SDK; `aac run` secret'ı yalnızca alt sürecin ortam değişkenine koyuyor. Bu hafta Trendshift listesinin ilk beşinde; README projeyi erken önizleme aşamasında tanımlıyor.",
+        "meta": "Agent güvenliği"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending: günlük",
+        "url": "https://github.com/trending"
+      },
+      {
+        "label": "GitHub Trending: Java haftalık",
+        "url": "https://github.com/trending/java?since=weekly"
+      },
+      {
+        "label": "Trendshift",
+        "url": "https://trendshift.io/"
+      }
+    ]
+  },
+  "briefs": [
+    {
+      "tag": "Güvenlik",
+      "text": "PHP, desteklenen bütün sürümleri etkileyen ve en yüksek önemi “critical” olan açıklar için 19 Kasım'da 14.00-14.30 UTC arasında güvenlik sürümü yayımlıyor. Açıklar varsayılan dışı ya da nadir yapılandırmalar gerektiriyor; düzeltilmiş sürüm numaraları yayınla birlikte açıklanacak.",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/18/18"
+    },
+    {
+      "tag": "Takip · Güvenlik",
+      "text": "LiteLLM'in `POST /guardrails/test_custom_code` endpoint'inde sandbox'tan kaçıp kod çalıştırmaya izin veren CVE-2026-40217, 18 Kasım'da CISA'nın istismar edildiği bilinen açıklar kataloğuna girdi. Açık Mayıs'ta yayımlanmıştı ve proxy-admin kimlik bilgisi gerektiriyor. 1.81.8-1.83.10 kullananlar 1.83.11'e geçmeli ya da bu endpoint'i reverse proxy'de engellemeli.",
+      "url": "https://github.com/BerriAI/litellm/security/advisories/GHSA-wxxx-gvqv-xp7p"
+    },
+    {
+      "tag": "Takip · Benchmark",
+      "text": "Cursor'ın kodlama ölçümü CursorBench 4.1'de Gemini 4 Neon, xhigh ayarında %65,4 ile ilk sırada; görev başına maliyet 10,67 dolar. Aynı tabloda Gemini 4 Carbon high ayarında %61,5, Claude Fable 5.2 max ayarında %61,3.",
+      "url": "https://cursor.com/evals"
+    },
+    {
+      "tag": "GitHub",
+      "text": "Copilot Business ve Enterprise'da ekip özelleştirmeleri genel erişimde: ekip bakımcıları ve kuruluş sahipleri, “Customize Copilot” sekmesinden seçtikleri Agent Plugin'leri ekibin doğrudan üyeleri için VS Code, Copilot app ve Copilot CLI'da varsayılan olarak açabiliyor. Kurum ve kuruluş politikaları ekip seçimlerinin önünde.",
+      "url": "https://github.blog/changelog/2026-11-18-customize-github-copilot-for-your-team"
+    },
+    {
+      "tag": "Kesinti",
+      "text": "claude.ai'de ve Claude iOS uygulamasında bazı kullanıcılar 17 Kasım'da 16.40-20.20 UTC arasında Apple hesabıyla oturum açamadı.",
+      "url": "https://status.claude.com/incidents/1lglzf469c0z"
+    },
+    {
+      "tag": "İddia · Denetim",
+      "text": "European Business Magazine'in Financial Times'a dayandırdığı habere göre KPMG UK, bir FTSE 250 şirketinin mali tablolarında 100'den fazla AI agent'ını denetim ekibiyle birlikte çalıştırdı. Çalışma resmi denetim sayılmadı; bir agent düzenleyici gereklilikleri eşleştiremeyince insan denetçi müdahale etti.",
+      "url": "https://europeanbusinessmagazine.com/ai-agents-better-questions-kpmg/"
+    }
+  ]
+}
