@@ -184,7 +184,7 @@ def main():
             continue
         if "«" in s or "»" in s:
             E(f"{where}: « » kullanılmış, Türkçe tırnak “ ” olmalı")
-        if '"' in s:
+        if '"' in re.sub(r"`[^`]*`", "", s) and not where.endswith(".code"):   # örnek kod ve satır içi kod serbest
             E(f"{where}: düz çift tırnak kullanılmış, Türkçe tırnak “ ” olmalı")
         if "’" in s:
             W(f"{where}: kıvrık kesme işareti yazılmış; düz ' yaz, sayfa kendisi çevirir")

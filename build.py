@@ -71,6 +71,8 @@ def typo(text):
     s = zeka(str(text or ""))
     s = re.sub(r"(?<=[\w)”])'(?=\w)", "’", s)
     s = re.sub(r"(?<=\ws)'(?=\s)", "’", s)   # İngilizce çoğul iyelik: Agents' Last Exam
+    s = re.sub(r"\b(Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)-(?=(Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)\b)",
+               lambda m: f"{m.group(1)}{WJ}–{WJ}", s)   # ay aralığı: Kasım–Aralık
     # Sayı aralığı; paket sürümleri (3.6-4+deb12u3, 1.2-3~bpo) aralık sayılmaz
     s = re.sub(r"(?<![\w\-/.,:+~])(%?\d+(?:[.,:]\d+)*)-(%?\d+(?:[.,:]\d+)*)(?![\w\-/+~])",
                lambda m: f"{m.group(1)}{WJ}–{WJ}{m.group(2)}", s)
@@ -95,8 +97,10 @@ def num3(n):
 def code_html(p):
     """Satır içi kod. Boşluksuz ve kısa kod (bayrak, sürüm, dosya adı) satır sonunda kendi tiresinden bölünmesin diye
     tek parça kalır (okur `-XX:-UseBASE64Intrinsics` bayrağını eksik kopyalamasın); uzun kod dar ekranda taşmasın diye bölünebilir."""
-    nb = ' class="nb"' if len(p) <= 32 and not re.search(r"\s", p) else ""
-    return f"<code{nb}>{esc(p)}</code>"
+    if len(p) <= 32 and not re.search(r"\s", p):
+        return f'<code class="nb">{esc(p)}</code>'
+    # Uzun kod dar ekranda bölünmek zorunda: harfin ortasından değil, . _ / : = sonrasından bölünsün
+    return "<code>" + re.sub(r"([._/:=])(?=\w)", r"\1<wbr>", esc(p)) + "</code>"
 
 
 def rich(text):
