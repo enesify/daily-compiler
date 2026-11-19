@@ -208,8 +208,11 @@ M_FMT = {   # assets/modeller.js ile aynı yazım
 def m_ranked(D, k):
     """[(sıra, model)]: ölçümü olan modeller, ölçütün yönüne göre; eşit değerler aynı sırayı alır."""
     up = D["metrics"][k]["iyi"] == "yuksek"
-    ms = sorted([m for m in D["models"] if m.get(k) is not None and m.get("yalniz") in (None, k)], key=lambda m: -m[k] if up else m[k])
-    ms = ms[:D.get("ilk") or len(ms)]   # her sekmede ilk N model (assets/modeller.js ile aynı)
+    n, z, met = D.get("ilk") or len(D["models"]), D["sekmeler"][0], D["metrics"]
+    ms = [m for m in D["models"] if m.get(k) is not None and (not m.get("yalniz") or k in ([m["yalniz"]] if isinstance(m["yalniz"], str) else m["yalniz"]))]
+    if k != z and met[k].get("kaynak") == met[z].get("kaynak"):   # Maliyet, Süre: zekâ sırasındaki ilk N model
+        ms = sorted(ms, key=lambda m: -(m.get(z) if m.get(z) is not None else -1e9))[:n]
+    ms = sorted(ms, key=lambda m: -m[k] if up else m[k])[:n]   # assets/modeller.js ile aynı
     out, pos = [], 0
     for i, m in enumerate(ms):
         if i == 0 or m[k] != ms[i - 1][k]:
@@ -246,7 +249,7 @@ def models_rows(D, k, limit=None, short=False):
     fmt = M_FMT[D["metrics"][k]["bicim"]]
     out = []
     for pos, m in m_ranked(D, k)[:limit]:
-        name = esc(m["ad"]) if short else esc(m["ad"]) + f'<small>{esc(m["saglayici"])}' + (f' · {esc(m["ayar"])}' if m.get("ayar") else "") + (" · açık ağırlıklı" if m.get("acik") else "") + "</small>"
+        name = esc(m["ad"]) if short else esc(m["ad"]) + f'<small>{esc(m["saglayici"])}' + (f' · {esc(m["ayar"])}' if m.get("ayar") else "") + (f' · kodlamada {esc(m["kod_ayar"])}' if m.get("kod_ayar") else "") + (" · açık ağırlıklı" if m.get("acik") else "") + "</small>"
         out.append(f'<div class="mrow"><span class="rk">{pos}</span><span class="nm">{name}</span>'
                    f'<span class="mbar"><i style="width:{m_pct(D, k, m[k])}"></i></span><span class="val">{fmt(m[k])}</span></div>')
     return "".join(out)

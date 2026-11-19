@@ -70,13 +70,19 @@ def main():
         E(f"ana listede {len(ana)} model var; en az 8, en çok {ilk} (Zekâ sıralamasında ilk {ilk})")
     for i, m in enumerate(models):
         y = m.get("yalniz")
-        if y is not None and (y not in met or y == (tabs[0] if tabs else None)):
-            E(f"models[{i}] ({m.get('ad')}): yalniz yalnızca bir sekmenin ölçüt anahtarı olabilir, ilk sekme olamaz")
+        ys = [y] if isinstance(y, str) else (y or [])
+        if y is not None and (not ys or any(x not in met or x == (tabs[0] if tabs else None) for x in ys)):
+            E(f"models[{i}] ({m.get('ad')}): yalniz bir sekme anahtarı ya da listesi olmalı, ilk sekme olamaz")
+    def sekmede(m, k):
+        y = m.get("yalniz")
+        return m.get(k) is not None and (not y or k in ([y] if isinstance(y, str) else y))
+    eksik_sekme = []
     for k in tabs[1:]:
-        if k in met and met[k].get("kaynak") != met[tabs[0]].get("kaynak"):
-            n = sum(1 for m in models if m.get(k) is not None)
-            if n < min(ilk, 10):
-                W(f"'{k}' sekmesinde {n} modelin ölçümü var; kaynak tablosunda yeterli model varsa ilk {ilk} doldurulmalı")
+        n = sum(1 for m in models if sekmede(m, k))
+        if k in met and n < ilk:
+            eksik_sekme.append(f"{met[k].get('sekme', k)} {n}")
+    if eksik_sekme:
+        W(f"{ilk} modeli dolmayan sekme: " + ", ".join(eksik_sekme) + " (kaynak tablosunda yeterli model varsa doldurulmalı)")
     names = set()
     for i, m in enumerate(models):
         w = f"models[{i}] ({m.get('ad')})"
@@ -116,6 +122,8 @@ def main():
             print(f"GÜNCELLE: veri {age} günlük (sınır {lim})")
         elif eksik_liste:
             print(f"GÜNCELLE: ana listede {len(ana)} model var, kural ilk {ilk}")
+        elif eksik_sekme and not D.get("eksik_onaylandi") == D.get("updated"):
+            print(f"GÜNCELLE: {ilk} modeli dolmayan sekme: " + ", ".join(eksik_sekme))
         else:
             print(f"veri {age} günlük; güncelleme gerekmiyor")
     print(f"modeller.json: {len(models)} model, {len(met)} ölçüt · {len(errors)} hata, {len(warns)} uyarı")

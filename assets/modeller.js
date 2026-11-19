@@ -8,7 +8,9 @@
   var D; try { D = JSON.parse(src.textContent); } catch (e) { return; }
   var M = D.models, MET = D.metrics, KEYS = Object.keys(MET), TABS = D.sekmeler, N = D.ilk || M.length;
   // Bir model bir sekmede, o ölçütte değeri varsa ve yalnızca başka bir sekmenin listesine ait değilse görünür (build.py m_ranked ile aynı)
-  var inTab = function (m, k) { return m[k] != null && (!m.yalniz || m.yalniz === k); };
+  // yalniz: yalnızca bu sekme(ler)de görünen model ("kodlama" ya da ["maliyet", "sure"])
+  var inTab = function (m, k) { return m[k] != null && (!m.yalniz || [].concat(m.yalniz).indexOf(k) >= 0); };
+  var Z = TABS[0];
   var $ = function (id) { return document.getElementById(id); };
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches;
   var tr = function (v, d) { return v.toFixed(d).replace(".", ","); };
@@ -47,7 +49,7 @@
   var key = TABS[0], open = null;
   var rows = M.map(function (m) {
     var r = document.createElement("div"); r.className = "mrow"; r.tabIndex = 0; r.setAttribute("role", "button"); r.setAttribute("aria-expanded", "false");
-    r.innerHTML = '<span class="rk"></span><span class="nm">' + esc(m.ad) + "<small>" + esc(m.saglayici) + (m.ayar ? " · " + esc(m.ayar) : "") + (m.acik ? " · açık ağırlıklı" : "") +
+    r.innerHTML = '<span class="rk"></span><span class="nm">' + esc(m.ad) + "<small>" + esc(m.saglayici) + (m.ayar ? " · " + esc(m.ayar) : "") + (m.kod_ayar ? " · kodlamada " + esc(m.kod_ayar) : "") + (m.acik ? " · açık ağırlıklı" : "") +
       '</small></span><span class="mbar"><i></i></span><span class="val"></span>' +
       '<span class="chev" aria-hidden="true"><svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></span><div class="det">' +
       KEYS.map(function (k) {
@@ -95,8 +97,14 @@
     var k = key, up = MET[k].iyi === "yuksek";
     caption(k);
     var have = rows.filter(function (o) { return inTab(o.m, k); });
+    // Her sekmede N model. İlk sekmeyle aynı kaynaktan gelen ölçütte (Maliyet, Süre) bu N model zekâ sırasındaki
+    // ilk N'dir (en ucuz N değil); başka kaynaktan gelen ölçütte (Kodlama) kendi sıralamasının ilk N'i. build.py m_ranked ile aynı.
+    if (k !== Z && MET[k].kaynak === MET[Z].kaynak) {
+      have.sort(function (a, b) { return (b.m[Z] == null ? -1e9 : b.m[Z]) - (a.m[Z] == null ? -1e9 : a.m[Z]); });
+      have = have.slice(0, N);
+    }
     have.sort(function (a, b) { return up ? b.m[k] - a.m[k] : a.m[k] - b.m[k]; });
-    have = have.slice(0, N);   // her sekmede ilk N model
+    have = have.slice(0, N);
     var y = 0, pos = 0, g = changed ? ++gen : gen;
     have.forEach(function (o, i) {
       if (!i || o.m[k] !== have[i - 1].m[k]) pos = i + 1;   // eşit değerler aynı sırayı alır
