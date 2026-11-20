@@ -11,11 +11,6 @@
   "corrections": [
     {"date": "2026-01-14", "ref": "gelistirme-1", "text": "İsteğe bağlı: neyin yanlış yazıldığı ve doğrusu."}
   ],
-  "pattern": {
-    "title": "İsteğe bağlı: örüntünün adı",
-    "text": "İsteğe bağlı not: en az üç haberin kendi kaynağında yazan ortak olgusu.",
-    "refs": ["guvenlik-1", "java-1", "java-2"]
-  },
   "lead": {
     "kicker": "Şirket beyanı · Model sürümü",
     "alert": false,
@@ -64,6 +59,12 @@
           "pill": "Güncelleme",
           "headline": "Kaynak: küçük haberin başlığı",
           "paragraphs": ["Tek paragraf."],
+          "table": {
+            "title": "İsteğe bağlı tablo: neyin karşılaştırıldığı",
+            "cols": ["Dağıtım", "Düzeltilmiş sürüm", "İmaj"],
+            "rows": [["Temurin", "21.0.9", "güncellendi"], ["Zulu", "–", "–"]],
+            "note": "İsteğe bağlı: kaynak ya da ölçüm notu"
+          },
           "sources": [{"label": "Kaynak adı", "url": "https://example.com/haber"}]
         }
       ]

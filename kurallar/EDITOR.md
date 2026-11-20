@@ -76,10 +76,10 @@ Taslak, `kurallar/KURALLAR.md`, `kurallar/TERIMLER.md`, `kurallar/ATOLYE.md` ve 
 - Haber cümlesi gibi yazılmış yorum; düz çeviri, aynı olgunun iki kez söylenmesi, dolgu cümlesi, terim tutarsızlığı, `kurallar/TERIMLER.md` sözlüğüne aykırı terim (yazılımcının İngilizce kullandığı bir terimin Türkçeleştirilmesi ya da yerleşik Türkçesi olanın İngilizce bırakılması), açıklanmamış ya da yanlış açıklanmış jargon, alanın yanlış terimi; metinde belirli bir kişiye ya da şirkete hitap.
 - Pratik çıkarımda genel ya da önceki sayılardan tekrar eden madde; metinde olmayan yeni bir olgu getiren madde.
 - why satırında abartı, haberdeki olgulara dayanmayan çıkarım ya da şirket açıklamasının tekrarı.
-- pattern'deki her haberin ortak olguyu kendi kaynağında gerçekten yazıp yazmadığı.
 - Repolarda ikinci cümle “neden şimdi”yi söylüyor mu, `lang` kaynakta görülmüş mü.
 - 25 kelimeyi aşan cümle, çeviri kokan cümle, yanlış ek, belirsiz gönderim (“bu”, “daha az” neyi niteliyor?).
-- Güvenlik haberinde kontrol yolu ya da istismar izi kaynakta yoksa “kaynak belirtmiyor” denmiş mi?
+- “Açıklanmadı / belirtmiyor” cümleleri: okurun kararını etkilemeyen eksiklik yazılmış mı, haber böyle bir cümleyle mi bitiyor? Kararı etkileyen bir eksiklik sonucuyla birlikte söylenmiş mi?
+- Bir paragrafta birikmiş karşılaştırmalı rakamlar tabloya ya da grafiğe taşınabilir mi? Bugün yamala, sayının uyarı taşıyan bütün açıklarını ciddiyet sırasıyla kapsıyor mu?
 
 ### Atölye okunurluğu
 
@@ -121,7 +121,7 @@ Bulgularını sana verilen dosyaya (`/tmp/dc/bulgular-<rol>.json`) yaz:
 - `kategori`: `dogruluk`, `kaynak`, `eksik-bilgi`, `etiket`, `secim`, `editoryal`, `dil`, `terim`, `atolye`, `tasarim` ya da `teknik`.
 - `onem`:
   - `kritik`: yanlış, kaynaksız ya da kaynağın söylediğini aşan bilgi.
-  - `onemli`: yeniden hesapta tutmayan rakam; okuyucunun karar vermesi için gereken eksik bilgi; eksik etiket ya da İddia haberinde kesin kipte başlık; eşit muamele ihlali; tekrar ya da pencere dışı haber; dayanaksız why ya da pattern; kaynak kalitesi; önceliklendirme; belirgin tasarım bozukluğu.
+  - `onemli`: yeniden hesapta tutmayan rakam; okuyucunun karar vermesi için gereken eksik bilgi; eksik etiket ya da İddia haberinde kesin kipte başlık; eşit muamele ihlali; tekrar ya da pencere dışı haber; dayanaksız why; kaynak kalitesi; önceliklendirme; belirgin tasarım bozukluğu.
   - `kucuk`: dil ve biçim.
 - Önem sırasına göre yaz. `durum`, `kok` ve `kural` alanlarını yazma; onları yazar doldurur.
 

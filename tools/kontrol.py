@@ -113,7 +113,29 @@ def check_chart(where, c):
         W(f"{where}: grafikte birden fazla highlight var")
 
 
+def check_table(where, t):
+    cols, rows = t.get("cols") or [], t.get("rows") or []
+    if not t.get("title"):
+        E(f"{where}: tabloda title yok")
+    if not 2 <= len(cols) <= 5:
+        E(f"{where}: tabloda {len(cols)} sütun var (2-5 olmalı)")
+    if not 2 <= len(rows) <= 6:
+        E(f"{where}: tabloda {len(rows)} satır var (2-6 olmalı)")
+    for i, r in enumerate(rows):
+        cells = r.get("cells") if isinstance(r, dict) else r
+        if not isinstance(cells, list) or len(cells) != len(cols):
+            E(f"{where}: tablo satırı {i + 1} sütun sayısıyla uyuşmuyor")
+
+
+RAKAM = re.compile(r"(?<![\w.])[−-]?%?\d+(?:[.,]\d+)*%?(?![\w.])")
+
+
 def check_prose(where, paras, big):
+    for i, p in enumerate(paras or []):
+        t = re.sub(r"CVE-\S+|\b(19|20)\d\d\b", "", re.sub(r"`[^`]*`", "", p))
+        n = len(RAKAM.findall(t))
+        if n >= 10:
+            W(f"{where}: {i + 1}. paragrafta {n} rakam; karşılaştırmalı rakamları grafiğe ya da tabloya taşı, metinde tek bir yargı bırak")
     text = " ".join(paras or [])
     first = (sentences(text) or [""])[0]
     if re.search(rf"\b\d{{1,2}} ({MONTHS})", " ".join(first.split()[:6])):
@@ -215,6 +237,11 @@ def main():
     charts = 1 if L.get("chart") else 0
     if L.get("chart"):
         check_chart("manşet", L["chart"])
+    if L.get("table"):
+        charts += 1
+        check_table("manşet", L["table"])
+        if L.get("chart"):
+            E("manşet: tablo ile grafik birlikte olmaz")
 
     # Bölümler
     stats = 0
@@ -236,8 +263,11 @@ def main():
                     E(f"{sid}.patch[{i}]: text eksik")
                 elif len(m["text"]) > 110:
                     E(f"{sid}.patch[{i}]: {len(m['text'])} karakter (en fazla 110)")
-                if not re.match(r"^https://", m.get("url") or ""):
-                    E(f"{sid}.patch[{i}]: url https ile başlamalı")
+                if m.get("ref"):
+                    if str(m["ref"]) not in anchors:
+                        E(f"{sid}.patch[{i}]: ref {m['ref']!r} bu sayıda yok")
+                elif not re.match(r"^https://", m.get("url") or ""):
+                    E(f"{sid}.patch[{i}]: url https ile başlamalı (ya da bu sayıdaki habere ref)")
         lo, hi = {"ai": (6, 8), "guvenlik": (3, 4)}.get(sid, (2, 3))
         if not lo <= len(arts) <= hi:
             (E if sid == "guvenlik" and len(arts) > hi else W)(f"{sid}: {len(arts)} haber var ({lo}-{hi} beklenir)")
@@ -284,6 +314,11 @@ def main():
             if a.get("chart"):
                 charts += 1
                 check_chart(where, a["chart"])
+            if a.get("table"):
+                charts += 1
+                check_table(where, a["table"])
+                if a.get("chart") or a.get("stat"):
+                    E(f"{where}: aynı haberde tablo ile grafik ya da stat birlikte olmaz")
             check_prose(where, a.get("paragraphs"), big)
             check_sources(where, a.get("sources"), dates)
             row.append((where, size, words(" ".join(a.get("paragraphs") or [])), big))
@@ -426,6 +461,20 @@ def main():
             txt = " ".join(" ".join(a.get("paragraphs") or []) + " " + (a.get("headline") or "") for a in s.get("articles") or [])
             if re.search(r"(zehirlen|kötü amaçlı (sürüm|paket)|aktif (olarak )?istismar|KEV)", txt, re.I):
                 W("guvenlik: zehirlenmiş paket ya da aktif istismar haberi var ama Bugün yamala (patch) boş")
+    # Bugün yamala: sayının herhangi bir bölümündeki kimlik doğrulamasız RCE ya da aktif istismar haberi listede mi
+    patch = next((s.get("patch") or [] for s in secs if s.get("id") == "guvenlik"), [])
+    ptxt = " ".join(str(m.get("text")) + " " + str(m.get("ref") or "") for m in patch)
+    for s in secs:
+        for i, a in enumerate(s.get("articles") or []):
+            if not a.get("alert"):
+                continue
+            t = (a.get("headline") or "") + " " + " ".join(a.get("paragraphs") or [])
+            ciddi = re.search(r"aktif (olarak )?istismar|KEV|zehirlen", t, re.I) or (
+                re.search(r"uzaktan kod çalıştırma|\bRCE\b", t) and re.search(r"kimlik doğrula\w* (gerektirmeyen|olmadan|istemeyen)|kimlik doğrulamasız", t, re.I))
+            aid = str(a.get("id") or f"{s.get('id')}-{i + 1}")
+            cves = re.findall(r"CVE-\d{4}-\d+", t)
+            if ciddi and aid not in ptxt and not any(c in ptxt for c in cves):
+                W(f"{aid}: aktif istismar ya da kimlik doğrulamasız RCE, ama Bugün yamala listesinde yok")
 
     # Manşet: aynı şirket art arda
     older = [k for k in prev if k < str(d.get("date"))]
@@ -434,20 +483,6 @@ def main():
         pk = ((p.get("lead") or {}).get("headline") or "").split()[:1]
         if pk and pk == (L.get("headline") or "").split()[:1]:
             W(f"manşet önceki sayınınkiyle aynı kelimeyle açılıyor ({pk[0]}); aynı şirket art arda manşet olmaz")
-
-    # Günün örüntüsü
-    P = d.get("pattern")
-    if P is not None:
-        if len(P.get("title") or "") > 60:
-            E(f"pattern.title {len(P['title'])} karakter (en fazla 60)")
-        if not 30 <= words(P.get("text")) <= 60:
-            E(f"pattern.text {words(P.get('text'))} kelime (30-60 olmalı)")
-        pr = P.get("refs") or []
-        if len(pr) < 3:
-            E(f"pattern.refs {len(pr)} adet (en az 3 olmalı)")
-        for r in pr:
-            if r not in anchors:
-                E(f"pattern.refs: {r!r} bu sayıda yok")
 
     # Repolar
     items = (d.get("repos") or {}).get("items") or []

@@ -317,6 +317,33 @@ def sources(ctx, lst):
     return f'<p class="src">{pre}{" · ".join(exts + refs)}</p>'
 
 
+NUMERIC = re.compile(r"^[\s−\-–+~≈<>%$€£×x*]*\d[\d\s.,%×x/:$€£kKMBmb+−\-–]*$")
+
+
+def table(t):
+    """Karşılaştırma tablosu {title, cols[], rows[[...] | {cells, highlight}], note?}: grafiğin tek boyutunun yetmediği
+    durumlar (birkaç öğe × birkaç ölçüt, dağıtım × yama durumu). Sayısal hücreler sağa yaslanır; yorum ve renk yok."""
+    if not isinstance(t, dict) or not isinstance(t.get("cols"), list) or not isinstance(t.get("rows"), list):
+        return ""
+    cols = [str(c) for c in t["cols"]][:5]
+    rows = []
+    for r in t["rows"][:6]:
+        hl = isinstance(r, dict) and r.get("highlight")
+        cells = r.get("cells") if isinstance(r, dict) else r
+        if isinstance(cells, list) and len(cells) == len(cols):
+            rows.append((["–" if c in (None, "") else str(c) for c in cells], hl))
+    if len(cols) < 2 or len(rows) < 2:
+        return ""
+    num = [all(NUMERIC.match(r[j]) or r[j] == "–" for r, _ in rows) for j in range(len(cols))]
+    th = "".join(f'<th scope="col"{" class=\"n\"" if num[j] and j else ""}>{rich(c)}</th>' for j, c in enumerate(cols))
+    tb = "".join(f'<tr{" class=\"hl\"" if hl else ""}>' + "".join(
+        (f'<th scope="row">{rich(c)}</th>' if j == 0 else f'<td{" class=\"n\"" if num[j] else ""}>{rich(c)}</td>')
+        for j, c in enumerate(cells)) + "</tr>" for cells, hl in rows)
+    cap = f'<figcaption>{esc(typo(t.get("title") or ""))}</figcaption>' if t.get("title") else ""
+    note = f'<p class="cnote">{esc(typo(t["note"]))}</p>' if t.get("note") else ""
+    return f'<figure class="tbl">{cap}<div class="tbl-w"><table><thead><tr>{th}</tr></thead><tbody>{tb}</tbody></table></div>{note}</figure>'
+
+
 def chart(c):
     if not isinstance(c, dict) or not isinstance(c.get("items"), list):
         return ""
@@ -370,14 +397,14 @@ def article(ctx, a, aid):
     # stat: büyük haberlerde isteğe bağlı tek iri rakam {n, l}; grafik varsa basılmaz
     st = a.get("stat")
     stat = ""
-    if a.get("big") and isinstance(st, dict) and st.get("n") and not chart(a.get("chart")):
+    if a.get("big") and isinstance(st, dict) and st.get("n") and not chart(a.get("chart")) and not table(a.get("table")):
         stat = f'<p class="stat"><span class="n">{esc(typo(st.get("n")))}</span><span class="l">{rich(st.get("l"))}</span></p>'
     # Telefonda küçük haberlerin metni üç satırda kesilir; site.js gerekirse bu düğmeyi gösterir
     more = '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
     # why: tek cümlelik editoryal “Neden önemli” notu; metinden ayrı ve etiketli basılır
     why = f'<p class="why"><b>{esc(caps("Neden önemli"))}</b>{rich(a.get("why"))}</p>' if a.get("why") else ""
     return (f'<article class="{cls}" id="a-{esc(aid)}">{k}<h3>{pill}{rich(a.get("headline"))}</h3>{stat}'
-            f'<div class="body">{body}</div>{more}{why}{chart(a.get("chart"))}{sources(ctx, a.get("sources"))}</article>')
+            f'<div class="body">{body}</div>{more}{why}{chart(a.get("chart")) or table(a.get("table"))}{sources(ctx, a.get("sources"))}</article>')
 
 
 # Kopyala düğmesi: tema düğmesiyle aynı çizgi ikon dili; kopyalanınca onay işaretine döner
@@ -430,27 +457,6 @@ def atolye(ctx, A):
             f'<article class="atolye big" id="a-atolye"><div class="at-main">{k}<h3>{rich(A["title"])}</h3>'
             f'<div class="body">{body}</div></div>'
             f'<div class="at-side">{code}{pit}{sources(ctx, A.get("sources"))}</div>{more}</article></section>')
-
-
-def pattern(cur):
-    """Günün örüntüsü: birkaç haberin ortak noktasını adlandıran isteğe bağlı editoryal not {title, text, refs[]}."""
-    P = cur.get("pattern")
-    if not isinstance(P, dict) or not P.get("text"):
-        return ""
-    heads = {"manset": (cur.get("lead") or {}).get("headline")}
-    for s in cur.get("sections") or []:
-        for i, a in enumerate(s.get("articles") or []):
-            heads[art_id(s, i, a)] = a.get("headline")
-    links = []
-    for r in P.get("refs") or []:
-        r = str(r).lstrip("#")
-        r = r[2:] if r.startswith("a-") else r
-        if heads.get(r):
-            links.append(f'<a href="#a-{esc(r)}">{rich(heads[r])}</a>')
-    rel = f'<p class="src">İlgili haberler: {" · ".join(links)}</p>' if links else ""
-    title = f'<h3>{rich(P.get("title"))}</h3>' if P.get("title") else ""
-    return (f'<aside class="pattern" aria-label="Günün örüntüsü"><div><span class="kicker">{esc(caps("Günün örüntüsü"))}</span>{title}</div>'
-            f'<div><p>{rich(P.get("text"))}</p>{rel}<p class="note">Bu not editoryal bir gözlemdir, haberin parçası değildir.</p></div></aside>')
 
 
 def art_id(s, i, a):
@@ -560,7 +566,7 @@ def reading_minutes(cur):
                 walk(v, k)
         elif isinstance(o, str):
             n += len(o.split())
-    walk({k: v for k, v in cur.items() if k in ("lead", "sections", "briefs", "repos", "pattern", "calendar", "corrections")})
+    walk({k: v for k, v in cur.items() if k in ("lead", "sections", "briefs", "repos", "calendar", "corrections")})
     return max(1, round(n / 200))
 
 
@@ -722,7 +728,7 @@ def render_issue(ctx, cur):
                    f'<h3>{rich(B.get("title"))}</h3><ol>' + "".join(f"<li>{rich(t)}</li>" for t in B.get("items") or []) + "</ol>"
                    + (f'<p class="note">{esc(B.get("note"))}</p>' if B.get("note") else "") + "</aside>")
         # Manşet grafiği dar ekranda metnin altında, geniş ekranda sağ sütunda durur: iki kopya basılır, biri CSS ile gizlenir
-        lead_chart = chart(L.get("chart"))
+        lead_chart = chart(L.get("chart")) or table(L.get("table"))
         lc = lambda cls: f'<div class="{cls}">{lead_chart}</div>' if lead_chart else ""
         out.append(
             f'<section class="lead" id="sec-manset"><div id="a-manset">'
@@ -735,7 +741,6 @@ def render_issue(ctx, cur):
             # Pratik çıkarım manşetin altında, ana sütunda: yan kolon “Bu sayıda” + Takvim ile kısa kalır, iki sütun dengeli biter
             + box + f'<div class="lead-side">{toc(secs)}{cal_in}{lc("lc-side")}</div></section>')
 
-    out.append(pattern(cur))
 
     for s in secs:
         sid = s.get("id") or "bolum"
@@ -800,12 +805,21 @@ def with_ext(text, url):
     return f'{rich(head)}<span class="nw">{rich(last)}\u00a0{ok}</span>'
 
 
+def with_int(text, ref):
+    """Metin + bu sayıdaki habere iç bağlantı oku (↓); son kelime ile ok bir arada."""
+    text, ref = str(text or ""), str(ref).lstrip("#").removeprefix("a-")
+    ok = f'<a href="#a-{esc(ref)}" aria-label="Haber"><i class="xi xd" aria-hidden="true"></i></a>'
+    i = text.rstrip().rfind(" ")
+    head, last = (text[:i + 1], text[i + 1:].rstrip()) if i >= 0 and text[i + 1:].count("`") % 2 == 0 else ("", text)
+    return f'{rich(head)}<span class="nw">{rich(last)}\u00a0{ok}</span>'
+
+
 def patch_list(s):
-    """Güvenlik bölümünün başında “Bugün yamala”: 1-3 madde [{text, url}]."""
+    """Güvenlik bölümünün başında “Bugün yamala”: 1-3 madde [{text, ref? | url?}]; ref bu sayıdaki habere bağlar."""
     items = [m for m in s.get("patch") or [] if m.get("text")][:3]
     if not items:
         return ""
-    lis = "".join(f'<li>{with_ext(m["text"], m.get("url"))}</li>' for m in items)
+    lis = "".join(f'<li>{with_int(m["text"], m["ref"]) if m.get("ref") else with_ext(m["text"], m.get("url"))}</li>' for m in items)
     return f'<aside class="patch" aria-label="Bugün yamala"><span class="kicker alert">{esc(caps("Bugün yamala"))}</span><ul>{lis}</ul></aside>'
 
 
