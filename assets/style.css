@@ -138,7 +138,9 @@ nav.index.has-more .nav-links{padding-right:34px}
 .nav-brand .mono .dc-c{fill:var(--accent)}
 nav.index.stuck .nav-brand{max-width:230px;opacity:1;visibility:visible;margin-right:18px;padding-right:18px;border-right-color:var(--rule);transform:none;transition-delay:0s}
 @media (hover:hover){.nav-brand:hover{color:var(--accent)}}
-/* Yapışık menüde tam logo; telefonda “DC” monogramı. Sığmayan bölümlere sağdaki okla ulaşılır */
+/* Yapışık menüde tam logo; telefonda “DC” monogramı. Logoya yer açmak için etiketlerin ikinci kısmı gizlenir
+   (“Yapay Zekâ & LLM” → “Yapay Zekâ”); yine sığmayan bölümlere sağdaki okla ulaşılır */
+nav.index.stuck .nx,nav.index:not(.stuck) .sx{display:none}
 .nav-brand .mono{display:none}
 
 /* Günün rakamları: “Pratik çıkarım” kutusuyla aynı dilde, etiketli açık zeminli bant */
@@ -265,13 +267,27 @@ article.big.s8 .body,article.s12 .body{columns:2 300px;column-gap:30px;column-ru
 
 /* GitHub repoları: sade iki sütunlu liste — ad, yıldız, neden ilginç, dil · kategori */
 .repos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 30px}
-.repo{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:14px 0;border-bottom:1px solid var(--rule);min-width:0;align-content:start}
+.repo{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:4px 14px;padding:14px 0;border-bottom:1px solid var(--rule);min-width:0;align-content:start}
 .repo .name{font-family:var(--f-mono);font-size:15px;font-weight:500;overflow-wrap:anywhere}
 .repo .stars{font-family:var(--f-label);font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink-soft);text-align:right;white-space:nowrap}
 .repo .desc{grid-column:1/-1;font-size:15.5px;line-height:1.45}
 .repo .meta{grid-column:1/-1;font-family:var(--f-label);font-size:12px;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
-.briefs{columns:3 260px;column-gap:30px;column-rule:1px solid var(--rule)}
-.briefs p{break-inside:avoid;font-size:15.5px;line-height:1.45;padding:0 0 12px;margin-bottom:12px;border-bottom:1px dotted var(--rule)}
+/* Kısa Kısa: satır satır dolan ızgara; sütun çizgisi her satırda içerikle birlikte biter (CSS columns'ta boşluğa uzuyordu) */
+.briefs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.briefs p{font-size:15.5px;line-height:1.45;padding:12px 15px;border-bottom:1px dotted var(--rule)}
+.briefs p:nth-child(3n+1){padding-left:0}
+.briefs p:nth-child(3n){padding-right:0}
+.briefs p:not(:nth-child(3n+1)){border-left:1px solid var(--rule)}
+@media (max-width:900px){
+  .briefs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .briefs p:nth-child(n){padding:12px 15px;border-left:0}
+  .briefs p:nth-child(odd){padding-left:0}
+  .briefs p:nth-child(even){padding-right:0;border-left:1px solid var(--rule)}
+}
+@media (max-width:560px){
+  .briefs{grid-template-columns:minmax(0,1fr)}
+  .briefs p:nth-child(n){padding:12px 0;border-left:0}
+}
 .briefs b{font-family:var(--f-label);font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-right:6px}
 .briefs a{text-decoration:none;margin-left:4px}
 /* Kaynak oku: dokunma alanı metni kaydırmadan büyütülür */
@@ -451,6 +467,11 @@ span.dial-step{opacity:.3}
 @media (hover:hover){.at-copy:hover{color:var(--accent)}}
 .at-pit{font-size:15.5px;line-height:1.5}
 .atolye .src{margin-top:0}
+/* Masaüstünde örnek blok ve kaynaklar adımlar boyunca görünür kalır (yapışkan menünün altında) */
+@media (min-width:901px){.at-side{position:sticky;top:calc(56px + env(safe-area-inset-top,0px));align-self:start}}
+/* Telefonda kesilmiş Atölye'de örnek blok da gizlenir; “Devamı” adımları ve hemen ardından örneği açar */
+.atolye>.more{grid-column:1/-1;justify-self:start}
+.atolye.clamp .at-side{display:none}
 @media (max-width:900px){.atolye{grid-template-columns:minmax(0,1fr)}.at-side{margin-top:18px}.atolye h3{font-size:24px}}
 
 /* Bugün yamala (Güvenlik başı) ve düzeltmeler */
@@ -458,8 +479,12 @@ span.dial-step{opacity:.3}
 .patch ul{list-style:none;margin:0;padding:0}
 .patch li{font-size:15.5px;line-height:1.45;padding:2px 0}
 .patch li a{color:var(--accent);text-decoration:none}
-.corr p{font-size:15.5px;line-height:1.5;max-width:72ch;margin-top:8px}
-.corr p a,.corr-list a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;margin-right:4px}
+/* Düzeltme: hangi haber (etiket satırı) ve ne düzeltildi (gövde) ayrı satırda; maddeler Kısa Kısa'daki ince ayraçla ayrılır */
+.corr-i{max-width:72ch;padding:10px 0}
+.corr-i+.corr-i{border-top:1px dotted var(--rule)}
+.corr-h{display:block;width:fit-content;font-family:var(--f-label);font-size:12.5px;line-height:1.4;color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;margin-bottom:4px}
+.corr-i p{font-size:15.5px;line-height:1.5}
+.corr-list a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;margin-right:4px}
 .corr-list .cd{font-family:var(--f-label);font-size:12px;color:var(--ink-soft)}
 @media (max-width:640px){.patch{grid-template-columns:1fr}}
 
@@ -522,10 +547,17 @@ span.dial-step{opacity:.3}
 @media (prefers-reduced-motion:reduce){article:target,#a-manset:target{outline:2px solid var(--accent);outline-offset:8px}}
 /* Telefonda küçük denetimlerin dokunma alanı 44 px: görünüm değişmez, görünmez alan büyür */
 @media (pointer:coarse){
-  .theme,.dial-step,.more,.en-top,.dial-meta a,.at-copy{position:relative}
+  .theme,.dial-step,.more,.en-top,.dial-meta a,.at-copy,.dial-back{position:relative}
   .theme::after,.dial-step::after,.more::after,.en-top::after,.dial-meta a::after,.at-copy::after{content:"";position:absolute;left:50%;top:50%;width:max(100%,44px);height:max(100%,44px);transform:translate(-50%,-50%)}
   /* ARŞİV ile tema düğmesi yan yana: ARŞİV yalnızca dikeyde büyür, alanlar çakışmaz */
   .dial-meta a::after{width:100%}
+}
+/* Telefonda kaynak ve alt bilgi bağlantıları: satırlar açılır, her bağlantının dokunma alanı dikeyde büyür
+   (satır içi dolgu düzeni değiştirmez, yalnızca dokunulan alanı genişletir) */
+@media (max-width:560px){
+  .src{line-height:1.95}
+  .src a,footer a{padding:7px 0;margin:-7px 0}
+  footer{line-height:2}
 }
 /* Yatay telefon: iki sütunlu metin ekran yüksekliğine sığmaz, tek sütuna iner */
 @media (max-height:500px) and (orientation:landscape){.cols,article .body,article.big.s8 .body,article.s12 .body{columns:auto}}
@@ -540,14 +572,14 @@ details.src-more>summary{display:inline;list-style:none;cursor:pointer;margin-le
 details.src-more>summary::-webkit-details-marker{display:none}
 details.src-more[open]>summary{display:none}
 @media (hover:hover){details.src-more>summary:hover{color:var(--ink)}}
-/* Arşiv, Benchmark, Hakkında: üst sağda bugünkü sayıya dönüş, sayı sayfasındaki “Arşiv” linkiyle aynı dil */
-.mast-act{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-label);font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
-.mast-act .today{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule)}
-@media (hover:hover){.mast-act .today:hover{color:var(--accent);border-color:currentColor}}
-.mast-act .sep:has(+ .theme[hidden]){display:none}
+/* Sayı dışı sayfalarda kadran satırı: solda bugünkü sayıya dönüş, sağda Arşiv ve tema (her genişlikte tek satır) */
+.dial.dial-page{display:flex;justify-content:space-between;align-items:center;gap:12px;grid-template-areas:none}
+.dial-page .dial-meta{line-height:1;padding-bottom:0}
+.dial-page .dial-r::before{display:none}
+.dial-meta a.dial-back{display:inline-flex;align-items:center;gap:8px;border-bottom:0}
+.dial-back svg{width:6px;height:10px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+@media (hover:hover){.dial-meta a.dial-back:hover{color:var(--accent)}}
 /* Dar ekranda slogan kırılmasın: bağlantı ve tema düğmesi sloganın altına iner */
-@media (max-width:1100px){.mast .tag:has(.mast-act){flex-direction:column;align-items:flex-end;gap:6px}}
-@media (max-width:760px){.mast .tag:has(.mast-act){align-items:center;gap:8px}}
 /* Manşet ızgarası: solda manşet ve altında Pratik çıkarım, sağda Bu sayıda + Takvim (iki satır boyunca) */
 @media (min-width:901px){
   .lead{grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);grid-template-rows:auto 1fr;grid-template-areas:"m s" "b s";row-gap:26px}

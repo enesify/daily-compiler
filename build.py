@@ -428,8 +428,8 @@ def atolye(ctx, A):
     k = kicker(A.get("kicker"), default="Atölye")
     return (f'<section class="sec" id="sec-atolye"><div class="sec-h"><h2>Atölye</h2></div>'
             f'<article class="atolye big" id="a-atolye"><div class="at-main">{k}<h3>{rich(A["title"])}</h3>'
-            f'<div class="body">{body}</div>{more}</div>'
-            f'<div class="at-side">{code}{pit}{sources(ctx, A.get("sources"))}</div></article></section>')
+            f'<div class="body">{body}</div></div>'
+            f'<div class="at-side">{code}{pit}{sources(ctx, A.get("sources"))}</div>{more}</article></section>')
 
 
 def pattern(cur):
@@ -564,7 +564,7 @@ def reading_minutes(cur):
     return max(1, round(n / 200))
 
 
-def masthead(ctx, cur=None):
+def masthead(ctx, cur=None, title=""):
     """Solda tarih (sayı sayfalarında sayının tarihi, diğerlerinde bugün), ortada logo, sağda slogan. Sayı sayfalarında tema düğmesi kadran satırındadır."""
     if cur:
         date, day = date_parts(cur)
@@ -573,10 +573,17 @@ def masthead(ctx, cur=None):
     else:
         # Sayı dışı sayfalarda bugünün tarihi tarayıcıda yazılır (site.js); sayfa her gün yeniden üretilmez
         left = '<div class="mast-date" data-today></div>'
-        btn = (f'<span class="mast-act"><a class="today" href="{esc(ctx.href("index.html"))}">Bugünkü sayı</a>'
-               f'<span class="sep" aria-hidden="true">·</span>{THEME_BTN}</span>')
-    return (f'<header class="mast">{left}<h1><a href="{esc(ctx.href("index.html"))}">{logo("full")}</a></h1>'
+        btn = ""
+    head = (f'<header class="mast">{left}<h1><a href="{esc(ctx.href("index.html"))}">{logo("full")}</a></h1>'
             f'<div class="tag"><span class="tag-t"><b>{esc(TAGLINE_B)}</b>{esc(TAGLINE)}</span>{btn}</div></header>')
+    if cur:
+        return head
+    # Sayı dışı sayfalar (Arşiv, Hakkında, Benchmark): sayı sayfasındaki kadran satırıyla aynı bileşen;
+    # solda bugünkü sayıya dönüş, sağda Arşiv ve tema
+    arsiv = "" if title.startswith("Arşiv") else f'<a href="{esc(ctx.href("arsiv.html"))}">{esc(caps("Arşiv"))}</a><span class="sep">·</span>'
+    return (head + f'<nav class="dial dial-page" aria-label="Sayfalar arasında gezinme">'
+            f'<span class="dial-meta dial-l"><a class="dial-back" href="{esc(ctx.href("index.html"))}">{CHEV_L}{esc(caps("Bugünkü sayı"))}</a></span>'
+            f'<span class="dial-meta dial-r">{arsiv}{THEME_BTN}</span></nav>')
 
 
 def footer(ctx):
@@ -637,7 +644,7 @@ def page(ctx, title, desc, body, canonical=None, og_title=None, og_url=None, bas
 <body>
 <a class="skip" href="#issue">İçeriğe geç</a>
 <div class="wrap" lang="tr">
-{masthead(ctx, cur)}
+{masthead(ctx, cur, title)}
 {body}
 {footer(ctx)}
 </div>
@@ -664,7 +671,7 @@ def render_issue(ctx, cur):
     out.append('<div class="nav-sentinel" aria-hidden="true"></div><nav class="index" aria-label="Bölümler">'
                f'<a class="nav-brand" href="{esc(ctx.href("index.html"))}" tabindex="-1" aria-hidden="true">'
                f'{logo("full", "full")}{MONO_DC}</a><div class="nav-links">' + "".join(
-        f'<a href="#sec-{esc(i)}">{esc(caps(t))}</a>' for i, t in nav_items) + "</div>"
+        f'<a href="#sec-{esc(i)}">{nav_label(t)}</a>' for i, t in nav_items) + "</div>"
         f'<button type="button" class="nav-more" aria-label="Menüde sağa kaydır" tabindex="-1">{CHEV_R}</button></nav>')
 
     # ref: "manset" ya da "<bölüm id>-<sıra>" (haberin kendi id'si varsa o); hedef bu sayıda yoksa kutu link olmaz
@@ -770,6 +777,18 @@ def render_issue(ctx, cur):
     return "\n".join(out)
 
 
+def nav_label(t):
+    """Menü etiketi. Menü üste yapışıp soluna logo girince bölümler sığsın diye etiketin ikinci kısmı
+    (“Yapay Zekâ & LLM” → “Yapay Zekâ”) gizlenir, “GitHub Repoları” “Repolar” olur (CSS: .nx, .sx)."""
+    t = caps(t)
+    if " & " in t:
+        h, x = t.split(" & ", 1)
+        return f'{esc(h)}<span class="nx"> &amp; {esc(x)}</span>'
+    if t.upper().startswith("GITHUB REPO"):
+        return f'<span class="nx">{esc(t)}</span><span class="sx">{esc(caps("Repolar"))}</span>'
+    return esc(t)
+
+
 def with_ext(text, url):
     """Metin + dış kaynak oku. Ok son kelimeden ayrılıp tek başına alt satıra düşmesin diye son kelime ile ok bir arada tutulur."""
     text = str(text or "")
@@ -811,7 +830,8 @@ def corrections_block(ctx, cur):
         if not t or not c.get("text"):
             continue
         d, head, href = t
-        rows.append(f'<p><a href="{esc(href)}">{esc(short_date(d))} · {rich(head or "Sayı")}</a> {rich(c["text"])}</p>')
+        rows.append(f'<div class="corr-i"><a class="corr-h" href="{esc(href)}">{esc(short_date(d))}: {rich(head or "Sayı")}</a>'
+                    f'<p>{rich(c["text"])}</p></div>')
     if not rows:
         return ""
     return f'<section class="sec corr" id="sec-duzeltme"><div class="sec-h"><h2>Düzeltme</h2></div>{"".join(rows)}</section>'

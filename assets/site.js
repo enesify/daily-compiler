@@ -50,6 +50,8 @@
     };
     if (more && scroller !== nav) {
       scroller.addEventListener('scroll', edge, { passive: true }); addEventListener('resize', edge); edge();
+      // Yazı tipleri sonradan yüklenince etiketlerin genişliği değişir: yeniden ölç (yoksa sığan menüde ok kalır)
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(edge);
       // Yapışınca logo menüye girer ve menünün genişliği değişir: geçiş bitince de yeniden ölç
       var brand = nav.querySelector('.nav-brand');
       if (brand) brand.addEventListener('transitionend', function (e) { if (e.propertyName === 'max-width') edge(); });
@@ -182,7 +184,13 @@
       }
       todo.push({ art: art, b: b, body: body });
     });
-    todo.forEach(function (t) { t.cut = cutAt(t.body, t.art.id === 'a-manset' ? 6 : t.art.classList.contains('big') ? 8 : 3); });
+    // Manşette ilk paragrafın tamamı görünür (en çok 12 satır); büyük haberde ~8, küçük haberde ~3 satır
+    var lines = function (t) {
+      if (t.art.id !== 'a-manset') return t.art.classList.contains('big') ? 8 : 3;
+      var p = t.body.querySelector('p'), lh = p && parseFloat(getComputedStyle(p).lineHeight);
+      return p && lh ? Math.min(12, Math.max(6, Math.round(p.getBoundingClientRect().height / lh))) : 6;
+    };
+    todo.forEach(function (t) { t.cut = cutAt(t.body, lines(t)); });
     todo.forEach(function (t) {
       if (!t.cut) return;
       markRest(t.body, t.cut);
@@ -214,7 +222,7 @@
       var text = ls.length ? Array.prototype.map.call(ls, function (l) { return l.textContent; }).join('\n') : code.textContent;
       navigator.clipboard.writeText(text).then(function () {
         b.classList.add('done'); b.setAttribute('aria-label', 'Kopyalandı'); b.title = 'Kopyalandı';
-        setTimeout(function () { b.classList.remove('done'); b.setAttribute('aria-label', 'Örneği kopyala'); b.title = 'Kopyala'; }, 1600);
+        setTimeout(function () { b.classList.remove('done'); b.setAttribute('aria-label', 'Örneği kopyala'); b.title = 'Kopyala'; }, 1500);
       });
     });
   });
