@@ -1,5 +1,6 @@
 {
- "updated": "2026-11-19",
+ "updated": "2026-11-20",
+ "eksik_onaylandi": "2026-11-20",
  "sources": {
   "aa": {
    "name": "Artificial Analysis",
@@ -69,7 +70,7 @@
    "acik": false,
    "zeka": 65,
    "maliyet": 26.54,
-   "sure": 41.8,
+   "sure": 41.5,
    "kodlama": 61.3,
    "kod_maliyet": 48.11
   },
@@ -81,7 +82,7 @@
    "acik": false,
    "zeka": 62,
    "maliyet": 4.0,
-   "sure": 13.9,
+   "sure": 14.3,
    "kodlama": null,
    "kod_maliyet": null
   },
@@ -105,7 +106,7 @@
    "acik": false,
    "zeka": 60,
    "maliyet": 7.76,
-   "sure": 37.1,
+   "sure": 39.8,
    "kodlama": 61.5,
    "kod_maliyet": 8.52
   },
@@ -117,7 +118,7 @@
    "acik": false,
    "zeka": 59,
    "maliyet": 10.04,
-   "sure": 25.2,
+   "sure": 25.7,
    "kodlama": 58.1,
    "kod_maliyet": 11.88
   },
@@ -129,7 +130,7 @@
    "acik": false,
    "zeka": 57,
    "maliyet": 1.01,
-   "sure": 8.7,
+   "sure": 9.4,
    "kodlama": null,
    "kod_maliyet": null
   },
@@ -141,7 +142,7 @@
    "acik": false,
    "zeka": 55,
    "maliyet": 10.02,
-   "sure": 32.7,
+   "sure": 32.9,
    "kodlama": 54.4,
    "kod_maliyet": 8.63
   },
@@ -153,7 +154,7 @@
    "acik": false,
    "zeka": 54,
    "maliyet": 3.16,
-   "sure": 15.3,
+   "sure": 15.7,
    "kodlama": 61.4,
    "kod_maliyet": 8.09
   },
@@ -165,7 +166,7 @@
    "acik": false,
    "zeka": 51,
    "maliyet": 0.96,
-   "sure": 15.3,
+   "sure": 16.2,
    "kodlama": null,
    "kod_maliyet": null
   },
@@ -177,7 +178,7 @@
    "acik": false,
    "zeka": 50,
    "maliyet": 4.97,
-   "sure": 29.7,
+   "sure": 28.7,
    "kodlama": 56.5,
    "kod_maliyet": 9.14
   },
@@ -201,7 +202,7 @@
    "acik": true,
    "zeka": 46,
    "maliyet": 3.68,
-   "sure": 39.3,
+   "sure": 39.7,
    "kodlama": null,
    "kod_maliyet": null
   },
@@ -213,7 +214,7 @@
    "acik": false,
    "zeka": 44,
    "maliyet": 6.95,
-   "sure": 13.8,
+   "sure": 14.1,
    "kodlama": null,
    "kod_maliyet": null
   },
@@ -225,7 +226,7 @@
    "acik": false,
    "zeka": 43,
    "maliyet": 3.27,
-   "sure": 31.4,
+   "sure": 29.8,
    "kodlama": null,
    "kod_maliyet": null
   },
@@ -237,7 +238,7 @@
    "acik": false,
    "zeka": 36,
    "maliyet": 0.41,
-   "sure": 14.8,
+   "sure": 15.0,
    "kodlama": 48.4,
    "kod_maliyet": 1.14
   },
@@ -261,7 +262,7 @@
    "acik": false,
    "zeka": 35,
    "maliyet": 7.77,
-   "sure": 24.8,
+   "sure": 25.4,
    "kodlama": 48.6,
    "kod_maliyet": 10.19
   },
@@ -273,7 +274,7 @@
    "acik": false,
    "zeka": 35,
    "maliyet": 1.03,
-   "sure": 13.6,
+   "sure": 14.0,
    "kodlama": null,
    "kod_maliyet": null
   },
@@ -285,7 +286,7 @@
    "acik": true,
    "zeka": 33,
    "maliyet": 0.6,
-   "sure": 14.0,
+   "sure": 14.2,
    "kodlama": null,
    "kod_maliyet": null
   },
@@ -297,9 +298,25 @@
    "acik": true,
    "zeka": 32,
    "maliyet": 5.01,
-   "sure": 24.2,
+   "sure": 26.9,
    "kodlama": null,
    "kod_maliyet": null
+  },
+  {
+   "ad": "Inkling 2 Small",
+   "kisa": "Inkling 2 Small",
+   "saglayici": "Thinking Machines",
+   "ayar": "",
+   "acik": true,
+   "zeka": 31,
+   "maliyet": 1.18,
+   "sure": 21.8,
+   "kodlama": null,
+   "kod_maliyet": null,
+   "yalniz": [
+    "maliyet",
+    "sure"
+   ]
   },
   {
    "ad": "Grok 4.6",
