@@ -1,0 +1,617 @@
+{
+  "date": "2026-11-21",
+  "number": 19,
+  "dateLabel": "Cumartesi, 21 Kasım 2026",
+  "readingMinutes": 17,
+  "calendar": [
+    {
+      "date": "2026-11-23",
+      "text": "vCenter ve Expressway açıkları için CISA son tarihi",
+      "ref": "guvenlik-1"
+    },
+    {
+      "date": "2026-12-01",
+      "text": "Gemini 4 Carbon API fiyatı iki katına çıkıyor",
+      "url": "https://aistudio.google.com/docs/pricing"
+    },
+    {
+      "date": "2026-12-08",
+      "text": "Dependabot, hareketsiz repolarda alarmları duraklatıyor",
+      "url": "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories"
+    },
+    {
+      "date": "2026-12-14",
+      "text": "GitHub Copilot'tan altı model kaldırılıyor",
+      "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december"
+    }
+  ],
+  "lead": {
+    "kicker": "İddia · Matematik",
+    "alert": false,
+    "headline": "Anthropic matematikçisi Claude'la GRH ispatı bulduğuna inanıyor; Lean kodu açık",
+    "deck": "Levent Alpöge'nin 20 Kasım'da paylaştığı ispat yalnızca Lean'de; Scott Aaronson'a göre 17,4 milyon satır. Bağımsız doğrulama henüz yok; Terence Tao ispatın sindirilmesinin zaman alacağını yazıyor.",
+    "paragraphs": [
+      "Anthropic'te çalışan matematikçi Levent Alpöge, Claude ile birlikte Riemann Hipotezi'nin ispatını bulduğuna inandığını yazdı. Alpöge'ye göre yöntem, hipotezin daha geniş hali olan Genelleştirilmiş Riemann Hipotezi'ne (GRH) de genişliyor. 20 Kasım'da yayımladığı kısa notta argümanın varsayım olmadan Lean'de formalize edildiğini söylüyor. Lean, ispatın her adımını makinede denetleyen bir ispat asistanı. Kod 14 parçalık bir arşiv olarak paylaşıldı; okunabilir bir makale yok.",
+      "Alpöge, okunamayacak kadar uzun bir metin yayımlamak yerine yalnızca Lean'i sunmayı seçtiğini yazıyor; dipnotuna göre üretilen belge 250 bin sayfayı aştı. Notta Claude'un çıkardığı bir zaman çizelgesi var: ilk adım 6 Ekim'de, GRH 16 Kasım'da. Alpöge, uzmanı olmadığı kısımları Claude'un özetinden aktardığını ve bu açıklamaların düzeltilmesi gerekebileceğini belirtiyor.",
+      "Scott Aaronson kodun 17,4 milyon satır olduğunu aktarıyor. Lean sertifikalı AI sonuçlarından şimdiye kadar hiçbirinin geri çekilmediğini, sertifikasız birkaç sonucun ise çekildiğini yazıyor. Lean çekirdeğinde geçmişte 0=1'in ispatına izin veren hatalar bulunduğunu da hatırlatıyor. Tao'ya göre ispat şirket içi bir AI modeliyle üretildi. İlk incelemeler ispatın modern Langlands programını ve aritmetik geometriyi tam güçle kullandığını gösteriyor; tartışma Lean Zulip'te sürüyor.",
+      "Tao aynı yazıda Alpöge'nin ortak yazarı olduğu, yoğun AI desteğiyle hazırlanmış ve Lean formalizasyonu olan iki çalışmayı daha anıyor: üç boyutlu Euler ve Navier-Stokes denklemlerinde dış kuvvet olmadan sonlu zamanda patlama. Tao, Euler ispatını üç sonuç içinde en çok sindirilmiş olan sayıyor. Stanford'dan Ravi Vakil ise Alessandro Masullo'nun AI kullanmadan yazdığı ayrı bir GRH ispat taslağını duyurdu; taslakta sorunlar bildirildi."
+    ],
+    "sources": [
+      {
+        "label": "Levent Alpöge: GRH notu (PDF)",
+        "url": "https://alpo.ge/remark.pdf"
+      },
+      {
+        "label": "Scott Aaronson: Shtetl-Optimized",
+        "url": "https://scottaaronson.blog/?p=10344"
+      },
+      {
+        "label": "Terence Tao: Navier-Stokes ve GRH",
+        "url": "https://terrytao.wordpress.com/2026/11/20/unforced-euler-singularity-unforced-navier-stokes-singularity-and-the-generalized-riemann-hypothesis/"
+      },
+      {
+        "label": "Ravi Vakil: Masullo'nun GRH taslağı",
+        "url": "https://math216.wordpress.com/2026/11/20/hurried-announcement-alessandro-masullo-grh/"
+      }
+    ],
+    "box": {
+      "kicker": "Pratik çıkarım",
+      "title": "Denetleyiciye bağlayın, ifadeyi insan okusun",
+      "items": [
+        "Agent'tan ispat, algoritma ya da analiz isterken makinede denetlenebilir bir çıktı da isteyin (Lean, test, tip denetimi); Aaronson'a göre Lean sertifikalı AI sonuçlarından hiçbiri geri çekilmedi.",
+        "Denetleyicinin onayı, doğru şeyin kanıtlandığını göstermez: agent işlerinde kabul ölçütünü, formal ifadeyi ya da testin neyi ölçtüğünü bir insan okusun.",
+        "Agent'ın kendi özetini sonuç yerine koymayın; Alpöge de Claude'un özetinden aktardığı kısımların düzeltilmesi gerekebileceğini yazıyor, asıl kanıt kodda."
+      ],
+      "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
+    }
+  },
+  "sections": [
+    {
+      "id": "ai",
+      "title": "Yapay Zekâ & LLM",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Açık model · Thinking Machines",
+          "headline": "Inkling 2 Mini açık: 26B'lik model 32 GB bellekli makinede çalışıyor",
+          "paragraphs": [
+            "Yerelde çalışabilen yeni bir açık kodlama modeli var: Thinking Machines Lab'in Inkling 2 Mini'si 26,4 milyar parametreli bir MoE, token başına 3,4 milyarı çalışıyor. Ağırlıklar 20 Kasım'da Hugging Face'e Apache 2.0 lisansı ve ayrı bir kabul edilebilir kullanım politikasıyla yüklendi. Checkpoint yaklaşık 20 GB; model kartı tek bir DGX Spark ya da 32 GB ve üzeri belleği olan Apple silicon öneriyor. Bağlam 1 milyon token; Ollama, llama.cpp için GGUF, vLLM ve SGLang desteği ilk günden var.",
+            "Modelin farkı döngü: orta katman blokları her token için üç kez çalışıyor. Şirketin ölçümünde SWE-bench Verified'da (yalnızca bash) %79,2 alıyor, Terminal-Bench ve HLE'de Qwen3.8-27B ile başa baş. Bağımsız ölçüm yapan Artificial Analysis'in zekâ endeksinde puanı 20; benzer açık modellerin medyanı 10. Sitenin listelediği API fiyatı milyon girdi token'ı için 0,15, çıktı için 0,50 dolar.",
+            "Model kartı sınırları açıkça yazıyor. Kod hata ayıklarken uzun akıl yürütme döngülerine girebiliyor; çıktı token'ı ve agent turu sınırı öneriliyor. Ayrıntılı araç talimatlarında daha az güvenilir: onay almadan yıkıcı eylem yapabiliyor ve sonucu yanlış bildirebiliyor. Olgu bilgisi Inkling 2 Small'dan zayıf, İngilizce dışındaki çıktı kalitesi düşük."
+          ],
+          "why": "32 GB bellekli bir makinede kod agent'ı denemek isteyen ekiplere bulut maliyeti olmadan bir seçenek; ama araç izinleri dar tutulmalı.",
+          "table": {
+            "title": "Inkling 2 Mini ve Qwen3.8-27B",
+            "cols": [
+              "Model",
+              "T-Bench 2.1",
+              "HLE-D"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Inkling 2 Mini",
+                  "%71,6",
+                  "%15,2"
+                ],
+                "highlight": true
+              },
+              [
+                "Qwen3.8-27B",
+                "%73,0",
+                "%15,3"
+              ]
+            ],
+            "note": "Thinking Machines'in kendi ölçümü: Terminal-Bench v2.1 ve HLE-Diamond."
+          },
+          "sources": [
+            {
+              "label": "Thinking Machines: Inkling 2 Mini",
+              "url": "https://thinkingmachines.ai/news/inkling-2-mini/"
+            },
+            {
+              "label": "Hugging Face: model kartı",
+              "url": "https://huggingface.co/thinkingmachines/Inkling-2-Mini"
+            },
+            {
+              "label": "Artificial Analysis: Inkling 2 Mini",
+              "url": "https://artificialanalysis.ai/models/inkling-2-mini"
+            },
+            {
+              "label": "14 Kasım sayısı: Inkling 2 Small'un ağırlıkları",
+              "url": "#2026-11-14-ai-2"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Benchmark · Kodlama",
+          "headline": "Mei kodlama endeksinde ilk üç model 1,7 puan içinde",
+          "paragraphs": [
+            "Yayımlanmış 16 kodlama benchmark'ını tek puanda toplayan Models Engineering Index'te (Mei) Gemini 4 Neon, GPT-6.2 Astra ve Claude Fable 5.2 arasındaki fark 1,7 puan; maliyetler arasındaki fark ise yaklaşık 2,8 kat. Endeks Cursor, Vals AI ve Scale gibi kaynakların sonuçlarını yeniden kullanıyor, kendisi ölçmüyor; ortalama model 50 puana ayarlı. Maliyet, ortalama modelin benchmark koşusu maliyetine göre veriliyor. Yazarı belirtilmeyen endeks hata payı vermiyor ve bu yüzden küçük farkların anlamlı olmadığını not ediyor; 19 Kasım'da Hacker News'te gündeme geldi."
+          ],
+          "table": {
+            "title": "Mei puanı ve göreli maliyet",
+            "cols": [
+              "Model",
+              "Mei puanı",
+              "Maliyet (ortalama = 1×)"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Gemini 4 Neon",
+                  "68,4",
+                  "2,1×"
+                ],
+                "highlight": true
+              },
+              [
+                "GPT-6.2 Astra",
+                "67,1",
+                "2,1×"
+              ],
+              [
+                "Claude Fable 5.2",
+                "66,7",
+                "5,8×"
+              ],
+              [
+                "Claude Opus 5.5",
+                "61,5",
+                "4,2×"
+              ],
+              [
+                "GPT-6.2 Sol",
+                "60,6",
+                "0,54×"
+              ]
+            ]
+          },
+          "sources": [
+            {
+              "label": "Models Engineering Index",
+              "url": "https://git-aarvin.github.io/mei/"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Gizlilik · Signal",
+          "headline": "Signal, iOS ve Android'de AI agent'larına ekranı kapatıyor",
+          "paragraphs": [
+            "Signal, işletim sistemine gömülü AI agent'larının uygulama içeriğini yakalayıp saklamasını kısıtlıyor. iOS 27'de uygulama içinde ekran görüntüsü engelleniyor; kullanıcı bunu ayarlardaki “Block Siri AI” seçeneğiyle kapatabiliyor. Android'de bir AI asistanı ekranı okumaya çalışınca “Screen security” ayarı kendiliğinden açılıyor. macOS'ta engelleme yok; Signal, Siri ayarlarında uygulamayı Excluded Apps listesine eklemeyi öneriyor. Şirket Apple, Google ve Microsoft'tan uygulamaların AI veri erişiminden çıkabilmesi için belgelenmiş bir yol istiyor. Ekran görüntüsü engellemenin dosya sistemi gibi başka erişim yollarını kapatmadığını da yazıyor."
+          ],
+          "sources": [
+            {
+              "label": "Signal blog: Protecting your privacy",
+              "url": "https://signal.org/blog/protecting-your-privacy/"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Gemini API · Agent",
+          "headline": "Gemini API, büyük araç setlerini ihtiyaç anında yüklüyor",
+          "paragraphs": [
+            "Agent'a verilen araç tanımlarının her istekte tam olarak gönderilmesi gerekmiyor: Gemini API'nin Interactions API'sinde tool retrieval 19 Kasım'da preview olarak açıldı. Araçlar `defer_loading` ile işaretleniyor ve listeye `tool_search` türünde bir araç ekleniyor; Gemini gereken şemaları kendisi buluyor. Kendi arama mantığını kullanmak isteyenler `execution: \"client\"` ayarını seçebiliyor. Uzak MCP sunucuları da `defer_loading`'i destekliyor. Özellik Gemini 3.6 ve sonrasıyla, Gemini 4 ailesinin bütün modelleriyle çalışıyor."
+          ],
+          "sources": [
+            {
+              "label": "Gemini API changelog: 19 Kasım",
+              "url": "https://aistudio.google.com/docs/changelog"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Şirket beyanı · OpenAI",
+          "headline": "OpenAI: Codex, 600'ü aşkın yavaşlama için kök neden önerdi",
+          "paragraphs": [
+            "OpenAI'a göre ChatGPT'deki performans gerilemelerini Codex agent'larıyla inceleyen Performance Factory, üç aydan biraz uzun sürede 1.700'ü aşkın inceleme açtı ve 600'ü aşkın vakada kök neden önerdi. Alarm çalınca agent gerilemenin başladığı zamanı, etkilenen istekleri ve olası deploy ya da yapılandırma değişikliklerini arıyor, sonra düzeltme öneriyor. Ayrı bir Codex oturumu teşhisi çürütmeye çalışıyor; PR'ı mühendis inceleyip yayına alıyor. 100 kök neden önerisinin elle incelenmesinde %70'i doğru bulundu. Bu sayının Atölye'si yöntemi adım adım anlatıyor."
+          ],
+          "sources": [
+            {
+              "label": "OpenAI: Performance Factory",
+              "url": "https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "İddia · Meta",
+          "headline": "Reuters: Meta'nın Muse agent'ı konuşmaları karıştırıyor",
+          "paragraphs": [
+            "Reuters'ın Meta'nın şirket içi yazışmalarına dayanan haberine göre çalışanlar, Muse agent'ının farklı hesapların konuşmalarını karıştırıp özel verileri gösterebileceğinden endişe ediyor. Bir çalışan hiç paylaşmadığını söylediği banka bakiyelerini ve hiç yapmadığı bir çocuk bakımı talebini gördü. Reuters, Muse'un başkalarının verisini mi gösterdiğini yoksa bilgiyi uydurduğunu mu belirleyemedi. Meta olayları “münferit” sayıyor; işaretlenen mesajların çoğunun halüsinasyon olduğunu ve giderildiğini söylüyor. Reuters'ın Signal ve AI Now Institute ile yaptığı testte Muse, Android bildirim izinleri ve macOS erişilebilirlik özellikleri üzerinden özel mesajlara ulaştı."
+          ],
+          "sources": [
+            {
+              "label": "Reuters (The Star): Meta's Muse AI agent",
+              "url": "https://www.thestar.com.my/news/world/2026/11/18/as-meta-bets-big-on-muse-ai-agent-early-safety-mishaps-surface"
+            },
+            {
+              "label": "TechCrunch: Meta's AI agent Muse",
+              "url": "https://techcrunch.com/2026/11/19/metas-ai-agent-muse-is-mixing-up-conversations-and-exposing-private-data-report-says/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Açık model · Tencent",
+          "headline": "Tencent, Hy4 Flash'ın ağırlıklarını 1M token bağlamla açtı",
+          "paragraphs": [
+            "Tencent'in 220 milyar parametreli, token başına yaklaşık 12 milyarı çalışan Hy4 Flash modeli 18 Kasım'dan beri indirilebiliyor. Model metin ve görsel girdi alıyor, bağlamı 1 milyon token. Standart, FP8 ve eğitim için base sürümleri var; lisans Tencent Hy License. Model kartındaki vLLM ve SGLang örnekleri 8 GPU'lu tensor paralelliği kullanıyor, llama.cpp, Ollama ve LM Studio için GGUF sürümleri de var. Şirketin ölçümüne göre görev başına maliyet Hy4'ün yirmide biri; kör kullanıcı değerlendirmesinde memnuniyet 4 üzerinden 2,79, Claude Haiku 5.5'te 2,81."
+          ],
+          "sources": [
+            {
+              "label": "Hugging Face: tencent/Hy4-flash",
+              "url": "https://huggingface.co/tencent/Hy4-flash"
+            },
+            {
+              "label": "TechNode: Hy4 Flash ağırlıkları",
+              "url": "https://technode.com/2026/11/19/tencent-releases-hy4-flash-model-weights-for-local-deployment/"
+            },
+            {
+              "label": "5 Kasım sayısı: Tencent Hy4",
+              "url": "#2026-11-05-ai-3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "is",
+      "title": "Şirketler & Altyapı",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "İhracat denetimi · Çip",
+          "headline": "ABD, Çinli şirketlere 879 binden fazla AI çipi satışını onaylamış",
+          "paragraphs": [
+            "ABD Ticaret Bakanlığı'na bağlı BIS, Mayıs 2026 itibarıyla Alibaba ve Tencent dahil Çinli şirketlere 879 binden fazla AI çipi satışına onay vermiş. Belgeleri Temsilciler Meclisi Dış İlişkiler Komitesi 19 Kasım'da yayımladı. Aralık-Mayıs arasında Nvidia ve AMD, Çin'e satış için 3,4 milyon talepte bulundu. Onaylar Nvidia'nın H200'ü ve benzeri çiplerle AMD'nin eşdeğer çiplerinde yoğunlaşıyor; bazıları Savunma Bakanlığı'nın “Çin askeri şirketi” listesindeki şirketlere gitti. Nvidia o dönemin kurallarına uyduğunu ve H200 sevkiyatını durdurduğunu söylüyor."
+          ],
+          "sources": [
+            {
+              "label": "CNBC: US approved AI chip sales to China",
+              "url": "https://www.cnbc.com/2026/11/19/nvidia-amd-china-chip-sales-congress.html"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "İddia · Nvidia",
+          "headline": "Reuters: SEC, Nvidia'nın muhasebe uygulamalarını inceliyor",
+          "paragraphs": [
+            "Reuters'ın konuya yakın iki kişiye dayandırdığı habere göre ABD Sermaye Piyasası Kurulu SEC'in Nvidia soruşturması şirketin muhasebe uygulamalarına bakıyor. Soruşturmayı ilk kez 17 Kasım'da Wall Street Journal duyurmuş, ama odağını belirleyememişti. Reuters da soruşturmanın ne zaman açıldığını ve hangi kalemleri incelediğini öğrenemedi; soruşturmaların çoğunun yaptırımsız kapandığını hatırlatıyor. SEC yorum yapmadı. Nvidia'nın Hugging Face'i 12,9 milyar dolara satın alma anlaşması da Adalet Bakanlığı'nın incelemesinde; bu inceleme şirketin satın almalarına yönelik daha geniş bir rekabet soruşturmasının parçası."
+          ],
+          "sources": [
+            {
+              "label": "Reuters (MarketScreener): SEC's Nvidia probe",
+              "url": "https://www.marketscreener.com/news/us-sec-s-nvidia-probe-is-examining-potential-accounting-issues-sources-say-ce785ed3dd8ff627"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gelistirme",
+      "title": "Geliştirme & Araçlar",
+      "articles": [
+        {
+          "size": 4,
+          "kicker": "Sürüm · Codex CLI",
+          "headline": "Codex CLI 0.171.0'da varsayılan model GPT-6.2 Sol oldu",
+          "paragraphs": [
+            "Codex CLI'da varsayılan model artık GPT-6.2 Sol: 20 Kasım'da çıkan 0.171.0, Sol'u ve Astra'yı model kataloğuna ekledi. Belge ve görsel önizlemeleriyle alt agent transcript'lerini gösteren TUI çalışma alanı varsayılan olarak açık. Yeni `codex exec --remote` seçeneği, etkileşimsiz oturumları zaten çalışan bir Codex sunucusunda başlatıyor ya da sürdürüyor. Oturum değiştirirken taslakların ve sıradaki mesajların kaybolması düzeltildi; Linux sandbox'ındaki sistem çağrısı denetimi sıkılaştırıldı. Refresh token vermeyen kimlik sağlayıcılarda kurumsal MCP girişi de artık çalışıyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub: Codex rust-v0.171.0",
+              "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Sürüm · Claude Code",
+          "headline": "Claude Code 2.1.330: `claude -p` dolu diskte 1 ile çıkıyor",
+          "paragraphs": [
+            "Betikte ve CI'da `claude -p` kullananlar için bir düzeltme: çıktı dolu diskteki bir dosyaya yazılırken komut mesajsız 0 koduyla çıkıyordu, 20 Kasım'da çıkan 2.1.330'da hata basıp 1 ile çıkıyor. Sürüm notuna göre dolu bir NFS export'u yine fark edilmeyebilir. Çok uzun konuşmalarda compaction'dan sonra dakikalarca süren donma giderildi. Aynı anda kaydeden süreçlerde ayarların kaybolması ve `ExitWorktree`'nin başka oturumun worktree'sini silmesi de düzeltildi. Grafik çizen yeni yerleşik `easel` mod'u Pro ve Max planlarında macOS ve Linux'ta geldi; otomatik grafikler `/config`'den kapatılabiliyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub: Claude Code sürümleri",
+              "url": "https://github.com/anthropics/claude-code/releases"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "GitHub · Yetki",
+          "headline": "GitHub: güvenlik duyuruları için özel rol yetkileri geldi",
+          "paragraphs": [
+            "Güvenlik duyuruları üzerinde çalışacak kişilere artık repo yöneticiliği ya da kuruluş genelinde security manager rolü vermek gerekmiyor. 20 Kasım'da genel erişime açılan dört yetki, özel repo rollerinin Security başlığında duruyor. Bunlar duyuruları görme, oluşturup düzenleme, özel açık bildirimlerini kabul edip duyuruları kapatma ve duyuru yayımlayıp CVE isteme yetkileri. Özellik, özel repo rollerini destekleyen planlarda var. Geçici özel fork'tan merge için yine yönetici ya da security manager gerekiyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub changelog: security advisory permissions",
+              "url": "https://github.blog/changelog/2026-11-20-security-advisory-permissions-are-now-generally-available"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Sürüm · Spring Boot",
+          "headline": "Spring Boot 4.2 yayında: RestTemplate desteği deprecated oldu",
+          "paragraphs": [
+            "Spring Boot 4.2.0 ile `RestTemplate` ve `TestRestTemplate` desteği deprecated oldu. Yerlerine `RestClient` ve `RestTestClient` öneriliyor. 19 Kasım'da Maven Central'a çıkan sürüm Spring Framework 7.1.0 üzerine kuruluyor ve Spring Boot 4.0'da deprecated olan her şeyi kaldırıyor. Yeniler arasında AMQP 1.0 desteği, OpenTelemetry semantic convention'larına isteğe bağlı geçiş ve iç içe jar'larda daha hızlı başlangıç var. Apache Pulsar desteği de deprecated; `jarmode=tools` modu SBOM üreten bir `sbom` komutu kazandı.",
+            "Yükseltmede bazı varsayılanlar değişiyor. `X-Forwarded-Prefix` artık yok sayılıyor; eski davranış için `server.request.header.forwarded.use-prefix` ayarı gerekiyor. WebFlux multipart isteklerinde parça başına disk kullanımı 1 MB, parça sayısı 50 ile sınırlandı. Tomcat'te göreli yönlendirmeler varsayılan olarak açık. Buildpacks'in varsayılan builder'ı Ubuntu 26.04 tabanlı oldu ve run image artık sabitlenmiyor; tekrarlanabilir build için ikisi de açıkça yazılmalı.",
+            "`spring-boot-starter-amqp` artık genel AMQP 1.0 sağlıyor; AMQP 0.9 kullanan RabbitMQ uygulamaları `spring-boot-starter-rabbitmq`'ye geçmeli. Aynı hafta çıkan Spring AI 2.1 ve Spring Cloud 2026.0 bu sürümü gerektiriyor; ayrıntılı geçiş notları projenin wiki sayfasında. 4.1 hattı için 4.1.3, 4.0 hattı için 4.0.10 bakım sürümleri 20 Kasım'da çıktı."
+          ],
+          "why": "RabbitMQ'yu `spring-boot-starter-amqp` ile kullanan uygulamalar starter değiştirilmeden yükseltilirse AMQP 1.0 istemcisine geçer.",
+          "sources": [
+            {
+              "label": "Spring blog: Spring Boot 4.2.0",
+              "url": "https://spring.io/blog/2026/11/19/spring-boot-4-2-0-available-now"
+            },
+            {
+              "label": "Spring Boot 4.2 sürüm notları",
+              "url": "https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.2-Release-Notes"
+            },
+            {
+              "label": "7 Kasım sayısı: Spring Boot 4.2.0-RC2",
+              "url": "#2026-11-07-java-1"
+            },
+            {
+              "label": "Spring blog: Spring Boot 4.0.10",
+              "url": "https://spring.io/blog/2026/11/20/spring-boot-4-0-10-available-now"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Sürüm · Spring AI",
+          "headline": "Spring AI 2.1 GA: RC sürümlerinde 13 CVE açık kalıyor",
+          "paragraphs": [
+            "Spring AI'ın RC sürümlerini kullananlar GA'ya geçmeli: 20 Kasım'da çıkan 2.1.0 ve 2.0.3, 13 CVE'yi kapatıyor; milestone ve RC sürümlerinde bu düzeltmeler yok. Açıklar SSRF engelleme, prompt'ların WARN seviyesinde loglanması, tenant yalıtımını atlatma ve cache zehirlemeyi kapsıyor. `SemanticCacheAdvisor` artık bir `SemanticCacheScopeResolver` bean'i istiyor. 2.1, Spring Boot 4.2 gerektiriyor. `ChatMemory` deprecated oldu ve 3.0.0'da kaldırılacak; yerine compaction yapan Session API geliyor. Agent döngüsüne araç başına 40, tur başına 150 çağrılık varsayılan sınır eklendi."
+          ],
+          "sources": [
+            {
+              "label": "Spring blog: Spring AI 2.1.0 GA",
+              "url": "https://spring.io/blog/2026/11/20/spring-ai-2-1-0-GA-available-now"
+            },
+            {
+              "label": "10 Kasım sayısı: Spring AI 2.1.0-RC2",
+              "url": "#2026-11-10-java-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik",
+      "patch": [
+        {
+          "text": "VMware vCenter 8.0/9.x ve VCF 5.x (CVE-2026-123890): 8.0 U3m, 9.0.2.0200, 9.1.1.0200 ya da 5.2.5'e geçin",
+          "ref": "guvenlik-1"
+        },
+        {
+          "text": "Cisco Expressway cluster (CVE-2026-76466): X15.5.20'ye yükseltin, X14 ve öncesini düzeltilmiş sürüme taşıyın",
+          "ref": "guvenlik-2"
+        }
+      ],
+      "articles": [
+        {
+          "size": 4,
+          "alert": true,
+          "kicker": "Aktif istismar · VMware vCenter",
+          "headline": "vCenter'daki yönetici erişimi açığı istismar ediliyor",
+          "paragraphs": [
+            "VMware vCenter'ın Directory Service bileşenindeki açık (CVE-2026-123890, CVSS 9,8), ağdan vCenter'a ulaşabilen birine kimlik bilgisi olmadan Administrator erişimi veriyor. Rapid7'nin aktardığına göre Mandiant, Çin bağlantılı bir grubun açığı Eylül'den beri istismar ettiğini doğruladı; CISA 20 Kasım'da KEV'e ekledi, son tarih 23 Kasım. Düzeltilmiş sürümler 8.0 U3m, 9.0.2.0200, 9.1.1.0200 ve VCF 5.2.5. 7.0 için genel yama yok; uzatılmış destek müşterileri Broadcom'a başvurmalı. Geçici çözüm yok, yama Quick Patch ile uygulanamıyor. Broadcom'a göre önceki CVE-2026-59309 yamasını kuranlar da yeni güncellemeyi kurmalı."
+          ],
+          "sources": [
+            {
+              "label": "Broadcom: VMSA-2026-0009",
+              "url": "https://support.broadcom.com/web/ecx/support-content-notification/-/external/content/SecurityAdvisories/0/39495"
+            },
+            {
+              "label": "Rapid7: CVE-2026-123890",
+              "url": "https://www.rapid7.com/blog/post/etr-cve-2026-123890-critical-authentication-bypass-vmware-vcenter/"
+            },
+            {
+              "label": "CISA KEV: CVE-2026-123890",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-123890"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "alert": true,
+          "kicker": "Aktif istismar · Cisco Expressway",
+          "headline": "Cisco Expressway'deki gömülü kimlik bilgisi açığı KEV'de",
+          "paragraphs": [
+            "Cluster olarak çalışan Cisco Expressway cihazlarındaki gömülü kimlik bilgisi açığı (CVE-2026-76466, CVSS 9,8) artık aktif istismar listesinde: CISA 20 Kasım'da KEV'e ekledi ve federal kurumlara 23 Kasım'a kadar süre verdi. Cisco'nun 21 Ekim tarihli duyurusuna göre yalnızca açık bir sürümü çalıştıran ve cluster olarak yapılandırılmış Expressway-C ve Expressway-E cihazları etkileniyor. Düzeltme X15.5.20'de; X14 ve öncesi düzeltilmiş bir sürüme taşınmalı. Geçici çözüm yok. Cisco'nun 21 Ekim'den beri güncellenmeyen duyurusu hâlâ istismardan haberdar olmadığını söylüyor; istismar bilgisi CISA'dan geliyor."
+          ],
+          "sources": [
+            {
+              "label": "Cisco: cisco-sa-vcs-static-cred-hr7EWZ8t",
+              "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-vcs-static-cred-hr7EWZ8t"
+            },
+            {
+              "label": "CISA KEV: CVE-2026-76466",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-76466"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "alert": true,
+          "kicker": "Takip · Nginx",
+          "headline": "Nginx'in HTTP/2 açıkları PAN-OS'u da etkiliyor",
+          "paragraphs": [
+            "Nginx'in HTTP/2 kodundaki iki RCE açığı (CVE-2026-123007, CVE-2026-123633) Palo Alto Networks'ün PAN-OS 11.2, 12.1 ve 12.2 sürümlerini ve Panorama'yı da etkiliyor; yalnızca HTTP/2 seçeneği açık kurulumlar risk altında. Duyuruya göre kimlik doğrulama gerekmiyor, ama saldırı karmaşıklığı yüksek. Her sürüm hattının düzeltilmiş yaması duyurudaki tabloda; 12.2 için 12.2.4-h3, bazı 12.1 ve 11.2 yamaları 23 Kasım'da bekleniyor. Geçici çözüm, PAN-OS ve Panorama'da HTTP/2'yi kapatmak. Palo Alto kötü niyetli istismardan haberdar değil."
+          ],
+          "sources": [
+            {
+              "label": "Palo Alto Networks: CVE-2026-123633",
+              "url": "https://security.paloaltonetworks.com/CVE-2026-123633"
+            },
+            {
+              "label": "19 Kasım sayısı: Nginx'te iki RCE açığı",
+              "url": "#2026-11-19-guvenlik-1"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "atolye": {
+    "konu": "sdlc-performans",
+    "kicker": "SDLC, test ve kod incelemesi",
+    "title": "Performans gerilemesini agent'a kanıt zinciriyle inceletmek",
+    "intro": "Bir metrik kötüleştiğinde agent'a “neden yavaşladı?” diye sormak, kanıt standardı yoksa ilk akla yatkın açıklamada bitebilir. OpenAI'ın ChatGPT'deki gerilemeleri Codex agent'larıyla inceleyen sisteminden çıkan düzen, agent'ı bir inceleme sırasına ve kanıt standardına bağlıyor, teşhisi de ikinci bir oturuma çürütmeye çalıştırıyor.",
+    "when": "Metrikleri, logları, trace'leri ve deploy geçmişi agent'ın erişebileceği bir yerde olan servislerde işe yarar. Telemetri yoksa ya da saklama süresi dolduysa agent kanıt üretemez; önbellek eklemek gibi ödünleşim isteyen düzeltmelerde karar yine mühendiste kalır.",
+    "steps": [
+      "İnceleme sırasını bir skill dosyasına yazın. OpenAI'ın `perf-forensics` skill'i Codex'e hangi araçların olduğunu, ne zaman kullanılacağını ve yavaşlamanın hangi sırayla inceleneceğini anlatıyor: önce gerilemenin başladığı an, sonra etkilenen istekler, sonra bunu açıklayabilecek deploy ve yapılandırma değişiklikleri. Claude Code belgesine göre skill, `.claude/skills/<ad>/SKILL.md` dosyasını içeren ve repoya commit edilerek ekiple paylaşılan bir dizin; biçim açık Agent Skills standardını izliyor ve başka araçlarda da kullanılabiliyor.",
+      "Agent'a istek gruplarını karşılaştırtın. OpenAI'ın yazısına göre benzer istekler mi yavaşladı, yoksa trafik zaten yavaş olan isteklere mi kaydı sorusu farklı nedenlere işaret ediyor. Bunun için agent'ın metriklere, loglara, trace'lere, CPU profillerine, bellek görüntülerine, kod aramaya ve deploy ile feature flag geçmişine erişmesi gerekiyor.",
+      "Kök neden için kanıt standardı koyun. OpenAI'ın yazısındaki inceleme ve çürütme soruları şöyle derlenebilir: değişiklik etkilenen isteklere gerçekte ne zaman ulaştı, yalnızca ne zaman deploy edildi değil; log ya da trace, kodun bu belirtiyi üretebileceğini gösteriyor mu? Değişikliğe maruz kalmayan benzer istekler sağlıklı kaldı mı, geri almada metrik düzeldi mi? Yazıdaki bir vakada teşhis devam eden hataları açıklamadığı için reddedildi. OpenAI, agent'ların zaman zaman ilk makul açıklamada durduğunu ve bunların bir kısmının yanlış çıktığını yazıyor.",
+      "Teşhisi ayrı bir oturuma çürüttürün. OpenAI'da ikinci bir Codex oturumu varsayımları yeniden kontrol ediyor ve karşılaştırma testlerini çalıştırıyor; teşhis tutmazsa incelemeyi yeniden açıp neyin kanıtlanması gerektiğini kaydediyor. Aynı inceleme önerilen düzeltmeye de uygulanıyor. 100 kök neden önerisinin elle incelenmesinde %70'i doğru bulundu; %30'u düzeltme gerektirdi ya da nedenselliği kanıtlayamadı.",
+      "Düzeltmeden sonra toparlanmayı ölçtürün. OpenAI'ın düzeninde PR'ı mühendis inceleyip yayına alıyor; deploy'dan sonra agent metriğin önceki seviyesine dönüp dönmediğine bakıyor. Kısmi toparlanmada asıl gerileme kapanıyor ve kalan yavaşlık için yeni görev açılıyor; hiç iyileşme yoksa inceleme geri gönderiliyor.",
+      "Skill'i değiştirmeden önce geçmiş olaylarla sınayın. OpenAI geçmiş olayları test vakasına çeviriyor: yeni bir agent'a cevabı ele veren ayrıntılar çıkarılmış özgün sinyal veriliyor, kayıtlı bellek ve olay raporu kapatılıyor. Skill ya da model güncellemesi bazı vakaları iyileştirip bazılarını kötüleştirebildiği için değişiklikler önce bu setle değerlendiriliyor."
+    ],
+    "example": {
+      "label": "Örnek SKILL.md: bir API servisinde performans gerilemesi incelemesi",
+      "lang": "markdown",
+      "code": "---\nname: perf-regression\ndescription: Latency ya da hata oranı alarmında gerilemenin kök nedenini araştırır. Bir alarm, metrik adı ya da \"yavaşladı\" geçince kullan.\n---\n\n# Performans gerilemesi (örnek servis: orders-api)\n\n## Sıra\n1. Başlangıç: `p95_latency_ms` serisinde gerilemenin başladığı dakikayı bul.\n2. Etkilenen istekler: route'a göre grupla; benzer istekler mi yavaşladı, karışım mı değişti?\n3. Değişiklikler: o aralıktaki deploy, config ve flag kayıtlarını listele.\n\n## Kanıt (eksik olanı raporda açıkça belirt)\n- Değişikliğin etkilenen isteklere ulaştığı an (deploy anı değil)\n- Belirtiyi gösteren trace ya da CPU profili\n- Değişikliğe maruz kalmayan benzer isteklerin durumu\n- Geri alındıysa metriğin toparlanıp toparlanmadığı\n\n## Rapor\nÖzet, etki, kök neden, önerilen düzeltme, kanıt (grafik, flame graph, trace).\nBelirsiz kalanı ayrıca yaz. Düzeltmeyi PR olarak öner; merge etme."
+    },
+    "pitfall": "OpenAI'ın notuna göre agent'ın önerdiği düzeltme bazen gerekenden karmaşık oluyor ya da yeni sorun getiriyor; bozuk bir profiler ya da eksik bir izin de doğrulamayı engelleyebiliyor. Ham inceleme çıktısı da bir metin yığınına dönüşebiliyor; bu yüzden OpenAI raporu özet, etki ve toparlanma, kök neden, önerilen düzeltme ve kanıt başlıklarına ayırıyor.",
+    "sources": [
+      {
+        "label": "OpenAI: Performance Factory",
+        "url": "https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast/"
+      },
+      {
+        "label": "Claude Code belgeleri: Skills",
+        "url": "https://code.claude.com/docs/en/skills"
+      }
+    ]
+  },
+  "repos": {
+    "subtitle": "GitHub Trending günlük ve Java haftalık listeleri ile Trendshift · yıldızlar 21 Kasım",
+    "items": [
+      {
+        "name": "firecrawl/firecrawl",
+        "url": "https://github.com/firecrawl/firecrawl",
+        "stars": "205.397",
+        "starsValue": 205397,
+        "lang": "TypeScript",
+        "cat": "Agent için web verisi",
+        "why": "AI agent'larına web sitelerini arama, scraping ve markdown'a çevirme imkânı veren platform. README'deki Firecrawl Local, veritabanı ve kuyruk olmadan tek binary olarak çalışıyor, `firecrawl-local init` ile Claude Code, Cursor ve Codex'e MCP sunucusu olarak ekleniyor; repo bugün günlük listede 1.241 yıldız aldı.",
+        "meta": "TypeScript · Agent için web verisi"
+      },
+      {
+        "name": "stablyai/orca",
+        "url": "https://github.com/stablyai/orca",
+        "stars": "131,2 bin",
+        "starsValue": 131200,
+        "cat": "Agent orkestrasyonu",
+        "why": "Claude Code ve Codex gibi kodlama agent'larını her biri kendi worktree'sinde paralel çalıştıran MIT lisanslı araç. 19 Kasım'da çıkan sürüm, kendi araçları ve kimliği olan Orca Bots'u beta olarak getirdi.",
+        "meta": "Agent orkestrasyonu"
+      },
+      {
+        "name": "cathrynlavery/diagram-design",
+        "url": "https://github.com/cathrynlavery/diagram-design",
+        "stars": "69,4 bin",
+        "starsValue": 69400,
+        "lang": "HTML",
+        "cat": "Agent skill'i",
+        "why": "Diyagramları tek bir HTML + SVG dosyası olarak çizen agent skill'i; 51 diyagram türü var, draw.io, Mermaid, Excalidraw ve PlantUML dosyalarını içe aktarıyor. Claude Code, Codex, Copilot, Cursor ve Gemini CLI'da çalışıyor; bugün günlük listede 636 yıldız aldı.",
+        "meta": "HTML · Agent skill'i"
+      },
+      {
+        "name": "HKUDS/CLI-Anything",
+        "url": "https://github.com/HKUDS/CLI-Anything",
+        "stars": "61,5 bin",
+        "starsValue": 61500,
+        "lang": "Python",
+        "cat": "Agent araçları",
+        "why": "Masaüstü ve web yazılımları için AI agent'larının GUI otomasyonu olmadan kullanabileceği komut satırı arayüzleri üretiyor; topluluk CLI'larını CLI-Hub kayıt defterinde topluyor. Bugün günlük listede 773 yıldız aldı.",
+        "meta": "Python · Agent araçları"
+      },
+      {
+        "name": "diggerhq/opencomputer",
+        "url": "https://github.com/diggerhq/opencomputer",
+        "stars": "762",
+        "starsValue": 762,
+        "cat": "Kodlama agent'ı",
+        "why": "Slack'te @Computer diye çağrılan, kendi izole ortamında çalışıp sonucu pull request olarak getiren Apache 2.0 lisanslı kodlama agent'ı; Claude Code, Codex ya da OpenCode üzerinde çalışıyor ve tek bir VM'de barındırılabiliyor. Hacker News ön sayfasında Show HN olarak yer aldı.",
+        "meta": "Kodlama agent'ı"
+      },
+      {
+        "name": "elastic/elasticsearch",
+        "url": "https://github.com/elastic/elasticsearch",
+        "stars": "78.686",
+        "starsValue": 78686,
+        "lang": "Java",
+        "cat": "Arama motoru",
+        "why": "Dağıtık, REST tabanlı açık kaynak arama ve analiz motoru. GitHub'ın Java haftalık listesinde bu hafta 378 yıldızla öne çıkan JVM projelerinden; son sürüm 8.19.25, 10 Kasım'da çıktı.",
+        "meta": "Java · Arama motoru"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending: günlük",
+        "url": "https://github.com/trending"
+      },
+      {
+        "label": "GitHub Trending: Java haftalık",
+        "url": "https://github.com/trending/java?since=weekly"
+      },
+      {
+        "label": "Trendshift",
+        "url": "https://trendshift.io/"
+      }
+    ]
+  },
+  "briefs": [
+    {
+      "tag": "Takip · Anthropic",
+      "text": "Anthropic hisseleri 19 Kasım'daki ilk işlem gününde 83 dolarlık halka arz fiyatının üzerine çıktı, gün içinde 111,53 dolarla zirve yaptı. Şirket halka arzda 980 milyon hisseyle 81,3 milyar dolar topladı; 26 milyar dolarlık özel yerleştirmeyle toplam 107,3 milyar dolar.",
+      "url": "https://www.semafor.com/article/11/19/2026/anthropic-makes-record-market-debut"
+    },
+    {
+      "tag": "Agent · Google",
+      "text": "Gemini'nin Mac uygulaması artık bilgisayar kullanabiliyor: agent yerel uygulamalarda ve web'de form doldurma, dosya düzenleme gibi çok adımlı işleri arka planda yapıyor, kullanıcı her eylemi gerçekleşmeden önce durdurabiliyor ya da onaylayabiliyor. İlk aşamada ABD'de İngilizce kullanan AI Plus, Pro ve Ultra abonelerine açık.",
+      "url": "https://techcrunch.com/2026/11/19/google-gives-gemini-the-ability-to-use-your-mac-for-you/"
+    },
+    {
+      "tag": "İddia · Siber saldırı",
+      "text": "The Register'ın Politico'ya dayandırdığı habere göre Avrupa Komisyonu'nun maaş ve izin sistemi Sysper ile sağlık geri ödeme sistemi MyPMO, 10 günü aşkın süredir bir siber saldırı nedeniyle aksıyor. Olayı inceleyen ekipler saldırganların herkese açık, AI destekli sızma testi framework'ü ARTEX'i kullandığını tespit etmiş.",
+      "url": "https://www.theregister.com/cyber-crime/2026/11/19/european-commission-scrambles-to-contain-ai-assisted-cyberattack/5311103"
+    },
+    {
+      "tag": "Spring · Güvenlik",
+      "text": "Spring Boot 4.2 üzerinde çalışan Spring Cloud 2026.0.0 (Paddington) 20 Kasım'da çıktı; Config Server, Gateway, Kubernetes ve Function'daki 12 CVE'yi kapatıyor. Boot 4.0 ve 4.1 kullananlar aynı açıklar için aynı gün çıkan 2025.1.5'e yükseltmeli.",
+      "url": "https://spring.io/blog/2026/11/20/spring-cloud-2025-1-5-has-been-released"
+    },
+    {
+      "tag": "Araç",
+      "text": "Mastering Emacs kitabının yazarı Mickey Petersen, alt agent, MCP sunucusu, terminal ve hook'ları pencere yöneticisi düzeninde bir araya getiren kodlama harness'ı ve IDE'si DreamCoder'ı yayımladı; yerel kullanım için Qwen3.8-27B gibi açık modelleri öne çıkarıyor. macOS, Windows, Linux ve Docker'da çalışıyor.",
+      "url": "https://www.masteringemacs.org/article/announcing-dreamcoder"
+    },
+    {
+      "tag": "GitHub Actions",
+      "text": "GitHub'ın barındırdığı büyük runner'larda RHEL 9 ve RHEL 10 imajları 19 Kasım'da genel erişime açıldı; Team ve Enterprise Cloud planlarında Linux x64 büyük runner eklerken partner imajlarından seçiliyor. Public preview kullananların bir şey yapması gerekmiyor.",
+      "url": "https://github.blog/changelog/2026-11-19-red-hat-enterprise-linux-runner-images-now-generally-available"
+    }
+  ]
+}
