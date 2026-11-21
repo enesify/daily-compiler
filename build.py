@@ -341,7 +341,7 @@ def table(t):
         for j, c in enumerate(cells)) + "</tr>" for cells, hl in rows)
     cap = f'<figcaption>{esc(typo(t.get("title") or ""))}</figcaption>' if t.get("title") else ""
     note = f'<p class="cnote">{esc(typo(t["note"]))}</p>' if t.get("note") else ""
-    return f'<figure class="tbl">{cap}<div class="tbl-w"><table><thead><tr>{th}</tr></thead><tbody>{tb}</tbody></table></div>{note}</figure>'
+    return f'<figure class="tbl" style="--c:{len(cols)}">{cap}<div class="tbl-w"><table><thead><tr>{th}</tr></thead><tbody>{tb}</tbody></table></div>{note}</figure>'
 
 
 def chart(c):
@@ -404,7 +404,7 @@ def article(ctx, a, aid):
     # why: tek cümlelik editoryal “Neden önemli” notu; metinden ayrı ve etiketli basılır
     why = f'<p class="why"><b>{esc(caps("Neden önemli"))}</b>{rich(a.get("why"))}</p>' if a.get("why") else ""
     return (f'<article class="{cls}" id="a-{esc(aid)}">{k}<h3>{pill}{rich(a.get("headline"))}</h3>{stat}'
-            f'<div class="body">{body}</div>{more}{why}{chart(a.get("chart")) or table(a.get("table"))}{sources(ctx, a.get("sources"))}</article>')
+            f'<div class="body">{body}</div>{why}{chart(a.get("chart")) or table(a.get("table"))}{more}{sources(ctx, a.get("sources"))}</article>')
 
 
 # Kopyala düğmesi: tema düğmesiyle aynı çizgi ikon dili; kopyalanınca onay işaretine döner
@@ -736,8 +736,8 @@ def render_issue(ctx, cur):
             f'<h2>{rich(L.get("headline"))}</h2>'
             + (f'<p class="deck">{rich(L.get("deck"))}</p>' if L.get("deck") else "")
             + '<div class="cols">' + "".join(f"<p>{rich(p)}</p>" for p in L.get("paragraphs") or []) + "</div>"
-            + '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
-            + lc("lc-main") + sources(ctx, L.get("sources")) + '</div>'
+            + lc("lc-main") + '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
+            + sources(ctx, L.get("sources")) + '</div>'
             # Pratik çıkarım manşetin altında, ana sütunda: yan kolon “Bu sayıda” + Takvim ile kısa kalır, iki sütun dengeli biter
             + box + f'<div class="lead-side">{toc(secs)}{cal_in}{lc("lc-side")}</div></section>')
 
@@ -759,7 +759,7 @@ def render_issue(ctx, cur):
             name = (f'<a class="name" href="{esc(r.get("url"))}" target="_blank" rel="noopener">{esc(r.get("name"))}</a>'
                     if re.match(r"^https?://", r.get("url") or "") else f'<span class="name">{esc(r.get("name"))}</span>')
             meta = r.get("meta") or " · ".join(x for x in [r.get("lang"), r.get("cat")] if x)
-            cards.append(f'<div class="repo">{name}<span class="stars">{"★ " + esc(r["stars"]) if r.get("stars") else ""}</span>'
+            cards.append(f'<div class="repo">{name}<span class="stars">{"★ " + esc(stars_label(r)) if r.get("stars") else ""}</span>'
                          f'<p class="desc">{rich(r.get("why"))}</p>' + (f'<span class="meta">{caps_rich(meta)}</span>' if meta else "") + "</div>")
         sub = R.get("subtitle") or "Trending listelerinden seçme · yıldız sayıları kaynak tarihindeki değerlerdir"
         out.append(f'<section class="sec" id="sec-repolar"><div class="sec-h"><h2>Öne Çıkan GitHub Repoları</h2><p>{rich(sub)}</p></div>'
@@ -803,6 +803,16 @@ def with_ext(text, url):
     i = text.rstrip().rfind(" ")
     head, last = (text[:i + 1], text[i + 1:].rstrip()) if i >= 0 and text[i + 1:].count("`") % 2 == 0 and text[:i].count("`") % 2 == 0 else ("", text)
     return f'{rich(head)}<span class="nw">{rich(last)}\u00a0{ok}</span>'
+
+
+def stars_label(r):
+    """Yıldız sayısı listede tek biçimde: 1.000 ve üstü “205,4 bin”, altı tam sayı. Kaynaktaki kesin değer starsValue'da kalır."""
+    v = r.get("starsValue")
+    if not isinstance(v, (int, float)):
+        return str(r.get("stars"))
+    if v < 1000:
+        return str(int(v))
+    return f"{v / 1000:.1f}".replace(".", ",").replace(",0", "") + " bin"
 
 
 def with_int(text, ref):

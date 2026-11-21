@@ -81,6 +81,11 @@
       es.forEach(function (e) { if (e.isIntersecting) mark(e.target.id); });
     }, { rootMargin: '-15% 0px -75% 0px' });
     Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+    // Sayfanın sonunda son bölüm (kısa olduğu için gözlem bandına hiç girmeyebilir) etkin sayılır
+    var ids = Object.keys(links), last = ids[ids.length - 1];
+    addEventListener('scroll', function () {
+      if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) mark(last);
+    }, { passive: true });
   }
 
   var dial = document.getElementById('archive');
@@ -124,11 +129,20 @@
       }
     }
     if (!ends.length) return null;
-    var k = -1;
+    var bottom = body.getBoundingClientRect().bottom, k = -1;
     ends.forEach(function (e, j) { if (e.y <= limit) k = j; });
     if (k < 0) k = 0;
     else if (ends[k].y < top + lines * lh * .6 && ends[k + 1] && ends[k + 1].y <= top + (lines * 2 + 1) * lh) k++;
-    return ends[k] === ends[ends.length - 1] ? null : ends[k];
+    // Saklanacak kısım 4 satırdan kısaysa kesme: düğme kazandırdığından fazlasını kaybettirir
+    return ends[k] === ends[ends.length - 1] || bottom - ends[k].y < 4 * lh ? null : ends[k];
+  }
+  // Atölye: giriş, “Ne zaman” ve ilk iki adım görünür; kalan adımlar ve örnek blok “Devamı” ile açılır
+  function cutAtolye(body) {
+    var li = body.querySelectorAll('.at-steps > li');
+    if (li.length < 3) return null;
+    var w = document.createTreeWalker(li[1], NodeFilter.SHOW_TEXT), n, last = null;
+    while ((n = w.nextNode())) if (n.data.trim()) last = n;
+    return last ? { n: last, i: last.data.length } : null;
   }
   // Kesme noktasından sonraki her şeyi .rest ile işaretle (paragraf yapısı bozulmaz)
   function markRest(body, cut) {
@@ -148,7 +162,7 @@
   function setOpen(art, open) {
     var b = art.querySelector('.more');
     art.classList.toggle('clamp', !open);
-    if (b) { b.textContent = open ? 'Kapat' : 'Devamı'; b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+    if (b) { b.textContent = open ? 'Kapat' : (b.dataset.label || 'Devamı'); b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
   }
   function unmark(body) {
     Array.prototype.forEach.call(body.querySelectorAll('span.rest'), function (sp) {
@@ -190,11 +204,20 @@
       var p = t.body.querySelector('p'), lh = p && parseFloat(getComputedStyle(p).lineHeight);
       return p && lh ? Math.min(12, Math.max(6, Math.round(p.getBoundingClientRect().height / lh))) : 6;
     };
-    todo.forEach(function (t) { t.cut = cutAt(t.body, lines(t)); });
     todo.forEach(function (t) {
-      if (!t.cut) return;
-      markRest(t.body, t.cut);
+      t.at = t.art.classList.contains('atolye');
+      t.cut = t.at ? cutAtolye(t.body) : cutAt(t.body, lines(t));
+    });
+    todo.forEach(function (t) {
+      if (!t.cut && !t.at) return;
+      if (t.cut) markRest(t.body, t.cut);
       t.art.classList.add('clamp');
+      if (t.at) {
+        // Düğme ne açılacağını söyler: “Devamı · 4 adım ve örnek”
+        var n = t.body.querySelectorAll('.at-steps > li').length - 2, ex = t.art.querySelector('.at-ex');
+        t.b.dataset.label = 'Devamı' + (n > 0 || ex ? ' · ' : '') + (n > 0 ? n + ' adım' : '') + (n > 0 && ex ? ' ve ' : '') + (ex ? 'örnek' : '');
+        t.b.textContent = t.b.dataset.label;
+      }
       t.b.hidden = false;
     });
   }
