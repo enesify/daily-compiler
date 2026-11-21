@@ -445,7 +445,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "build.py/style.css: lang=tr altında text-transform:uppercase İngilizce özel adları noktalı İ ile basıyor.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-22 · build.py word_up: Türkçede olmayan harf dizileri İngilizce sayılır"
     },
     {
       "id": "b37",
@@ -469,7 +470,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "build.py: CVE-YYYY-NNNN kalıbı bölünmez yapılmıyor.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-22 · build.py keep_ids: CVE/GHSA tek parça"
     },
     {
       "id": "b39",
@@ -541,7 +543,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "build.py ve GOREV.md: build.py Python 3.12+ gerektiriyor ama komutlar `python3` diyor; ortamda python3 3.11.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-22 · build.py f-string'leri Python 3.11 uyumlu"
     }
   ]
 }

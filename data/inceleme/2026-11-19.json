@@ -457,7 +457,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "tools/kontrol.py tırnak denetimi `.code` alanlarını muaf tutmalı",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-22 · kontrol.py: backtick ve .code içinde düz tırnak serbest"
     }
   ]
 }

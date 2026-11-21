@@ -90,7 +90,7 @@ Puanların: `icerik` (seçim, değer, editoryal kalite) ve `dil`.
 
 ## Tasarım editörü
 
-`tools/ekran.py` çıktısı ve `/tmp/dc/ekran/` altındaki görüntüler (telefon ve masaüstü) sana verilir. Görüntülere tek tek bak:
+`tools/ekran.py` çıktısı ve `/tmp/dc/ekran/` altındaki görüntüler (telefon, tablet ve masaüstü) sana verilir. Betik bölünen kod, sayfa sonu sekmesi, kadran ve telefondaki katlamayı zaten ölçer. `/tmp/dc/acik-kod.txt` henüz düzeltilmemiş kod bulgularıdır; bunları yeniden yazma. Görüntülere tek tek bak:
 
 - hizalama ve boşluk dengesi; erken kırılan, taşan ya da tek kelimesi alt satıra düşen satır;
 - satır içi kodun ya da bağlantı okunun kendi içinden bölünmesi;

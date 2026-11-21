@@ -77,15 +77,16 @@
         scroller.scrollTo({ left: a.offsetLeft - scroller.clientWidth / 2 + a.offsetWidth / 2, behavior: reduce ? 'auto' : 'smooth' });
       }
     };
+    // Sayfanın sonunda son bölüm (kısa olduğu için gözlem bandına hiç girmeyebilir) etkin sayılır;
+    // gözlemci kaydırma olayından sonra çalışabildiği için iki yerde de bakılır
+    var ids = Object.keys(links), last = ids[ids.length - 1];
+    var atEnd = function () { return innerHeight + scrollY >= document.documentElement.scrollHeight - 2; };
     var io = new IntersectionObserver(function (es) {
+      if (atEnd()) { mark(last); return; }
       es.forEach(function (e) { if (e.isIntersecting) mark(e.target.id); });
     }, { rootMargin: '-15% 0px -75% 0px' });
-    Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
-    // Sayfanın sonunda son bölüm (kısa olduğu için gözlem bandına hiç girmeyebilir) etkin sayılır
-    var ids = Object.keys(links), last = ids[ids.length - 1];
-    addEventListener('scroll', function () {
-      if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) mark(last);
-    }, { passive: true });
+    ids.forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+    addEventListener('scroll', function () { if (atEnd()) mark(last); }, { passive: true });
   }
 
   var dial = document.getElementById('archive');

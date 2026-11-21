@@ -145,7 +145,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "assets/style.css: satır içi code öğesinde tireden kırılma engellenmiyor (white-space/hyphens ayarı yok).",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-22 · code_html: kısa kod tek parça (nb)"
     },
     {
       "id": "b12",
@@ -301,7 +302,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "build.py at_step(): kalın ilk cümle için uzunluk eşiği adımlar arasında tutarsız görünüm üretiyor.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-22 · build.py at_step: ilk cümle kuralı"
     },
     {
       "id": "b25",
@@ -313,7 +315,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "build.py typo(): sayı aralığı kuralı paket sürüm dizgelerini ayırt etmiyor.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-22 · build.py typo: paket sürümü istisnası"
     },
     {
       "id": "b26",
@@ -325,7 +328,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "build.py typo(): kelime sonundaki kesme işaretini tipografik yapmıyor.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-22 · build.py typo: İngilizce çoğul iyelik"
     },
     {
       "id": "b27",
@@ -337,7 +341,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "assets/style.css / build.py: ok ikonu ile son kelime arasında bölünmez bağ çizgi ikonda tutmuyor.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-22 · build.py with_ext: son kelime ile ok .nw içinde"
     },
     {
       "id": "b28",
@@ -361,7 +366,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "tools/ekran.py: bağımlılık kurulumu ve Chrome yolu ortamdan bulunmuyor; /opt/pw-browsers/chromium yedek yol olarak eklenebilir.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-22 · tools/ekran.py Playwright'ı kendisi kurar, Chromium'a düşer"
     }
   ]
 }

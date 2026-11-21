@@ -103,10 +103,15 @@ def code_html(p):
     return "<code>" + re.sub(r"([._/:=])(?=\w)", r"\1<wbr>", esc(p)) + "</code>"
 
 
+def keep_ids(h):
+    """CVE ve GHSA kimlikleri satır sonunda ilk tireden bölünmesin (“(CVE-” | “2026-76466”)."""
+    return re.sub(r"\b((?:CVE-\d{4}-\d{4,})|(?:GHSA(?:-[0-9a-z]{4}){3}))\b", r'<span class="nw">\1</span>', h)
+
+
 def rich(text):
     """`backtick` → <code>, gerisi kaçışlı metin."""
     parts = re.split(r"`([^`]+)`", str(text or ""))
-    return "".join(code_html(p) if i % 2 else esc(_text(p, i)) for i, p in enumerate(parts) if p)
+    return "".join(code_html(p) if i % 2 else keep_ids(esc(_text(p, i))) for i, p in enumerate(parts) if p)
 
 
 # Büyük harf: Türkçe kelimelerde i→İ, İngilizce terim/özel isimlerde i→I (SPRING, GITHUB)
@@ -119,6 +124,7 @@ EN = set(("spring java maven linux firefox openai github gitlab copilot kimi gem
           "nebius iren nscale pierre conductor cognition devin cursor windsurf antigravity bedrock agentcore azure aws "
           "vertex lambda tpu tpus inference coding agentic big tech high speed highspeed claude-code ai-native ci cd devops "
           "sonar sonarqube jacoco surefire figma eclipse skill skills anthropic combinator microsoft local first cisco "
+          "zig vim plugin runtime ansible inside candidate assistant multi link retrieval nvidia signal "
           "driven change insight insights pi vite vitest prisma sqlite ollama mini lite fine tuning edition engine engines it "
           "artificial analysis intelligence index cursorbench benchmark benchmarks leaderboard hydrogen gpt fable boot agents claude cursor codex windsurf junie aider").split())
 
@@ -135,7 +141,9 @@ def word_up(w):
     key = re.sub(r"[^a-z0-9.\-]", "", base.lower())
     en = (not re.search(r"[çğıöşüİÇĞÖŞÜ]", base)) and (
         key in EN or re.search(r"[a-z][A-Z]", base) or re.search(r"[wxq]", base, re.I)
-        or re.search(r"ing$", base, re.I) or re.search(r"\d", base))
+        or re.search(r"ing$", base, re.I) or re.search(r"\d", base)
+        # Türkçede bulunmayan harf dizileri: MACHINES, DISPATCH, SHIRO, GRAPHICS, ACTIONS, SIGNAL, NVIDIA, POINT, GRIFFIN
+        or re.search(r"th|ch|sh|ph|gh|ck|ie|oi|ou|oo|ff|gn|ion|ia$|ive$|ly$", base, re.I))
     return (base.upper() if en else tr_upper(base)) + tr_upper(suf)
 
 
@@ -296,8 +304,8 @@ def ref_link(ctx, label, url):
 
 def ext_link(label, url):
     if re.match(r"^https?://", url or "", re.I):
-        return f'<a href="{esc(url)}" target="_blank" rel="noopener">{esc(typo(label))}</a>'
-    return esc(typo(label))
+        return f'<a href="{esc(url)}" target="_blank" rel="noopener">{keep_ids(esc(typo(label)))}</a>'
+    return keep_ids(esc(typo(label)))
 
 
 def sources(ctx, lst):
@@ -335,9 +343,10 @@ def table(t):
     if len(cols) < 2 or len(rows) < 2:
         return ""
     num = [all(NUMERIC.match(r[j]) or r[j] == "–" for r, _ in rows) for j in range(len(cols))]
-    th = "".join(f'<th scope="col"{" class=\"n\"" if num[j] and j else ""}>{rich(c)}</th>' for j, c in enumerate(cols))
-    tb = "".join(f'<tr{" class=\"hl\"" if hl else ""}>' + "".join(
-        (f'<th scope="row">{rich(c)}</th>' if j == 0 else f'<td{" class=\"n\"" if num[j] else ""}>{rich(c)}</td>')
+    NCLS, HLCLS = ' class="n"', ' class="hl"'
+    th = "".join(f'<th scope="col"{NCLS if num[j] and j else ""}>{rich(c)}</th>' for j, c in enumerate(cols))
+    tb = "".join(f'<tr{HLCLS if hl else ""}>' + "".join(
+        (f'<th scope="row">{rich(c)}</th>' if j == 0 else f'<td{NCLS if num[j] else ""}>{rich(c)}</td>')
         for j, c in enumerate(cells)) + "</tr>" for cells, hl in rows)
     cap = f'<figcaption>{esc(typo(t.get("title") or ""))}</figcaption>' if t.get("title") else ""
     note = f'<p class="cnote">{esc(typo(t["note"]))}</p>' if t.get("note") else ""

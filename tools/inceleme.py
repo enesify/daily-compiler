@@ -4,6 +4,10 @@
 Kullanım:
     python3 tools/inceleme.py data/inceleme/2026-11-18.json   kaydı denetler, bildirim satırını yazar (sorun varsa çıkış kodu 1)
     python3 tools/inceleme.py --ozet 14                       son 14 günün kayıtlarını özetler (haftalık kural analizi için)
+    python3 tools/inceleme.py --acik                          açık kod bulgularını listeler
+
+Kod bulgusu (kok “kod”, durum “oneri”): sabah oturumu kodu değiştiremediği için kayıtta kalır. Düzelten oturum bulguya
+"kapandi": "YYYY-MM-DD · <commit ya da kısa not>" alanını ekler; o zamana dek bulgu açık sayılır ve bildirim satırında görünür.
 
 Kayıt biçimi ve alanların anlamı: kurallar/GOREV.md, “Bulgu kaydı” bölümü.
 """
@@ -60,6 +64,20 @@ def denetle(d, yol):
     return s
 
 
+def acik_kod():
+    """Bütün kayıtlarda kapanmamış kod bulguları: [(tarih, bulgu)]."""
+    out = []
+    for f in sorted(glob.glob(os.path.join(DIR, "*.json"))):
+        try:
+            d = json.load(open(f, encoding="utf-8"))
+        except (ValueError, OSError):
+            continue
+        for b in d.get("bulgular") or []:
+            if b.get("kok") == "kod" and b.get("durum") == "oneri" and not b.get("kapandi"):
+                out.append((d.get("tarih"), b))
+    return out
+
+
 def satir(d):
     bs = d.get("bulgular") or []
     o = Counter(b.get("onem") for b in bs)
@@ -72,7 +90,8 @@ def satir(d):
     return (f"Editörler: taslak {ort:.1f}/10 (içerik {p.get('icerik')}, doğruluk {p.get('dogruluk')}, "
             f"dil {p.get('dil')}, tasarım {p.get('tasarim') if p.get('tasarim') is not None else '–'}) · {dg}"
             f"{o['kritik']} kritik, {o['onemli']} önemli, {o['kucuk']} küçük bulgu · "
-            f"{st['duzeltildi'] + st['duzeltme-listesinde']} düzeltildi, {st['reddedildi']} reddedildi, {st['oneri']} öneri · {kural} kural sinyali")
+            f"{st['duzeltildi'] + st['duzeltme-listesinde']} düzeltildi, {st['reddedildi']} reddedildi, {st['oneri']} öneri · {kural} kural sinyali"
+            f"{f' · {n} açık kod bulgusu' if (n := len(acik_kod())) else ''}")
 
 
 def ozet(gun):
@@ -108,6 +127,12 @@ def ozet(gun):
 
 
 def main():
+    if sys.argv[1:] == ["--acik"]:
+        lst = acik_kod()
+        print(f"{len(lst)} açık kod bulgusu" + (":" if lst else ""))
+        for t, b in lst:
+            print(f"  {t} {b.get('id')} [{b.get('kategori')}] {b.get('konum')}: {str(b.get('sorun'))[:120]}")
+        return 0
     if len(sys.argv) == 3 and sys.argv[1] == "--ozet":
         ozet(int(sys.argv[2]))
         return 0
