@@ -1,0 +1,546 @@
+{
+  "date": "2026-11-22",
+  "number": 20,
+  "dateLabel": "Pazar, 22 Kasım 2026",
+  "readingMinutes": 14,
+  "calendar": [
+    {
+      "date": "2026-11-23",
+      "text": "Apache Roller açığı için CISA'nın yama son tarihi",
+      "ref": "guvenlik-1"
+    },
+    {
+      "date": "2026-12-01",
+      "text": "Gemini 4 Carbon API fiyatı iki katına çıkıyor",
+      "url": "https://aistudio.google.com/docs/pricing"
+    },
+    {
+      "date": "2026-12-02",
+      "text": "LiteLLM açığı için CISA'nın yama son tarihi",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-40217"
+    },
+    {
+      "date": "2026-12-08",
+      "text": "Dependabot, hareketsiz repolarda uyarıları duraklatıyor",
+      "url": "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories"
+    },
+    {
+      "date": "2026-12-14",
+      "text": "GitHub Copilot'tan altı model kaldırılıyor",
+      "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december"
+    }
+  ],
+  "lead": {
+    "kicker": "Araştırma · AI tedarik zinciri",
+    "alert": true,
+    "headline": "OpenRouter, Dragos'un sızıntı bulgusundan sonra 125 endpoint'i ZDR'den çıkardı",
+    "deck": "Dragos, temmuz-kasım arasında yaklaşık 2 milyon prompt'a tuzak anahtar ve URL yerleştirdi. Üç hosting sağlayıcısının ele geçirildiğini, gizlilik işaretlerinin sızıntıyı önlemediğini yazıyor. OpenRouter üç sağlayıcıyla çalışmayı bıraktı.",
+    "paragraphs": [
+      "Router üzerinden model çağıran ekiplerin prompt'ları, sıfır veri saklama (Zero Data Retention, ZDR) işaretli olsa bile üçüncü tarafların eline geçmiş. Dragos'un baş araştırma sorumlusu HD Moore, temmuz-kasım arasında yaklaşık 2 milyon prompt'a başka hiçbir yerde kullanılmayan sahte kimlik bilgileri, URL'ler ve DNS adları koydu. Bunlardan birinin kullanılması, prompt'u birinin okuduğunu gösteriyordu. 19 Kasım'da yayımlanan sonuçlara göre üç hosting sağlayıcısı ele geçirilmişti ve hiçbiri haber verilene kadar bunu bilmiyordu.",
+      "En büyük vakada ekim sonunda tek bir sağlayıcıya gönderilen birkaç yüz AWS anahtarı çalındı. Saldırgan anahtarları kimi zaman saatler içinde denedi. Ardından S3 bucket'larını listeledi, Secrets Manager'da arama yaptı ve IAM kullanıcısı ekledi. 21 Ekim'de konan bir anahtar ertesi gün kullanılmaya başladı ve üç hafta sonra hâlâ kullanılıyordu. İki ihlalde çalınan isteklerin bir kısmı ZDR işaretliydi. Saldırgan 1 Kasım'dan itibaren LLM tabanlı sızma testi aracı ARTEX'i de kullandı; Dragos, `artex-agent` ve `artex-judge-r121` user agent'larının tespit kurallarına eklenmesini öneriyor.",
+      "Bir Çinli AI laboratuvarının sistemleri, modellerine temmuz-ekim arasında gönderilen prompt'ların yarısından fazlasındaki gizli URL'leri açtı; “veri toplama yok” ya da ZDR işaretli isteklerin yaklaşık üçte ikisi dahil. Bazı pazar yeri satıcıları da modelleri ucuza listeleyip istek loglamasını açarak prompt topladı. Router'lar isteği başka router'lar üzerinden sağlayıcılara iletebildiği için Moore'a göre gizlilik işareti yalnızca ilk durağı bağlıyor. Dragos sağlayıcıların çoğunu ve laboratuvarı adlandırmıyor; bazı sonuçlar zamanlama ve araç izlerinden çıkarım.",
+      "OpenRouter 22 Kasım'da adını vermediği üç sağlayıcıyla çalışmayı bıraktığını ve 125 endpoint'i ZDR uygunluğundan çıkardığını açıkladı. Listede araştırmacıların işaretlediği endpoint'lerle önlem olarak eklenenler var. Şirket etkilenmiş olabilecek bütün müşterilere bildirim gönderdi ve kendi sistemlerinde ihlal olmadığını yazdı. Araştırmacıların tuzak token testlerini sürekli koşmaya, isteklerin üçüncü taraflara iletilip iletilmediğini ağ yolu üzerinden doğrulamaya başlıyor. OpenRouter'ın aktardığı sağlayıcı açıklamalarından birinde Together, haziran ve temmuz isteklerinde prompt sızıntısı içeren bir güvenlik olayı bildirdi."
+    ],
+    "sources": [
+      {
+        "label": "Dragos: Three breaches, endless leaks",
+        "url": "https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens"
+      },
+      {
+        "label": "OpenRouter: Data processing incidents on inference providers",
+        "url": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/"
+      }
+    ],
+    "box": {
+      "kicker": "Pratik çıkarım",
+      "title": "Prompt yolunu daraltın, sahte anahtarla izleyin",
+      "items": [
+        "OpenRouter'dan bildirim aldıysanız o hesaptan giden prompt'lardaki anahtarları sızmış sayın; Dragos'un vakasında 21 Ekim'de konan bir anahtar üç hafta sonra hâlâ kullanılıyordu.",
+        "AWS CloudTrail loglarında `artex-agent` ve `artex-judge-r121` user agent'larını arayın.",
+        "En hassas işleri router yerine tek bir sağlayıcıya doğrudan gönderin; router kullanıyorsanız upstream'i kendiniz seçin, ayarı bu sayının Atölye'si anlatıyor.",
+        "Agent'ların gönderdiği bağlama sahte bir AWS anahtarı koyun; kullanılırsa prompt yolunuzda biri okuyor demektir."
+      ],
+      "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
+    }
+  },
+  "sections": [
+    {
+      "id": "ai",
+      "title": "Yapay Zekâ & LLM",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "API · OpenAI",
+          "headline": "GPT-6.2'de konuşma geçmişini düzenlemek önceki akıl yürütmeyi siliyor",
+          "paragraphs": [
+            "Konuşma geçmişini düzenleyen uygulamalar GPT-6.2 Astra ve Sol'da daha zayıf cevap alıp daha çok token harcayabilir. OpenAI'ın yeni model rehberine göre Responses API, geçmişteki bir mesaj değiştirildiğinde önceki akıl yürütme öğelerini atıyor. Aynısı bazı model geçişlerinde (sürüm düşürme dahil) ve son kullanıcı ya da kuruluş değiştiğinde de oluyor. Rehber, bu durumda cevap kalitesinin düşebileceğini ve modelin önceki işi yeniden yaparken daha çok token harcayabileceğini yazıyor. Akıl yürütmeyi korumak için konuşmanın başı (prefix) değişmeden kalmalı.",
+            "Değişikliğin arkasında damıtma (distillation) saldırılarına karşı önlemler var. OpenAI'ın 20 Kasım tarihli yazısına göre korumalı akıl yürütme artık onu üreten geçmişe bağlı; eski model aileleri onu okuyamıyor ve çıktı sınıflandırıcıları araç çağrısı argümanlarını da denetliyor. Şirketin kendi red team testlerinde önceki istekten akıl yürütme çıkarma saldırılarının başarısı GPT-6 Astra'da %54,0 iken GPT-6.2 Astra'da %0,2'ye indi.",
+            "Rehberde geçiş notları da var. Yeni entegrasyonlar `medium` akıl yürütme seviyesiyle başlamalı, `none` ya da `minimal` kullananlar `low`'a geçmeli; `temperature` ve `top_p` artık gönderilmemeli. Kodlama şablonu, istenmedikçe ya da belirli bir gerilemeyi yakalamak gerekmedikçe yeni test yazılmamasını öneriyor."
+          ],
+          "why": "Geçmişi kırpan, düzenleyen ya da daha eski bir modele düşen agent'lar GPT-6.2'de daha zayıf ve daha pahalı çalışabilir.",
+          "sources": [
+            {
+              "label": "OpenAI: Using GPT-6.2 (model rehberi)",
+              "url": "https://developers.openai.com/api/docs/guides/latest-model?model=gpt-6.2-astra"
+            },
+            {
+              "label": "OpenAI: Combatting adversarial distillation",
+              "url": "https://openai.com/index/combatting-adversarial-distillation/"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Takip · Matematik",
+          "headline": "Lean topluluğu, Claude destekli Riemann ispatını onayladı",
+          "paragraphs": [
+            "İspat asistanı Lean'in ve matematik kütüphanesi Mathlib'in toplulukları, Levent Alpöge'nin Claude ile hazırladığı Riemann hipotezi ispatını 21 Kasım'da onayladı. Ortak açıklamaya göre yaklaşık 17 milyon satırlık Lean kütüphanesinde hem teoremin ifadesi hem ispatı doğru. İspatlanan teorem, uzmanlarca denetlenmiş Mathlib tanımıyla araçlar kullanılarak karşılaştırıldı. Dışa aktarılan ham ispatı Lean'in resmi kernel'i ve başka dillerde yazılmış bağımsız denetleyiciler kontrol etti; onlarca kişi kütüphaneyi hatasız derledi. Bu bir makine doğrulaması; açıklama, yeni matematiksel fikirlerin anlatılmasını sonraki işe bırakıyor."
+          ],
+          "sources": [
+            {
+              "label": "Lean topluluğu: Lean verification of the Riemann Hypothesis",
+              "url": "https://leanprover-community.github.io/blog/posts/riemann-hypothesis/"
+            },
+            {
+              "label": "Simon Willison: Levent Alpöge alıntısı",
+              "url": "https://simonwillison.net/2026/Nov/20/levent-alpoge/"
+            },
+            {
+              "label": "Dünkü sayı: Anthropic matematikçisi Claude'la GRH ispatı",
+              "url": "#2026-11-21-manset"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Şirket beyanı · Hugging Face",
+          "headline": "Hugging Face: harness'a özel LoRA, agent puanını yükseltti",
+          "paragraphs": [
+            "Hugging Face'e göre küçük LoRA adapter'larını modelin kullanılacağı agent harness'ının içinde reinforcement learning ile eğitmek, ana ağırlıklara dokunmadan başarıyı artırıyor. Ekip Qwen3.8-27B için Pi, OpenCode ve Hermes Agent harness'larında 35 repodan derlenen görevlerle ayrı adapter'lar eğitti. Terminal-Bench 2.1'de Pi'de puan %40,0'dan %56,5'e, OpenCode'da %47,6'dan %52,4'e çıktı. Üçünü birleştiren tek adapter da üç harness'ta ortalama başarıyı yükseltiyor. Ekip, varsayılan ayarlar farklı olduğu için puanların harness'lar arasında karşılaştırılamayacağını, yöntemin yalnızca düşünen (thinking) modellerde henüz denenmediğini yazıyor."
+          ],
+          "sources": [
+            {
+              "label": "Hugging Face blog: Introducing harness adapters",
+              "url": "https://huggingface.co/blog/harness-adapters-at-scale"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Agent güvenliği · Google Cloud",
+          "headline": "Google'ın sapma tespiti başka bulutlardaki ADK agent'larına açıldı",
+          "paragraphs": [
+            "Google Cloud'un Agent Anomaly Detection aracı, amacının dışına çıkan agent davranışını arıyor. Bunun için agent'ın runtime'ına değil, trace ve loglarına bakıyor. 20 Kasım'da duyurulan private preview, AWS Lambda, Microsoft Foundry ya da şirket içinde çalışan agent'ları da kapsıyor. Şart, telemetrinin OpenTelemetry kurallarıyla bir Google Cloud projesine ulaşması. Araç döngüleri, kontrolsüz token ya da araç kullanımını, kimlik ve yetki kötüye kullanımını işaretliyor; araç çağrılarına rate limit koymak gibi öneriler veriyor. Şimdilik ADK for Python 2.12.0 ve sonrasıyla kurulan agent'lar destekleniyor."
+          ],
+          "sources": [
+            {
+              "label": "Google Developers blog: Agent Anomaly Detection",
+              "url": "https://developers.googleblog.com/agent-anomaly-detection-safeguarding-agents-across-other-clouds/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Şirket beyanı · Benchmark",
+          "headline": "OpenAI: GPT-6.2 Astra, tıbbi kimya testinde puanın %84,5'ini aldı",
+          "paragraphs": [
+            "OpenAI'ın yayımladığı MedChemBench, 117 makale ve patentten çıkarılan 99 problemle modellerin tıbbi kimya akıl yürütmesini ölçüyor: molekül yapısını yeniden kurma, bileşik sıralama ve özellik tahmini. Şirketin sonuçlarında xhigh ayarında GPT-6.2 Astra puanın %84,5'ini, GPT-6 Astra %83,3'ünü aldı; yani yeni sürümün kazancı yaklaşık 1 puan. Tabloda başka şirketlerin modelleri yok. GPT-6 Astra molekül yapısını kurmada %95,4'e ulaşırken bileşik seçiminde ve sayısal tahminde yaklaşık yarıda kaldı. OpenAI, sonuçların ilaç keşfi yeteneği göstermediğini ve kaynakların eğitim verisinde olmuş olabileceğini yazıyor."
+          ],
+          "sources": [
+            {
+              "label": "OpenAI: Introducing MedChemBench",
+              "url": "https://openai.com/index/introducing-medchembench/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Araştırma · Makine kodu",
+          "headline": "GPT-6.1 Sol, derleyici olmadan çalışan programlar yazdı",
+          "paragraphs": [
+            "İki araştırmacının deneyinde GPT-6.1 Sol, derleyici, assembler ya da disassembler kullanmadan yalnızca hex dump üzerinden çalıştırılabilir dosyaları okudu, değiştirdi ve sıfırdan yazdı. Codex CLI'da araçları kapatılan model üç programa yeni komut ekledi; yamalı dosyalar gizli testlerin hepsini geçti. Spesifikasyondan yazdığı üç program da referans GCC derlemesiyle her durumda aynı sonucu verdi. Yazarlar bunları küçük programlarda ilk bulgular sayıyor: modelin okuduğu en büyük dosya 67 KB'tı ve hex dump bayt başına yaklaşık 2,4 token tutuyor."
+          ],
+          "sources": [
+            {
+              "label": "Xenos ve Giannopoulos: Programming in the machine code space",
+              "url": "https://sgiannopoulos.github.io/blog/machine-code-programming/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "is",
+      "title": "Şirketler & Altyapı",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Takip · Anthropic",
+          "headline": "Anthropic halka arz ve özel yerleştirmeyle 119,5 milyar dolar topladı",
+          "paragraphs": [
+            "Anthropic'in halka arzı ve eşzamanlı özel yerleştirmesi 20 Kasım'da kapandı; brüt hasılat toplamı yaklaşık 119,5 milyar dolar. Aracı kurumların 147 milyon hisselik ek satış opsiyonunu tamamen kullanmasıyla halka arzda 83 dolardan 1 milyar 127 milyon A sınıfı hisse satıldı, hasılat yaklaşık 93,5 milyar dolara çıktı. Özel yerleştirmede aynı fiyattan yaklaşık 26 milyar dolarlık hisseyi AMD, Broadcom, Google, Micron, Microsoft, Nvidia ve TSMC Partners aldı. Nasdaq'ta ANT koduyla işlem gören hisse, ilk işlem gününün ertesinde %9,1 düştü."
+          ],
+          "sources": [
+            {
+              "label": "Anthropic: Closing of initial public offering",
+              "url": "https://www.anthropic.com/news/ipo-close"
+            },
+            {
+              "label": "The Decoder: US technology stocks suffer worst weekly loss",
+              "url": "https://the-decoder.com/us-technology-stocks-suffer-their-worst-weekly-loss-since-the-pandemic-as-ai-doubts-pile-up/"
+            },
+            {
+              "label": "19 Kasım sayısı: Anthropic halka arzı 83 dolardan",
+              "url": "#2026-11-19-is-1"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Piyasa · Teknoloji hisseleri",
+          "headline": "Nasdaq 100, Covid'den bu yana en kötü haftasında %10,4 düştü",
+          "paragraphs": [
+            "Teknoloji hisselerinde Covid-19 krizinden bu yana en kötü hafta yaşandı: Nasdaq 100 endeksi 20 Kasım'da biten haftada Financial Times'a göre %10,4 değer kaybetti. Yalnızca cuma günü %5,6 düşen endeks ekimdeki zirvesinin %20 altında, yani ayı piyasası bölgesinde. Cumanın en sert düşüşü, SEC'nin şirketin muhasebesini incelediği haberlerinin ardından %14 gerileyen Nvidia'daydı. Yarı iletken endeksi haftada %10,7 düştü. Haberde nedenler arasında AI altyapı yatırımlarına dair şüpheler, yüksek petrol fiyatlarının beslediği enflasyon ve yüksek faiz sayılıyor."
+          ],
+          "sources": [
+            {
+              "label": "Financial Times",
+              "url": "https://www.ft.com/content/9f3c6ed6-c08f-4710-9683-ee2f5eb25841"
+            },
+            {
+              "label": "The Decoder: US technology stocks suffer worst weekly loss",
+              "url": "https://the-decoder.com/us-technology-stocks-suffer-their-worst-weekly-loss-since-the-pandemic-as-ai-doubts-pile-up/"
+            },
+            {
+              "label": "Dünkü sayı: Reuters: SEC, Nvidia'nın muhasebesini inceliyor",
+              "url": "#2026-11-21-is-2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gelistirme",
+      "title": "Geliştirme & Araçlar",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Sürüm · GitHub Enterprise Server",
+          "headline": "GHES 3.23 RC: Dependabot yeni sürüm için üç gün bekliyor",
+          "paragraphs": [
+            "GitHub Enterprise Server 3.23'ün release candidate'inde Dependabot, bir paket sürümü yayımlandıktan sonra güncelleme pull request'i açmak için varsayılan olarak üç gün bekliyor. Advisory Database bilinen zararlı paketleri npm dışında PyPI, Maven, RubyGems, NuGet, Go, Rust ve Composer'da da işaretliyor; veri OpenSSF'nin malicious-packages reposundan geliyor. Public preview'daki AI secret tespiti, GHES sunucusunun CPU'sunda çalışan bir modelle parola gibi belirli bir kalıbı olmayan secret'ları buluyor. GPU, barındırılan LLM ya da dış bağlantı gerekmiyor. RC 20 Kasım'da çıktı."
+          ],
+          "sources": [
+            {
+              "label": "GitHub Changelog: GHES 3.23 release candidate",
+              "url": "https://github.blog/changelog/2026-11-20-github-enterprise-server-3-23-release-candidate"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Araç · Python",
+          "headline": "mod_wsgi'nin yazarı, AI yardımıyla Rust'ta sunucu yazdı: Muru",
+          "paragraphs": [
+            "mod_wsgi'nin yaratıcısı Graham Dumpleton, Python'un ASGI ve WSGI uygulamalarını geliştirmede ve üretimde çalıştırmak için AI desteğiyle Rust'ta yazdığı sunucu Muru'yu yayımladı. Dumpleton tasarımı 4-21 Kasım arasında yayımladığı günlük yazılarında anlatıyor. Konular arasında uygulamayı bir kez import edip worker'ları fork etmek, WSGI ile ASGI'yi birlikte çalıştırmak, yeniden başlatmadan sürüm geçişi ve sıfıra ölçekleme var. Dumpleton, Muru'yu güvenebileceği hale gelene kadar geliştirmeye devam edeceğini yazıyor; yani proje henüz olgunlaşma aşamasında."
+          ],
+          "sources": [
+            {
+              "label": "Simon Willison: Muru",
+              "url": "https://simonwillison.net/2026/Nov/21/muru/"
+            },
+            {
+              "label": "Graham Dumpleton: AI as a lifestyle choice",
+              "url": "https://grahamdumpleton.me/posts/2026/11/ai-as-a-lifestyle-choice/"
+            },
+            {
+              "label": "GitHub: muruhq/muru",
+              "url": "https://github.com/muruhq/muru"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Takip · Java4Shell",
+          "headline": "Quarkus 3.27'nin varsayılan UBI 9 imajı Java4Shell'e yamasız",
+          "paragraphs": [
+            "Quarkus 3.27'nin varsayılan olarak kullandığı Red Hat'in UBI 9 `1.23` Java runtime container imajları, OpenJDK'nın Base64 çözücüsündeki CVE-2026-114938 için düzeltilmedi ve düzeltilmeyecek. Quarkus ekibi 20 Kasım'da güncellediği yazıda `1.24` imajlarına geçmeyi öneriyor. Quarkus'un kendisi değil JDK etkileniyor; GraalVM dağıtımı Mandrel ile derlenen native executable'lar güvende. Var olan imajlar eski JDK'yı taşıdığı için imajı `--pull` ile yeniden üretip dağıtmak gerekiyor. Geçici çözüm `JAVA_OPTS_APPEND` içine `-XX:-UseBASE64Intrinsics` eklemek; `jcmd <pid> VM.flags -all` çıktısında bayrağın `false` olduğu görülmeli."
+          ],
+          "sources": [
+            {
+              "label": "Quarkus blog: Java4Shell status and mitigation",
+              "url": "https://quarkus.io/blog/java4shell/"
+            },
+            {
+              "label": "20 Kasım sayısı: Java4Shell yaması Ekim'de hazırdı",
+              "url": "#2026-11-20-guvenlik-3"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Sürüm · Hibernate Validator",
+          "headline": "Hibernate Validator 9.2: parola gücü ve sızıntı kontrolü geldi",
+          "paragraphs": [
+            "Parola doğrulaması artık Bean Validation kısıtlarıyla yapılabiliyor: 20 Kasım'da çıkan Hibernate Validator 9.2.0.Final'daki `@PasswordStrength`, `@NotCompromised` ve `@PasswordPolicy`, değiştirilebilir güç tahmincileri ve sızıntı denetleyicileriyle çalışıyor. Null olabilen alanlar için `@NullOrNotBlank` ve `@NullOrNotEmpty`, ayrıca `@IBAN`, `@Port`, `@Trimmed` gibi kısıtlar eklendi; yeni kısıtların çoğu incubating. Özellik erişimi artık Hibernate Accessor ile yapılıyor; JDK 24 ve sonrasında bu erişimin varsayılan yöntemi Class-File API. Classpath'i elle yönetenler `hibernate-accessor` bağımlılığını eklemeli."
+          ],
+          "sources": [
+            {
+              "label": "Hibernate blog: Hibernate Validator 9.2.0.Final",
+              "url": "https://in.relation.to/2026/11/20/hibernate-validator-9-2-0-Final/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik",
+      "patch": [
+        {
+          "text": "Apache Roller 4.0.0-6.1.5 (CVE-2026-129448): 6.1.6'ya yükseltin ya da XML-RPC servlet eşlemesini kaldırın",
+          "ref": "guvenlik-1"
+        },
+        {
+          "text": "Ghostscript 10.08.0 öncesi (CVE-2026-125396): 10.08.0'a ya da dağıtımın düzeltilmiş paketine geçin",
+          "ref": "guvenlik-2"
+        },
+        {
+          "text": "pip 26.2.2 öncesi (CVE-2026-133949): Python'u güncelleyip ya da hash sabitlemeyle pip 26.2.2'yi kurun",
+          "ref": "guvenlik-4"
+        }
+      ],
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Aktif istismar · Apache Roller",
+          "alert": true,
+          "headline": "Apache Roller'daki kimlik doğrulamasız RCE açığı KEV'de",
+          "paragraphs": [
+            "CISA, Apache Roller'ın XML-RPC endpoint'indeki deserialization açığı CVE-2026-129448'i 20 Kasım'da istismar edilen açıklar kataloğuna ekledi. Endpoint gelen veriyi kimlik doğrulamadan önce çözdüğü için saldırgan giriş yapmadan kod çalıştırabiliyor. Apache'nin duyurusu 4.0.0-6.1.4 sürümlerini sayıyor; aynı açık daha önce 6.1.5 için CVE-2026-82384 olarak duyurulmuştu. Düzeltme 6.1.6'da. Hemen yükseltemeyenler `WEB-INF/web.xml` içinde `enabledForExtensions` değerini `false` yapıp `/roller-services/xmlrpc` eşlemesini kaldırmalı ve yeniden başlatmalı; federal kurumlar için CISA son tarihi 23 Kasım. Yönetim panelinden XML-RPC'yi kapatmak eski sürümlerde yetmiyor."
+          ],
+          "sources": [
+            {
+              "label": "CISA KEV kataloğu",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-129448"
+            },
+            {
+              "label": "BleepingComputer: Apache warns of Roller RCE",
+              "url": "https://www.bleepingcomputer.com/news/security/apache-warns-of-roller-rce-vulnerability-exploited-in-attacks/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Güvenlik · Ghostscript",
+          "headline": "Upload2Shell: Ghostscript açığı belge yükleyerek komut çalıştırıyor",
+          "paragraphs": [
+            "Ghostscript'in Type 1 font yükleyicisindeki use-after-free açığı (CVE-2026-125396) hazırlanmış bir belgeyle `-dSAFER` sandbox'ından çıkmaya izin veriyor. Saldırgan böylece komut çalıştırabiliyor. Upload2Shell yazısı istismarı belgeleri Ghostscript'e veren uygulamalar üzerinden gösteriyor: paylaşılan CUPS kuyruğu olan Debian 13 ve anonim PDF yüklemeye açık MediaWiki kimlik doğrulaması olmadan etkileniyor. Düzeltme eylülde çıkan Ghostscript 10.08.0'da; Debian 13 ve Ubuntu düzeltilmiş paketleri ekimde yayımladı. Yükleme, küçük resim ya da belge işlemenin Ghostscript çağırıp çağırmadığına bakın."
+          ],
+          "sources": [
+            {
+              "label": "pwn.ai: Upload2Shell",
+              "url": "https://pwn.ai/upload2shell"
+            },
+            {
+              "label": "oss-security: Ghostscript 10.08.0 fixes multiple CVEs",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/21/2"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Güvenlik · GnuPG",
+          "headline": "GPGME'de kritik double free: uygulamadan veri sızabilir",
+          "paragraphs": [
+            "GnuPG'nin uygulamalara OpenPGP işlevi veren kütüphanesi GPGME'nin 2.3.0 öncesi bütün sürümlerinde double free açığı var (CVE-2026-129975). Açığı, çok uzun kullanıcı kimliği taşıyan hazırlanmış bir anahtar tetikliyor. 20 Kasım tarihli duyuruya göre açık uygulamadan veri sızdırmak için kullanılabiliyor; uzaktan kod çalıştırma da dışlanamıyor. Düzeltme 2.3.1'de, Gpg4win 5.1.2 de bunu içeriyor. GPGME'yi statik bağlayan programlar yeniden derlenmeli; yükseltemeyenler duyurudaki yamayı eski sürümlere uygulayabiliyor."
+          ],
+          "sources": [
+            {
+              "label": "GnuPG duyurusu: GPGME Security Advisory",
+              "url": "https://lists.gnupg.org/pipermail/gnupg-announce/2026q4/000517.html"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Güvenlik · Python",
+          "headline": "pip 26.2.2, ele geçirilmiş eMudhra sertifikalarını çıkardı",
+          "paragraphs": [
+            "pip'in 26.2.2 öncesi sürümleri, gömülü certifi paketi üzerinden özel anahtarları ele geçirilmiş eMudhra ara sertifikalarına güveniyor (CVE-2026-133949). certifi duyurusuna göre bu anahtarlardan biri her alan adı için geçerli görünen sertifika üretebiliyor. Trafiğin arasına da girebilen bir saldırgan TLS trafiğini okuyup değiştirebilir. Düzeltme pip 26.2.2'de. Seth Larson'ın 20 Kasım duyurusu güvenli yükseltme için iki yol veriyor: önce bu ara sertifikaları reddeden bir Python sürümüne geçmek ya da güvenli pip sürümünü hash sabitlemeyle kurmak."
+          ],
+          "sources": [
+            {
+              "label": "oss-security: pip bundles compromised eMudhra certificates",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/20/12"
+            },
+            {
+              "label": "GitHub Advisory: certifi eMudhra",
+              "url": "https://github.com/advisories/GHSA-6q48-6c7w-9gw2"
+            },
+            {
+              "label": "3 Kasım sayısı: eMudhra ara sertifika ihlali",
+              "url": "#2026-11-03-java-4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "atolye": {
+    "konu": "haber",
+    "kicker": "CI/CD, güvenlik ve işletim",
+    "title": "Agent bağlamına tuzak anahtar koyup prompt sızıntısını yakalamak",
+    "intro": "Bir prompt'un hangi sağlayıcılardan geçtiğini ve kimin okuduğunu çoğu zaman göremezsiniz; bu sayının manşetindeki Dragos araştırmasına göre gizlilik işaretleri ilk duraktan ötesini bağlamıyor. Agent'ların gönderdiği bağlama başka hiçbir yerde kullanılmayan sahte anahtarlar koymak, sızıntıyı anahtar kullanıldığı anda haber veren ucuz bir alarm kuruyor.",
+    "when": "Router ya da üçüncü taraf inference sağlayıcısı üzerinden çalışan agent ve pipeline'larda işe yarar. Alarm yalnızca sahte anahtar kullanılırsa çalar: prompt'u okuyup anahtarı denemeyen biri iz bırakmaz, anahtar biçiminde olmayan hassas veriyi de bu yöntem korumaz.",
+    "steps": [
+      "Prompt yolunu çıkarın. Dragos'tan HD Moore, router'ların isteği başka router'lar üzerinden sağlayıcılara iletebildiğini ve gizlilik işaretinin yalnızca ilk durağı bağladığını yazıyor. Hangi agent'ın hangi router ve upstream sağlayıcıyla konuştuğunu listeleyin. En hassas işler için Moore, tek sözleşmeyle doğrudan birinci kademe bir sağlayıcıyı ya da donanım bütçesi yetiyorsa kendi barındırdığınız modeli öneriyor.",
+      "Sahte bir AWS anahtarı üretin. Thinkst'in ücretsiz Canarytokens servisinde “AWS Keys” seçilip anahtarın nereye konacağı not olarak yazılıyor; indirilen dosya standart bir AWS kimlik bilgisi dosyasına benziyor. Belgelere göre anahtar AWS API'siyle herhangi bir anda kullanılırsa alarm geliyor. Alarm Amazon'un loglama altyapısından geçtiği için yaklaşık 2-30 dakika gecikebiliyor.",
+      "Anahtarı agent'ın gönderdiği bağlama koyun. Moore, agent'ların okuyabildikleri her şeyi, kimlik bilgileri dahil, gönderdiğini hatırlatıyor ve sahte kimlik bilgilerini agent ve pipeline'ların gönderdiği bağlama yerleştirip her kullanımı olay saymayı öneriyor. Dragos her prompt'a benzersiz token koydu; aynı model için başka satıcıdan geçen prompt'lara dokunulmadığını görünce sızıntının satıcıyı izlediği sonucuna vardı.",
+      "Router'da upstream'i kendiniz seçin. OpenRouter belgelerine göre istekteki `provider` nesnesinde `order` denenecek sağlayıcıları sıralıyor, `allow_fallbacks` değerini `false` yapmak yedek sağlayıcıya geçişi kapatıyor, `zdr` değerini `true` yapmak yönlendirmeyi ZDR endpoint'leriyle sınırlıyor. `data_collection` için `deny` veri toplayan sağlayıcıları dışarıda bırakıyor, `require_parameters` ise yalnızca istekteki bütün parametreleri destekleyen sağlayıcıları seçiyor. Hesap düzeyindeki ZDR ayarı istekteki ayarla birlikte uygulanıyor ve istekten kapatılamıyor. Moore, gizlilik ayarının yönlendirmeyi gerçekten değiştirdiğini doğrulamayı ve satıcı pazar yerlerinden kaçınmayı öneriyor.",
+      "Sağlayıcının secret filtrelemesini de açın. Moore bunu son adım olarak öneriyor ama sınırını da yazıyor: filtre, anahtar biçiminde olmayan hassas veriyi yakalamıyor. Tuzak anahtar bu boşluğu kapatmaz; yalnızca birinin prompt'u okuyup kullandığını gösterir."
+    ],
+    "example": {
+      "label": "Örnek istek gövdesi: OpenRouter'da upstream ve ZDR kısıtı",
+      "lang": "json",
+      "code": "{\n  \"model\": \"ornek-saglayici/ornek-model\",\n  \"input\": \"...\",\n  \"provider\": {\n    \"order\": [\"ornek-saglayici\"],\n    \"allow_fallbacks\": false,\n    \"require_parameters\": true,\n    \"data_collection\": \"deny\",\n    \"zdr\": true\n  }\n}"
+    },
+    "pitfall": "Gizlilik işaretine güvenip prompt'a gerçek anahtar koymak: Dragos'un iki ihlalinde çalınan isteklerin bir kısmı ZDR işaretliydi ve Moore'a göre saldırgan sağlayıcının içindeyken gizlilik işareti işe yaramıyor.",
+    "sources": [
+      {
+        "label": "Dragos: Your AI supply chain needs canaries",
+        "url": "https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens"
+      },
+      {
+        "label": "Canarytokens belgeleri: AWS API key token",
+        "url": "https://docs.canarytokens.org/guide/aws-keys-token.html"
+      },
+      {
+        "label": "OpenRouter belgeleri: Provider selection",
+        "url": "https://openrouter.ai/docs/guides/routing/provider-selection"
+      }
+    ]
+  },
+  "repos": {
+    "subtitle": "GitHub Trending günlük ve haftalık, Java haftalık listeleri ile Trendshift · yıldızlar 22 Kasım",
+    "items": [
+      {
+        "name": "backnotprop/plannotator",
+        "url": "https://github.com/backnotprop/plannotator",
+        "stars": "14,2 bin",
+        "starsValue": 14200,
+        "lang": "TypeScript",
+        "cat": "Agent incelemesi",
+        "why": "Agent'ın planını, bitirdiği işi ve kod diff'lerini tarayıcıda açıp işaretleyerek geri bildirimi agent'a gönderen yerel bir inceleme alanı; Claude Code, Codex, Copilot CLI, Gemini CLI ve OpenCode dahil on bir agent'ı destekliyor. GitHub'ın haftalık trending sıralamasında birinci; bu hafta 3.396 yıldız aldı.",
+        "meta": "TypeScript · Agent incelemesi"
+      },
+      {
+        "name": "dream-num/univer",
+        "url": "https://github.com/dream-num/univer",
+        "stars": "31,1 bin",
+        "starsValue": 31100,
+        "lang": "TypeScript",
+        "cat": "Ofis SDK'sı",
+        "why": "Ürünlere tablo ve belge düzenleme gömmek için Apache 2.0 lisanslı Office SDK; agent'lar uygulamaların kullandığı Facade API'leriyle çalışma kitaplarını düzenleyebiliyor, AI SDK'sı ayrı lisanslı ticari modül. Haftalık listede 7.240 yıldızla bu hafta en çok yıldız ekleyen repo.",
+        "meta": "TypeScript · Ofis SDK'sı"
+      },
+      {
+        "name": "GoogleChrome/modern-web-guidance-src",
+        "url": "https://github.com/GoogleChrome/modern-web-guidance-src",
+        "stars": "9.935",
+        "starsValue": 9935,
+        "lang": "TypeScript",
+        "cat": "Agent becerileri",
+        "why": "Kodlama agent'larına modern web API'leri ve tarayıcı uyumluluğu verisi veren skill seti; Chrome, Edge, Firefox ve MDN ekipleri yönetiyor, `legacy-scan` komutu kod tabanındaki eski kalıpları buluyor. Bu hafta 4.400 yıldız aldı.",
+        "meta": "TypeScript · Agent becerileri"
+      },
+      {
+        "name": "alibaba/open-code-review",
+        "url": "https://github.com/alibaba/open-code-review",
+        "stars": "55,1 bin",
+        "starsValue": 55100,
+        "lang": "Go",
+        "cat": "Kod incelemesi",
+        "why": "Deterministik kontrolleri bir LLM agent'ıyla birleştirip Git diff'lerine satır düzeyinde yorum yazan CLI; null pointer, thread güvenliği, XSS ve SQL injection kuralları gömülü, Apache 2.0 lisanslı. Bu hafta 4.032 yıldız ekledi.",
+        "meta": "Go · Kod incelemesi"
+      },
+      {
+        "name": "meta/astryx",
+        "url": "https://github.com/meta/astryx",
+        "stars": "31,9 bin",
+        "starsValue": 31900,
+        "lang": "TypeScript",
+        "cat": "Tasarım sistemi",
+        "why": "Meta'da sekiz yılda büyüyen, 150'den fazla React bileşenli MIT lisanslı tasarım sistemi; CLI'ın `init` komutu bir rehberi `AGENTS.md` ya da `CLAUDE.md` dosyasına yazarak agent'ların bileşenleri tahmin etmeden kullanmasını sağlıyor. Bu hafta 3.967 yıldız aldı.",
+        "meta": "TypeScript · Tasarım sistemi"
+      },
+      {
+        "name": "termux/termux-app",
+        "url": "https://github.com/termux/termux-app",
+        "stars": "65,4 bin",
+        "starsValue": 65400,
+        "lang": "Java",
+        "cat": "Mobil terminal",
+        "why": "Paketlerle genişletilebilen Android terminal emülatörü; Google Play sürümü Android 11 ve sonrası için deneysel bir branch'te duruyor. Bu hafta GitHub'ın Java listesinde 567 yıldızla en çok yıldız alan repo.",
+        "meta": "Java · Mobil terminal"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending: günlük",
+        "url": "https://github.com/trending"
+      },
+      {
+        "label": "GitHub Trending: haftalık",
+        "url": "https://github.com/trending?since=weekly"
+      },
+      {
+        "label": "GitHub Trending: Java haftalık",
+        "url": "https://github.com/trending/java?since=weekly"
+      },
+      {
+        "label": "Trendshift",
+        "url": "https://trendshift.io/"
+      }
+    ]
+  },
+  "briefs": [
+    {
+      "tag": "İddia · Apple",
+      "text": "The Decoder'ın Bloomberg'e dayandırdığı habere göre macOS 27.3'te ChatGPT gibi üçüncü taraf agent'ların Mac'i kontrol etmesine izin vermek dört yerine 14 adım gerektirecek. Apple değişikliği kullanıcıyı korumak için yaptığını söylüyor; bazı AI şirketleri rakipleri yavaşlatma girişimi olarak görüyor.",
+      "url": "https://the-decoder.com/apple-joins-the-race-for-ai-agents-that-control-your-device-while-raising-new-barriers-for-competitors/"
+    },
+    {
+      "tag": "İddia · Satın alma",
+      "text": "Financial Times'ın kaynaklara dayandırdığı habere göre Amazon, AI iş yüklerini farklı çipler arasında taşımayı kolaylaştıran yazılım geliştiren Decart'ı yaklaşık 7,5 milyar dolara almaya yaklaştı; anlaşma gelecek hafta gelebilir.",
+      "url": "https://www.ft.com/content/dc7749dc-0f40-44a6-80bc-7f747d383616"
+    },
+    {
+      "tag": "İddia · Satın alma",
+      "text": "The Decoder'ın The Information'a dayandırdığı habere göre Nvidia, metni token token değil bütün cevabı adım adım iyileştirerek üreten difüzyon dil modelleri geliştiren Inception'ı en az 500 milyon dolara almaya yaklaştı; amaç açık Nemotron modellerini güçlendirmek.",
+      "url": "https://the-decoder.com/nvidia-bets-at-least-500-million-on-inceptions-diffusion-models-to-strengthen-its-open-source-nemotron-lineup/"
+    },
+    {
+      "tag": "Spring",
+      "text": "Spring Boot 4.1.3 ve 4.0.10 20 Kasım'da çıktı; duyurulara göre sırasıyla 112 ve 97 madde hata düzeltmesi, belge iyileştirmesi ve bağımlılık yükseltmesinden oluşuyor. Duyurularda güvenlik düzeltmesi yok.",
+      "url": "https://spring.io/blog/2026/11/20/spring-boot-4-1-3-available-now"
+    },
+    {
+      "tag": "İddia · Self-hosted",
+      "text": "Bir araştırmacının oss-security listesine yazdığına göre Dokploy v0.31.2'de `service:create` yetkisi olan, yönetici olmayan bir kuruluş üyesi compose komut alanı ya da ham compose dosyası üzerinden host'ta root'a ulaşabiliyor; yazıda yamalı sürüm yok. Dokploy kullananlar bu yetkiyi kimlere verdiğini gözden geçirmeli.",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/21/3"
+    },
+    {
+      "tag": "AI kötüye kullanım",
+      "text": "ChatPRD'nin kurucusu Claire Vo, ücretsiz denemenin token yeniden satışı ve ticari işler için kötüye kullanıldığını anlattı; bir grup deneme ve promosyon kodlarını döndürerek ürünün agent'ına Roblox ve Fortnite haritası ürettiriyordu. ChatPRD ücretsiz denemeyi tamamen kaldırıyor.",
+      "url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/"
+    }
+  ]
+}
