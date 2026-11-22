@@ -383,21 +383,27 @@ def chart(c):
 
 
 PROVENANCE = {"iddia": "claim", "şirket beyanı": "company"}
+# Kaynak notu: konu etiketinden farklı türde bilgi olduğu için farklı biçimde (italik serif, küçük harf) ve açık sözcükle basılır.
+PROV_LABEL = {"claim": "doğrulanmamış iddia", "company": "şirketin kendi beyanı"}
+
+
+def prov_split(text):
+    """“İddia · Meta” → (not, "Meta"). Baştaki kaynak etiketi konudan ayrılır ve konudan SONRA basılacak bir nota dönüşür; yoksa not boştur."""
+    parts = [p.strip() for p in str(text or "").split(" · ")]
+    key = parts[0].replace("İ", "i").replace("I", "ı").lower()
+    if key in PROVENANCE and len(parts) > 1:
+        c = PROVENANCE[key]
+        return f'<em class="prov prov-{c}">{PROV_LABEL[c]}</em>', " · ".join(parts[1:])
+    return "", " · ".join(parts)
 
 
 def kicker(text, alert=False, default=None):
-    """Üst başlık. Baştaki “İddia” / “Şirket beyanı” kaynak etiketi konu etiketinden ayrılır ve çerçeveli basılır."""
+    """Üst başlık: konu etiketi; varsa arkasından kaynak notu (“doğrulanmamış iddia”, “şirketin kendi beyanı”)."""
     text = str(text or default or "")
     if not text:
         return ""
-    parts = [p.strip() for p in text.split(" · ")]
-    key = parts[0].replace("İ", "i").replace("I", "ı").lower()
-    prov = ""
-    if key in PROVENANCE:
-        prov = f'<span class="prov prov-{PROVENANCE[key]}">{esc(caps(parts[0]))}</span>'
-        parts = parts[1:]
-    rest = caps_rich(" · ".join(parts)) if parts else ""
-    return f'<span class="kicker{" alert" if alert else ""}">{prov}{rest}</span>'
+    prov, rest = prov_split(text)
+    return f'<span class="kicker{" alert" if alert else ""}">{caps_rich(rest) if rest else ""}{prov}</span>'
 
 
 def article(ctx, a, aid):
@@ -782,9 +788,9 @@ def render_issue(ctx, cur):
         for b in briefs:
             u = b.get("url") or ""
             if u.startswith("#"):
-                ps.append(f'<p><b>{caps_rich(b.get("tag"))}</b>{rich(b.get("text"))} {ref_link(ctx, "önceki sayı", u)}</p>')
+                ps.append(f'<p><b>{caps_rich(prov_split(b.get("tag"))[1])}{prov_split(b.get("tag"))[0]}</b>{rich(b.get("text"))} {ref_link(ctx, "önceki sayı", u)}</p>')
             else:
-                ps.append(f'<p><b>{caps_rich(b.get("tag"))}</b>{with_ext(b.get("text"), u)}</p>')
+                ps.append(f'<p><b>{caps_rich(prov_split(b.get("tag"))[1])}{prov_split(b.get("tag"))[0]}</b>{with_ext(b.get("text"), u)}</p>')
         out.append(f'<section class="sec" id="sec-kisa"><div class="sec-h"><h2>Kısa Kısa</h2></div><div class="briefs">{"".join(ps)}</div></section>')
     out.append(models_band(ctx))
     out.append(corrections_block(ctx, cur))
@@ -952,13 +958,6 @@ def render_about(ctx):
 <p>Her sayı otomatik olarak, bir yapay zekâ modeli tarafından hazırlanır. Model son 24–48 saatin haberlerini tarar (Pazartesi sayılarında hafta sonunu da kapsar), asıl kaynakları okur ve haberleri kendi cümleleriyle özetler. Yayından önce üç ayrı yapay zekâ editörü taslağı inceler. Doğruluk editörü kaynak linklerini yeniden açar; doğrulanamayan bilgi çıkarılır ya da etiketlenir. Okur editörü seçimi, dili ve terimleri, tasarım editörü sayfanın telefon, tablet ve masaüstündeki görünümünü denetler. Sayı, bu düzeltmelerden sonra yayımlanır.</p>
 <p>Sayılar yayımlanmadan önce bir insan tarafından tek tek okunmaz. Bu yüzden hata olabilir: bir haber sizin için önemliyse, altındaki kaynak linkinden asıl metne bakın.</p>
 <p>Gazeteyi yazan modeli geliştiren şirket de gazetede haberleri çıkan yapay zekâ şirketlerinden biri olduğu için o şirketin haberlerinde bir çıkar çatışması vardır. Bu haberlere de diğer şirketlerle aynı etiketler, çekinceler ve ölçütler uygulanır; övgü sıfatı kullanılmaz. Manşete ya da büyük habere çıkan ürün duyurularında, hangi şirketten olursa olsun, şartlar ve sınırlar şirket dışındaki bir kaynakta da aranır.</p>
-<h3>Etiketler</h3>
-<ul>
-<li><span class="prov prov-claim">İDDİA</span> tek kaynağa dayanan ya da bağımsız olarak doğrulanmamış haber.</li>
-<li><span class="prov prov-company">ŞİRKET BEYANI</span> bir şirketin yalnızca kendisi hakkındaki ölçümü ya da açıklaması (kendi benchmark’ı, kendi vaka çalışması).</li>
-<li><b>Pratik çıkarım</b>: manşetin yanındaki kutu editoryal öneridir, haberin parçası değildir.</li>
-<li><b><i class="xi xr" aria-hidden="true"></i> ile başlayan kaynaklar</b>: önceki bir sayıdaki habere iç atıftır.</li>
-</ul>
 <h3>Takip</h3>
 <p>Yeni sayılar her sabah yayımlanır; tüm sayılar <a href="{esc(ctx.href("arsiv.html"))}">arşivde</a> kalır. Bir okuyucu uygulamasıyla izlemek için <a href="{esc(ctx.href("feed.xml"))}">RSS akışını</a> kullanabilirsiniz.</p>
 </main>"""

@@ -156,8 +156,9 @@ a.fig.ext .l::after{content:"";margin-left:.3em}
 .kicker{font-family:var(--f-label);font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 .kicker.alert{color:var(--alert)}
 /* Kaynak etiketi (İddia / Şirket beyanı): konu etiketinden ayrı, çerçeveli */
-.prov{display:inline-block;border:1px solid currentColor;padding:0 5px;margin-right:8px;font-family:var(--f-label);font-size:12px;font-weight:600;line-height:1.4;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
-.prov-claim{color:var(--alert)}
+.prov{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:15px;letter-spacing:0;text-transform:none;color:var(--ink);margin-left:.6em}
+.briefs .prov{margin-right:.45em}
+.briefs .prov::before{content:"("}.briefs .prov::after{content:")"}
 .lead h2{font-size:clamp(32px,4.2vw,44px);line-height:1.07;font-weight:600;letter-spacing:-.015em;margin:8px 0 14px}
 .deck{font-size:20px;line-height:1.42;color:var(--ink-soft);font-style:italic;margin-bottom:18px;text-wrap:pretty}
 .cols{columns:2 300px;column-gap:32px;column-rule:1px solid var(--rule)}
