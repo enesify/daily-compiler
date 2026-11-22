@@ -269,16 +269,13 @@ def models_band(ctx):
     if not D:
         return ""
     k = D["sekmeler"][0]
-    bm = ctx.href("benchmark.html")
-    by = '<span class="dot" aria-hidden="true">·</span>'.join(
-        f'<span aria-current="true">{esc(D["metrics"][s]["sekme"])}</span>' if s == k
-        else f'<a href="{esc(bm)}#{s}">{esc(D["metrics"][s]["sekme"])}</a>' for s in D["sekmeler"])
-    n = D.get("ilk") or len(D["models"])
+    bm = esc(ctx.href("benchmark.html"))
+    n = len(D["sekmeler"])
+    sayi = {2: "iki", 3: "üç", 4: "dört", 5: "beş", 6: "altı"}.get(n, str(n))
     return (f'<section class="sec mdl-band" id="sec-benchmark"><div class="sec-h"><h2>Benchmark</h2>'
-            f'<p class="mdl-by" aria-label="Ölçütler">{by}</p>'
-            f'<a class="mdl-n" href="{esc(bm)}">{n} model<i class="xi xg" aria-hidden="true"></i></a></div>'
+            f'<p>{esc(D["metrics"][k]["ad"])} · {models_sources(D, [k])} · {esc(models_updated(D))}</p></div>'
             f'<div class="mdl-list static">{models_rows(D, k, 5, short=True)}</div>'
-            f'<p class="mdl-ft">İlk beş · Kaynak: {models_sources(D, [k])} · {esc(models_updated(D))}</p></section>')
+            f'<a class="mdl-go" href="{bm}">{esc(caps("Sıralamanın devamı · " + sayi + " ölçüt"))}<i class="xi xg" aria-hidden="true"></i></a></section>')
 
 
 def render_models(ctx):
