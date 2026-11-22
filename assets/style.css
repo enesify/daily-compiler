@@ -448,8 +448,6 @@ footer{margin-top:28px;border-top:3px solid var(--ink);padding-top:12px;font-fam
 .corr-i+.corr-i{border-top:1px dotted var(--rule)}
 .corr-h{display:block;width:fit-content;font-family:var(--f-label);font-size:12.5px;line-height:1.4;color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;margin-bottom:4px}
 .corr-i p{font-size:15.5px;line-height:1.5}
-.corr-list a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;margin-right:4px}
-.corr-list .cd{font-family:var(--f-label);font-size:12px;color:var(--ink-soft)}
 @media (max-width:640px){.patch{grid-template-columns:1fr}}
 
 /* Benchmark: benchmark.html ve sayı içindeki bant. Liste assets/modeller.js ile canlanır; sabit hali build.py üretir. */

@@ -944,20 +944,6 @@ def archive_search_data(ctx):
     return {f"arama/{k}.json": json.dumps(v, ensure_ascii=False, separators=(",", ":")) for k, v in months.items()}
 
 
-def about_corrections(ctx):
-    rows = []
-    for it in ctx.issues:
-        for c in it.get("corrections") or []:
-            t = correction_items(ctx, c)
-            if t and c.get("text"):
-                d, head, href = t
-                rows.append(f'<li><a href="{esc(href)}">{esc(short_date(d))} · {rich(head or "Sayı")}</a> {rich(c["text"])} '
-                            f'<span class="cd">({esc(short_date(it["date"]))} sayısında düzeltildi)</span></li>')
-    body = f'<ul class="corr-list">{"".join(rows)}</ul>' if rows else ""
-    return ('<h3>Düzeltmeler</h3><p>Önceki bir sayıda yanlış bir bilgi fark edildiğinde düzeltme bir sonraki sayının sonunda yayımlanır '
-            've burada da listelenir.</p>' + body + "\n")
-
-
 def render_about(ctx):
     return f"""<main id="issue" class="about">
 <h2>Hakkında</h2>
@@ -973,7 +959,7 @@ def render_about(ctx):
 <li><b>Pratik çıkarım</b>: manşetin yanındaki kutu editoryal öneridir, haberin parçası değildir.</li>
 <li><b><i class="xi xr" aria-hidden="true"></i> ile başlayan kaynaklar</b>: önceki bir sayıdaki habere iç atıftır.</li>
 </ul>
-{about_corrections(ctx)}<h3>Takip</h3>
+<h3>Takip</h3>
 <p>Yeni sayılar her sabah yayımlanır; tüm sayılar <a href="{esc(ctx.href("arsiv.html"))}">arşivde</a> kalır. Bir okuyucu uygulamasıyla izlemek için <a href="{esc(ctx.href("feed.xml"))}">RSS akışını</a> kullanabilirsiniz.</p>
 </main>"""
 
