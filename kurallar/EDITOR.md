@@ -21,7 +21,7 @@ Taslak, önceki sayıların başlık ve çapaları (`previous_headlines.txt`) ve
 
 Kaynak linklerini WebFetch ile açarak şunları doğrula:
 
-- manşetin tamamı, Pratik çıkarım maddeleri dahil;
+- manşetin tamamı, Editörün önerileri maddeleri dahil;
 - bütün büyük (`big`) haberler ve Güvenlik bölümünün bütün haberleri;
 - Takvim'deki her tarih, Bugün yamala listesi, tüm grafikler, stat rakamları ve why satırlarındaki rakamlar;
 - kicker'ında İddia ya da Şirket beyanı olan ya da olması gereken haberler;
@@ -74,7 +74,7 @@ Taslak, `kurallar/KURALLAR.md`, `kurallar/TERIMLER.md`, `kurallar/ATOLYE.md` ve 
 ### Dil ve editoryal alanlar
 
 - Haber cümlesi gibi yazılmış yorum; düz çeviri, aynı olgunun iki kez söylenmesi, dolgu cümlesi, terim tutarsızlığı, `kurallar/TERIMLER.md` sözlüğüne aykırı terim (yazılımcının İngilizce kullandığı bir terimin Türkçeleştirilmesi ya da yerleşik Türkçesi olanın İngilizce bırakılması), açıklanmamış ya da yanlış açıklanmış jargon, alanın yanlış terimi; metinde belirli bir kişiye ya da şirkete hitap.
-- Pratik çıkarımda genel ya da önceki sayılardan tekrar eden madde; metinde olmayan yeni bir olgu getiren madde.
+- Editörün önerilerinde genel ya da önceki sayılardan tekrar eden madde; metinde olmayan yeni bir olgu getiren madde.
 - why satırında abartı, haberdeki olgulara dayanmayan çıkarım ya da şirket açıklamasının tekrarı.
 - Repolarda ikinci cümle “neden şimdi”yi söylüyor mu, `lang` kaynakta görülmüş mü.
 - 25 kelimeyi aşan cümle, çeviri kokan cümle, yanlış ek, belirsiz gönderim (“bu”, “daha az” neyi niteliyor?).

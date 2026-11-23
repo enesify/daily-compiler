@@ -775,7 +775,7 @@ def render_issue(ctx, cur):
         box = ""
         if L.get("box"):
             B = L["box"]
-            box = (f'<aside class="box"><span class="kicker">{caps_rich(B.get("kicker") or "Pratik çıkarım")}</span>'
+            box = (f'<aside class="box"><span class="kicker">{caps_rich("Editörün önerileri")}</span>'
                    f'<h3>{rich(B.get("title"))}</h3><ol>' + "".join(f"<li>{rich(t)}</li>" for t in B.get("items") or []) + "</ol>"
                    + (f'<p class="note">{esc(B.get("note"))}</p>' if B.get("note") else "") + "</aside>")
         # Manşet grafiği dar ekranda metnin altında, geniş ekranda sağ sütunda durur: iki kopya basılır, biri CSS ile gizlenir
@@ -789,7 +789,7 @@ def render_issue(ctx, cur):
             + '<div class="cols">' + "".join(f"<p>{rich(p)}</p>" for p in L.get("paragraphs") or []) + "</div>"
             + lc("lc-main") + '<button class="more" type="button" aria-expanded="false" hidden>Devamı</button>'
             + sources(ctx, L.get("sources")) + '</div>'
-            # Pratik çıkarım manşetin altında, ana sütunda: yan kolon “Bu sayıda” + Takvim ile kısa kalır, iki sütun dengeli biter
+            # Editörün önerileri manşetin altında, ana sütunda: yan kolon “Bu sayıda” + Takvim ile kısa kalır, iki sütun dengeli biter
             + box + f'<div class="lead-side">{toc(secs)}{cal_in}{lc("lc-side")}</div></section>')
 
 

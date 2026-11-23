@@ -14,7 +14,7 @@ Gazete herkese açıktır. Metinde belirli bir kişiye, şirkete ya da ekibe hit
 
 ## 2. Kaynak ve doğruluk (en önemli kurallar)
 
-- **Kaynakta yazmayan yazılmaz.** Haber metninde (başlık, deck, paragraflar, Takvim, Bugün yamala, stat, grafik, kısa haberler, repolar) kaynağında açıkça yazmayan hiçbir ayrıntı, yöntem, sayı ya da nitelendirme olmaz. “Mantıklı” diye ekleme; emin değilsen yazma. İstisnalar: kısa jargon açıklamaları (genel bilinen tanım) ve editoryal alanlar (Pratik çıkarım, why). Editoryal alanlar da yeni olgu getirmez.
+- **Kaynakta yazmayan yazılmaz.** Haber metninde (başlık, deck, paragraflar, Takvim, Bugün yamala, stat, grafik, kısa haberler, repolar) kaynağında açıkça yazmayan hiçbir ayrıntı, yöntem, sayı ya da nitelendirme olmaz. “Mantıklı” diye ekleme; emin değilsen yazma. İstisnalar: kısa jargon açıklamaları (genel bilinen tanım) ve editoryal alanlar (Editörün önerileri, why). Editoryal alanlar da yeni olgu getirmez.
 - **Asıl kaynak.** Her haberde en az bir gerçek link; uydurma link yok. Asıl kaynağı ver: resmi duyuru, advisory, makale, sürüm notu, birincil haber. Toplayıcı siteler (aiweekly.co, Releasebot vb.) yalnızca haberi bulmak içindir; forum ve SEO sitelerini daha iyisi varken kullanma. Haber başına en fazla 4 kaynak: önce birincil, sonra en güçlü bağımsız. Asıl kaynağa ulaşamadıysan haberi atla ya da “İddia” etiketiyle Kısa Kısa'ya yaz.
 - **Etiketler.** Tek kaynaklı ve doğrulanmamış iddia: kicker “İddia · Konu”; başlık kesin olgu gibi yazılmaz, kaynağa atfedilir (“Sentra: Qubole üzerinden müşteri AWS hesaplarına girildi”). Bir şirketin yalnızca kendisi hakkındaki ölçüm ve beyanı (kendi benchmark'ı, kendi tasarrufu, kendi vaka çalışması): kicker “Şirket beyanı · Konu”; başlıktaki ölçüm şirkete atfedilir.
 - **Bağımsız kaynakta şartlar.** Manşet ya da büyük haber olacak bir ürün duyurusunda, hangi şirketten olursa olsun, en az bir bağımsız kaynakta şartları, sınırları ve eleştirileri ara (lisans, veri ve telemetri, fiyat); duyuruyu yalnızca aktaran yazı bağımsız sayılmaz. Bulduğun önemli şart habere girer.
@@ -40,7 +40,7 @@ Gazete herkese açıktır. Metinde belirli bir kişiye, şirkete ya da ekibe hit
 - Güvenlik haberleri manşete çıkmaz. İstisna: ana konusu bir AI aracı ya da AI destekli geliştirme pratiği olan güvenlik haberi; ama güvenlik temalı manşet art arda iki sayıda olmaz.
 - Aynı şirket ya da ürün ailesi (Gemini, GPT, Claude gibi) art arda iki sayıda manşet olmaz; o gün en güçlü haber yine o şirketinse bölümün büyük haberi yap. Önceki manşet özet çıktısında görünür.
 - Başlık doğrulanabilir bir olguyla açılır (fiyat, sürüm, erişim, bağımsız ölçüm); şirketin kendi ölçümü başlığa girmez. En önemli pratik bilgi (fiyat, uyumluluk, son tarih, kimin etkilendiği) deck'te ya da ilk paragrafta olur.
-- Manşetin yanında Pratik çıkarım kutusu olur (6. bölüm).
+- Manşetin yanında Editörün önerileri kutusu olur (6. bölüm).
 
 **Yapay Zekâ & LLM** (`ai`). Gazetenin ana bölümü: model sürümleri, benchmark'lar, araştırmalar, agent'lar ve agent altyapısı, açık modeller, AI düzenlemeleri ve politika değişiklikleri. Pencere içinde yeterli gerçek haber yoksa daha az yaz; dolgu koyma.
 
@@ -91,7 +91,7 @@ Türkçe yaz; yerleşik karşılığı olmayan teknik terimler İngilizce kalır
 
 ## 6. Editoryal alanlar ve özel kutular
 
-- **Pratik çıkarım** (manşet kutusu, 3-4 madde). Herhangi bir yazılım ekibinin uygulayabileceği somut eylemler: sürüm, ayar, komut, son tarih ya da karşılaştırma (“`thinking: high` ile `xhigh`'ı aynı görev setinde 20 koşuda karşılaştırın; 1 Aralık'taki fiyat artışından önce bitirin”). Metinde olmayan olgu, her habere uyan genel madde (“takip edin”, “değerlendirin”) ve önceki üç sayının maddelerini (özet çıktısında) tekrar eden madde yazılmaz.
+- **Editörün önerileri** (manşet kutusu, 3-4 madde; sayfadaki başlığı kod yazar, JSON'da `kicker` gerekmez). Herhangi bir yazılım ekibinin uygulayabileceği somut eylemler: sürüm, ayar, komut, son tarih ya da karşılaştırma (“`thinking: high` ile `xhigh`'ı aynı görev setinde 20 koşuda karşılaştırın; 1 Aralık'taki fiyat artışından önce bitirin”). Metinde olmayan olgu, her habere uyan genel madde (“takip edin”, “değerlendirin”) ve önceki üç sayının maddelerini (özet çıktısında) tekrar eden madde yazılmaz.
 - **Neden önemli** (`why`). Bölümlerin büyük haberlerinde beklenir, diğerlerinde isteğe bağlı; manşette yazılmaz. Tek cümle: bu okuyucu için sonuç (kim etkilenir, neyi değiştirir, ne zaman harekete geçmeli). Yalnızca haberdeki olgulardan çıkar; yeni olgu, tahmin, “önemli bir adım” gibi boş ifade ve şirket açıklamasının tekrarı olmaz; somut sonuç yoksa yazma. “Neden önemli” sözüyle başlama; etiketi sayfa ekler.
 - **Takvim** (`calendar`, isteğe bağlı). Önümüzdeki 30 günün tarihleri: GA ve sürüm, fiyat ve limit değişikliği, servis kapanışı, son tarih, bilanço, önemli konferans. Tarih kaynakta açıkça yazmalı; “yakında” ya da tahmini tarih girmez. Bu sayıdaki bir haberde geçiyorsa `ref` o haberin çapası, değilse `url` kaynağın linki. `text` olayın kendisi, yorumsuz (“Gemini 4 Carbon ve Argon fiyatı iki katına çıkıyor”). Özet çıktısındaki önceki tarihler önemini koruyorsa girer. En az 2 tarih yoksa alanı yazma.
 - **Düzeltme** (`corrections`, isteğe bağlı). Önceki bir sayıdaki olgu hatası: hatalı sayının tarihi, çapa ve bir iki cümleyle neyin yanlış yazıldığı ve doğrusu. Üslup değişikliği düzeltme değildir; düzeltmeyi yumuşatma. Eski sayının dosyasını değiştirme.
@@ -107,7 +107,7 @@ Türkçe yaz; yerleşik karşılığı olmayan teknik terimler İngilizce kalır
 | Öğe | Ölçü |
 |---|---|
 | Toplam | yaklaşık 12-15 dakikalık okuma (Atölye dahil) |
-| Manşet | 4 paragraf; başlık en fazla 80 karakter; Pratik çıkarım 3-4 madde |
+| Manşet | 4 paragraf; başlık en fazla 80 karakter; Editörün önerileri 3-4 madde |
 | Yapay Zekâ & LLM | 6-8 haber; ilk satır 8+4, sonra 6+6 ya da 4+4+4 |
 | Diğer haber bölümleri | 2-3 haber |
 | Güvenlik | 3-4 haber, her biri 60-90 kelime tek paragraf; büyük haber yok (4+4+4 ya da 6+6) |

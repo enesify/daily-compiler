@@ -228,10 +228,10 @@ def main():
     if len(L.get("paragraphs") or []) != 4:
         W(f"manşet {len(L.get('paragraphs') or [])} paragraf (4 beklenir)")
     if L.get("why"):
-        W("manşette why yazılmaz; Pratik çıkarım kutusu var")
+        W("manşette why yazılmaz; Editörün önerileri kutusu var")
     box = L.get("box") or {}
     if not 3 <= len(box.get("items") or []) <= 4:
-        W(f"Pratik çıkarım kutusunda {len(box.get('items') or [])} madde var (3-4 beklenir)")
+        W(f"Editörün önerileri kutusunda {len(box.get('items') or [])} madde var (3-4 beklenir)")
     check_prose("manşet", L.get("paragraphs"), True)
     check_sources("manşet", L.get("sources"), dates)
     charts = 1 if L.get("chart") else 0

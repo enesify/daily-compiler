@@ -27,7 +27,6 @@
     },
     "sources": [{"label": "Resmi duyuru", "url": "https://example.com/duyuru"}],
     "box": {
-      "kicker": "Pratik çıkarım",
       "title": "Kutunun başlığı",
       "items": ["Birinci somut madde.", "İkinci somut madde.", "Üçüncü somut madde."],
       "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
