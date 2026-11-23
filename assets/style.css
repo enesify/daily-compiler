@@ -182,7 +182,6 @@ aside.box{background:var(--paper-2);padding:20px 20px 18px;border-top:3px solid 
 .toc .ts{font-family:var(--f-label);font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--ink-soft)}
 aside.box h3{font-size:22px;margin:6px 0 12px;line-height:1.15}
 aside.box ol{margin:0;padding-left:20px;display:grid;gap:10px;font-size:15.5px;line-height:1.45;max-width:68ch}
-aside.box .note{font-family:var(--f-label);font-size:12px;color:var(--ink-soft);margin-top:14px}
 
 /* Haber grafikleri: tek seri yatay çubuk; vurgulanan çubuk accent, bağlam çubukları gri. Değerler her zaman yazılı. */
 figure.chart{margin:10px 0 2px;padding:10px 0 2px;border-top:1px solid var(--rule)}
