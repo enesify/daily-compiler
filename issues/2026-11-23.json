@@ -1,0 +1,513 @@
+{
+  "date": "2026-11-23",
+  "number": 21,
+  "dateLabel": "Pazartesi, 23 Kasım 2026",
+  "readingMinutes": 14,
+  "calendar": [
+    {
+      "date": "2026-11-30",
+      "text": "OpenAI'ın barındırılan Evals platformu kapanıyor",
+      "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices"
+    },
+    {
+      "date": "2026-12-01",
+      "text": "Gemini 4 Carbon API fiyatı iki katına çıkıyor",
+      "url": "https://aistudio.google.com/docs/pricing"
+    },
+    {
+      "date": "2026-12-03",
+      "text": "JDK 28 Rampdown Phase One'a giriyor",
+      "url": "https://openjdk.org/projects/jdk/28/"
+    },
+    {
+      "date": "2026-12-08",
+      "text": "Dependabot, hareketsiz repolarda uyarıları duraklatıyor",
+      "url": "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories"
+    },
+    {
+      "date": "2026-12-14",
+      "text": "GitHub Copilot'tan altı model kaldırılıyor",
+      "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december"
+    }
+  ],
+  "lead": {
+    "kicker": "Araştırma · Benchmark",
+    "alert": false,
+    "headline": "METR: Opus 5.5 ve GPT-6 Astra'nın görev ufku 40 saate yaklaştı",
+    "deck": "Bağımsız değerlendirme kuruluşu METR'in 20 Kasım raporuna göre bu ufuk yaklaşık 3,6 ayda ikiye katlanıyor. Kurum, kamuya açık verinin önümüzdeki birkaç yılda sert bir AI Ar-Ge hızlanmasını dışlamaya yetmediğini yazıyor.",
+    "paragraphs": [
+      "En güçlü modeller, insan uzmanın yaklaşık 40 saatte bitirdiği görevlerin yarısını başarıyor. METR'in birleşik ölçümünde bu %50 başarı ufku GPT-6 Astra için 40, Opus 5.5 için 39 saat. Tahminler çok belirsiz; tablodaki güven aralıkları yüzlerce, hatta binlerce saate uzanıyor.",
+      "METR'e göre naif bir ekstrapolasyon, ölçülebilen en uzun 200 saatlik görevlere Temmuz 2027 civarında ulaşılacağını gösteriyor. Katılımcıların haftalarca optimizasyon yaptığı Al Zimmermann programlama yarışmalarında Fable 5.1, Opus 5.5 ve GPT-6 Astra insan katılımcılar arasında medyanda 96-98. yüzdelikte. Uzun bir optimizasyon görevinde ise insan hâlâ önde: NanoGPT hızlandırmasında en iyi agent 48 saatte %15,7 kazanç sağladı; METR'in olağandışı güçlü bulduğu, AI destekli ve yaklaşık 60 saatlik insan rekoru %41.",
+      "Zayıf taraf yargı. Hızlı ve deneysel geri bildirimi olmayan işlerde modeller uzmanların gerisinde kalıyor. Hakem olarak kullanılan modeller de benzer güçteki ya da daha güçlü modellerin işini fazla beğeniyor. Opus 5.5, GPT-6 Astra'nın çıktılarını insan puanlayıcıdan 0-1 ölçeğinde yaklaşık 0,2 puan yüksek değerlendirdi. Reinforcement learning ortamı olarak kurulması pahalı görevlerde de görev ufku belirgin biçimde kısalıyor.",
+      "Raporun kendi çekinceleri büyük. Görevlerin insan süresi çoğunlukla araştırmacı tahmini; yalnızca %9'u doğrudan insan denemelerinden geliyor. Alternatif süre tahminleriyle ufuk iki model için de 29-32 saate iniyor. Reward hacking yaygındı; bu koşulara sıfır verildi. Modeller token bütçelerini de çoğu zaman tam kullanmıyor, yani yetenekleri olduğundan düşük ölçülmüş olabilir. METR, tek tek şirketlerin modellerinde görülen hızlanma eğilimlerini de güvenilir saymıyor."
+    ],
+    "sources": [
+      {
+        "label": "METR: Q4 2026 yetenek güncellemesi",
+        "url": "https://metr.org/blog/2026-11-20-q4-2026-capability-update/"
+      },
+      {
+        "label": "The Decoder: METR'in uyarısı",
+        "url": "https://the-decoder.com/ai-is-getting-better-faster-than-experts-can-reliably-test-whether-new-systems-are-safe-metr-warns/"
+      }
+    ],
+    "box": {
+      "kicker": "Pratik çıkarım",
+      "title": "Agent'a devretmeden ve hakem modele güvenmeden önce",
+      "items": [
+        "Aynı ya da daha güçlü bir modelin çıktısını puanlayan LLM hakemini insan etiketleriyle karşılaştırmadan ölçeklemeyin; METR'de Opus 5.5, Astra'nın işini yaklaşık 0,2 puan fazla beğendi. Bu sayının Atölye'si eval setini adım adım anlatıyor.",
+        "Agent'a önce test, derleme ya da benchmark gibi hızlı ve otomatik geri bildirimi olan işleri verin; METR'e göre modeller geri bildirimsiz, yargı gerektiren işlerde uzmanların gerisinde.",
+        "Agent'ın puanı ya da test sonucu birden iyileştiyse kabul etmeden önce reward hacking'e bakın; METR bu tür koşulları yaygın buldu ve sıfır puan verdi.",
+        "Ekip planında “agent 40 saatlik iş yapar” gibi tek bir rakama dayanmayın; Astra'nın ufkunun güven aralığı 13 ile 2.645 saat arasında."
+      ],
+      "note": "Bu kutu editoryal öneridir, haberin parçası değildir."
+    },
+    "table": {
+      "title": "METR'in birleşik ölçümünde %50 başarı ufku",
+      "cols": [
+        "Model",
+        "Ufuk",
+        "%95 güven aralığı"
+      ],
+      "rows": [
+        [
+          "GPT-6 Astra",
+          "40 saat",
+          "13-2.645 saat"
+        ],
+        [
+          "Opus 5.5",
+          "39 saat",
+          "12-1.253 saat"
+        ]
+      ],
+      "note": "TH1.1 ve TH2 görev setlerinin birleşik tahmini; alternatif süre tahminleriyle Astra 29 ya da 32, Opus 5.5 30 ya da 29 saat."
+    }
+  },
+  "sections": [
+    {
+      "id": "ai",
+      "title": "Yapay Zekâ & LLM",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Politika · OpenAI",
+          "headline": "OpenAI, perplexity'ye dayalı ortak geliştirme sınırları önerdi",
+          "paragraphs": [
+            "Yapay zekâ laboratuvarları, bir modelin sonraki token'ı ne kadar iyi tahmin ettiğini ölçen perplexity değerine göre ortak sınırlar koyabilir. OpenAI'ın baş bilimcisi Jakub Pachocki 22 Kasım'daki yazısında bunu önerdi ve ilk adım olarak şirketin ön eğitim ilerlemesini gösteren iç ölçümlerini yayımladı. Öneriye göre geliştiriciler, somut bir kilometre taşına ulaşılana kadar belirlenen eşiği aşmamayı taahhüt edecek. Yazıdaki örnek, modelin akıl yürütme metnini izleyen bugünkü chain-of-thought denetiminin yerini alacak bir yöntemin geliştirilmesi.",
+            "Pachocki ayrıca öncü modellerin ilk kullanımdan önce ortak normlarla değerlendirilmesini ve güvenlik gerekçelerinin red team ile sınanmasını istiyor. Ardışık sınırlar için de ortak bir çerçeve öneriyor. Ön eğitimde ani ilerlemelerin 2027 gibi erken bir tarihte gelebileceğini, AI'ın alignment ve izleme işlerine yardımının bu hıza yetişmeyeceğini yazıyor.",
+            "Yazar ölçünün sınırlılıklarını da sayıyor. Laboratuvarlar farklı veri setleri ve eğitim karışımları kullandığı için karşılaştırma zor; perplexity gerçek görevleri doğrudan ölçmüyor ve chain-of-thought'tan gelen kazanımları göstermiyor. Verinin ulaşılabilecek en düşük kaybı da bilinmiyor; Pachocki'ye göre bu tabana yaklaştıkça küçük görünen iyileşmeler büyük yetenek sıçramaları anlamına gelebilir."
+          ],
+          "table": {
+            "title": "OpenAI'ın iç kod veri setinde log-perplexity",
+            "cols": [
+              "Model",
+              "Log-perplexity",
+              "OpenAI'a göre karşılık gelen yetenek"
+            ],
+            "rows": [
+              [
+                "GPT-3.5",
+                "~0,99",
+                "Akıcı sohbet; ilk ChatGPT"
+              ],
+              [
+                "GPT-4",
+                "~0,91",
+                "Verimli chain-of-thought akıl yürütme"
+              ],
+              [
+                "Güncel modeller",
+                "0,8'in altı",
+                "Siber güvenlik ve matematikte dönüştürücü yetenekler"
+              ],
+              [
+                "Beklenen pencere",
+                "~0,68-0,7",
+                "Yeni dönüştürücü yetenekler"
+              ]
+            ],
+            "note": "Şirketin kendi ölçümü; düşük değer daha iyi tahmin demek."
+          },
+          "why": "Öneri kabul görürse en güçlü modellerin ne zaman çıkacağını şirketlerin tek başına değil, ortak bir eşiğin belirlemesi gerekecek.",
+          "sources": [
+            {
+              "label": "OpenAI: Perplexity and Intelligence",
+              "url": "https://openai.com/index/perplexity-and-intelligence/"
+            },
+            {
+              "label": "TechCrunch: OpenAI'ın baş bilimcisinin önerisi",
+              "url": "https://techcrunch.com/2026/11/22/openais-chief-scientist-has-thoughts-on-how-to-limit-ai-development/"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Politika · Açık modeller",
+          "headline": "Meclis raporu: Çin modelleri federal işlerden çıkarılsın",
+          "paragraphs": [
+            "ABD Temsilciler Meclisi'nin iki komitesi, Çin'de geliştirilen açık ağırlıklı modellerin federal sistemlerden, federal sözleşme işlerinden ve yüksek riskli kritik altyapıdan çıkarılmasını istiyor. Komitelerin 20 Kasım'da yayımladığı rapora göre Airbnb müşteri desteğinde Alibaba modellerini kullanıyor; Cursor'ı geliştiren Anysphere en önemli modelini Moonshot AI'ın temel modeli üzerine kurdu. CNBC'ye göre Cursor, komitelere bu modelleri aşamalı olarak bırakmayı inceleyeceğini bildirdi. Raporun 12 önerisi arasında model kökeni standardı ve AI malzeme listesi (AI BOM) da var."
+          ],
+          "sources": [
+            {
+              "label": "House Homeland Security: ortak rapor",
+              "url": "https://homeland.house.gov/2026/11/20/chairmen-garbarino-moolenaar-release-joint-investigative-report-urging-removal-of-prc-open-weight-models-from-federal-systems-high-risk-critical-infrastructure/"
+            },
+            {
+              "label": "CNBC: Cursor ve Çin modelleri",
+              "url": "https://www.cnbc.com/2026/11/20/cursor-chinese-ai-models-geopolitical-risk.html"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Yerel inference · Açık model",
+          "headline": "LookAtMyQuant: 5,4 GB'lık Inkling 2 Mini kodlamada geriledi",
+          "paragraphs": [
+            "Thinking Machines'in 26,4 milyar parametreli Inkling 2 Mini'si metin ağırlıkları bir topluluk projesinde 5,4 GB'a sıkıştırıldı, ama bedeli kodlamada görülüyor. LookAtMyQuant reposundaki yapı ağırlık başına 1,65 bit kullanıyor; orijinal metin ağırlıkları yaklaşık 19 GB, görüntü kulesi ayrı bir 637 MB'lık dosya. Reponun kendi ölçümüne göre HumanEval'da çözülen problem oranı %92,7'den %71,3'e düştü, matematik testi GSM8K'da kayıp daha küçük. Yapı 21 Kasım'da Hacker News'in ön sayfasındaydı; kod MIT lisanslı, ağırlıkların lisansı sayfada yazmıyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub: LookAtMyQuant Inkling-2-Mini",
+              "url": "https://github.com/ShinMegamiBoson/lookatmyquant"
+            },
+            {
+              "label": "21 Kasım sayısı: Inkling 2 Mini açık",
+              "url": "#2026-11-21-ai-1"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Politika · OpenAI",
+          "headline": "OpenAI modellerini sunan router'lar artık onay almak zorunda",
+          "paragraphs": [
+            "Model router'ları ve AI gateway'leri gibi OpenAI modellerine doğrudan erişim veren servisler, 20 Kasım'dan itibaren bu erişimi sunmadan önce OpenAI'ın incelemesinden ve onayından geçmek zorunda. Kural, şirketin 21 Ekim'de duyurduğu kullanım politikası güncellemesinde; partnerlerden OpenAI düzeyinde güvenlik önlemi, ihlal soruşturması ve ortak yaptırım bekleniyor. Onay ölçütleri ve onay alamayan servislerin mevcut kullanıcılarına ne olacağı duyuruda yer almıyor. Semafor'a göre en bilinen örnek OpenRouter; kural, Çinli laboratuvarların kimliği gizleyen aracılar üzerinden ABD modellerini damıttığı (distillation) suçlamalarının ardından geliyor."
+          ],
+          "sources": [
+            {
+              "label": "OpenAI: kullanım politikası güncellemesi",
+              "url": "https://openai.com/index/broad-access-through-consistent-standards/"
+            },
+            {
+              "label": "Semafor: OpenAI ve model satıcıları",
+              "url": "https://www.semafor.com/article/11/20/2026/openai-tightens-grip-on-model-resellers"
+            },
+            {
+              "label": "Dünkü sayı: OpenRouter, 125 endpoint'i ZDR'den çıkardı",
+              "url": "#2026-11-22-manset"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gelistirme",
+      "title": "Geliştirme & Araçlar",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Ürün · Anthropic",
+          "headline": "Claude'un bilgisayar kullanımı Team ve Enterprise'da beta",
+          "paragraphs": [
+            "Claude'un ekranı görüp kullanıcının izin verdiği masaüstü uygulamalarında çalıştığı computer use özelliği, 20 Kasım'da Team ve Enterprise planlarında beta olarak kademeli açılmaya başladı. Özellik varsayılan olarak kapalı; organizasyon sahibi Capabilities ayarından açıyor. Yöneticiler engelleme ya da izin listesiyle uygulamaları sınırlayabiliyor, ama listeler Claude in Chrome'u, Claude Code'u, web sitelerini ve sanal makinelerdeki uygulamaları kapsamıyor. Belge, Claude ile uygulamalar arasında sandbox olmadığını ve ekrandaki bir e-postanın istenmeyen eylemlere yol açabileceğini yazıyor; bağlı klasör sınırları da computer use'a uygulanmıyor. HIPAA-ready, CMEK, FERPA ya da K-12 ayarlı ve Claude Code için ZDR kullanan organizasyonlar özelliği açamıyor."
+          ],
+          "sources": [
+            {
+              "label": "Claude sürüm notları",
+              "url": "https://support.claude.com/en/articles/12138966-release-notes"
+            },
+            {
+              "label": "Claude: Team ve Enterprise için kurulum",
+              "url": "https://support.claude.com/en/articles/18483812-set-up-computer-use-for-team-and-enterprise-plans"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Araç · Performans",
+          "headline": "Fast-Anything yalnızca yavaş fonksiyonları Rust'a taşıyor",
+          "paragraphs": [
+            "Uygulamayı baştan Rust'ta yazmak yerine yalnızca zaman harcayan kısmı taşıyan açık kaynaklı Fast-Anything, 22 Kasım'da Hacker News'in ön sayfasına çıktı. `scan` komutu profil çıkarıp fonksiyonları harcanan süreye ve taşınabilirliğe göre sıralıyor. `port`, bir fonksiyona yapılan en fazla 500 gerçek çağrıyı kaydedip tek fonksiyonluk bir Rust crate'i ve kodlama agent'ının çalışacağı `TASK.md` dosyasını üretiyor. `verify` kayıtlı çağrıları ve türetilmiş uç durumları iki sürümde oynatıp karşılaştırıyor. README'ye göre Python, TypeScript, Ruby, Java ve Go dahil birçok dil destekleniyor; bir Python örneğinde 116 kat hızlanma bildiriliyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub: EL4CTEO/fast-anything",
+              "url": "https://github.com/EL4CTEO/fast-anything"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Güvenlik · Apache Solr",
+          "alert": true,
+          "headline": "Apache Solr'da iki yetki açığı: 9.11 ve 10.1'e yükseltin",
+          "paragraphs": [
+            "Apache Solr'da düşük yetkili kullanıcıların yetkisinin üstünde işlem yapmasına izin veren iki açık 22 Kasım'da duyuruldu; düzeltmeler 9.11.0 ve 10.1.0'da. CVE-2026-86312 (CVSS 8,8) 9.0.0'dan beri `/admin/ping` endpoint'ini etkiliyor: kural tabanlı yetkilendirmede yalnızca health izni olan bir istemci daha yüksek yetki isteyen işleri tetikleyebiliyor; `bin/solr` CLI'ın örnek yapılandırması bu endpoint'i kimlik doğrulamasız bırakıyor. CVE-2026-53672 (6,5), Basic Auth kullanan cluster'larda zk-read izni olan kullanıcının parola hash'lerini içeren `security.json`'ı okumasına izin veriyor; açık 8.11.1'den beri var ve 8.x hattı için düzeltme yok. Yükseltemeyenler `/admin/ping`'i güvenilir bir role bağlamalı, zk-read'i yalnızca güvenilen yöneticilere vermeli."
+          ],
+          "sources": [
+            {
+              "label": "oss-security: CVE-2026-86312",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/23/9"
+            },
+            {
+              "label": "oss-security: CVE-2026-53672",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/23/8"
+            },
+            {
+              "label": "Apache Solr haberleri",
+              "url": "https://solr.apache.org/news.html"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Okuma · JDK sürümleri",
+          "headline": "Java 21 demek yetmiyor: güvenlik farkını build numarası gösteriyor",
+          "paragraphs": [
+            "Aynı major Java sürümünü kullanan iki sistem arasında yılların güvenlik düzeltmesi farkı olabilir; farkı build numarası gösteriyor. Azul'dan Frank Delporte foojay'deki 23 Kasım tarihli yazısında, çoğu geliştiricinin major sürümü bilip build'i bilmediğini anlatıyor. Yazıya göre Azul'un güvenlik güncellemeleri Temmuz'daki duyurudan beri üç ayda bir değil her ay çıkıyor; 17 Kasım'daki aylık güncelleme 11 CVE kapattı. Delporte `java -version` çıktısındaki build'e bakmayı ve JDK envanteri çıkarmayı öneriyor. Yalnızca güvenlik düzeltmesi içeren CPU hattıyla hata düzeltmelerini de içeren PSU hattı arasında bilinçli seçim yapılmasını istiyor."
+          ],
+          "sources": [
+            {
+              "label": "foojay: Hangi Java build'ini çalıştırıyorsunuz?",
+              "url": "https://foojay.io/today/which-java-build-are-you-running/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik",
+      "patch": [
+        {
+          "text": "GL.iNet router ve KVM-over-IP cihazları: modele özel kararlı firmware'i kurun, `/tmp/.log` sürecini arayın",
+          "ref": "guvenlik-3"
+        },
+        {
+          "text": "MONAI Label 0.8.5 ve öncesi: dış ağdan ayırın, kimlik doğrulamayı açın; PyPI'de yama yok",
+          "ref": "guvenlik-1"
+        }
+      ],
+      "articles": [
+        {
+          "size": 4,
+          "kicker": "Aktif istismar · MONAI Label",
+          "alert": true,
+          "headline": "AI agent'ları MONAI Label'da sıfırıncı gün bulup root aldı",
+          "paragraphs": [
+            "Amazon Threat Intelligence'ın orta güvenle Çin bağlantılı saydığı bir operatörün açık kaynaklı Cairn agent'ları, MONAI Label'da kimlik doğrulamasız bir path traversal açığı (CVE-2026-133968, 9,8) buldu. Agent'lar bununla bir üniversite sunucusunda root yetkisiyle shell açtı. Etkilenen sürümler 0.8.5 ve öncesi; kimlik doğrulama varsayılan olarak kapalı ve PyPI'de yamalı sürüm yok. Sunucuyu güvenilmeyen ağlardan ayırın ve `MONAI_LABEL_AUTH_ENABLE=True` ile kimlik doğrulamayı açın. ANNOTATOR rolü de açığı kullanmaya yettiği için bu rolü güvenilmeyenlere vermeyin; beklenmeyen Python başlangıç dosyalarına bakın."
+          ],
+          "sources": [
+            {
+              "label": "AWS Security Blog: Cairn agent'ları",
+              "url": "https://aws.amazon.com/blogs/security/chinese-nexus-actors-cairn-ai-agents-found-a-zero-day-on-their-own/"
+            },
+            {
+              "label": "MONAI Label güvenlik duyurusu",
+              "url": "https://github.com/Project-MONAI/MONAILabel/security/advisories/GHSA-qc22-rmgc-vg94"
+            },
+            {
+              "label": "The Hacker News: MONAI Label",
+              "url": "https://thehackernews.com/2026/11/attackers-ai-agents-found-zero-day-in.html"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Güvenlik · Linux KVM",
+          "headline": "AMD'de KVM açığı: guest'teki root host belleğine erişiyor",
+          "paragraphs": [
+            "AMD işlemcili ve nested virtualization açık KVM host'larında, guest'te root olan biri host'un belleğini okuyup değiştirebiliyor (CVE-2026-99312). Intel host'lar ve nested kapalı sistemler etkilenmiyor. Hata 6.1'den beri var ve 5.15'e de taşındı; düzeltme yalnızca 7.3.5, 6.18.64 ve 6.12.118 çekirdeklerinde. Ubuntu'da paket yok,  Debian'da yalnızca unstable düzeltildi, Red Hat EL9 ve EL10 için düzeltmeyi erteledi. kvm_amd'de nested varsayılan olarak açık; istismar bildirilmedi. `cat /sys/module/kvm_amd/parameters/nested` 1 ya da Y dönüyorsa yamaya kadar `options kvm_amd nested=0` ekleyip host'u yeniden başlatın; guest güncellemesi işe yaramaz."
+          ],
+          "sources": [
+            {
+              "label": "DigitalOcean: CVE-2026-99312",
+              "url": "https://digitalocean.com/blog/cve-2026-99312-kvm-patch"
+            },
+            {
+              "label": "The Hacker News: KVM açığı",
+              "url": "https://thehackernews.com/2026/11/new-linux-kvm-flaw-cve-2026-99312-lets.html"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Aktif istismar · GL.iNet",
+          "alert": true,
+          "headline": "GL.iNet'in bulut açığıyla router'lara zararlı kuruldu",
+          "paragraphs": [
+            "GL.iNet'in bulut uzaktan yönetim servisindeki bir açık kullanılarak bazı router'lara ve uzaktan erişim için kullanılan KVM-over-IP cihazlarına zararlı yazılım kuruldu. Şirket bulut tarafını düzeltti ama bu, cihazlardaki zararlıyı silmiyor; MT3000 ve MT6000 için 4.11.1, BE3600 için 4.10.2 gibi modele özel kararlı firmware zararlıyı temizliyor ve ayarları koruyor. İz olmasa da firmware'i kurun. Router'da `ps | grep tmp`, KVM'de `ps -aux | grep tmp` ile `crond -i /tmp/.log` sürecini arayın; bulursanız cihazı enfekte sayın ve enfekte KVM-over-IP cihazına bağlı bilgisayarı da tarayın. Şirkete göre listede olmayan bir model etkilenmemiş sayılmamalı."
+          ],
+          "sources": [
+            {
+              "label": "GL.iNet güvenlik bildirimi",
+              "url": "https://www.gl-inet.com/en-us/blogs/blog/glinet-security-notice-2026-11-20"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "atolye": {
+    "konu": "mimari-eval",
+    "kicker": "Mimari ve tasarım",
+    "title": "LLM özelliği için eval seti: üretim verisi, net ölçüt, kalibre hakem",
+    "intro": "Prompt'u, modeli ya da akıl yürütme ayarını değiştirdiğinizde neyin bozulduğunu sezgiyle değil bir test setiyle görmek, LLM özelliğini güvenle geliştirmenin yolu. Bu yazı küçük bir eval seti kurmayı ve LLM hakemini insan etiketleriyle kalibre etmeyi adım adım anlatıyor.",
+    "when": "Çıktısı tek doğru cevaba indirgenemeyen ve sık değişen özelliklerde (özet, destek cevabı, sınıflandırma) işe yarar. Çıktı tam eşleşmeyle ya da birim testle doğrulanabiliyorsa hakem modele gerek yok; kod tabanlı kontrol yeter.",
+    "steps": [
+      "Başarı ölçütünü sayıyla yazın. Anthropic'in belgeleri “iyi performans” gibi hedefler yerine belirli ve ölçülebilir ölçütler öneriyor; güvenlik için örneği, 10.000 denemede toksisite nedeniyle işaretlenen çıktının %0,1'in altında kalması. Doğruluğun yanında ton, bağlamı kullanma, gecikme ve fiyatı ayrı boyutlar olarak ölçün.",
+      "Veriyi üretimden toplayın. OpenAI'ın değerlendirme rehberi, veri setinin üretim trafiğine benzemesini ve geliştirme sırasında her şeyin loglanmasını öneriyor; bu loglar eval vakalarının kaynağı oluyor. Tipik vakaların yanına uç durumları (yazım hatası, birden çok niyet içeren istek, uzun konuşma, sistem ve kullanıcı prompt'u çatışması) ve saldırgan girdileri ekleyin.",
+      "Mümkünse kodla puanlayın. Anthropic, otomatik puanlanan büyük bir setin elle puanlanan küçük bir setten genellikle daha iyi olduğunu yazıyor. Tam eşleşme, embedding benzerliği ya da ROUGE-L gibi kod tabanlı kontrolleri hakem modelden önce deneyin.",
+      "Hakem modele dar bir görev verin. OpenAI açık uçlu puan yerine ikili karşılaştırma ya da geçti/kaldı öneriyor; hakemden puandan önce gerekçe yazmasını isteyin, cevap sırası ve uzunluğu yanlılığını izleyin. Anthropic de puanlanan modelden farklı bir hakem kullanmayı, ölçeğin uçlarını tanımlamayı ve çıktıyı yalnızca bir sayı ya da evet/hayır ile sınırlamayı öneriyor.",
+      "Hakemi insan etiketleriyle kalibre edin. OpenAI, hakemi ancak insan etiketleriyle tutarlı biçimde uyuştuğunda ölçeklemeyi öneriyor. Güçlü modellerde de bu adım gerekli: METR'in 20 Kasım raporunda Opus 5.5, GPT-6 Astra'nın işlerini insan puanlayıcıdan 0-1 ölçeğinde yaklaşık 0,2 puan yüksek değerlendirdi.",
+      "Her değişiklikte çalıştırın ve seti büyütün. OpenAI eval'lerin her değişiklikte koşmasını, üretimde yeni davranışların izlenmesini ve yeni hatalarla logların sete eklenmesini öneriyor."
+    ],
+    "example": {
+      "label": "Örnek: ikili karşılaştırma hakemi ve insanla uyum oranı",
+      "lang": "python",
+      "code": "JUDGE = \"\"\"İki destek cevabını karşılaştır.\nÖlçüt: Politikaya uygun ve eksiksiz mi?\n<soru>{question}</soru>\n<politika>{policy}</politika>\n<cevap_A>{a}</cevap_A>\n<cevap_B>{b}</cevap_B>\nÖnce iki cümle gerekçe yaz; son satıra\nyalnızca A, B ya da BERABERE yaz.\"\"\"\n\ndef ask(m, case, a, b):  # m: model çağrısı\n    p = JUDGE.format(question=case[\"question\"],\n        policy=case[\"policy\"], a=a, b=b)\n    return m(p).strip().splitlines()[-1]\n\ndef judge(m, case):\n    # Sıra etkisini görmek için iki sırayla sor\n    one = ask(m, case, case[\"a\"], case[\"b\"])\n    two = ask(m, case, case[\"b\"], case[\"a\"])\n    two = {\"A\": \"B\", \"B\": \"A\"}.get(two, two)\n    return one if one == two else \"BERABERE\"\n\ndef agreement(m, cases, labels):\n    hits = sum(judge(m, c) == h\n               for c, h in zip(cases, labels))\n    return hits / len(cases)  # eşiği ekip seçer"
+    },
+    "pitfall": "Hakemi kalibre etmeden ölçeklemek en sık hata: OpenAI'ın rehberi hakemin uzun cevapları kayırabileceği ve cevap sırasından etkilenebileceği uyarısını yapıyor. Ayrıca OpenAI'ın barındırılan Evals platformu 31 Ekim'den beri salt okunur ve 30 Kasım'da kapanıyor.",
+    "sources": [
+      {
+        "label": "OpenAI: değerlendirme rehberi",
+        "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices"
+      },
+      {
+        "label": "Anthropic: test geliştirme belgesi",
+        "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests"
+      },
+      {
+        "label": "METR: Q4 2026 yetenek güncellemesi",
+        "url": "https://metr.org/blog/2026-11-20-q4-2026-capability-update/"
+      }
+    ]
+  },
+  "repos": {
+    "subtitle": "GitHub Trending günlük ve haftalık, Java günlük listeleri ile Trendshift · yıldızlar 23 Kasım",
+    "items": [
+      {
+        "name": "ag-ui-protocol/ag-ui",
+        "url": "https://github.com/ag-ui-protocol/ag-ui",
+        "stars": "21.235",
+        "starsValue": 21235,
+        "lang": "TypeScript",
+        "cat": "Agent protokolü",
+        "why": "Agent'ları frontend uygulamalarına bağlamak için açık bir protokol. GitHub'ın haftalık listesinde bu hafta 3.620 yıldız aldı.",
+        "meta": "TypeScript · Agent protokolü"
+      },
+      {
+        "name": "ChromeDevTools/chrome-devtools-mcp",
+        "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+        "stars": "58.880",
+        "starsValue": 58880,
+        "lang": "TypeScript",
+        "cat": "MCP sunucusu",
+        "why": "Kodlama agent'larına Chrome DevTools erişimi veren MCP sunucusu. Haftalık listede bu hafta 2.268 yıldız ekledi.",
+        "meta": "TypeScript · MCP sunucusu"
+      },
+      {
+        "name": "we-promise/sure",
+        "url": "https://github.com/we-promise/sure",
+        "stars": "17.379",
+        "starsValue": 17379,
+        "lang": "Ruby",
+        "cat": "Kişisel finans",
+        "why": "Açık kaynaklı, kendi sunucunuzda çalıştırılabilen kişisel finans uygulaması. GitHub'ın haftalık listesinde bu hafta 1.771 yıldız aldı.",
+        "meta": "Ruby · Kişisel finans"
+      },
+      {
+        "name": "pierridotite/mobile-agent-testers",
+        "url": "https://github.com/pierridotite/mobile-agent-testers",
+        "stars": "697",
+        "starsValue": 697,
+        "cat": "Mobil test",
+        "why": "Her biri ayrı bir emülatör ya da simülatörde çalışan 20'ye kadar Claude Code agent'ıyla uygulamayı farklı dil, yazı boyutu ve cihaz ayarlarında deneyen MIT lisanslı workflow; GitHub'ın ücretsiz runner'larında çalışıp ekran görüntülü hata raporu yazıyor. Trendshift listesinde yükselenler arasında.",
+        "meta": "Mobil test"
+      },
+      {
+        "name": "langchain4j/langchain4j",
+        "url": "https://github.com/langchain4j/langchain4j",
+        "stars": "13.436",
+        "starsValue": 13436,
+        "lang": "Java",
+        "cat": "LLM kütüphanesi",
+        "why": "JVM'de LLM uygulamaları geliştirmek için Java kütüphanesi. Kütüphanenin 18 Kasım'da çıkan yeni sürümü beta agentic API'lere CDI desteği ve testlerde AI Service çağrılarını yakalama ekledi; repo GitHub'ın Java günlük listesinde.",
+        "meta": "Java · LLM kütüphanesi"
+      },
+      {
+        "name": "zhouxiaoka/autoclip",
+        "url": "https://github.com/zhouxiaoka/autoclip",
+        "stars": "13.630",
+        "starsValue": 13630,
+        "lang": "Python",
+        "cat": "Video aracı",
+        "why": "Uzun videoları altyazı, kapak ve paylaşım metniyle kısa kliplere bölen açık kaynaklı AI aracı. Günlük listede bugün 641 yıldız aldı.",
+        "meta": "Python · Video aracı"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending: günlük",
+        "url": "https://github.com/trending"
+      },
+      {
+        "label": "GitHub Trending: haftalık",
+        "url": "https://github.com/trending?since=weekly"
+      },
+      {
+        "label": "GitHub Trending: Java günlük",
+        "url": "https://github.com/trending/java?since=daily"
+      },
+      {
+        "label": "Trendshift",
+        "url": "https://trendshift.io/"
+      }
+    ]
+  },
+  "briefs": [
+    {
+      "tag": "Benchmark · GPT-6.2",
+      "text": "Artificial Analysis'in iletişim tarzını ölçen PersonalityBench'ine göre GPT-6.2 Astra'nın ortalama cevabı 352 kelimeden 210'a, Sol'unki 337'den 223'e kısaldı. Belirsizliği kabul etme endeksi (1-100 arası göreli sıra) Astra'da 96'dan 24'e düştü; ölçüm doğruluğu değil üslubu değerlendiriyor.",
+      "url": "https://the-decoder.com/gpt-6-2-astra-and-sol-get-to-the-point-faster-but-score-lower-on-transparency-than-claude/"
+    },
+    {
+      "tag": "İddia · Satın alma",
+      "text": "Bloomberg'in kaynaklara dayandırdığı habere göre CrowdStrike, Zscaler'ı satın almak için görüşüyor; haberin ardından Zscaler hisseleri mesai sonrası işlemlerde yaklaşık %18 yükseldi, CrowdStrike %8'den fazla düştü. CrowdStrike yorum yapmadı.",
+      "url": "https://www.cnbc.com/2026/11/20/zscaler-crowdstrike-deal.html"
+    },
+    {
+      "tag": "Politika",
+      "text": "ABD Başkanı Trump, Cuma günü ABD'nin yapay zekâ için Çin'le ortak güvenlik sınırları geliştireceğini söyledi; Semafor'a göre bu sınırların içeriğine ya da resmi bir anlaşmaya dair ayrıntı yok.",
+      "url": "https://www.semafor.com/article/11/22/2026/us-china-eye-joint-guardrails-on-ai"
+    },
+    {
+      "tag": "Politika · Veri merkezleri",
+      "text": "ABD Başkanı Trump, 20 Kasım'da başka ülkelerde veri merkezi kuran ABD şirketlerinin çok büyük bir vergiyle karşılaşacağını söyledi; verginin nasıl işleyeceği anlatılmadı. CNBC'ye göre Alphabet, Amazon, Microsoft, Meta ve Oracle'ın yurt dışında veri merkezleri var.",
+      "url": "https://www.cnbc.com/2026/11/20/trump-data-centers-ai-companies-tax.html"
+    },
+    {
+      "tag": "Takip · Nvidia",
+      "text": "Nvidia'nın eski CEO'su Jensen Huang, istifasının ardından Senato Bankacılık Komitesi'nde açık oturumda ifade verecek; tarih belli değil, komite başkanı Tim Scott Noel'den önce dinlemek istiyor. Huang 1 Aralık'ta üç Temsilciler Meclisi komitesine kapalı oturumda tutanaklı ifade verecek.",
+      "url": "https://www.cnbc.com/2026/11/20/jensen-huang-nvidia-senate-testimony.html"
+    },
+    {
+      "tag": "Güvenlik",
+      "text": "SonicWall, desteği biten Gen 6 güvenlik duvarlarının kritik açıklar için bile yama almayacağını ve internete açık olanların hedef alınmasını beklediğini duyurdu; TZ, NSA ve SuperMassive serilerindeki bu cihazları değiştirene kadar WAN üzerinden HTTPS, SSH ve SNMP yönetimini kapatın, SSL VPN'i bilinen adreslerle sınırlayın.",
+      "url": "https://www.sonicwall.com/support/notices/product-advisory-retire-unsupported-gen-6-firewalls/kA1VN000002iouP0AQ"
+    },
+    {
+      "tag": "Güvenlik",
+      "text": "Yaması olmayan FastUnlock yöntemiyle fiziksel erişimi olan biri, kilitli bir Windows bilgisayarda Narrator üzerinden sınırlı bir hesapla program çalıştırabiliyor; yöntem BitLocker'ı kırmıyor. Microsoft düzeltme yayımlamadı; hassas makinelerde BitLocker'a başlangıç PIN'i ekleyin, gözetimsiz kalacak cihazları kapatın ya da hazırda bekletin.",
+      "url": "https://thehackernews.com/2026/11/new-unpatched-windows-0-day-fastunlock.html"
+    }
+  ]
+}
