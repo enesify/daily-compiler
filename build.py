@@ -610,13 +610,47 @@ def masthead(ctx, cur=None, title=""):
 
 
 def footer(ctx):
-    return ('<footer><span>The Daily Compiler · Her sabah yayımlanır · '
-            f'<a href="{esc(ctx.href("arsiv.html"))}">Arşiv</a> · '
-            + (f'<a href="{esc(ctx.href("benchmark.html"))}">Benchmark</a> · ' if ctx.models else "")
-            + f'<a href="{esc(ctx.href("feed.xml"))}">RSS</a> · '
-            f'<a href="{esc(ctx.href("hakkinda.html"))}">Hakkında</a></span>'
-            '<span>Haberler yapay zekâ tarafından kaynaklardan özetlenir ve ayrı bir yapay zekâ editörce denetlenir; '
-            f'hata olabilir, kaynak linklerine bakın. <a href="{esc(ctx.href("hakkinda.html"))}">Nasıl hazırlanıyor?</a></span></footer>')
+    """Altbilgi: solda küçük yazı logosu (ana sayfaya gider), sağda yayın ritmi ve sabit bağlantılar."""
+    links = [("arsiv.html", "Arşiv")] + ([("benchmark.html", "Benchmark")] if ctx.models else []) + [("feed.xml", "RSS"), ("hakkinda.html", "Hakkında")]
+    nav = " · ".join(f'<a href="{esc(ctx.href(h))}">{t}</a>' for h, t in links)
+    return (f'<footer><a class="ft-logo" href="{esc(ctx.href("index.html"))}">{logo("full")}</a>'
+            f'<p class="ft-nav"><span class="ft-r">Her sabah yayımlanır</span> · {nav}</p></footer>')
+
+
+def art_404():
+    """404 görseli: üç sütunlu bir gazete sayfası; ortadaki haber kesilip alınmış, kesik petrol renginde, kesilen parça sayfanın dışında."""
+    def col(x, y0, y1, w=58, gap=7, skip=None):
+        d = []
+        y = y0
+        i = 0
+        while y <= y1:
+            if not (skip and skip[0] <= y <= skip[1]):
+                ww = w * (0.55 if i % 6 == 5 else 1)
+                d.append(f"M{x} {y}h{ww:.0f}")
+            y += gap
+            i += 1
+        return "".join(d)
+    text = col(34, 50, 198) + col(101, 50, 198, skip=(70, 156)) + col(168, 50, 198)
+    clip = "".join(f"M6 {y}h{46 if i % 4 != 3 else 26}" for i, y in enumerate(range(22, 72, 7)))
+    return ('<svg class="nf-art" viewBox="0 0 320 222" role="img" aria-label="Bir haberi kesilip alınmış gazete sayfası">'
+            '<rect class="pg" x="20.5" y="8.5" width="220" height="204" rx="1.5"/>'
+            '<path class="ttl" d="M100 22h60"/><path class="ink" d="M34 32.5h192"/><path class="ln" d="M34 36.5h192"/>'
+            f'<path class="ln" d="{text}"/>'
+            '<rect class="hole" x="98.5" y="66.5" width="63" height="93"/>'
+            '<text class="n" x="130" y="120" text-anchor="middle">404</text>'
+            '<g transform="translate(246 112) rotate(9)"><rect class="clip" x="0.5" y="0.5" width="58" height="80"/>'
+            f'<path class="ttl2" d="M6 10h40"/><path class="ln" d="{clip}"/></g></svg>')
+
+
+def render_404(ctx):
+    """Bulunamayan adres: sade bir özür, iki yol ve gazete diliyle çizilmiş görsel."""
+    return ('<main class="nf"><div class="nf-t">'
+            f'<p class="kicker">{esc(caps("Sayfa bulunamadı"))}</p>'
+            '<h2>Üzgünüz, aradığınız sayfayı bulamadık.</h2>'
+            '<p class="nf-p">Adres yanlış yazılmış ya da sayfa kaldırılmış olabilir.</p>'
+            f'<p class="nf-go"><a href="{esc(ctx.href("index.html"))}">{esc(caps("Bugünkü sayı"))}</a>'
+            f'<a href="{esc(ctx.href("arsiv.html"))}">{esc(caps("Arşiv"))}</a></p></div>'
+            f'{art_404()}</main>')
 
 
 # Sayfa boyanmadan önce kayıtlı tema seçimini uygula (yanıp sönmeyi önler)
@@ -1033,6 +1067,10 @@ def main():
                              og_title=f"{SITE_NAME} · {head}" if head else SITE_NAME, og_url=base or None, base=base, cur=latest))
     for rel, content in archive_search_data(ctx).items():
         write(rel, content)
+    # 404: sunucu bulunamayan her adreste bu dosyayı verir; yollar köke göre yazılır.
+    c404 = Ctx(issues, 0, models)
+    c404.pre = "/"
+    write("404.html", page(c404, f"Sayfa bulunamadı · {SITE_NAME}", "Bu adreste bir sayfa yok", render_404(c404)))
     write("arsiv.html", page(ctx, f"Arşiv · {SITE_NAME}", "Tüm sayılar", render_archive(ctx),
                              base + "arsiv.html" if base else None, base=base))
     write("hakkinda.html", page(ctx, f"Hakkında · {SITE_NAME}", "The Daily Compiler nasıl hazırlanıyor, etiketler ne anlama geliyor",
