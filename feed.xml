@@ -5,8 +5,16 @@
 <link href="https://dailycompiler.com/"/>
 <link rel="self" type="application/atom+xml" href="https://dailycompiler.com/feed.xml"/>
 <id>https://dailycompiler.com/</id>
-<updated>2026-11-23T07:11:00+03:00</updated>
+<updated>2026-11-24T07:11:00+03:00</updated>
 <author><name>The Daily Compiler</name></author>
+<entry>
+<title>Z.ai’ın 750 milyar parametreli GLM-5.4’ü çıktı: benchmark yok, API sonra</title>
+<link href="https://dailycompiler.com/sayi/2026-11-24.html"/>
+<id>https://dailycompiler.com/sayi/2026-11-24.html</id>
+<updated>2026-11-24T07:11:00+03:00</updated>
+<summary>Sayı 022 · Salı, 24 Kasım 2026 · Model şimdilik yalnızca GLM Coding Plan, ZCode ve Z.ai Chat’te. Token fiyatı ve ağırlıklar için tarih yok; Z.ai 750 milyarlık model için hiçbir ölçüm yayımlamadı.</summary>
+<content type="html">&lt;p&gt;Model şimdilik yalnızca GLM Coding Plan, ZCode ve Z.ai Chat’te. Token fiyatı ve ağırlıklar için tarih yok; Z.ai 750 milyarlık model için hiçbir ölçüm yayımlamadı.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-manset"&gt;Z.ai’ın 750 milyar parametreli GLM-5.4’ü çıktı: benchmark yok, API sonra&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-ai-1"&gt;Gemini 4 agent’ları kuantum devrelerini ucuzlatıp Lean’de kanıtladı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-ai-2"&gt;Anthropic: Claude, VP ≠ VNP’yi kanıtladı; insan kontrolü yok&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-ai-3"&gt;ChatGPT’nin sohbet sekmesinde model GPT-6.2’ye geçti&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-ai-4"&gt;Ling-3.2-air: 124B’lik MoE, MIT lisansıyla açık&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-is-1"&gt;Nvidia, Jensen Huang’ı CEO olarak geri getirdi&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-is-2"&gt;CrowdStrike, Zscaler’ı 43,9 milyar dolarlık hisse takasıyla alıyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-gelistirme-1"&gt;Claude Ship: Claude, ekibin politikasına göre PR onaylayabiliyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-gelistirme-2"&gt;Ladybird alfa sürümde: kendi motoruyla macOS ve Linux’ta&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-java-1"&gt;JEP 545 JDK 28’de: ZGC heap hazırlığını başlangıçtan çıkarıyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-java-2"&gt;Jena Fuseki 6.3.0, yönetim kısıtını aşan kritik açığı kapattı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-guvenlik-1"&gt;Yaması olmayan Idunno.AntiCsrf açığı istismar ediliyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-guvenlik-2"&gt;N-able Mail Assure’daki SSRF açığı KEV’de&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-24.html#a-guvenlik-3"&gt;OpenAI ve Cisco’dan Shirudo: yamasız Linux’a eBPF kalkanı&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+</entry>
 <entry>
 <title>METR: Opus 5.5 ve GPT-6 Astra’nın görev ufku 40 saate yaklaştı</title>
 <link href="https://dailycompiler.com/sayi/2026-11-23.html"/>

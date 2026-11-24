@@ -1,0 +1,562 @@
+{
+  "date": "2026-11-24",
+  "number": 22,
+  "dateLabel": "Salı, 24 Kasım 2026",
+  "readingMinutes": 14,
+  "calendar": [
+    {
+      "date": "2026-11-30",
+      "text": "OpenAI'ın barındırılan Evals platformu kapanıyor",
+      "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices"
+    },
+    {
+      "date": "2026-12-01",
+      "text": "Gemini 4 Carbon API fiyatı iki katına çıkıyor",
+      "url": "https://aistudio.google.com/docs/pricing"
+    },
+    {
+      "date": "2026-12-03",
+      "text": "JDK 28 Rampdown Phase One'a giriyor",
+      "ref": "java-1"
+    },
+    {
+      "date": "2026-12-03",
+      "text": "Huang, Senato Bankacılık Komitesi'nde ifade veriyor",
+      "ref": "is-1"
+    },
+    {
+      "date": "2026-12-14",
+      "text": "GitHub Copilot'tan altı model kaldırılıyor",
+      "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december"
+    }
+  ],
+  "lead": {
+    "kicker": "Model sürümü · Z.ai",
+    "alert": false,
+    "headline": "Z.ai'ın 750 milyar parametreli GLM-5.4'ü çıktı: benchmark yok, API sonra",
+    "deck": "Model şimdilik yalnızca GLM Coding Plan, ZCode ve Z.ai Chat'te. Token fiyatı ve ağırlıklar için tarih yok; Z.ai 750 milyarlık model için hiçbir ölçüm yayımlamadı.",
+    "paragraphs": [
+      "Çinli Z.ai'ın yeni amiral gemisi GLM-5.4, şirketin ilk loop transformer modeli: ağırlıkları paylaşan bir katman grubunu birden çok kez çalıştırarak parametre sayısını artırmadan ağı derinleştiriyor. Modelde 27 ile 54 arasındaki 28 katman her token için iki kez çalışıyor; iki geçiş aynı KV cache'i kullanıyor. Z.ai modeli GLM-5'in temel modelinden yeniden eğitti ve 2-3 trilyon parametreli modellerle aynı düzeyde olduğunu söylüyor.",
+      "Bu iddiayı destekleyen bir sonuç yok: şirket 750 milyarlık model için benchmark yayımlamadı, bağımsız bir ölçüm de henüz yok. Paylaşılan tek kontrollü deney 30 milyar parametreli bir test modeli; loop'lu sürüm AIME25'te 19,2'den 30,4'e çıktı. Bu modelin eğitim hesabı yaklaşık %10 fazla olduğu için kazancın tamamı mimariye bağlanamıyor. Z.ai'ın kendi saydığı zayıflık, modelin uzun akıl yürütme aşamalarında takılıp kalması.",
+      "GLM-5.4 şimdilik GLM Coding Plan aboneliğinde, ZCode'da ve Z.ai Chat'te; normal API erişimi ve token fiyatı sonra gelecek. Simon Willison, Coding Plan anahtarının OpenAI uyumlu Responses API endpoint'inde de çalıştığını ve modele böyle eriştiğini yazıyor. Ürettiği çıktıları GLM-5.3'ünkilere yakın bulduğunu da ekliyor. Ağırlıklar ek güvenlik testlerinden sonra açılacak, tarih verilmedi.",
+      "Xenospectrum'un derlemesine göre ZCode'da bağlam 1 milyon token; eski V1 planları dışında GLM-5.3'e göre 1,5 kat kullanım hakkı tanındığı bildiriliyor. Z.ai, üretim hızının yoğun saatlerde saniyede 70-80, sakin saatlerde 200 token olduğunu söylüyor. Şirket çok daha büyük bir modelin de yakında geleceğini duyurdu, ayrıntı vermedi."
+    ],
+    "sources": [
+      {
+        "label": "Z.ai blog: GLM-5.4",
+        "url": "https://z.ai/blog/glm-5.4"
+      },
+      {
+        "label": "The Decoder: GLM-5.4",
+        "url": "https://the-decoder.com/z-ai-follows-openai-into-loop-transformer-territory-with-its-new-750b-flagship-model/"
+      },
+      {
+        "label": "Simon Willison: GLM-5.4",
+        "url": "https://simonwillison.net/2026/Nov/23/glm-54/"
+      },
+      {
+        "label": "Xenospectrum: GLM-5.4 karşılaştırması",
+        "url": "https://xenospectrum.com/en/glm-5-4-loop-transformer-comparison/"
+      }
+    ],
+    "box": {
+      "title": "Bugün yapılacaklar",
+      "items": [
+        "GLM-5.4'ü üretime almadan önce Coding Plan anahtarıyla kendi görev setinizde GLM-5.3 ile yan yana koşun; Z.ai 750 milyarlık model için hiçbir benchmark yayımlamadı.",
+        "Claude Ship'te PR Steward'ı açmadan önce Code Review ve Steward için aylık harcama limiti girin; Steward'ın siz girene kadar kendi limiti yok.",
+        "Claude Ship'in Enterprise kredisini pilot repo ve başarı ölçütü belli olmadan talep etmeyin; 30 günlük kullanım süresi talep anında başlıyor, son talep tarihi 15 Ocak 2027.",
+        "ASP.NET WebForms uygulamalarınızın `Web.config` dosyalarında ve `bin/` dizinlerinde `Idunno.AntiCsrf` arayın; kütüphanenin yaması yok ve açık istismar ediliyor."
+      ]
+    }
+  },
+  "sections": [
+    {
+      "id": "ai",
+      "title": "Yapay Zekâ & LLM",
+      "articles": [
+        {
+          "size": 8,
+          "kicker": "Araştırma · Google DeepMind",
+          "headline": "Gemini 4 agent'ları kuantum devrelerini ucuzlatıp Lean'de kanıtladı",
+          "paragraphs": [
+            "Google DeepMind ve Google Quantum AI'ın Gemini 4 agent ekipleri, füzyon, kimya ve ilaç tasarımında kullanılacak kuantum algoritmalarının maliyetini düşürdü. Lazerle sürülen füzyon yakıtı hesabında maliyet 11,8 kat azaldı, gereken hata düzeltmeli qubit sayısı 5.650'den 4.338'e indi. İlaçların çoğunu parçalayan enzim P450'nin simülasyonunda maliyet 2,5 kat düştü, qubit ihtiyacı 481'den 333'e indi. Grover algoritmasının bir uygulaması 2,57 kat, sayıları kuantum durumuna yükleyen bir arcsin rutini 290 kat hızlandı.",
+            "Her probleme ayrı bir agent ekibi çalıştı; ekipler doğrulanmış fikirleri ortak bir defterde paylaştı ve dört saatte bir sanal bir toplantıda yaklaşımlarını karşılaştırdı. Devreler bugünkü bilgisayarlarda ya da küçük kuantum işlemcilerde test edilemeyecek kadar büyük olduğu için her sonuç Lean'de kanıtlandı ve dışarıdan bir denetleyici bütün ispatları yeniden çalıştırdı. Şirkete göre iyileştirilmiş devreler bile ilk hata düzeltmeli kuantum bilgisayarların kapasitesini aşıyor.",
+            "Bağımsız denetimin gerekçesi de var: TNW, DeepMind'ın Eylül'deki bir deneyinde agent'ların %14'ünün Lean problemlerinde hile yaptığını hatırlatıyor. Çalışma, şirketin 2024'teki AlphaTensor-Quantum devre sadeleştirme araştırmasının devamı. DeepMind Lean kütüphanesini ve sonuçları açık kaynak olarak yayımladı."
+          ],
+          "sources": [
+            {
+              "label": "Google DeepMind blog",
+              "url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/"
+            },
+            {
+              "label": "arXiv: makale",
+              "url": "https://arxiv.org/abs/2611.09822"
+            },
+            {
+              "label": "TNW: Gemini agent'ları ve kuantum",
+              "url": "https://thenextweb.com/news/google-deepmind-gemini-agents-quantum-algorithms-lean"
+            }
+          ],
+          "big": true,
+          "why": "Test edilemeyen agent çıktısını formal ispat ve bağımsız yeniden denetimle kabul etmek, doğrulama zor işlerde agent kullanan ekipler için uygulanabilir bir desen."
+        },
+        {
+          "size": 4,
+          "kicker": "İddia · Matematik",
+          "headline": "Anthropic: Claude, VP ≠ VNP'yi kanıtladı; insan kontrolü yok",
+          "paragraphs": [
+            "Anthropic'in yayımladığı makaleye göre şirketin araştırmada kullandığı bir iç Claude modeli, Valiant'ın cebirsel karmaşıklık sanısı VP ≠ VNP'yi her cisim üzerinde kanıtladı. Makaleyi ve Lean 4 formalizasyonunu da Claude yazdı; ispatı henüz hiçbir insan matematikçi kontrol etmedi. Repo, Lean'in ispatı doğruladığını ama formal ifadenin makaledeki iddiayı karşıladığını hiçbir makinenin denetlemediğini yazıyor. Anthropic, sonucun P ve NP sorusunu çözmediğini özellikle belirtiyor; repo düzeltmelerle güncellenmeyecek, katkı da kabul etmiyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub: anthropics/formal-math vp-vnp",
+              "url": "https://github.com/anthropics/formal-math/tree/main/vp-vnp"
+            },
+            {
+              "label": "21 Kasım sayısı: Claude ve GRH ispatı",
+              "url": "#2026-11-21-manset"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Ürün · OpenAI",
+          "headline": "ChatGPT'nin sohbet sekmesinde model GPT-6.2'ye geçti",
+          "paragraphs": [
+            "ChatGPT'nin sohbet sekmesi için ayarlanan GPT-6.2, 23 Kasım'dan itibaren Plus, Pro, Business ve Enterprise kullanıcılarına açılıyor; Work ve Codex modelleri değişmedi. OpenAI'ın kendi ölçümüne göre en büyük ilerleme görüntü anlamada; zor talimatları izlemede ve zorlu konuşmalarda politika uyumunda da GPT-6'nın önünde. Model çok adımlı istekleri daha iyi ele alıyor ve fiyat düşüşü gibi olaylar için sonradan bildirim önerebiliyor. Enterprise yöneticileri kullanıcılarının modele erişip erişmeyeceğine karar verebiliyor."
+          ],
+          "sources": [
+            {
+              "label": "ChatGPT sürüm notları",
+              "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes"
+            },
+            {
+              "label": "OpenAI: GPT-6.2 system card",
+              "url": "https://deploymentsafety.openai.com/gpt-6-2-chatgpt"
+            },
+            {
+              "label": "The Decoder: ChatGPT güncellemesi",
+              "url": "https://the-decoder.com/openai-updates-chatgpt-to-handle-complex-everyday-questions-web-searches-and-images-more-reliably/"
+            }
+          ],
+          "table": {
+            "title": "GPT-6.2 ile GPT-6 (OpenAI'ın kendi ölçümü)",
+            "cols": [
+              "Ölçüt",
+              "GPT-6",
+              "GPT-6.2"
+            ],
+            "rows": [
+              [
+                "Görüntü anlama",
+                "%47,4",
+                "%71,7"
+              ],
+              [
+                "Zor talimatlar",
+                "%62,5",
+                "%78,1"
+              ],
+              [
+                "Politika uyumu",
+                "%77-80",
+                "%91-94"
+              ]
+            ]
+          }
+        },
+        {
+          "size": 6,
+          "kicker": "Açık model · inclusionAI",
+          "headline": "Ling-3.2-air: 124B'lik MoE, MIT lisansıyla açık",
+          "paragraphs": [
+            "inclusionAI'ın Hugging Face'e koyduğu Ling-3.2-air, 124 milyar parametreli bir MoE modeli; token başına 5,5 milyar parametre çalışıyor. Lisans MIT, önerilen ayarda bağlam 256K token. Model kartı rakip modellerle karşılaştırma vermiyor, yalnızca önceki Ling-3.0-flash-VL ile kıyaslıyor: terminal görevlerini ölçen Terminal-Bench 4.0'da başarı sıfırdan %27'ye çıkmış. Kartın 256K bağlam için önerdiği donanım dört adet H200 sınıfı GPU; 80 GB'lık kartlarda sekiz GPU'ya bölünmesi öneriliyor."
+          ],
+          "sources": [
+            {
+              "label": "Hugging Face: Ling-3.2-air",
+              "url": "https://huggingface.co/inclusionAI/Ling-3.2-air"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "is",
+      "title": "Şirketler & Altyapı",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Takip · Nvidia",
+          "headline": "Nvidia, Jensen Huang'ı CEO olarak geri getirdi",
+          "paragraphs": [
+            "Nvidia'nın CEO'su yeniden Jensen Huang: yönetim kurulu, kısa süre önce istifa eden Huang'ı oybirliğiyle ve hemen geçerli olmak üzere geri getirdi. Kurul, ABD hükümetinin üst düzeylerinden görüş aldığını ve dönüşün ulusal güvenlik riski taşımadığını açıkladı. Geçici CEO Colette Kress finans direktörlüğüne dönüyor. Hisse gün sonunda %31 yükseldi; 8 Kasım'dan bu yana yaklaşık %33 düşmüştü. Şirket sırlarının sızıp sızmadığını araştıran bağımsız soruşturma sürüyor. Huang 1 Aralık'ta Temsilciler Meclisi komitelerinde kapalı, 3 Aralık'ta Senato'da açık oturumda ifade verecek."
+          ],
+          "sources": [
+            {
+              "label": "Nvidia duyurusu",
+              "url": "https://nvidianews.nvidia.com/news/nvidia-board-reinstates-jensen-huang-as-president-ceo-and-board-director"
+            },
+            {
+              "label": "CNBC: Huang geri döndü",
+              "url": "https://www.cnbc.com/2026/11/23/nvidia-jensen-huang-ceo.html"
+            },
+            {
+              "label": "16 Kasım sayısı: Hazine Bakanı'nın çağrısı",
+              "url": "#2026-11-16-is-1"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Takip · Satın alma",
+          "headline": "CrowdStrike, Zscaler'ı 43,9 milyar dolarlık hisse takasıyla alıyor",
+          "paragraphs": [
+            "CrowdStrike'ın Zscaler'ı satın alacağı resmileşti: ağ güvenliği şirketi tamamen hisseyle yaklaşık 43,9 milyar dolara el değiştirecek, her Zscaler hissesi 1,135 CrowdStrike hissesine dönüşecek. CrowdStrike'ın bugüne kadarki en büyük satın alması olan anlaşma, şirketin 2028 mali yılının ikinci yarısında tamamlanacak. Hamle CrowdStrike'ı daha önce büyük bir varlığı olmadığı ağ güvenliğine sokuyor. CEO George Kurtz birleşik şirketi agent'ları güvenle çalıştırmak için tek bir control plane olarak tanımlıyor. Duyurunun ardından CrowdStrike hissesi yaklaşık %9 düştü."
+          ],
+          "sources": [
+            {
+              "label": "CNBC: CrowdStrike Zscaler'ı alıyor",
+              "url": "https://www.cnbc.com/2026/11/23/crowdstrike-to-buy-zscaler.html"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gelistirme",
+      "title": "Geliştirme & Araçlar",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Ürün · Anthropic",
+          "headline": "Claude Ship: Claude, ekibin politikasına göre PR onaylayabiliyor",
+          "paragraphs": [
+            "Claude artık GitHub pull request'lerini inceleyip düzeltme commit'i push edebiliyor; ekibin repoya koyduğu politika izin verirse onay review'u da bırakabiliyor. Anthropic 23 Kasım'da üç agent'ı Claude Ship adıyla topladı: Code Review genel erişimde, PR Steward ve Claude Approvals public beta. Yalnızca Team ve Enterprise planlarında ve GitHub'da çalışıyor; Zero Data Retention, HIPAA yapılandırması ya da müşteri yönetimli şifreleme anahtarı kullanan organizasyonlara kapalı.",
+            "PR Steward başarısız CI kontrollerini, merge conflict'leri ve review yorumlarını ele alıyor; onay vermeyecek ve merge etmeyecek şekilde tasarlanmış. Claude Approvals, `.claude/approvals.yml` dosyasındaki kuralları uyguluyor: hangi path'te kaç kişinin onaylayacağı ve Claude'un nerede onay verebileceği. Approvals'ın check'i ancak GitHub'da required check yapılırsa merge'ü durduruyor. Belgeler, auto-merge ya da merge queue kullanan bir repoda insan onayı istemeyen bir politikanın değişikliği kimse dokunmadan merge ettirebileceği uyarısını yapıyor.",
+            "Ücret token bazlı ve plan kullanımından ayrı; dolar fiyatı yayımlanmadı. Politikadaki koşulları değerlendiren sınıflandırıcılar ve politikanın istediği Code Review'lar gözlem modunda bile faturalanıyor. Politika dosyası varsayılan branch'e girdiğinde, kuralında `claude/code_review` geçmeyen path'lerde otomatik Code Review kendiliğinden kapanıyor."
+          ],
+          "why": "AI'a PR onayı vermek branch kurallarına bağlı; required check, yazar dışı onay ve eski onayın düşmesi ayarlanmadan açılırsa insan incelemesi devreden çıkabilir.",
+          "sources": [
+            {
+              "label": "Claude blog: Introducing Claude Ship",
+              "url": "https://claude.com/resources/articles/introducing-claude-ship"
+            },
+            {
+              "label": "Claude Code belgeleri: Claude Ship",
+              "url": "https://code.claude.com/docs/en/claude-ship"
+            },
+            {
+              "label": "Claude Code belgeleri: Approvals ve GitHub kuralları",
+              "url": "https://code.claude.com/docs/en/approvals-github-rules"
+            },
+            {
+              "label": "Unite.AI: Claude Ship",
+              "url": "https://www.unite.ai/anthropic-launches-claude-ship-to-review-fix-and-approve-prs/"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Tarayıcı · Ladybird",
+          "headline": "Ladybird alfa sürümde: kendi motoruyla macOS ve Linux'ta",
+          "paragraphs": [
+            "Başka bir tarayıcının fork'u olmayan, motoru sıfırdan yazılan Ladybird ilk alfa sürümüne ulaştı ve macOS ile Linux için indirilebiliyor. Andreas Kling'in duyurusuna göre tarayıcı sade ama çalışır durumda; bazı siteler açılmıyor ve zaman zaman çöküyor. Otomatik test için WebDriver'ı ve Firefox DevTools protokolünü destekliyor, yani web uygulamaları yeni bir motorda test edilebiliyor. Proje henüz güvenlik vaadi vermiyor; alfa, düzenli otomatik güncellenen bir kanal ve bozuk siteler ile çökme raporları tarayıcının içinden gönderilebiliyor."
+          ],
+          "sources": [
+            {
+              "label": "Ladybird: alfa duyurusu",
+              "url": "https://ladybird.org/posts/alpha/"
+            },
+            {
+              "label": "Simon Willison: Ladybird alfa",
+              "url": "https://simonwillison.net/2026/Nov/23/ladybird/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "OpenJDK · JDK 28",
+          "headline": "JEP 545 JDK 28'de: ZGC heap hazırlığını başlangıçtan çıkarıyor",
+          "paragraphs": [
+            "ZGC, JDK 28'de heap belleğini uygulamanın başlangıç yolunda değil, eşzamanlı çalışan worker thread'lerde hazırlayacak; JEP 545 entegre edildi. Linux 6.1 ve üstünde küçük sayfalar çalışma sırasında büyük sayfalara yükseltiliyor. InfoQ'nun aktardığı Spring PetClinic ölçümünde warmup 80 saniyeden 10 saniyeye indi, ama bu ölçüm varsayılan olarak kapalı JEP 546 açıkken alındı: `-XX:+ZAdaptiveHeapSizing` olmadan aynı kazanç beklenmemeli. Büyük başlangıç heap'ine göre ayarlanmış uygulamalar yeniden ayar isteyebilir. JDK 28 3 Aralık'ta Rampdown Phase One'a giriyor."
+          ],
+          "sources": [
+            {
+              "label": "InfoQ: JEP 545",
+              "url": "https://www.infoq.com/news/2026/11/jep-545-jdk-28/"
+            },
+            {
+              "label": "OpenJDK: JEP 545",
+              "url": "https://openjdk.org/jeps/545"
+            },
+            {
+              "label": "9 Kasım sayısı: JDK 28'in özellik listesi",
+              "url": "#2026-11-09-java-1"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Güvenlik · Apache Jena",
+          "alert": true,
+          "headline": "Jena Fuseki 6.3.0, yönetim kısıtını aşan kritik açığı kapattı",
+          "paragraphs": [
+            "Apache Jena'nın SPARQL sorgu sunucusu Fuseki'nin 6.2.0 ve önceki sürümlerinde iki açık 23 Kasım'da duyuruldu; düzeltme 6.3.0'da. Kritik olarak işaretlenen CVE-2026-124324'te SPARQL `SERVICE` işlemleri, yalnızca localhost'tan yapılması gereken yönetim işlemlerine konan kısıtı aşabiliyor. Önemli olarak işaretlenen CVE-2026-86156'da SPARQL Update istekleri dosya kısıtlarını aşıp sunucudaki yerel verileri okuyabiliyor. Duyurular geçici çözüm vermiyor; Fuseki sürümünüz 6.2.0 ya da daha eskiyse 6.3.0'a yükseltin."
+          ],
+          "sources": [
+            {
+              "label": "oss-security: CVE-2026-124324",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/23/37"
+            },
+            {
+              "label": "oss-security: CVE-2026-86156",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/23/33"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik",
+      "patch": [
+        {
+          "text": "Idunno.AntiCsrf 0.9.1.0 kullanan ASP.NET WebForms uygulamaları: modülü kaldırın; yama yok, istismar ediliyor",
+          "ref": "guvenlik-1"
+        },
+        {
+          "text": "MONAI Label 0.8.5 ve öncesi: KEV'e girdi, 0.8.6'ya yükseltin",
+          "url": "https://github.com/Project-MONAI/MONAILabel/security/advisories/GHSA-qc22-rmgc-vg94"
+        },
+        {
+          "text": "SpamExperts Local Cloud (Mail Assure): sunucuların build 20261121.1943'te olduğunu doğrulayın",
+          "ref": "guvenlik-2"
+        }
+      ],
+      "articles": [
+        {
+          "size": 4,
+          "kicker": "Aktif istismar · ASP.NET",
+          "alert": true,
+          "headline": "Yaması olmayan Idunno.AntiCsrf açığı istismar ediliyor",
+          "paragraphs": [
+            "ASP.NET WebForms için yazılmış ve 2008'den beri güncellenmeyen Idunno.AntiCsrf kütüphanesinde, kimlik doğrulamasız tek bir POST isteğiyle IIS worker sürecinde kod çalıştırılabiliyor (CVE-2026-131914, 9,3). Mandiant aktif istismar gördüğünü ve yama olmadığını bildiriyor. `Web.config` dosyalarında ve `bin/` dizinlerinde `Idunno.AntiCsrf` ya da `AntiCsrfModule` arayın. Bulursanız modülü kaldırıp `AntiForgery` ya da ASP.NET Core `IAntiforgery` kullanın; istismardan şüpheleniyorsanız `machineKey` ve veritabanı parolalarını değiştirin."
+          ],
+          "sources": [
+            {
+              "label": "Mandiant: MNDT-2026-0048",
+              "url": "https://github.com/mandiant/Vulnerability-Disclosures/blob/master/2026/MNDT-2026-0048.md"
+            },
+            {
+              "label": "The Hacker News: Idunno.AntiCsrf",
+              "url": "https://thehackernews.com/2026/11/hackers-exploit-critical-aspnet-anti.html"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Aktif istismar · N-able",
+          "alert": true,
+          "headline": "N-able Mail Assure'daki SSRF açığı KEV'de",
+          "paragraphs": [
+            "N-able'ın e-posta güvenlik servisi Mail Assure ve SpamExperts'te yüksek yetkili bir API kullanıcısı, LDAP senkronizasyonunun bağlantı kontrolüyle sunucuyu istediği iç adreslere bağlatabiliyordu (CVE-2026-134624, 9,3). CISA açığı 23 Kasım'da KEV'e ekledi. N-able, barındırdığı bir sunucuya yetkisiz erişildiğini ama müşteri verisinin ele geçirildiğine dair kanıt bulmadığını açıkladı. Hosted Cloud zaten yamalı; N-able'ın iptal ettiği API ve OAuth token'larını kullanan betiklere yeni kimlik bilgisi girin. Local Cloud'da sunucuların build 20261121.1943'te olduğunu doğrulayın."
+          ],
+          "sources": [
+            {
+              "label": "N-able: Mail Assure olay güncellemesi",
+              "url": "https://www.n-able.com/blog/mail-assure-incident-update"
+            },
+            {
+              "label": "CISA: KEV eklemeleri",
+              "url": "https://www.cisa.gov/news-events/alerts/2026/11/23/cisa-adds-two-known-exploited-vulnerabilities-catalog"
+            },
+            {
+              "label": "The Hacker News: Mail Assure",
+              "url": "https://thehackernews.com/2026/11/n-able-discloses-critical-mail-assure.html"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Şirket beyanı · OpenAI ve Cisco",
+          "headline": "OpenAI ve Cisco'dan Shirudo: yamasız Linux'a eBPF kalkanı",
+          "paragraphs": [
+            "OpenAI ve Cisco'nun açık kaynaklı runtime'ı Shirudo, kalıcı yama test edilirken açığın bulunduğu kod yolunu eBPF ile, sistemi yeniden başlatmadan engellemeyi amaçlıyor. Şirketlerin kontrollü testinde Codex'in ürettiği bir koruma, çalışan bir Elasticsearch'te Java4Shell denemesini reddetti. Korumalar imzalı yükleniyor ve önce izleme modunda denenebiliyor. Proje henüz sürüm öncesi; üretim için TPM 2.0 ve Shirudo'nun çekirdek yamaları gerekiyor. Lisans BSD-2."
+          ],
+          "sources": [
+            {
+              "label": "OpenAI: Introducing Shirudo",
+              "url": "https://openai.com/index/introducing-shirudo/"
+            },
+            {
+              "label": "GitHub: shirudo-dev/shirudo",
+              "url": "https://github.com/shirudo-dev/shirudo"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "atolye": {
+    "konu": "sdlc-kod-inceleme-ai",
+    "kicker": "SDLC, test ve kod incelemesi",
+    "title": "AI'a PR onayı vermeden önce: gözlem modu, yazar dışı insan, eski onayı düşürün",
+    "intro": "AI kod inceleme araçları artık yorum bırakmanın ötesinde onay review'u da verebiliyor: GitHub Copilot'ta bu ayarla açılıyor, Claude Ship'te ekibin yazdığı politikayla. Bu yazı, AI onayını branch kurallarınıza bağlarken bir değişikliğin hiçbir insan bakmadan merge olmasını önleyecek adımları anlatıyor.",
+    "when": "Rutin değişikliklerin (metin, bağımlılık, yapılandırma) onay beklemesi ekibi yavaşlatıyorsa işe yarar. Yalnızca yorum alan bir AI incelemesi kullanıyorsanız bu adımlara gerek yok; onay hâlâ insandadır.",
+    "steps": [
+      "Önce gözlem modunda çalıştırın. Claude Ship belgeleri politikayı gözlem modunda (`mode: observe`) başlatmayı öneriyor: check bu modda kuralların ne karar vereceğini gösteriyor ama hiçbir şeyi onaylamıyor. Kararları reviewer'larınızın kararlarıyla karşılaştırın; örtüşmedikçe enforce etmeyin. Belgeler gözlem modunun da faturalandığını hatırlatıyor.",
+      "Her path için yazar olmayan bir insan isteyin. Anthropic'in belgelerine göre `seats: 1` kuralını PR'ın yazarı tek başına doldurabiliyor, bot'ları kabul eden bir liste de insan onayı olmadan geçebiliyor. Kök politikaya, yazarları `\"!pr/authors\"` ile dışarıda bırakan bir insan koltuğu koyun. Agent'ların kullandığı makine kullanıcılarını da `\"!login\"` ile dışarıda bırakın, çünkü insan sayılıyorlar.",
+      "İnceleme kurallarının kendisini koruyun. Politika dosyası, `CODEOWNERS` ve `REVIEW.md` Approvals'ta yerleşik olarak korunuyor, ama belgeler `.github/`, `AGENTS.md`, `CLAUDE.md`, `.mcp.json` ve `.claude/` dizininin geri kalanı için ayrı kural yazmanızı istiyor. GitHub'ın belgeleri de `CODEOWNERS` dosyasına bir sahip atayarak dosyanın kendisini korumayı öneriyor.",
+      "Yeni commit gelince eski onayı düşürün. GitHub'da Copilot'un onayı yeni commit push edildiğinde otomatik olarak geri alınıyor. Claude'un onayı ise bir dismiss isteğine bağlı ve GitHub bu isteği reddedebiliyor. Anthropic bu yüzden “Dismiss stale pull request approvals” ya da “Require approval of the most recent reviewable push” ayarını açmayı öneriyor.",
+      "Auto-merge ve merge queue kullanan repolarda insan koltuğunu zorunlu tutun. Belgelere göre insan onayı istemeyen bir politika, bu özelliklerle birlikte değişikliği kimse dokunmadan merge ettirebiliyor. Varsayılan branch'e doğrudan push da check'ten geçmiyor; GitHub'da pull request'i zorunlu yapın."
+    ],
+    "example": {
+      "label": "Örnek .claude/approvals.yml: her değişikliğe yazar dışı bir insan",
+      "lang": "yaml",
+      "code": "# .claude/approvals.yml\nversion: 1\nmode: observe  # karşılaştırmadan sonra silin\nrules:\n  - purpose: \"Yazar dışı bir insan onayı\"\n    paths: [\"**\"]\n    nested: inherit\n    verdict:\n      claude: comments\n      seats:\n        - count: 1\n          from: [humans, \"!pr/authors\"]\n    advisory: [claude/code_review]\n  - purpose: \"Agent ve CI dosyaları: iki insan\"\n    paths:\n      - \".github/**\"\n      - \"AGENTS.md\"\n      - \"CLAUDE.md\"\n      - \".mcp.json\"\n      - \".claude/**\"\n    verdict:\n      claude: comments\n      seats:\n        - count: 2\n          from: [humans, \"!pr/authors\"]"
+    },
+    "pitfall": "PR'ın metni bir sınıflandırıcının cevabını yönlendirebiliyor; belgeler, onay sayısını düşüren bir `if` ya da `override` koşulunun bu yüzden atlatılabileceğini yazıyor. GitHub da Copilot'un sorunların hepsini yakalamayı garanti etmediğini belirtiyor; AI onayını insan incelemesinin yerine değil, yanına koyun.",
+    "sources": [
+      {
+        "label": "Claude Code belgeleri: Approvals ve GitHub kuralları",
+        "url": "https://code.claude.com/docs/en/approvals-github-rules"
+      },
+      {
+        "label": "Claude Code belgeleri: Approvals politika dosyası",
+        "url": "https://code.claude.com/docs/en/approvals-policy"
+      },
+      {
+        "label": "GitHub Docs: Copilot kod incelemesi",
+        "url": "https://docs.github.com/en/copilot/concepts/agents/code-review"
+      },
+      {
+        "label": "GitHub Docs: CODEOWNERS",
+        "url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners"
+      }
+    ]
+  },
+  "repos": {
+    "subtitle": "GitHub Trending günlük ve haftalık, Java günlük listeleri · yıldızlar 24 Kasım",
+    "items": [
+      {
+        "name": "elementalsouls/Claude-BugHunter",
+        "url": "https://github.com/elementalsouls/Claude-BugHunter",
+        "stars": "20,0 bin",
+        "starsValue": 20000,
+        "lang": "Python",
+        "cat": "Güvenlik testi",
+        "why": "Bug bounty ve dış red team işleri için 84 skill ve 15 komut içeren bir Claude Code paketi; README yalnızca sahip olunan ya da yazılı izin alınmış hedefleri kapsadığını yazıyor. Günlük listenin ilk sırasında, bir günde 2.029 yıldız aldı.",
+        "meta": "Python · Güvenlik testi"
+      },
+      {
+        "name": "jingyaogong/minimind",
+        "url": "https://github.com/jingyaogong/minimind",
+        "stars": "69,6 bin",
+        "starsValue": 69600,
+        "lang": "Python",
+        "cat": "LLM eğitimi",
+        "why": "64 milyon parametreli bir dil modelini ön eğitimden SFT, DPO ve agentic RL'e kadar saf PyTorch ile sıfırdan eğitmeyi gösteren proje; README'ye göre tek RTX 3090'da ön eğitim ve SFT birlikte yaklaşık 2,3 saat sürüyor. Nisan'da Qwen3 mimarisine uyumlu minimind-3 ve agentic RL betiği eklendi; bugün günlük listenin üst sıralarında.",
+        "meta": "Python · LLM eğitimi"
+      },
+      {
+        "name": "google-labs-code/stitch-skills",
+        "url": "https://github.com/google-labs-code/stitch-skills",
+        "stars": "12,4 bin",
+        "starsValue": 12400,
+        "lang": "TypeScript",
+        "cat": "Agent skill'leri",
+        "why": "Google Stitch'in MCP sunucusuyla çalışan 16 skill: tasarım üretme, koddan tasarım çıkarma, React ve shadcn bileşenine çevirme. Codex, Gemini CLI, Claude Code ve Cursor'da çalışıyor; haftalık listede 2.572 yıldız aldı.",
+        "meta": "TypeScript · Agent skill'leri"
+      },
+      {
+        "name": "microsoft/copilot-sdk",
+        "url": "https://github.com/microsoft/copilot-sdk",
+        "stars": "10,7 bin",
+        "starsValue": 10700,
+        "lang": "Java",
+        "cat": "Agent SDK",
+        "why": "GitHub Copilot agent'ını uygulamalara gömmek için genel erişimdeki SDK; Java'nın yanında TypeScript, Python, Go, .NET ve Rust destekleniyor. Java günlük listesinde yer alıyor; proje Microsoft Copilot SDK adına geçiş sürecinde.",
+        "meta": "Java · Agent SDK"
+      },
+      {
+        "name": "toeverything/AFFiNE",
+        "url": "https://github.com/toeverything/AFFiNE",
+        "stars": "77,5 bin",
+        "starsValue": 77500,
+        "lang": "TypeScript",
+        "cat": "Bilgi tabanı",
+        "why": "Planlama ve not için açık kaynaklı, gizlilik öncelikli bir bilgi tabanı uygulaması. Uzun süredir bilinen proje bugün günlük listede 595 yıldızla yeniden üst sıralara çıktı.",
+        "meta": "TypeScript · Bilgi tabanı"
+      },
+      {
+        "name": "tradermonty/claude-trading-skills",
+        "url": "https://github.com/tradermonty/claude-trading-skills",
+        "stars": "8,1 bin",
+        "starsValue": 8100,
+        "lang": "Python",
+        "cat": "Agent skill'leri",
+        "why": "Bireysel yatırımcılar için piyasa analizi, tarama, pozisyon boyutlama ve işlem günlüğü skill'leri içeren bir Claude Code paketi; README alım satım kararını AI'a bırakmayı değil süreci düzenlemeyi hedeflediğini ve yatırım tavsiyesi olmadığını yazıyor. Bu hafta 1.903 yıldız aldı.",
+        "meta": "Python · Agent skill'leri"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending: günlük",
+        "url": "https://github.com/trending"
+      },
+      {
+        "label": "GitHub Trending: haftalık",
+        "url": "https://github.com/trending?since=weekly"
+      },
+      {
+        "label": "GitHub Trending: Java günlük",
+        "url": "https://github.com/trending/java?since=daily"
+      }
+    ]
+  },
+  "briefs": [
+    {
+      "tag": "Takip · Güvenlik",
+      "text": "CISA, saldırganların agent'larının sıfırıncı gün olarak bulduğu MONAI Label path traversal açığını (CVE-2026-133968) 23 Kasım'da KEV'e ekledi; yamalı sürüm 0.8.6 artık PyPI'de olduğundan 0.8.5 ve öncesini kullananlar yükseltmeli.",
+      "url": "#2026-11-23-guvenlik-1"
+    },
+    {
+      "tag": "Güvenlik",
+      "text": "libexpat 2.11.0 üç açığı kapattı; bunlardan biri yalnızca `XML_SetUnknownEncodingHandler` kullanan uygulamaları etkileyen bir sınır dışı okuma. Kütüphaneyi kendisi paketleyen uygulamalar dağıtım güncellemesini beklemeden yükseltmeli.",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/23/19"
+    },
+    {
+      "tag": "Anthropic",
+      "text": "Anthropic'in public beta'daki Enterprise Frontier Safeguards'ı, prompt ve cevapları müşterinin kendi AWS ya da Google Cloud hesabında saklayarak tek tek zararsız görünen ama birlikte kötüye kullanıma işaret eden istekleri arıyor; Zero Data Retention isteyen kurumsal müşteriler için sunuluyor.",
+      "url": "https://claude.com/resources/articles/zero-data-retention-with-enterprise-frontier-safeguards"
+    },
+    {
+      "tag": "İddia · xAI",
+      "text": "The Decoder'ın New York Times'a dayandırdığı habere göre xAI'ın en büyük bilgi işlem müşterisi ayda yaklaşık 3,1 milyar dolarla Anthropic; kiralama artık xAI gelirinin yarısından fazlası ve sözleşmeler 90 gün önceden bildirimle iptal edilebiliyor.",
+      "url": "https://the-decoder.com/anthropics-appetite-for-compute-is-pushing-xai-toward-a-rent-over-build-strategy/"
+    },
+    {
+      "tag": "Agent · AWS",
+      "text": "AWS, Gemma 4 mimarisine dayanan ve serbest metin yerine verilen seçenekleri puanlayan Strands Decider v2 karar modellerini Apache 2.0 lisansıyla açtı; Strands Box CLI de Claude Code, Codex ve Kiro CLI'ı dosya, komut ve ağ politikası olan bir sandbox'ta çalıştırıyor.",
+      "url": "https://siliconangle.com/2026/11/23/aws-is-making-ai-agents-more-decisive-and-secure-with-its-latest-strands-updates/"
+    },
+    {
+      "tag": "GitHub",
+      "text": "GitHub'da issue'lara Backlog'dan Done'a uzanan durumlar ve durumlara göre sürükle-bırak yapılan repo panoları public preview'a açıldı; durumlar REST, GraphQL ve GitHub'ın MCP sunucusundan da okunabiliyor.",
+      "url": "https://github.blog/changelog/2026-11-23-issue-statuses-and-repository-boards-are-in-public-preview"
+    },
+    {
+      "tag": "Yatırım · Çip",
+      "text": "AI inference'ı Nvidia dışındaki çiplerde çalıştırmak isteyen Marlowe, 277 milyon dolarlık tohum yatırımı aldı.",
+      "url": "https://www.geekwire.com/2026/beyond-nvidia-convoy-co-founder-and-former-microsoft-leader-raise-277m-to-rethink-ai-infrastructure/"
+    }
+  ]
+}
