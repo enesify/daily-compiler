@@ -27,7 +27,6 @@
     },
     "sources": [{"label": "Resmi duyuru", "url": "https://example.com/duyuru"}],
     "box": {
-      "title": "Kutunun başlığı",
       "items": ["Birinci somut madde.", "İkinci somut madde.", "Üçüncü somut madde."]
     }
   },

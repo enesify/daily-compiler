@@ -255,7 +255,7 @@ def main():
         patch = s.get("patch")
         if patch is not None:
             if sid != "guvenlik":
-                E(f"{sid}: patch (Bugün yamala) yalnızca Güvenlik bölümünde olur")
+                E(f"{sid}: patch (Acil önlemler) yalnızca Güvenlik bölümünde olur")
             if not 1 <= len(patch) <= 3:
                 E(f"{sid}.patch {len(patch)} madde (1-3 olmalı; yoksa alanı yazma)")
             for i, m in enumerate(patch):
@@ -455,13 +455,13 @@ def main():
         if n > 4:
             W(f"{where}: {n} kaynak linki (en fazla 4; birincil ve en güçlü bağımsız kaynakları seç)")
 
-    # Bugün yamala: zehirlenmiş paket ya da aktif istismar haberi varken liste boş mu
+    # Acil önlemler: zehirlenmiş paket ya da aktif istismar haberi varken liste boş mu
     for s in secs:
         if s.get("id") == "guvenlik" and not s.get("patch"):
             txt = " ".join(" ".join(a.get("paragraphs") or []) + " " + (a.get("headline") or "") for a in s.get("articles") or [])
             if re.search(r"(zehirlen|kötü amaçlı (sürüm|paket)|aktif (olarak )?istismar|KEV)", txt, re.I):
-                W("guvenlik: zehirlenmiş paket ya da aktif istismar haberi var ama Bugün yamala (patch) boş")
-    # Bugün yamala: sayının herhangi bir bölümündeki kimlik doğrulamasız RCE ya da aktif istismar haberi listede mi
+                W("guvenlik: zehirlenmiş paket ya da aktif istismar haberi var ama Acil önlemler (patch) boş")
+    # Acil önlemler: sayının herhangi bir bölümündeki kimlik doğrulamasız RCE ya da aktif istismar haberi listede mi
     patch = next((s.get("patch") or [] for s in secs if s.get("id") == "guvenlik"), [])
     ptxt = " ".join(str(m.get("text")) + " " + str(m.get("ref") or "") for m in patch)
     for s in secs:
@@ -474,7 +474,7 @@ def main():
             aid = str(a.get("id") or f"{s.get('id')}-{i + 1}")
             cves = re.findall(r"CVE-\d{4}-\d+", t)
             if ciddi and aid not in ptxt and not any(c in ptxt for c in cves):
-                W(f"{aid}: aktif istismar ya da kimlik doğrulamasız RCE, ama Bugün yamala listesinde yok")
+                W(f"{aid}: aktif istismar ya da kimlik doğrulamasız RCE, ama Acil önlemler listesinde yok")
 
     # Manşet: aynı şirket art arda
     older = [k for k in prev if k < str(d.get("date"))]

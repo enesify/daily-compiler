@@ -180,7 +180,7 @@ aside.box{background:var(--paper-2);padding:20px 20px 18px;border-top:3px solid 
 .toc a{display:grid;grid-template-columns:minmax(0,1fr);gap:2px;padding:9px 0;text-decoration:none;font-family:var(--f-display);font-size:15.5px;font-weight:500;line-height:1.25}
 .toc .th{display:block}
 .toc .ts{font-family:var(--f-label);font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--ink-soft)}
-aside.box h3{font-size:22px;margin:6px 0 12px;line-height:1.15}
+aside.box>.kicker+ol{margin-top:12px}
 aside.box ol{margin:0;padding-left:20px;display:grid;gap:10px;font-size:15.5px;line-height:1.45;max-width:68ch}
 
 /* Haber grafikleri: tek seri yatay çubuk; vurgulanan çubuk accent, bağlam çubukları gri. Değerler her zaman yazılı. */
@@ -451,7 +451,9 @@ footer .ft-nav{margin:0}
 .corr-i+.corr-i{border-top:1px dotted var(--rule)}
 .corr-h{display:block;width:fit-content;font-family:var(--f-label);font-size:12.5px;line-height:1.4;color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;margin-bottom:4px}
 .corr-i p{font-size:15.5px;line-height:1.5}
-@media (max-width:640px){.patch{grid-template-columns:1fr}}
+@media (max-width:900px){.patch{grid-template-columns:1fr}}
+.patch ul{max-width:68ch}
+.patch{margin-bottom:18px}
 
 /* Benchmark: benchmark.html ve sayı içindeki bant. Liste assets/modeller.js ile canlanır; sabit hali build.py üretir. */
 .mdl-page{padding:28px 0 8px}

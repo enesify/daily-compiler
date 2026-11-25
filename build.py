@@ -776,7 +776,7 @@ def render_issue(ctx, cur):
         if L.get("box"):
             B = L["box"]
             box = (f'<aside class="box"><span class="kicker">{caps_rich("Editörün önerileri")}</span>'
-                   f'<h3>{rich(B.get("title"))}</h3><ol>' + "".join(f"<li>{rich(t)}</li>" for t in B.get("items") or []) + "</ol>"
+                   '<ol>' + "".join(f"<li>{rich(t)}</li>" for t in B.get("items") or []) + "</ol>"
                    + "</aside>")
         # Manşet grafiği dar ekranda metnin altında, geniş ekranda sağ sütunda durur: iki kopya basılır, biri CSS ile gizlenir
         lead_chart = chart(L.get("chart")) or table(L.get("table"))
@@ -876,12 +876,12 @@ def with_int(text, ref):
 
 
 def patch_list(s):
-    """Güvenlik bölümünün başında “Bugün yamala”: 1-3 madde [{text, ref? | url?}]; ref bu sayıdaki habere bağlar."""
+    """Güvenlik bölümünün başında “Acil önlemler”: 1-3 madde [{text, ref? | url?}]; ref bu sayıdaki habere bağlar."""
     items = [m for m in s.get("patch") or [] if m.get("text")][:3]
     if not items:
         return ""
     lis = "".join(f'<li>{with_int(m["text"], m["ref"]) if m.get("ref") else with_ext(m["text"], m.get("url"))}</li>' for m in items)
-    return f'<aside class="patch" aria-label="Bugün yamala"><span class="kicker alert">{esc(caps("Bugün yamala"))}</span><ul>{lis}</ul></aside>'
+    return f'<aside class="patch" aria-label="Acil önlemler"><span class="kicker alert">{esc(caps("Acil önlemler"))}</span><ul>{lis}</ul></aside>'
 
 
 def correction_items(ctx, c):
