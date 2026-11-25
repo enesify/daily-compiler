@@ -1,0 +1,503 @@
+{
+  "date": "2026-11-25",
+  "number": 23,
+  "dateLabel": "Çarşamba, 25 Kasım 2026",
+  "readingMinutes": 13,
+  "calendar": [
+    {
+      "date": "2026-11-30",
+      "text": "OpenAI'ın barındırılan Evals platformu kapanıyor",
+      "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices"
+    },
+    {
+      "date": "2026-12-01",
+      "text": "OpenSSL 4.1.1, 4.0.4 ve 3.5.10 yayımlanıyor",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/24/14"
+    },
+    {
+      "date": "2026-12-01",
+      "text": "Gemini 4 Carbon API fiyatı iki katına çıkıyor",
+      "url": "https://aistudio.google.com/docs/pricing"
+    },
+    {
+      "date": "2026-12-03",
+      "text": "JDK 28 Rampdown Phase One'a giriyor",
+      "url": "https://openjdk.org/projects/jdk/28/"
+    },
+    {
+      "date": "2026-12-14",
+      "text": "GitHub Copilot'tan altı model kaldırılıyor",
+      "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december"
+    }
+  ],
+  "lead": {
+    "kicker": "Protokol · MCP",
+    "alert": false,
+    "headline": "MCP sunucuları Claude'a skill sunabiliyor; Tasks ve Elicitation GA",
+    "deck": "Skills over MCP, Claude ve Claude Code'da Pro, Max ve Ultra'da varsayılan açık public beta; Team'de yöneticinin açması gerekiyor, Enterprise'a henüz gelmedi. MCP belgelerine göre Skills ve Tasks, protokolün durumsuz 2026-07-28 revizyonuna dayanıyor.",
+    "paragraphs": [
+      "Bir MCP sunucusu artık araçlarının yanında skill de yayımlayabiliyor: bir `SKILL.md` dosyası ve ona eşlik eden belgelerle uzun, çok adımlı işler için talimat. Anthropic'in 24 Kasım'daki duyurusuna göre Claude bir skill'i yalnızca gerektiğinde yüklüyor ve skill sunucuyla birlikte güncelleniyor. Shopify, HubSpot ve Atlassian'ın skill'leri canlı, Carta'nınki yolda.",
+      "Aynı duyuruda iki özellik genel kullanıma açıldı. Tasks, sunucunun uzun bir işlemi ya da tam bir agent döngüsünü arka planda çalıştırmasına izin veriyor; Claude bu sırada çalışmaya devam ediyor. Elicitation ise sunucunun çağrının ortasında durup kullanıcıdan form ya da link ile bilgi istemesini sağlıyor. İkisi Pro, Max ve Ultra'da açık, Team ve Enterprise'a yayılıyor. PDF, tablo ve görselleri bağlama sokmadan sunucuya gönderecek File Uploads için “yakında” deniyor, tarih yok.",
+      "Asıl iş sunucu tarafında. MCP'nin Skills belgesindeki örnekler 2026-07-28 ve sonraki revizyonu kullanıyor ve sunucunun skill desteğini `server/discover` ile bildirmesini istiyor; Tasks da bu revizyonda ayrı bir eklentiye taşındı. Temmuz'da çıkan revizyon `initialize` el sıkışmasını ve `Mcp-Session-Id` başlığını kaldırdı, sunucunun başlattığı `elicitation/create` isteğinin yerine çok turlu istekleri koydu. TypeScript, Python, Go ve C# SDK'ları yeni sürümü destekliyor, Rust SDK'sında destek beta.",
+      "MCP'nin Skills belgesi istemcilerin skill içeriğini güvenilmez girdi saymasını istiyor. Onay, dosyaların SHA-256 hash'lerinden oluşan manifeste bağlanıyor; bir dosya değişince ya da eklenince onay düşüyor. Skill'in `allowed-tools` gibi izin vermesi de ayrı onay gerektiriyor. Belge, SDK ve istemci desteğinin hâlâ yazıldığını not ediyor; bu yüzden aynı skill'in Claude dışındaki istemcilerde çalışacağını varsaymak için erken."
+    ],
+    "sources": [
+      {
+        "label": "Claude: Skills over MCP, Tasks ve daha fazlası",
+        "url": "https://claude.com/resources/articles/skills-over-mcp-tasks-and-more"
+      },
+      {
+        "label": "MCP belgeleri: Skills eklentisi",
+        "url": "https://modelcontextprotocol.io/extensions/skills/overview"
+      },
+      {
+        "label": "MCP blog: 2026-07-28 spesifikasyonu",
+        "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28/"
+      }
+    ],
+    "box": {
+      "title": "Bugün yapılacaklar",
+      "items": [
+        "MCP sunucunuz 2026-07-28 revizyonunda değilse Skills ve Tasks'tan önce geçişi planlayın; ilk iş `initialize` el sıkışmasına ve `Mcp-Session-Id` başlığına dayanan kodu bulun.",
+        "Agent'a e-posta, takvim ya da fatura işi veriyorsanız en pahalı modeli seçmeden önce ucuzunu kendi görevlerinizde deneyin; ShellBench'te ilk üç model arasındaki fark 1,1 puan, koşu başına maliyet ise ~0,19 $ ile ~1,10 $ arasında.",
+        "Drupal sitelerini 10.6.22, 11.3.22 ya da 11.4.13'e yükseltin; hemen yapamıyorsanız `install.php`'yi Drupal'ın talimatıyla güvenceye alın, açık 19 Kasım'dan beri istismar ediliyor.",
+        "Spring AI 2.1'de para transferi gibi geri alınamayan araçlara `requiresConfirmation = true` ekleyin; duraklayan cevabı son kullanıcının değiştiremeyeceği bir depoda saklayın."
+      ]
+    }
+  },
+  "sections": [
+    {
+      "id": "ai",
+      "title": "Yapay Zekâ & LLM",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Benchmark · Agent'lar",
+          "headline": "ShellBench: en iyi agent'lar gündelik işlerin onda altısını bitiriyor",
+          "paragraphs": [
+            "En iyi modeller bile kısa ve dağınık gündelik işlerin yaklaşık onda dördünü tamamlayamıyor. OpenClaw Foundation'ın Parsewave, Hugging Face, Red Hat ve UC Berkeley ile hazırladığı ShellBench, 10 milyondan fazla anonim agent etkileşiminden çıkarılan 100 görevi 12 model ve 5 harness'ta 53.100 kez koşturdu. İstekler kısa (medyan 43 kelime), çalışma alanları kalabalık: e-posta, takvim, tablo, fiş ve PDF'lerden oluşan medyan 188 dosya.",
+            "Tutarlılık daha zayıf: lider GPT-6 Astra görevlerin %75,1'ini üç denemenin en az birinde, %48,8'ini üçünde de bitirdi. Koşuların %15,7'si en az bir güvenlik ölçütünü geçemedi; bütün doğruluk ölçütlerini geçen koşularda bu oran %9,9. Harness seçimi model seçiminden az etkiliyor: aynı harness içinde modeller arasındaki fark medyan 45,7 puan, model sabitken harness'lar arasındaki fark 6,2 puan. Beş harness'ın ortalamaları birbirine 2,4 puan kadar yakın; en düşüğü Claude Code.",
+            "Sınırlar da var: makale henüz yayımlanmadı ve her koşu bir kez hakemlendi, bu yüzden denemeler arasındaki farkın bir kısmı hakemden gelebilir. Testi hazırlayan vakfın kendi harness'ı OpenClaw da karşılaştırmada. TechCrunch'a göre şirketlerin kendi kişisel agent'ları Meta Muse, OpenAI Dots ve Claude Duet kendi harness'larında denenmedi."
+          ],
+          "why": "Agent'a e-posta, takvim ya da fatura işi veren ekipler için tek koşunun başarısı yetmiyor; üç denemede de geçme oranı yarının altında.",
+          "table": {
+            "title": "ShellBench: beş harness ortalaması",
+            "cols": [
+              "Model",
+              "Başarı",
+              "Koşu başına maliyet"
+            ],
+            "rows": [
+              [
+                "GPT-6 Astra",
+                "%62,5",
+                "~1,10 $"
+              ],
+              [
+                "Claude Fable 5.2",
+                "%61,9",
+                "~0,83 $"
+              ],
+              [
+                "GPT-6.1 Sol",
+                "%61,4",
+                "~0,19 $"
+              ],
+              [
+                "DeepSeek V4.1 Flash",
+                "%39,7",
+                "~0,05 $"
+              ]
+            ],
+            "note": "Maliyet kayıtlı token kullanımından tahmin, hakem maliyeti hariç. Diğer sekiz modelin rakamı yazıda yok."
+          },
+          "sources": [
+            {
+              "label": "OpenClaw blog: ShellBench",
+              "url": "https://openclaw.ai/blog/shellbench"
+            },
+            {
+              "label": "TechCrunch: ShellBench",
+              "url": "https://techcrunch.com/2026/11/24/even-the-best-ai-agents-struggle-with-everyday-life/"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Şirket beyanı · Agent güvenliği",
+          "headline": "Google: niyet kontrolü AgentDojo saldırısını %0,9'a indirdi",
+          "paragraphs": [
+            "Google'a göre agent'ın her araç çağrısını kullanıcının isteğiyle karşılaştıran Semantic governance policies, prompt injection testi AgentDojo'da saldırı başarısını %48,7'den %0,9'a indirdi. Araç çağrısı gerektiren 929 saldırının hiçbiri geçmedi; kalan başarılar yalnızca agent'ın metin cevabını değiştiren saldırılar. Kontrolü bir LLM hakemi yapıyor ve saldırılar ona göre uyarlanmadı; Google, NIST CAISI'nin red team saldırılarıyla başka bir agent'ta başarıyı %11'den %81'e çıkardığını hatırlatıyor. Özellik Gemini platformunda, Agent Gateway arkasındaki agent'lar için Preview'da."
+          ],
+          "sources": [
+            {
+              "label": "Google Developers Blog: Semantic governance policies",
+              "url": "https://developers.googleblog.com/did-the-user-ask-for-this-securing-ai-agents-against-intent-hijacking-with-semantic-governance-policies/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Şirket beyanı · Açık model",
+          "headline": "PrismML: 5,9 GB'lık Bonsai 2.5 27B, SWE-bench'te tabana yaklaştı",
+          "paragraphs": [
+            "PrismML'e göre Qwen3.8 27B'nin ternary sürümü Bonsai 2.5 27B yaklaşık 5,9 GB'a sığıyor. Kodlama testlerinde tam hassasiyetli taban modele önceki sürümden çok daha fazla yaklaşıyor, terminal görevlerinde fark sürüyor. Ternary, ağırlıkları üç değere indiren bir sıkıştırma. Agentic kodlama ve çok adımlı araç kullanımı için ayarlanan model 24 Kasım'da Apache 2.0 lisansıyla Hugging Face'te yayımlandı. Şirket RTX 4090'da saniyede 204 token üretim hızı veriyor; model llama.cpp ile NVIDIA ve Intel GPU'larda, MLX ile Mac ve iPhone'da çalışıyor."
+          ],
+          "sources": [
+            {
+              "label": "PrismML: Ternary Bonsai 2.5 27B",
+              "url": "https://prismml.com/news/bonsai-2-5-27b"
+            },
+            {
+              "label": "Hugging Face: Bonsai 2.5 27B",
+              "url": "https://huggingface.co/collections/prism-ml/bonsai-25-27b"
+            }
+          ],
+          "table": {
+            "title": "Şirketin ölçümü: Bonsai sürümleri ve taban model",
+            "cols": [
+              "Model",
+              "SWE-bench Verified",
+              "Terminal-Bench 2.1"
+            ],
+            "rows": [
+              [
+                "Qwen3.8 27B (tam hassasiyet)",
+                "80,6",
+                "70,8"
+              ],
+              [
+                "Bonsai 2 27B",
+                "60,8",
+                "52,8"
+              ],
+              {
+                "cells": [
+                  "Bonsai 2.5 27B",
+                  "75,6",
+                  "60,1"
+                ],
+                "highlight": true
+              }
+            ],
+            "note": "PrismML'in kendi ölçümü."
+          }
+        },
+        {
+          "size": 6,
+          "kicker": "Ürün · Anthropic",
+          "headline": "Claude artifact'ları Mac ve Windows'a uygulama olarak kurulabiliyor",
+          "paragraphs": [
+            "Claude'da hazırlanan artifact'lar artık kendi simgesi ve penceresi olan masaüstü uygulaması olarak kurulabiliyor. Beta, Claude'un Mac ve Windows uygulamalarında bütün planlara açılıyor; Enterprise'da sahibin açması gerekiyor, HIPAA uyumlu kurumlar ve hibrit kurulumlar kullanamıyor. Uygulamalar Claude'u ve connector'ları kullanabiliyor, istekleri plan limitinden düşüyor. İzin üç kademeli: tarayıcı yetkileri, bildirim gibi uygulama izinleri ve program çalıştırıp dosya silebilen tam bilgisayar erişimi. Anthropic uygulamaları incelemiyor; izin her güncellemede yeniden soruluyor, ama dış siteden yüklenen kısımlar sorulmadan değişebiliyor."
+          ],
+          "sources": [
+            {
+              "label": "Claude: Artifact'ları uygulama olarak kurmak",
+              "url": "https://claude.com/resources/articles/install-as-app"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gelistirme",
+      "title": "Geliştirme & Araçlar",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Sürüm · OpenAI Codex",
+          "headline": "Codex CLI 0.172: stdio MCP sunucuları ilk araç çağrısında başlıyor",
+          "paragraphs": [
+            "Codex CLI 0.172.0'da isteğe bağlı stdio MCP sunucuları artık oturum açılırken değil ilk araç çağrısında başlıyor; bu, araç listesi önbellekte olan sunucular için varsayılan. Çok sayıda MCP sunucusu tanımlı oturumlar böylece daha hızlı açılabiliyor. 24 Kasım'daki sürümle bağlı uygulamaların her aracı için `config.toml`'da onayı kimin vereceği ayrı ayrı tanımlanabiliyor. `codex exec resume` kaydedilmiş sandbox izinlerini, çalışma dizinini ve workspace köklerini geri yüklüyor; elle verilen değerler önceliği koruyor. Harcama limitine takılan oturumda hata mesajı hangi limitin dolduğunu söylüyor."
+          ],
+          "sources": [
+            {
+              "label": "OpenAI: Codex changelog",
+              "url": "https://learn.chatgpt.com/docs/changelog"
+            },
+            {
+              "label": "GitHub: openai/codex sürümleri",
+              "url": "https://github.com/openai/codex/releases"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Sürüm · GitHub Copilot",
+          "headline": "Copilot CLI 1.0.115'e GPT-6.2 Astra ve Gemini 4 Hydrogen geldi",
+          "paragraphs": [
+            "GPT-6.2 Astra ve Gemini 4 Hydrogen artık GitHub Copilot CLI'da seçilebiliyor; destek 24 Kasım'da çıkan 1.0.115 sürümüyle geldi. Form destekleyen ACP (Agent Client Protocol) editörlerinde agent artık yapılandırılmış açıklama soruları sorabiliyor. `/model` komutundan özel sağlayıcı modelleri yönetilebiliyor, sandbox ayarları Windows ve macOS'te genişledi. Aynı akşam ve ertesi gün gelen 1.0.116 ön sürümleri, bir plugin ile bağımsız bir MCP sunucusu aynı endpoint'e bağlanınca uyarıyor. Hangisinin `/mcp`'den kapatılacağını da söylüyor; aynı aracı iki kez yükleyen kurulumlar bu uyarıyla görünür oluyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub: copilot-cli sürümleri",
+              "url": "https://github.com/github/copilot-cli/releases"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Spring AI · Agent",
+          "headline": "Spring AI 2.1: hassas araç çağrısı insan onayını bekleyebiliyor",
+          "paragraphs": [
+            "Spring AI 2.1'de bir araç `@Tool(requiresConfirmation = true)` ile işaretlenince, model o aracı çağırmak istediğinde döngü duruyor ve bir insanın kararını bekliyor; diğer araçlar normal çalışıyor. Sahibi olmadığınız MCP araçları `spring.ai.tools.confirmation.tools` özelliğiyle, belli bir tutarı aşan transfer gibi koşullar `ToolCallConfirmationPolicy` bean'iyle işaretleniyor. Döngü beklerken bir şey saklamıyor; Spring blogundaki yazı, duraklayan cevabın istemciden değil son kullanıcının değiştiremeyeceği bir depodan yüklenmesini istiyor. Topluluk projesi Session Extensions 0.11.0 bekleyen turu veritabanına park edip başka bir instance'tan sürdürüyor; ilk sürümde zaman aşımı yok."
+          ],
+          "sources": [
+            {
+              "label": "Spring blog: Spring AI 2.1 ile insan onayı",
+              "url": "https://spring.io/blog/2026/11/24/spring-ai-tool-call-confirmation-park-resume"
+            },
+            {
+              "label": "21 Kasım sayısı: Spring AI 2.1 GA",
+              "url": "#2026-11-21-java-2"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Güvenlik · Apache Karaf",
+          "alert": true,
+          "headline": "Apache Karaf'ta viewer rolü SFTP üzerinden kod çalıştırabiliyor",
+          "paragraphs": [
+            "OSGi tabanlı uygulama sunucusu Apache Karaf'ın 4.4.12 ve öncesinde varsayılan açık gelen SFTP ve SCP, yalnızca SSH girişindeki rol kontrolüne bakıyor (CVE-2026-129959, Important). `viewer` ya da `ssh` rolündeki bir kullanıcı `etc/host.key` dosyasını okuyabiliyor, `deploy/` dizinine bundle yazarak kod çalıştırabiliyor. 4.4.13 ve 4.5.0 varsayılanı `admin` olan `sftpRole` ayarını getiriyor; SFTP'ye ihtiyacınız yoksa `sftpEnabled=false` yapın. CVE-2026-124615'te (Moderate) aynı roller `feature:requirement-add` ile istediği bundle'ı kurdurup çalıştırabiliyor; ACL dosyasına `requirement-add = admin` ve `requirement-remove = admin` ekleyin."
+          ],
+          "sources": [
+            {
+              "label": "oss-security: CVE-2026-129959",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/24/5"
+            },
+            {
+              "label": "oss-security: CVE-2026-124615",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/24/11"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik",
+      "patch": [
+        {
+          "text": "Drupal core 10.6.22, 11.3.22 ve 11.4.13 öncesi: yükseltin; install.php açığı istismar ediliyor",
+          "ref": "guvenlik-1"
+        },
+        {
+          "text": "Check Point Security Management R81.10-R82.10: son Jumbo Hotfix'i kurun, Trusted Clients'ı IP ile sınırlayın",
+          "ref": "guvenlik-2"
+        },
+        {
+          "text": "Optimizely Web Experimentation: her projenin Project JavaScript alanında yabancı kod arayın",
+          "ref": "guvenlik-3"
+        }
+      ],
+      "articles": [
+        {
+          "size": 4,
+          "kicker": "Aktif istismar · Drupal",
+          "alert": true,
+          "headline": "Drupal'ın kurulum betiğindeki RCE açığı istismar ediliyor",
+          "paragraphs": [
+            "Drupal core'un `install.php` betiği belirli koşullarda kimlik doğrulaması olmadan siteyi yeniden kurdurup ele geçirmeye izin veriyor (CVE-2026-132165). Drupal'a göre yalnızca yaygın olmayan modül yapılandırmaları istismar edilebiliyor, ama açığın 19 Kasım'dan beri canlı sitelerde istismar edildiği raporunu aldı. CISA da 24 Kasım'da açığı KEV'e ekledi. 10.6.22, 11.3.22 ve 11.4.13 öncesi etkileniyor; 11.2 ve 10.5 ile öncesi yama almıyor. Yükseltin; hemen yapamıyorsanız `install.php`'yi Drupal'ın talimatıyla güvenceye alın."
+          ],
+          "sources": [
+            {
+              "label": "Drupal: SA-CORE-2026-017",
+              "url": "https://www.drupal.org/sa-core-2026-017"
+            },
+            {
+              "label": "CISA: KEV'e üç açık eklendi",
+              "url": "https://www.cisa.gov/news-events/alerts/2026/11/24/cisa-adds-three-known-exploited-vulnerabilities-catalog"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Aktif istismar · Check Point",
+          "alert": true,
+          "headline": "GreyNoise: 24 Check Point yönetim sunucusu ele geçirildi",
+          "paragraphs": [
+            "GreyNoise'a göre GT13 adını verdiği grup, 17 ülkede en az 22 kuruluşun 24 Check Point Security Management Server'ına erişti; doğrulanan saldırılar 17 Ekim ile 2 Kasım arasında. Sunuculara nasıl girildiği bilinmiyor, ama grup SmartConsole'daki kimlik doğrulama atlatmasıyla (CVE-2026-16232) Run Script'e ulaştı. Check Point bu açığı 22 Temmuz'da Jumbo Hotfix'le kapattı ve internete IP kısıtı olmadan açık yönetim sunucularında istismar edildiğini bildirdi. Son Jumbo Hotfix'i kurun, Trusted Clients'ı güvenilir IP'lerle sınırlayın."
+          ],
+          "sources": [
+            {
+              "label": "GreyNoise: Check Point sunucularına saldırı",
+              "url": "https://www.greynoise.io/blog/check-point-security-management-servers-intrusion-campaign"
+            },
+            {
+              "label": "Check Point: CVE-2026-16232 uyarısı",
+              "url": "https://blog.checkpoint.com/security/security-advisory-action-required-active-exploitation-of-check-point-smartconsole-authentication-bypass-cve-2026-16232"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Aktif istismar · Optimizely",
+          "alert": true,
+          "headline": "Optimizely'ye skimmer yerleştirilen açık KEV'e girdi",
+          "paragraphs": [
+            "A/B testi servisi Optimizely Web Experimentation'ın müşteri sayfalarına kart bilgisi çalan kod yerleştirmek için kullanılan açık artık CISA'nın KEV listesinde (CVE-2026-132224). Açık hesap kayıt akışındaydı; kod 16 Kasım'da projelerin Project JavaScript alanına eklendi. Bitsight'a göre araştırmacılar 1.611 snippet'te 178 kuruluşa ait bulaşmış kod buldu, Beazley Security ilgili etkinliği 13 Kasım'dan beri görüyor. Optimizely açığı yamadı. Project JavaScript alanında yazmadığınız kodu, 13 Kasım'dan beri yapılan değişiklikleri ve `1688360[.]cc` isteklerini arayın."
+          ],
+          "sources": [
+            {
+              "label": "Bitsight: Optimizely saldırısı",
+              "url": "https://www.bitsight.com/blog/cve-2026-132224-optimizely-third-party-supply-chain-attack"
+            },
+            {
+              "label": "CISA: KEV'e üç açık eklendi",
+              "url": "https://www.cisa.gov/news-events/alerts/2026/11/24/cisa-adds-three-known-exploited-vulnerabilities-catalog"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "atolye": {
+    "konu": "ekip-paylasim",
+    "kicker": "Ekip ve süreç",
+    "title": "Talimat ve skill'leri repoda paylaşın: tek kaynak, sürümlü, incelenen",
+    "intro": "Her geliştiricinin kendi makinesinde tuttuğu prompt ve talimatlar ekipte farklı sonuçlar üretir ve kimse neyin değiştiğini görmez. Talimat dosyalarını ve skill'leri repoda tutmak onları kod gibi sürümlemenizi ve incelemenizi sağlar. Bugün Claude'da açılan Skills over MCP aynı fikri bir servisin kendi skill'lerine taşıyor.",
+    "when": "Aynı repoda birden çok kişinin agent kullandığı ve inceleme, sürüm notu ya da migrasyon gibi tekrarlanan işlerin olduğu ekiplerde işe yarar. Tek kişilik denemelerde gerekmez; kişisel tercihler kişisel dosyada kalmalı.",
+    "steps": [
+      "Ortak talimatı repoya koyun. agents.md, `AGENTS.md` dosyasını agent'lar için bir README olarak tarif ediyor: yeni bir ekip arkadaşına söyleyeceğiniz her şey, yani proje özeti, derleme ve test komutları, kod stili ve güvenlik notları. Codex, Cursor, Gemini CLI, JetBrains Junie ve Copilot'un kodlama agent'ı dahil birçok araç bu dosyayı okuyor. GitHub Copilot ayrıca `.github/copilot-instructions.md`, Claude Code `CLAUDE.md` dosyasını okuyor.",
+      "Modüle özgü kuralı modülün yanına yazın. agents.md, monorepo'da her alt projeye ayrı bir `AGENTS.md` koymayı öneriyor; düzenlenen dosyaya en yakın dosya geçerli oluyor. Copilot'ta aynı iş `.github/instructions/` altındaki `.instructions.md` dosyalarının `applyTo` glob'larıyla yapılıyor.",
+      "Tekrarlanan işi skill olarak commit edin. Claude Code belgeleri proje skill'lerini `.claude/skills/<ad>/SKILL.md` altında tutup commit etmeyi öneriyor; böylece ekip aynı skill'i alıyor. `description` alanına skill'in ne zaman kullanılacağını yazın, çünkü Claude skill'i bu alana bakarak yüklüyor. Belgeler `SKILL.md` dosyasını 500 satırın altında tutmayı ve ayrıntıyı ayrı dosyalara taşımayı öneriyor; yüklenen skill her turda token harcıyor.",
+      "Yan etkisi olan skill'i otomatik çağrıya kapatın. Claude Code belgeleri deploy gibi işler için `disable-model-invocation: true` kullanmayı öneriyor; skill o zaman yalnızca `/ad` komutuyla çalışıyor. `allowed-tools` alanının, skill çağrıldığı turda araçların onay sorulmadan kullanılmasına izin verdiğini de bilin.",
+      "Talimat ve skill değişikliklerini kod gibi inceleyin. GitHub, Copilot kod incelemesinin talimatları ve skill'leri base branch'ten değil, değişikliği içeren head branch'ten okuduğunu yazıyor; bir PR kendi incelemesinin kurallarını değiştirebiliyor. MCP'nin Skills belgesi de skill içeriğini güvenilmez girdi sayıyor ve bir dosya değişince önceki onayın düşmesini istiyor."
+    ],
+    "example": {
+      "label": "Örnek SKILL.md: yan etkisiz bir sürüm notu taslağı",
+      "lang": "markdown",
+      "code": "---\nname: surum-notu\ndescription: Son etiketten bu yana merge edilen PR'lardan sürüm notu taslağı çıkarır. Kullanıcı sürüm notu, changelog ya da \"bu sürümde ne var\" diye sorduğunda kullan.\n---\n\n# Sürüm notu taslağı\n\n1. Son etiketi bul: `git describe --tags --abbrev=0`\n2. Etiketten bu yana commit'leri listele: `git log <etiket>..HEAD --oneline`\n3. Maddeleri üç başlıkta topla: Yeni, Düzeltme, Breaking change.\n4. Her maddede PR numarasını koru; emin olmadığın maddeyi \"Kontrol et\" başlığına yaz.\n5. Biçim kuralları için `references/bicim.md` dosyasını oku.\n\nTaslağı dosyaya yazma; yalnızca sohbette göster."
+    },
+    "pitfall": "Çelişen talimatlar. GitHub, kişisel, repo ve organizasyon talimatlarının hepsinin Copilot'a birlikte verildiğini ve çelişkiden mümkün olduğunca kaçınılmasını yazıyor; kişisel tercihleri kişisel dosyada (Claude Code'da `~/.claude/skills/`) tutun, repoya yalnızca ekibin uzlaştığı kuralları koyun.",
+    "sources": [
+      {
+        "label": "agents.md: AGENTS.md biçimi",
+        "url": "https://agents.md/"
+      },
+      {
+        "label": "Claude Code belgeleri: Skills",
+        "url": "https://code.claude.com/docs/en/skills"
+      },
+      {
+        "label": "GitHub Docs: repo talimatları",
+        "url": "https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions"
+      },
+      {
+        "label": "MCP belgeleri: Skills eklentisi",
+        "url": "https://modelcontextprotocol.io/extensions/skills/overview"
+      }
+    ]
+  },
+  "repos": {
+    "subtitle": "GitHub Trending günlük, Java günlük listeleri ve trendshift.io · yıldızlar 25 Kasım",
+    "items": [
+      {
+        "name": "Tencent/AI-Infra-Guard",
+        "url": "https://github.com/Tencent/AI-Infra-Guard",
+        "stars": "7,7 bin",
+        "starsValue": 7700,
+        "cat": "AI güvenlik testi",
+        "why": "Agent, skill ve MCP sunucularını tarayan, AI altyapısındaki açıkları arayan ve LLM jailbreak değerlendirmesi yapan bir red team platformu; README, kimlik doğrulaması olmadığı için açık ağa kurulmamasını söylüyor. Bugün trendshift.io listesinin üst sıralarında.",
+        "meta": "AI güvenlik testi"
+      },
+      {
+        "name": "google-gemini/gemini-api-cli",
+        "url": "https://github.com/google-gemini/gemini-api-cli",
+        "stars": "2,5 bin",
+        "starsValue": 2500,
+        "lang": "Go",
+        "cat": "CLI",
+        "why": "Kodlama agent'larının ve shell betiklerinin Gemini modellerini çağırıp medya üretmesi, dosya analiz etmesi ve yönetilen agent başlatması için tek bir Go binary'si; `--dry-run` ağa çıkmadan isteği gösteriyor. Beta aşamasında, sürümler arası breaking change olabildiği için CI'da sürüm sabitlemesi öneriliyor; trendshift.io listesinde yükseliyor.",
+        "meta": "Go · CLI"
+      },
+      {
+        "name": "XinaTian/MROffice",
+        "url": "https://github.com/XinaTian/MROffice",
+        "stars": "4,0 bin",
+        "starsValue": 4000,
+        "cat": "Ofis editörleri",
+        "why": "Tarayıcıda çalışan belge, tablo, sunum, PDF ve kod editörleri; MCP sunucusu Claude, ChatGPT, Cursor ve Codex'in Word, Excel ve PowerPoint dosyalarını oluşturup düzenlemesine izin veriyor. AGPL-3.0 lisanslı ve ek atıf şartı var; trendshift.io listesine yeni girdi.",
+        "meta": "Ofis editörleri"
+      },
+      {
+        "name": "kunkundi/crossdesk",
+        "url": "https://github.com/kunkundi/crossdesk",
+        "stars": "7,4 bin",
+        "starsValue": 7400,
+        "cat": "Uzak masaüstü",
+        "why": "Windows, macOS ve Linux masaüstlerine tarayıcıdan, mobilden ya da terminalden bağlanan, kendi sunucunuza kurulabilen hafif bir uzak masaüstü aracı. Agent ve MCP entegrasyonu bir AI agent'ının uzak bilgisayarı izleyip kullanmasına, gerekince insanın devralmasına izin veriyor; trendshift.io listesinde.",
+        "meta": "Uzak masaüstü"
+      },
+      {
+        "name": "SonicloudTech/mouse-mcp",
+        "url": "https://github.com/SonicloudTech/mouse-mcp",
+        "stars": "599",
+        "starsValue": 599,
+        "cat": "MCP sunucusu",
+        "why": "Windows'ta AI agent'larına USB HID üzerinden gerçek fare kontrolü ve sesle dikte veren bir MCP sunucusu; sıradan bir fareyle değil, uyumlu uMouse donanımıyla çalışıyor ve yerel SDK'sı kapalı kaynak. Bu hafta trendshift.io listesine girdi.",
+        "meta": "MCP sunucusu"
+      },
+      {
+        "name": "dbeaver/dbeaver",
+        "url": "https://github.com/dbeaver/dbeaver",
+        "stars": "52.532",
+        "starsValue": 52532,
+        "lang": "Java",
+        "cat": "Veritabanı aracı",
+        "why": "Yaygın kullanılan açık kaynak SQL istemcisi ve veritabanı aracı. DBeaver'ın 24 Kasım'daki 26.2.5.2 sürümü gömülü Java runtime'ını Java4Shell'e karşı 25.0.5.1'e yükseltti, 15 Kasım'daki 26.2.5 ise AI sohbete Ollama ile yerel model desteği getirdi; Java günlük listesinde.",
+        "meta": "Java · Veritabanı aracı"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending: Java günlük",
+        "url": "https://github.com/trending/java?since=daily"
+      },
+      {
+        "label": "trendshift.io",
+        "url": "https://trendshift.io/"
+      }
+    ]
+  },
+  "briefs": [
+    {
+      "tag": "İddia · OpenAI ve Anthropic",
+      "text": "The Decoder'ın Axios'a dayandırdığı habere göre OpenAI ve Anthropic'te birçok çalışan, yayımlanmamış modellerin güvenle kontrol edilemeyecek kadar güçlendiğini düşünüyor. Axios'un kaynağı iki düzineden fazla şirket içi isim; iki şirkette bu modellerin hiç yayımlanmaması tartışılıyor.",
+      "url": "https://the-decoder.com/dozens-of-insiders-say-openai-and-anthropics-unreleased-models-have-outgrown-their-safety-measures/"
+    },
+    {
+      "tag": "Güvenlik",
+      "text": "OpenSSL 4.1.1, 4.0.4 ve 3.5.10 sürümleri 1 Aralık'ta 13.00-17.00 UTC arasında çıkacak; en ciddi açık Moderate düzeyinde. OpenSSL'i uygulamasıyla birlikte paketleyen ekipler o gün için güncelleme planlamalı.",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/24/14"
+    },
+    {
+      "tag": "Güvenlik · Gemini CLI",
+      "text": "Gemini CLI 0.71.1, agent'lar arası A2A protokolünü sunan a2a-server bileşeninde bearer token kimlik doğrulamasını zorunlu kıldı ve istek girdisini doğruluyor. a2a-server çalıştıranlar bu sürüme yükseltmeli.",
+      "url": "https://github.com/google-gemini/gemini-cli/releases"
+    },
+    {
+      "tag": "GitHub",
+      "text": "GitHub'ın ayrıntılı, AI ve premium istek kullanım raporlarına 1 Aralık'tan itibaren `user_id` sütunu ekleniyor ve sonraki sütunlar bir sağa kayıyor. Sütunları sırayla okuyan betikler başlık adına geçmeli.",
+      "url": "https://github.blog/changelog/2026-11-23-usage-reports-will-include-a-user-id-column-starting-december-1"
+    },
+    {
+      "tag": "Altyapı · DNS",
+      "text": "Quad9, Fransa'daki kullanıcılara 24 Kasım'da hizmeti kesti; Fransız mahkemeleri beIN'in korsan yayın sitelerini engelleme talebini onaylamıştı. 9.9.9.9 gibi adreslere giden sorgular reddediliyor ve geoIP hatası nedeniyle Fransa dışından da etkilenen olabiliyor.",
+      "url": "https://quad9.net/news/blog/quad9-service-deactivation-in-france/"
+    },
+    {
+      "tag": "Rust",
+      "text": "Zed editörünün GPU hızlandırmalı Rust UI framework'ü GPUI kendi reposuna taşındı; repoda şimdilik tek commit ve “birkaç hafta sonra görüşürüz” notu var.",
+      "url": "https://github.com/zed-industries/gpui"
+    }
+  ]
+}

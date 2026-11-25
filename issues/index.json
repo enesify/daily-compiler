@@ -1,5 +1,10 @@
 [
  {
+  "date": "2026-11-25",
+  "number": 23,
+  "headline": "MCP sunucuları Claude'a skill sunabiliyor; Tasks ve Elicitation GA"
+ },
+ {
   "date": "2026-11-24",
   "number": 22,
   "headline": "Z.ai'ın 750 milyar parametreli GLM-5.4'ü çıktı: benchmark yok, API sonra"
