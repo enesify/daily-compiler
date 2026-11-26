@@ -140,10 +140,10 @@
         },
         {
           "size": 4,
-          "kicker": "Benchmark · Kod golfü",
+          "kicker": "Benchmark · Code golf",
           "headline": "GPT-6.2 Astra, go/codegolf'ta insan rekorlarını geçti",
           "paragraphs": [
-            "Kod golfü benchmark'ı go/codegolf'a göre GPT-6.2 Astra, JavaScript, Python ve C++'ta insan rekorlarını geçen ilk model oldu. En kısa bilinen çözüme göre hesaplanan puanda üç dilin ortalaması %92,265, insan rekorlarınınki %87,533. Benchmark, 2015'teki bir iç Google yarışmasının 32 problemini sekiz dilde soruyor; model her biri için 30 dakikada en kısa geçen programı yazmaya çalışıyor. Çekinceler var: en iyi bilinen boyutlar kısmen GPT-6 Astra'nın da kullanıldığı bir referans çözücüden geliyor. İnsan rekorları ise 30 dakikalık değil, uzun bir yarışmanın sonucu."
+            "Code golf benchmark'ı go/codegolf'a göre GPT-6.2 Astra, JavaScript, Python ve C++'ta insan rekorlarını geçen ilk model oldu. En kısa bilinen çözüme göre hesaplanan puanda üç dilin ortalaması %92,265, insan rekorlarınınki %87,533. Benchmark, 2015'teki bir iç Google yarışmasının 32 problemini sekiz dilde soruyor; model her biri için 30 dakikada en kısa geçen programı yazmaya çalışıyor. Çekinceler var: en iyi bilinen boyutlar kısmen GPT-6 Astra'nın da kullanıldığı bir referans çözücüden geliyor. İnsan rekorları ise 30 dakikalık değil, uzun bir yarışmanın sonucu."
           ],
           "sources": [
             {
