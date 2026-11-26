@@ -162,6 +162,15 @@
       "sorun": "Tablet ve yatay telefonda kaynak satırı ve repo kartı metin sütunundan genişti (yıldız sayısı karttan kopuk).",
       "neden": "olcum-yok",
       "cozum": "style.css: tek sütunda .src ve .repo 62ch ile sınırlandı."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "2026-11-26",
+      "bulan": "haftalik",
+      "kategori": "tasarim",
+      "sorun": "Kırmızı etiket okurdan eylem beklemeyen olay, takip ve kimlik doğrulamalı açık haberlerinde de kullanılıyordu (dört sayıda Güvenlik'in tamamı kırmızı).",
+      "neden": "kural-yok",
+      "cozum": "KURALLAR: kırmızının ölçütü; kontrol.py uyarısı; EDITOR doğruluk listesi; 20-26 Kasım'da 10 haber petrole döndü."
     }
   ]
 }

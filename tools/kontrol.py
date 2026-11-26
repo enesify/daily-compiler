@@ -475,11 +475,13 @@ def main():
         for i, a in enumerate(s.get("articles") or []):
             if not a.get("alert"):
                 continue
-            t = (a.get("headline") or "") + " " + " ".join(a.get("paragraphs") or [])
-            ciddi = re.search(r"aktif (olarak )?istismar|KEV|zehirlen", t, re.I) or (
+            t = (a.get("kicker") or "") + " " + (a.get("headline") or "") + " " + " ".join(a.get("paragraphs") or [])
+            ciddi = re.search(r"aktif (olarak )?istismar|istismar ediliyor|KEV|zehirlen", t, re.I) or (
                 re.search(r"uzaktan kod çalıştırma|\bRCE\b", t) and re.search(r"kimlik doğrula\w* (gerektirmeyen|olmadan|istemeyen)|kimlik doğrulamasız", t, re.I))
             aid = str(a.get("id") or f"{s.get('id')}-{i + 1}")
             cves = re.findall(r"CVE-\d{4}-\d+", t)
+            if not ciddi:
+                W(f"{aid}: alert (kırmızı) yalnızca aktif istismar, zehirlenmiş paket ya da kimlik doğrulamasız RCE haberinde")
             if ciddi and aid not in ptxt and not any(c in ptxt for c in cves):
                 W(f"{aid}: aktif istismar ya da kimlik doğrulamasız RCE, ama Acil önlemler listesinde yok")
 

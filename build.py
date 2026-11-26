@@ -113,7 +113,7 @@ def repo_name(n):
 def ref_label(label):
     """İç atıf: ↩ simgesi ilk sözcükle birlikte kalsın, satır sonunda tek başına kalmasın."""
     t = esc(plain(label)).split(" ", 1)
-    return f'<span class="nw"><i class="xi xr" aria-hidden="true"></i>{t[0]}</span>' + (" " + t[1] if len(t) > 1 else "")
+    return f'<span class="nw"><i class="xi xr" aria-hidden="true"></i>{t[0]}</span>' + (" " + keep_ids(t[1]) if len(t) > 1 else "")
 
 
 def keep_ids(h):
@@ -122,9 +122,14 @@ def keep_ids(h):
     ek = r"(?:’[a-zçğıöşü]+)?"
     h = re.sub(r"\b((?:CVE-\d{4}-\d{4,}|GHSA(?:-[0-9a-z]{4}){3})" + ek + ")", r'<span class="nw">\1</span>', h)
     # Boşlukla ayrılan sürüm: ad ile numara bir arada (“Opus 5.5”, “Kimi K3”, “JDK 28”)
-    h = re.sub(r"(?<![\w&#])([A-Z][\w\-]*) (?=[A-Z]?\d+(?:[.,]\d+)*(?![\w\-]))", "\\1\u00a0", h)
-    return re.sub(r"(?<![\w>/.\-])((?=[\w.]*[A-Za-z])[\w.]+-\d[\w.\-]*" + ek + r")(?![\w\-])",
+    h = re.sub(r"(?<![\w&#])([A-Z][\w\-]*) ([A-Z]?\d+(?:[.,]\d+)*" + ek + r")(?![\w\-])",
+               lambda m: (f'<span class="nw">{m.group(1)} {m.group(2)}</span>' if "-" in m.group(1)
+                          else f"{m.group(1)}\u00a0{m.group(2)}"), h)   # “Terminal-Bench 4.1” tireden de bölünmesin
+    h = re.sub(r"(?<![\w>/.\-])((?=[\w.]*[A-Za-z])[\w.]+-\d[\w.\-]*" + ek + r")(?![\w\-])",
                   lambda m: m.group(1) if len(m.group(1)) > 26 else f'<span class="nw">{m.group(1)}</span>', h)
+    # Üç parçalı adlar: sürümden sonra gelen kısa ad da bağlanır (“Gemini 4 Neon”, “GPT-6.2 Astra”)
+    return re.sub(r"(\u00a0[A-Z]?\d+(?:[.,]\d+)*|<span class=\"nw\">[^<]*-\d[^<]*</span>) (?=[A-Z][a-z]{2,9}\b)", "\\1\u00a0", h)
+
 
 
 def rich(text):
@@ -221,7 +226,7 @@ def caps(s):
 def caps_rich(text):
     """Büyük harfe çevrilecek alanlar: kod parçaları korunur."""
     parts = re.split(r"`([^`]+)`", str(text or ""))
-    return "".join(code_html(p) if i % 2 else esc(caps(_text(p, i))) for i, p in enumerate(parts) if p)
+    return "".join(code_html(p) if i % 2 else keep_ids(esc(caps(_text(p, i)))) for i, p in enumerate(parts) if p)
 
 
 # ---------------------------------------------------------------- veri
@@ -1062,7 +1067,7 @@ def render_about(ctx):
 <p>Sayılar yayımlanmadan önce bir insan tarafından tek tek okunmaz. Bu yüzden hata olabilir: bir haber sizin için önemliyse, altındaki kaynak linkinden asıl metne bakın.</p>
 <p>Gazeteyi yazan modeli geliştiren şirket de gazetede haberleri çıkan yapay zekâ şirketlerinden biri olduğu için o şirketin haberlerinde bir çıkar çatışması vardır. Bu haberlere de diğer şirketlerle aynı etiketler, çekinceler ve ölçütler uygulanır; övgü sıfatı kullanılmaz. Manşete ya da büyük habere çıkan ürün duyurularında, hangi şirketten olursa olsun, şartlar ve sınırlar şirket dışındaki bir kaynakta da aranır.</p>
 <h3>Takip</h3>
-<p>Yeni sayılar her sabah yayımlanır; tüm sayılar <a href="{esc(ctx.href("arsiv.html"))}">arşivde</a> kalır. Bir okuyucu uygulamasıyla izlemek için <a href="{esc(ctx.href("feed.xml"))}">RSS akışını</a> kullanabilirsiniz.</p>
+<p>Gazeteyi bir RSS okuyucusuyla izlerseniz her sabahki sayı oraya kendiliğinden düşer; akışın adresi altbilgideki RSS bağlantısıdır.</p>
 </main>"""
 
 

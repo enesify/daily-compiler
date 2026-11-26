@@ -16,7 +16,7 @@
     },
     {
       "date": "2026-12-08",
-      "text": "Dependabot, hareketsiz repolarda alarmları duraklatıyor",
+      "text": "Dependabot, hareketsiz repolarda alert'leri duraklatıyor",
       "url": "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories"
     },
     {
@@ -331,7 +331,7 @@
           "kicker": "GitHub · Yetki",
           "headline": "GitHub: güvenlik duyuruları için özel rol yetkileri geldi",
           "paragraphs": [
-            "Güvenlik duyuruları üzerinde çalışacak kişilere artık repo yöneticiliği ya da kuruluş genelinde security manager rolü vermek gerekmiyor. 20 Kasım'da genel erişime açılan dört yetki, özel repo rollerinin Security başlığında duruyor. Bunlar duyuruları görme, oluşturup düzenleme, özel açık bildirimlerini kabul edip duyuruları kapatma ve duyuru yayımlayıp CVE isteme yetkileri. Özellik, özel repo rollerini destekleyen planlarda var. Geçici özel fork'tan merge için yine yönetici ya da security manager gerekiyor."
+            "Güvenlik duyuruları üzerinde çalışacak kişilere artık repo yöneticiliği ya da kuruluş genelinde security manager rolü vermek gerekmiyor. 20 Kasım'da genel erişime açılan dört yetki, custom repository role'lerinin Security başlığında duruyor. Bunlar duyuruları görme, oluşturup düzenleme, private vulnerability reporting bildirimlerini kabul edip duyuruları kapatma ve duyuru yayımlayıp CVE isteme yetkileri. Özellik, custom repository role'lerini destekleyen planlarda var. Geçici özel fork'tan merge için yine yönetici ya da security manager gerekiyor."
           ],
           "sources": [
             {
@@ -381,7 +381,7 @@
           "kicker": "Sürüm · Spring AI",
           "headline": "Spring AI 2.1 GA: RC sürümlerinde 13 CVE açık kalıyor",
           "paragraphs": [
-            "Spring AI'ın RC sürümlerini kullananlar GA'ya geçmeli: 20 Kasım'da çıkan 2.1.0 ve 2.0.3, 13 CVE'yi kapatıyor; milestone ve RC sürümlerinde bu düzeltmeler yok. Açıklar SSRF engelleme, prompt'ların WARN seviyesinde loglanması, tenant yalıtımını atlatma ve cache zehirlemeyi kapsıyor. `SemanticCacheAdvisor` artık bir `SemanticCacheScopeResolver` bean'i istiyor. 2.1, Spring Boot 4.2 gerektiriyor. `ChatMemory` deprecated oldu ve 3.0.0'da kaldırılacak; yerine compaction yapan Session API geliyor. Agent döngüsüne araç başına 40, tur başına 150 çağrılık varsayılan sınır eklendi."
+            "Spring AI'ın RC sürümlerini kullananlar GA'ya geçmeli: 20 Kasım'da çıkan 2.1.0 ve 2.0.3, 13 CVE'yi kapatıyor; milestone ve RC sürümlerinde bu düzeltmeler yok. Açıklar SSRF engelleme, prompt'ların WARN seviyesinde loglanması, tenant yalıtımını atlatma ve önbellek zehirlemesini kapsıyor. `SemanticCacheAdvisor` artık bir `SemanticCacheScopeResolver` bean'i istiyor. 2.1, Spring Boot 4.2 gerektiriyor. `ChatMemory` deprecated oldu ve 3.0.0'da kaldırılacak; yerine compaction yapan Session API geliyor. Agent döngüsüne araç başına 40, tur başına 150 çağrılık varsayılan sınır eklendi."
           ],
           "sources": [
             {
@@ -454,7 +454,7 @@
         },
         {
           "size": 4,
-          "alert": true,
+          "alert": false,
           "kicker": "Takip · Nginx",
           "headline": "Nginx'in HTTP/2 açıkları PAN-OS'u da etkiliyor",
           "paragraphs": [
@@ -482,7 +482,7 @@
     "when": "Metrikleri, logları, trace'leri ve deploy geçmişi agent'ın erişebileceği bir yerde olan servislerde işe yarar. Telemetri yoksa ya da saklama süresi dolduysa agent kanıt üretemez; önbellek eklemek gibi ödünleşim isteyen düzeltmelerde karar yine mühendiste kalır.",
     "steps": [
       "İnceleme sırasını bir skill dosyasına yazın. OpenAI'ın `perf-forensics` skill'i Codex'e hangi araçların olduğunu, ne zaman kullanılacağını ve yavaşlamanın hangi sırayla inceleneceğini anlatıyor: önce gerilemenin başladığı an, sonra etkilenen istekler, sonra bunu açıklayabilecek deploy ve yapılandırma değişiklikleri. Claude Code belgesine göre skill, `.claude/skills/<ad>/SKILL.md` dosyasını içeren ve repoya commit edilerek ekiple paylaşılan bir dizin; biçim açık Agent Skills standardını izliyor ve başka araçlarda da kullanılabiliyor.",
-      "Agent'a istek gruplarını karşılaştırtın. OpenAI'ın yazısına göre benzer istekler mi yavaşladı, yoksa trafik zaten yavaş olan isteklere mi kaydı sorusu farklı nedenlere işaret ediyor. Bunun için agent'ın metriklere, loglara, trace'lere, CPU profillerine, bellek görüntülerine, kod aramaya ve deploy ile feature flag geçmişine erişmesi gerekiyor.",
+      "Agent'a istek gruplarını karşılaştırtın. OpenAI'ın yazısına göre benzer istekler mi yavaşladı, yoksa trafik zaten yavaş olan isteklere mi kaydı sorusu farklı nedenlere işaret ediyor. Bunun için agent'ın metriklere, loglara, trace'lere, CPU profillerine, heap dump'lara, kod aramaya ve deploy ile feature flag geçmişine erişmesi gerekiyor.",
       "Kök neden için kanıt standardı koyun. OpenAI'ın yazısındaki inceleme ve çürütme soruları şöyle derlenebilir: değişiklik etkilenen isteklere gerçekte ne zaman ulaştı, yalnızca ne zaman deploy edildi değil; log ya da trace, kodun bu belirtiyi üretebileceğini gösteriyor mu? Değişikliğe maruz kalmayan benzer istekler sağlıklı kaldı mı, geri almada metrik düzeldi mi? Yazıdaki bir vakada teşhis devam eden hataları açıklamadığı için reddedildi. OpenAI, agent'ların zaman zaman ilk makul açıklamada durduğunu ve bunların bir kısmının yanlış çıktığını yazıyor.",
       "Teşhisi ayrı bir oturuma çürüttürün. OpenAI'da ikinci bir Codex oturumu varsayımları yeniden kontrol ediyor ve karşılaştırma testlerini çalıştırıyor; teşhis tutmazsa incelemeyi yeniden açıp neyin kanıtlanması gerektiğini kaydediyor. Aynı inceleme önerilen düzeltmeye de uygulanıyor. 100 kök neden önerisinin elle incelenmesinde %70'i doğru bulundu; %30'u düzeltme gerektirdi ya da nedenselliği kanıtlayamadı.",
       "Düzeltmeden sonra toparlanmayı ölçtürün. OpenAI'ın düzeninde PR'ı mühendis inceleyip yayına alıyor; deploy'dan sonra agent metriğin önceki seviyesine dönüp dönmediğine bakıyor. Kısmi toparlanmada asıl gerileme kapanıyor ve kalan yavaşlık için yeni görev açılıyor; hiç iyileşme yoksa inceleme geri gönderiliyor.",
@@ -610,7 +610,7 @@
     },
     {
       "tag": "GitHub Actions",
-      "text": "GitHub'ın barındırdığı büyük runner'larda RHEL 9 ve RHEL 10 imajları 19 Kasım'da genel erişime açıldı; Team ve Enterprise Cloud planlarında Linux x64 büyük runner eklerken partner imajlarından seçiliyor. Public preview kullananların bir şey yapması gerekmiyor.",
+      "text": "GitHub'ın barındırdığı larger runner'larda RHEL 9 ve RHEL 10 imajları 19 Kasım'da genel erişime açıldı; Team ve Enterprise Cloud planlarında Linux x64 larger runner eklerken partner imajlarından seçiliyor. Public preview kullananların bir şey yapması gerekmiyor.",
       "url": "https://github.blog/changelog/2026-11-19-red-hat-enterprise-linux-runner-images-now-generally-available"
     }
   ]

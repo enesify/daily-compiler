@@ -21,7 +21,7 @@
     },
     {
       "date": "2026-12-08",
-      "text": "Dependabot, hareketsiz repolarda alarmları duraklatıyor",
+      "text": "Dependabot, hareketsiz repolarda alert'leri duraklatıyor",
       "url": "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories"
     },
     {
@@ -200,8 +200,8 @@
           "kicker": "Sürüm · PostgreSQL",
           "headline": "PostgreSQL 19 yayında: REPACK tabloyu kilitlemeden toparlıyor",
           "paragraphs": [
-            "PostgreSQL 19'da tablo şişkinliği artık okuma ve yazmayı durdurmadan giderilebiliyor; sürüm 19 Kasım'da çıktı. `REPACK (CONCURRENTLY)`, şişkinliği geri kazanıp tabloyu bir indekse göre yeniden sıralarken okuma ve yazmayı engellemiyor; `VACUUM FULL` ve `CLUSTER` uyumluluk için kalıyor. `pg_plan_advice` plan seçimlerini sabitlemeye, `pg_stash_advice` ise bu tavsiyeyi sorgu kimliğine göre saklayıp uygulamaya dokunmadan yavaş bir planı düzeltmeye yarıyor. Projenin testlerine göre yabancı anahtar kontrollerindeki iyileştirme toplu insert'leri yaklaşık iki kat hızlandırdı.",
-            "Uygulama tarafında `INSERT ... ON CONFLICT DO SELECT` çakışan mevcut satırı döndürüyor; “varsa getir, yoksa oluştur” tek sorguya iniyor. `WAIT FOR LSN`, standby replikalarda kendi yazdığını okuma tutarlılığı sağlıyor. Mantıksal replikasyon için artık yeniden başlatma gerekmiyor: ilk mantıksal slot oluşturulunca WAL seviyesi kendiliğinden `logical`'e çıkıyor. `COPY` JSON çıktı verebiliyor; `lead()` ve `lag()` gibi pencere fonksiyonları `IGNORE NULLS` alıyor.",
+            "PostgreSQL 19'da tablo şişkinliği artık okuma ve yazmayı durdurmadan giderilebiliyor; sürüm 19 Kasım'da çıktı. `REPACK (CONCURRENTLY)`, şişkinliği geri kazanıp tabloyu bir indekse göre yeniden sıralarken okuma ve yazmayı engellemiyor; `VACUUM FULL` ve `CLUSTER` uyumluluk için kalıyor. `pg_plan_advice` plan seçimlerini sabitlemeye, `pg_stash_advice` ise bu tavsiyeyi sorgu kimliğine göre saklayıp uygulamaya dokunmadan yavaş bir planı düzeltmeye yarıyor. Projenin testlerine göre foreign key kontrollerindeki iyileştirme toplu insert'leri yaklaşık iki kat hızlandırdı.",
+            "Uygulama tarafında `INSERT ... ON CONFLICT DO SELECT` çakışan mevcut satırı döndürüyor; “varsa getir, yoksa oluştur” tek sorguya iniyor. `WAIT FOR LSN`, standby replikalarda read-your-writes tutarlılığı sağlıyor. Mantıksal replikasyon için artık yeniden başlatma gerekmiyor: ilk mantıksal slot oluşturulunca WAL seviyesi kendiliğinden `logical`'e çıkıyor. `COPY` JSON çıktı verebiliyor; `lead()` ve `lag()` gibi window function'lar `IGNORE NULLS` alıyor.",
             "Yükseltmede JIT artık varsayılan olarak kapalı; büyük analitik sorgular çalıştıranların açması gerekiyor. `io_workers` ayarının yerini `io_min_workers` ve `io_max_workers` aldı. RADIUS kimlik doğrulaması kaldırıldı. `md5` parola doğrulaması başarılı girişten sonra uyarı logluyor ve ileride kaldırılacak; duyuru SCRAM'e geçmeyi öneriyor. Sunucu artık SNI destekliyor; host adına göre sertifikalar yeni `pg_hosts.conf` dosyasında eşleniyor."
           ],
           "why": "JIT'e dayanan analitik sorgular ve `md5` parolalı veritabanı kullanıcıları yükseltmeden sonra ilk farkı görecek; ayarlar geçişten önce gözden geçirilmeli.",
@@ -215,9 +215,9 @@
         {
           "size": 4,
           "kicker": "GitHub CLI · Agent'lar",
-          "headline": "GitHub CLI, PR event'lerini yoklamadan beklemeyi ekledi",
+          "headline": "GitHub CLI, PR event'lerini polling'siz beklemeyi ekledi",
           "paragraphs": [
-            "`gh` 2.105.0 ile gelen `gh event listen`, bir pull request URL'si ve beklenen event'leri alıp aboneliği kuruyor, her event'i tek satır JSON olarak basıyor. Beklenebilen event'ler gönderilen review'lar, PR durum ve head değişiklikleri, merge çakışmaları ve tamamlanan check suite'ler. Komut varsayılan olarak ilk event'te çıkıyor; `--count`, `--follow`, `--timeout` ve `--jq` seçenekleri var. GitHub'a göre komut agent'lar için tasarlandı; `gh pr view` ve `gh run watch` gibi komutlar artık döngüde yoklama yerine bunu öneriyor. Komutlar preview'da ve bekleme listeli Event Streams erişimi gerektiriyor."
+            "`gh` 2.105.0 ile gelen `gh event listen`, bir pull request URL'si ve beklenen event'leri alıp aboneliği kuruyor, her event'i tek satır JSON olarak basıyor. Beklenebilen event'ler gönderilen review'lar, PR durum ve head değişiklikleri, merge çakışmaları ve tamamlanan check suite'ler. Komut varsayılan olarak ilk event'te çıkıyor; `--count`, `--follow`, `--timeout` ve `--jq` seçenekleri var. GitHub'a göre komut agent'lar için tasarlandı; `gh pr view` ve `gh run watch` gibi komutlar artık döngüde polling yerine bunu öneriyor. Komutlar preview'da ve bekleme listeli Event Streams erişimi gerektiriyor."
           ],
           "sources": [
             {
@@ -252,11 +252,11 @@
         },
         {
           "size": 4,
-          "alert": true,
+          "alert": false,
           "kicker": "Güvenlik · Apache OpenNLP",
           "headline": "Apache OpenNLP'nin koordinat bulucusunda ReDoS açığı",
           "paragraphs": [
-            "Apache OpenNLP'nin enlem ve boylam koordinatlarını bulan hazır regex name finder'ındaki desen, aşırı geri izlemeye açık (CVE-2026-120404, orta önem). Saldırganın gönderdiği metni bu bulucuyla işleyen uygulamalarda CPU kullanımı fırlayıp servis durabiliyor. Etkilenenler `org.apache.opennlp:opennlp-tools` 2.0.0-2.5.12 ile `opennlp-runtime` 3.0.0-M1 ve 3.0.0 öncesi sürümler; düzeltme 2.5.13 ve 3.0.0'da. Kütüphane geçişli bağımlılık olarak da gelebileceği için `mvn dependency:tree` komutuna `-Dincludes=org.apache.opennlp` vererek kontrol edin. Açığı Alex Palinkash buldu ve 19 Kasım'da duyuruldu. Duyuru CVSS puanı ve yükseltme dışında bir geçici çözüm vermiyor."
+            "Apache OpenNLP'nin enlem ve boylam koordinatlarını bulan hazır regex name finder'ındaki desen, aşırı backtracking'e açık (CVE-2026-120404, orta önem). Saldırganın gönderdiği metni bu bulucuyla işleyen uygulamalarda CPU kullanımı fırlayıp servis durabiliyor. Etkilenenler `org.apache.opennlp:opennlp-tools` 2.0.0-2.5.12 ile `opennlp-runtime` 3.0.0-M1 ve 3.0.0 öncesi sürümler; düzeltme 2.5.13 ve 3.0.0'da. Kütüphane geçişli bağımlılık olarak da gelebileceği için `mvn dependency:tree` komutuna `-Dincludes=org.apache.opennlp` vererek kontrol edin. Açığı Alex Palinkash buldu ve 19 Kasım'da duyuruldu. Duyuru CVSS puanı ve yükseltme dışında bir geçici çözüm vermiyor."
           ],
           "sources": [
             {
@@ -279,7 +279,7 @@
       "articles": [
         {
           "size": 4,
-          "alert": true,
+          "alert": false,
           "kicker": "Takip · PHP",
           "headline": "PHP 8.2-8.5 için güvenlik sürümleri çıktı",
           "paragraphs": [
@@ -298,11 +298,11 @@
         },
         {
           "size": 4,
-          "alert": true,
+          "alert": false,
           "kicker": "Güvenlik · pam-mysql",
           "headline": "pam-mysql, parolası boş hesaplara her parolayla giriş açıyor",
           "paragraphs": [
-            "pam-mysql, `PAM_DISALLOW_NULL_AUTHTOK` bayrağını ters yorumladığı için parolası NULL olan hesaplara herhangi bir parolayla girişe izin veriyor (CVE-2026-124749, CVSS 9,8). Varsayılan sshd ayarı etkileniyor. 0.8.x (Debian, Ubuntu) parola sütunu NULL kabul ediyorsa, 1.0.0 beta'ları (Fedora 39-44) boş parolada da açık. Düzeltme yalnızca Debian trixie'de (0.8.2-2.1); bookworm ve 1.0 dağıtımlarında yok. Yamasız sistemlerde NULL ya da boş parolalı satırları silip sütunu boş varsayılansız NOT NULL yapın. Log, bypass'ı meşru girişten ayırmıyor; eski yedeklere de bakın."
+            "pam-mysql, `PAM_DISALLOW_NULL_AUTHTOK` flag'ini ters yorumladığı için parolası NULL olan hesaplara herhangi bir parolayla girişe izin veriyor (CVE-2026-124749, CVSS 9,8). Varsayılan sshd ayarı etkileniyor. 0.8.x (Debian, Ubuntu) parola sütunu NULL kabul ediyorsa, 1.0.0 beta'ları (Fedora 39-44) boş parolada da açık. Düzeltme yalnızca Debian trixie'de (0.8.2-2.1); bookworm ve 1.0 dağıtımlarında yok. Yamasız sistemlerde NULL ya da boş parolalı satırları silip sütunu boş varsayılansız NOT NULL yapın. Log, bypass'ı meşru girişten ayırmıyor; eski yedeklere de bakın."
           ],
           "sources": [
             {
@@ -316,7 +316,7 @@
           "kicker": "Takip · OpenJDK",
           "headline": "Java4Shell yaması Ekim'de hazırdı, ifşadan hemen önce girdi",
           "paragraphs": [
-            "Java4Shell'i (CVE-2026-114938) kapatan upstream düzeltme, 13 Ekim'de yazılan dört satırlık 5177a70 commit'i; Solar Designer'ın oss-security notuna göre ifşadan hemen önce merge edildi. Commit, dört bayttan kısa dolgulu son parçaları yavaş yola yönlendiriyor. Aynı düzeltmeyi içeren PR #32781 ise üç ay önce merge edilmeden kapatılmıştı. Chainguard açığı fuzzing ile yeniden bulduğunu yazdı; Xint geçici bir runtime yaması yayımladı. Not aktif istismar bildirmiyor. Yamalanamayan JVM'lerde `-XX:-UseBASE64Intrinsics` bayrağı geçici çözüm, ama Base64 yoğun uygulamaları yavaşlatabilir."
+            "Java4Shell'i (CVE-2026-114938) kapatan upstream düzeltme, 13 Ekim'de yazılan dört satırlık 5177a70 commit'i; Solar Designer'ın oss-security notuna göre ifşadan hemen önce merge edildi. Commit, dört bayttan kısa dolgulu son parçaları slow path'e yönlendiriyor. Aynı düzeltmeyi içeren PR #32781 ise üç ay önce merge edilmeden kapatılmıştı. Chainguard açığı fuzzing ile yeniden bulduğunu yazdı; Xint geçici bir runtime yaması yayımladı. Not aktif istismar bildirmiyor. Yamalanamayan JVM'lerde `-XX:-UseBASE64Intrinsics` flag'i geçici çözüm, ama Base64 yoğun uygulamaları yavaşlatabilir."
           ],
           "sources": [
             {

@@ -142,7 +142,7 @@
           "kicker": "Şirket beyanı · Açık model",
           "headline": "PrismML: 5,9 GB'lık Bonsai 2.5 27B, SWE-bench'te tabana yaklaştı",
           "paragraphs": [
-            "PrismML'e göre Qwen3.8 27B'nin ternary sürümü Bonsai 2.5 27B yaklaşık 5,9 GB'a sığıyor. Kodlama testlerinde full precision taban modele önceki sürümden çok daha fazla yaklaşıyor, terminal görevlerinde fark sürüyor. Ternary, ağırlıkları üç değere indiren bir sıkıştırma. Agentic kodlama ve çok adımlı araç kullanımı için ayarlanan model 24 Kasım'da Apache 2.0 lisansıyla Hugging Face'te yayımlandı. Şirket RTX 4090'da saniyede 204 token üretim hızı veriyor; model llama.cpp ile NVIDIA ve Intel GPU'larda, MLX ile Mac ve iPhone'da çalışıyor."
+            "PrismML'e göre Qwen3.8 27B'nin ternary sürümü Bonsai 2.5 27B yaklaşık 5,9 GB'a sığıyor. Kodlama testlerinde full precision base modele önceki sürümden çok daha fazla yaklaşıyor, terminal görevlerinde fark sürüyor. Ternary, ağırlıkları üç değere indiren bir sıkıştırma. Agentic kodlama ve çok adımlı araç kullanımı için ayarlanan model 24 Kasım'da Apache 2.0 lisansıyla Hugging Face'te yayımlandı. Şirket RTX 4090'da saniyede 204 token üretim hızı veriyor; model llama.cpp ile NVIDIA ve Intel GPU'larda, MLX ile Mac ve iPhone'da çalışıyor."
           ],
           "sources": [
             {
@@ -155,7 +155,7 @@
             }
           ],
           "table": {
-            "title": "Şirketin ölçümü: Bonsai sürümleri ve taban model",
+            "title": "Şirketin ölçümü: Bonsai sürümleri ve base model",
             "cols": [
               "Model",
               "SWE-bench Verified",
@@ -263,7 +263,7 @@
         {
           "size": 6,
           "kicker": "Güvenlik · Apache Karaf",
-          "alert": true,
+          "alert": false,
           "headline": "Apache Karaf'ta viewer rolü SFTP üzerinden kod çalıştırabiliyor",
           "paragraphs": [
             "OSGi tabanlı uygulama sunucusu Apache Karaf'ın 4.4.12 ve öncesinde varsayılan açık gelen SFTP ve SCP, yalnızca SSH girişindeki rol kontrolüne bakıyor (CVE-2026-129959, Important). `viewer` ya da `ssh` rolündeki bir kullanıcı `etc/host.key` dosyasını okuyabiliyor, `deploy/` dizinine bundle yazarak kod çalıştırabiliyor. 4.4.13 ve 4.5.0 varsayılanı `admin` olan `sftpRole` ayarını getiriyor; SFTP'ye ihtiyacınız yoksa `sftpEnabled=false` yapın. CVE-2026-124615'te (Moderate) aynı roller `feature:requirement-add` ile istediği bundle'ı kurdurup çalıştırabiliyor; ACL dosyasına `requirement-add = admin` ve `requirement-remove = admin` ekleyin."

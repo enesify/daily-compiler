@@ -30,7 +30,7 @@ Bunlar yayıncının verdiği kararlardır; bulgular aksini gösterse bile deği
    - Kural dosyaları büyümesin: eklediğin kadar sadeleştir, `kurallar/KURALLAR.md` kelime sayısını önce ve sonra raporla.
    - Yeni bir yasak çeviri `kurallar/TERIMLER.md` tablosuna eklenir.
 5. **Kod.** Açık kod bulgularını ve site geneli bulgulardan küçük ve geri alınabilir olanları düzelt (`build.py`, `assets/`, `tools/`).
-   - Görünümü belirgin biçimde değiştiren tasarım kararlarını uygulama; raporda öneri olarak yaz. Bunlar yayıncının onayıyla yapılır.
+   - Görünümü değiştiren tasarım kararlarını uygulama; raporda öneri olarak yaz. Bunlar yayıncının onayıyla yapılır. Yayıncının onayladığı bir bileşenden metin, bağlantı ya da öğe kaldırmak da (ör. altbilgiden bir satır) görünür değişikliktir.
    - Düzeltme sonrası şunlar temiz olmalı:
      - `python3 build.py` (Python 3.11 ile de);
      - son üç sayı için `python3 tools/ekran.py <tarih>`;

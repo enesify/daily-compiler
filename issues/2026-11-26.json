@@ -157,7 +157,7 @@
           "kicker": "Yerel inference · Agent",
           "headline": "Kodlama agent'ı Inkling 2 Mini'yi tek GPU'da %40 hızlandırdı",
           "paragraphs": [
-            "Hugging Face'ten Niels Rogge'un bir öğleden sonra çalıştırdığı kodlama agent'ı, Inkling 2 Mini'nin tek kullanıcılı çıktı hızını bir RTX PRO 6000'de saniyede 136'dan 190,6 token'a çıkardı. Kazancın çoğu vLLM'in nightly sürümüne geçmekten ve DSpark speculative decoding'i açmaktan geldi; 8 kullanıcılı toplam hız %26 arttı. Protokol her adayı iki kontrol koşusu arasına almayı istiyordu; agent 46 geçerli koşunun hepsini kaydetti. Speculative decoding açıkken ve kapalıyken greedy çıktılar bayt bayt aynıydı. Yazara göre sonuç GPU'nun bellek bant genişliği sınırının yaklaşık %95'inde, bayrak ayarıyla kazanılacak yer kalmadı."
+            "Hugging Face'ten Niels Rogge'un bir öğleden sonra çalıştırdığı kodlama agent'ı, Inkling 2 Mini'nin tek kullanıcılı çıktı hızını bir RTX PRO 6000'de saniyede 136'dan 190,6 token'a çıkardı. Kazancın çoğu vLLM'in nightly sürümüne geçmekten ve DSpark speculative decoding'i açmaktan geldi; 8 kullanıcılı toplam hız %26 arttı. Protokol her adayı iki kontrol koşusu arasına almayı istiyordu; agent 46 geçerli koşunun hepsini kaydetti. Speculative decoding açıkken ve kapalıyken greedy çıktılar bayt bayt aynıydı. Yazara göre sonuç GPU'nun bellek bant genişliği sınırının yaklaşık %95'inde, flag ayarıyla kazanılacak yer kalmadı."
           ],
           "sources": [
             {
@@ -205,7 +205,7 @@
           "paragraphs": [
             "Başka modellerin çıktısını değerlendiren bir judge model olarak satılan Jev, Modaic'in analizine göre büyük olasılıkla Alibaba'nın Qwen3.5-35B-A3B modelinin fine-tuning'i. Yazarlar gecikme ölçümlerine dayanıyor: Qwen tokenizer'ı, Jev'in gecikmesini satıcı TypeSafe'in bildirdiği token sayısından daha iyi tahmin ediyor. Jev'e 22 farklı prompt'la kim olduğu soruldu; çoğunda cevap vermedi, ama hangi model olduğunu söylemek istediği sorulunca %74 Qwen dedi. Değerlendirme şirketi Vals AI de Jev'in Çin ve Tayvan cevaplarının Qwen türevlerine benzediğini bulmuş. Yazarlar sonucu kesin saymıyor: aynı mimarideki Qwen3.6-35B-A3B'den ayırt edemiyorlar."
           ],
-          "why": "Çin modellerinden kaçınması gereken ekipler, temel modelini açıklamayan bir satıcıyla bu riski fark etmeden alabilir.",
+          "why": "Çin modellerinden kaçınması gereken ekipler, base modelini açıklamayan bir satıcıyla bu riski fark etmeden alabilir.",
           "sources": [
             {
               "label": "Modaic: Latency doesn't lie",
@@ -242,7 +242,7 @@
           "kicker": "Sürüm · Claude Code",
           "headline": "Claude Code'da yeni hook, skill'lerdeki shell komutlarını durduruyor",
           "paragraphs": [
-            "Bir skill yüklenirken içindeki satır içi shell komutları artık bir hook ile reddedilebiliyor: Claude Code'un 25 Kasım'da çıkan 2.1.332 sürümü `PreSkillShellCommand` event'ini ekledi. Sürüm ayrıca macOS'ta bilgisayar kullanımını yeni güvenlik kurallarına geçirdi, bazı işlemler artık reddediliyor. Aynı sürüm, MCP sunucularından gelen skill'leri beta olarak `/` menüsünde `server:skill` biçiminde gösteriyor. Bir önceki 2.1.331 sürümünün notuna göre de yönetilen `extraKnownMarketplaces` listesindeki plugin marketplace'leri, 30 Kasım ya da sonrasında çıkacak bir sürümde varsayılan olarak kendiliğinden güncellenecek. Bunu istemeyen yöneticiler ilgili girdiye `\"autoUpdate\": false` eklemeli."
+            "Bir skill yüklenirken içindeki satır içi shell komutları artık bir hook ile reddedilebiliyor: Claude Code'un 25 Kasım'da çıkan 2.1.332 sürümü `PreSkillShellCommand` event'ini ekledi. Sürüm ayrıca macOS'ta computer use özelliğini yeni güvenlik kurallarına geçirdi, bazı işlemler artık reddediliyor. Aynı sürüm, MCP sunucularından gelen skill'leri beta olarak `/` menüsünde `server:skill` biçiminde gösteriyor. Bir önceki 2.1.331 sürümünün notuna göre de yönetilen `extraKnownMarketplaces` listesindeki plugin marketplace'leri, 30 Kasım ya da sonrasında çıkacak bir sürümde varsayılan olarak kendiliğinden güncellenecek. Bunu istemeyen yöneticiler ilgili girdiye `\"autoUpdate\": false` eklemeli."
           ],
           "sources": [
             {
@@ -264,7 +264,7 @@
         {
           "size": 6,
           "kicker": "Güvenlik · Jenkins",
-          "alert": true,
+          "alert": false,
           "headline": "Jenkins'te Pipeline ve Script Security sandbox'ı aşılabiliyor",
           "paragraphs": [
             "Jenkins'in 11 plugin'inde kapatılan açıkların en ciddileri, Groovy sandbox'ından çıkıp controller JVM'inde kod çalıştırmaya izin veriyor; düzeltmeler 25 Kasım'da duyuruldu. Pipeline: Groovy'deki açık (CVE-2026-136834) için sandbox'lı Pipeline tanımlayıp çalıştırma izni yetiyor; `4403.4405.va_b_cdb_b_d0b_89f` ile kapandı. Script Security'deki açık (CVE-2026-136835) önceki bir düzeltmenin eksik kalan kısmı, `1436.1438.v3dc5ef7d16f2`'de kapandı. Configuration as Code'da Overall/SystemRead izni olan biri dosya, ortam değişkeni ve secret okuyabiliyordu. Bütün plugin'lerin yaması çıktı; kurulu sürümleri duyurudaki tabloyla karşılaştırıp güncelleyin."
@@ -309,7 +309,7 @@
         {
           "size": 4,
           "kicker": "Olay · 1Password",
-          "alert": true,
+          "alert": false,
           "headline": "1Password: GitHub hesabı ele geçirildi, CI/CD'ye ulaşıldı",
           "paragraphs": [
             "Saldırganlar bir 1Password çalışanının kurumsal GitHub hesabını ele geçirip backend servislerine zararlı kod push etti; bu kod bazı müşterilerin ad, e-posta, hesap kimliği ve davet ya da kurtarma linklerindeki token'larını indirdi. Şirkete göre token'lar tek başına hesaba erişim vermiyor, SSO girişi ya da e-postaya giden kod da gerekiyor; bu kod 6 rakamdan 10 karakterlik harf ve rakam karışık koda uzatıldı. Özel repoların kodu kopyalandı, CI/CD'deki altyapı secret'ları döndürüldü. Vault'lar etkilenmedi; kullanıcıdan işlem beklenmiyor."
@@ -324,7 +324,7 @@
         {
           "size": 4,
           "kicker": "Olay · Defang",
-          "alert": true,
+          "alert": false,
           "headline": "Defang'da sahte release tag'i production secret'larını açtı",
           "paragraphs": [
             "Bulut deploy aracı Defang'da gereğinden yetkili bir geliştirme GitHub App'iyle push edilen commit release olarak etiketlendi; release tag'lerine güvenen production CI bu kodu production credential'larıyla çalıştırdı. Veritabanı 12 Kasım'da kopyalandı. Şirkete göre GitHub App kullananlar 11 Kasım'dan beri `defang-app[bot]` etkinliğine bakmalı, AWS'ye deploy edenler CloudTrail'i kontrol etmeli ve Defang'ın erişimini iptal edip yeniden bağlamalı. Defang 12 Ekim ile 19 Kasım arasında parola içerebilen deploy durumlarını sakladığı için o dönemde deploy edenler secret'larını değiştirmeli."
@@ -443,7 +443,7 @@
     "intro": "Agent'a yalnızca “şunu hızlandır” demek, gürültüyü kazanç sanan ve neyi denediğini unutan bir deney dizisi üretebilir. Hugging Face'in 25 Kasım'daki Inkling 2 Mini yazısındaki protokol, agent'ın bulduğu hızlanmanın gerçek ve doğru olduğunu gösteren kanıtı da birlikte üretiyor.",
     "when": "Protokolü veren inference-optimisation skill'i, yerel bir LLM sunucusunun çıktı hızı, prefill, KV cache ve ilk token süresi gibi ölçülebilir hedefleri için yazıldı. Aynı adımlar tek bir sayıyla ölçülen başka ayar işlerine uyarlanabilir; doğruluğu kontrol edecek bir test yoksa son adım uygulanamaz.",
     "steps": [
-      "Önce teorik tavanı hesaplatın. Skill, agent'ın denemeye başlamadan fiziksel sınırı hesaplamasını istiyor; böylece bir sonucun sınıra ne kadar yakın olduğu bilinir. Hugging Face'teki koşuda agent GPU'nun bant genişliğini ölçtü, tensör boyutlarını model dosyasının başlığından okudu ve speculative decoding ile yaklaşık 201 token/sn tavan buldu; 190,6'ya ulaşınca durdu.",
+      "Önce teorik tavanı hesaplatın. Skill, agent'ın denemeye başlamadan fiziksel sınırı hesaplamasını istiyor; böylece bir sonucun sınıra ne kadar yakın olduğu bilinir. Hugging Face'teki koşuda agent GPU'nun bant genişliğini ölçtü, tensör boyutlarını model dosyasının header'ından okudu ve speculative decoding ile yaklaşık 201 token/sn tavan buldu; 190,6'ya ulaşınca durdu.",
       "Her seferinde tek şeyi değiştirin ve denemeyi kontrol koşuları arasına alın. Protokol “kontrol → aday → kontrol” sırası istiyor. Skill bir değişikliği ancak iki komşu kontrolü de geçerse ve başka bir ölçütü %3'ten fazla kötüleştirmezse kabul ediyor. Yazıda %1-2'lik kazançlar gürültü sayıldı, %4'lük bir sonuç kontroller tekrarlamayınca atıldı.",
       "Medyan alın, gürültüyü ölçün. Skill en az altı ölçümün medyanını istiyor ve koşudan koşuya gürültüyü ±%5-10 olarak veriyor. Hugging Face koşusunda vLLM aynı ayarlarda %0,4 içinde kalırken SGLang ±%4,5 oynadı; motorun kendi gürültüsünü bilmeden küçük farkları yorumlamayın.",
       "Her koşuyu, başarısız olanları da kaydettirin. Skill her sonucu `ledger.jsonl` dosyasına, planı ve çıkmazları `PLAN.md`'ye yazdırıyor; neyin işe yaramadığı ve nedeni de kayda giriyor. Yazıda greedy draft sampling'in hızı yaklaşık %11 düşürdüğü bu kayıtlardan okunuyor.",
@@ -452,7 +452,7 @@
     "example": {
       "label": "Örnek görev prompt'u: inference sunucusunu hızlandırma",
       "lang": "markdown",
-      "code": "# Görev: vLLM sunucusunun tek kullanıcılı çıktı hızını artır\n\nHedef: tek kullanıcılı decode hızı (token/sn, medyan)\nKorunacaklar: 8 kullanıcılı toplam hız, TTFT, greedy çıktı\n\nKurallar:\n1. Önce donanımı ölç; tavan hesabını THEORY.md'ye yaz.\n2. Her koşuda yalnızca bir bayrağı ya da sürümü değiştir.\n3. Sıra: kontrol -> aday -> kontrol.\n4. Aday iki kontrolü de geçmeli; başka ölçüt %3'ten fazla düşmemeli.\n5. Her ölçüm en az 6 tekrar; medyanı raporla.\n6. Her koşuyu ledger.jsonl'a, çıkmazları PLAN.md'ye yaz.\n7. Ölçümden önce warm-up koşusu yap.\n8. Koşu bitince portun ve GPU belleğinin boşaldığını doğrula.\n9. \"En iyi\" demeden önce greedy eşitlik ve uzun bağlam testi yap.\n10. Tavana yaklaşınca dur ve kalan seçenekleri raporla."
+      "code": "# Görev: vLLM sunucusunun tek kullanıcılı çıktı hızını artır\n\nHedef: tek kullanıcılı decode hızı (token/sn, medyan)\nKorunacaklar: 8 kullanıcılı toplam hız, TTFT, greedy çıktı\n\nKurallar:\n1. Önce donanımı ölç; tavan hesabını THEORY.md'ye yaz.\n2. Her koşuda yalnızca bir flag'i ya da sürümü değiştir.\n3. Sıra: kontrol -> aday -> kontrol.\n4. Aday iki kontrolü de geçmeli; başka ölçüt %3'ten fazla düşmemeli.\n5. Her ölçüm en az 6 tekrar; medyanı raporla.\n6. Her koşuyu ledger.jsonl'a, çıkmazları PLAN.md'ye yaz.\n7. Ölçümden önce warm-up koşusu yap.\n8. Koşu bitince portun ve GPU belleğinin boşaldığını doğrula.\n9. \"En iyi\" demeden önce greedy eşitlik ve uzun bağlam testi yap.\n10. Tavana yaklaşınca dur ve kalan seçenekleri raporla."
     },
     "pitfall": "Ölçümün kendisi yanıltabilir. Hugging Face koşusunda Triton derlemesi ölçülen prefill süresine karışınca 4K prefill yaklaşık 20 bin yerine 202 token/sn okundu, kapanmayan eski bir sunucu süreci de portu tutmaya devam etti; yazar çözüm olarak ölçülmeyen bir warm-up koşusu ekledi ve port ile GPU belleği boşalana kadar beklemeyi koydu.",
     "sources": [

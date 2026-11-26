@@ -4,7 +4,7 @@ The Daily Compiler bir gazete: sakin, editoryal, tipografiyle konuşan bir sayfa
 
 ## Dil
 
-- Görsel yok; kimlik tipografi, ince çizgiler, kâğıt zemin ve tek vurgu rengiyle (petrol) kurulur. Emoji, stok görsel, gölge, gradyan ve süs öğesi kullanılmaz; ikonlar sitenin çizgi ikonlarıdır.
+- Görsel yok; tek istisna 404 sayfasındaki çizgi çizim (yayıncı onaylı). Kimlik tipografi, ince çizgiler, kâğıt zemin ve tek vurgu rengiyle (petrol) kurulur. Emoji, stok görsel, gölge, gradyan ve süs öğesi kullanılmaz; ikonlar sitenin çizgi ikonlarıdır.
 - Yazı tipleri: başlık ve metin Newsreader, etiketler IBM Plex Sans Condensed, kod IBM Plex Mono. Etiket büyük harf ve harf aralıklı, metin serif.
 - Hareket yalnızca okurun bir eylemine yanıt olarak (açma, kopyalama onayı) kullanılır.
 
@@ -36,7 +36,7 @@ The Daily Compiler bir gazete: sakin, editoryal, tipografiyle konuşan bir sayfa
 ## Dolgu
 
 - Anlam taşımayan başlık, etiket ve açıklama yazılmaz (“Bugün yapılacaklar”, “Bu kutu editoryal öneridir”). Etiketin adı ne olduğunu söyler, buyurmaz.
-- Aynı bilgi iki yerde verilmez (altbilgi ve Hakkında gibi).
+- Aynı bilgi iki yerde verilmez (altbilgi ve Hakkında gibi). İstisna: 404 sayfasındaki bağlantılar, yolunu kaybeden okura ikinci bir yol olarak kalır.
 
 ## Ekranlar
 

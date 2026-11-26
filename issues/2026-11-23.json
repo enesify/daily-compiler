@@ -21,7 +21,7 @@
     },
     {
       "date": "2026-12-08",
-      "text": "Dependabot, hareketsiz repolarda uyarıları duraklatıyor",
+      "text": "Dependabot, hareketsiz repolarda alert'leri duraklatıyor",
       "url": "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories"
     },
     {
@@ -96,7 +96,7 @@
           "headline": "OpenAI, perplexity'ye dayalı ortak geliştirme sınırları önerdi",
           "paragraphs": [
             "Yapay zekâ laboratuvarları, bir modelin sonraki token'ı ne kadar iyi tahmin ettiğini ölçen perplexity değerine göre ortak sınırlar koyabilir. OpenAI'ın baş bilimcisi Jakub Pachocki 22 Kasım'daki yazısında bunu önerdi ve ilk adım olarak şirketin pretraining ilerlemesini gösteren iç ölçümlerini yayımladı. Öneriye göre geliştiriciler, somut bir kilometre taşına ulaşılana kadar belirlenen eşiği aşmamayı taahhüt edecek. Yazıdaki örnek, modelin reasoning metnini izleyen bugünkü chain-of-thought denetiminin yerini alacak bir yöntemin geliştirilmesi.",
-            "Pachocki ayrıca öncü modellerin ilk kullanımdan önce ortak normlarla değerlendirilmesini ve güvenlik gerekçelerinin red team ile sınanmasını istiyor. Ardışık sınırlar için de ortak bir çerçeve öneriyor. Pretraining'de ani ilerlemelerin 2027 gibi erken bir tarihte gelebileceğini, AI'ın alignment ve izleme işlerine yardımının bu hıza yetişmeyeceğini yazıyor.",
+            "Pachocki ayrıca frontier modellerin ilk kullanımdan önce ortak normlarla değerlendirilmesini ve güvenlik gerekçelerinin red team ile sınanmasını istiyor. Ardışık sınırlar için de ortak bir çerçeve öneriyor. Pretraining'de ani ilerlemelerin 2027 gibi erken bir tarihte gelebileceğini, AI'ın alignment ve izleme işlerine yardımının bu hıza yetişmeyeceğini yazıyor.",
             "Yazar ölçünün sınırlılıklarını da sayıyor. Laboratuvarlar farklı veri setleri ve eğitim karışımları kullandığı için karşılaştırma zor; perplexity gerçek görevleri doğrudan ölçmüyor ve chain-of-thought'tan gelen kazanımları göstermiyor. Verinin ulaşılabilecek en düşük kaybı da bilinmiyor; Pachocki'ye göre bu tabana yaklaştıkça küçük görünen iyileşmeler büyük yetenek sıçramaları anlamına gelebilir."
           ],
           "table": {
@@ -147,7 +147,7 @@
           "kicker": "Politika · Açık modeller",
           "headline": "Meclis raporu: Çin modelleri federal işlerden çıkarılsın",
           "paragraphs": [
-            "ABD Temsilciler Meclisi'nin iki komitesi, Çin'de geliştirilen açık ağırlıklı modellerin federal sistemlerden, federal sözleşme işlerinden ve yüksek riskli kritik altyapıdan çıkarılmasını istiyor. Komitelerin 20 Kasım'da yayımladığı rapora göre Airbnb müşteri desteğinde Alibaba modellerini kullanıyor; Cursor'ı geliştiren Anysphere en önemli modelini Moonshot AI'ın temel modeli üzerine kurdu. CNBC'ye göre Cursor, komitelere bu modelleri aşamalı olarak bırakmayı inceleyeceğini bildirdi. Raporun 12 önerisi arasında model kökeni standardı ve AI malzeme listesi (AI BOM) da var."
+            "ABD Temsilciler Meclisi'nin iki komitesi, Çin'de geliştirilen açık ağırlıklı modellerin federal sistemlerden, federal sözleşme işlerinden ve yüksek riskli kritik altyapıdan çıkarılmasını istiyor. Komitelerin 20 Kasım'da yayımladığı rapora göre Airbnb müşteri desteğinde Alibaba modellerini kullanıyor; Cursor'ı geliştiren Anysphere en önemli modelini Moonshot AI'ın base modeli üzerine kurdu. CNBC'ye göre Cursor, komitelere bu modelleri aşamalı olarak bırakmayı inceleyeceğini bildirdi. Raporun 12 önerisi arasında model kökeni standardı ve AI malzeme listesi (AI BOM) da var."
           ],
           "sources": [
             {
@@ -165,7 +165,7 @@
           "kicker": "Yerel inference · Açık model",
           "headline": "LookAtMyQuant: 5,4 GB'lık Inkling 2 Mini kodlamada geriledi",
           "paragraphs": [
-            "Thinking Machines'in 26,4 milyar parametreli Inkling 2 Mini'si metin ağırlıkları bir topluluk projesinde 5,4 GB'a sıkıştırıldı, ama bedeli kodlamada görülüyor. LookAtMyQuant reposundaki yapı ağırlık başına 1,65 bit kullanıyor; orijinal metin ağırlıkları yaklaşık 19 GB, görüntü kulesi ayrı bir 637 MB'lık dosya. Reponun kendi ölçümüne göre HumanEval'da çözülen problem oranı %92,7'den %71,3'e düştü, matematik testi GSM8K'da kayıp daha küçük. Yapı 21 Kasım'da Hacker News'in ön sayfasındaydı; kod MIT lisanslı, ağırlıkların lisansı sayfada yazmıyor."
+            "Thinking Machines'in 26,4 milyar parametreli Inkling 2 Mini'si metin ağırlıkları bir topluluk projesinde 5,4 GB'a sıkıştırıldı, ama bedeli kodlamada görülüyor. LookAtMyQuant reposundaki yapı ağırlık başına 1,65 bit kullanıyor; orijinal metin ağırlıkları yaklaşık 19 GB, vision tower ayrı bir 637 MB'lık dosya. Reponun kendi ölçümüne göre HumanEval'da çözülen problem oranı %92,7'den %71,3'e düştü, matematik testi GSM8K'da kayıp daha küçük. Yapı 21 Kasım'da Hacker News'in ön sayfasındaydı; kod MIT lisanslı, ağırlıkların lisansı sayfada yazmıyor."
           ],
           "sources": [
             {
@@ -183,7 +183,7 @@
           "kicker": "Politika · OpenAI",
           "headline": "OpenAI modellerini sunan router'lar artık onay almak zorunda",
           "paragraphs": [
-            "Model router'ları ve AI gateway'leri gibi OpenAI modellerine doğrudan erişim veren servisler, 20 Kasım'dan itibaren bu erişimi sunmadan önce OpenAI'ın incelemesinden ve onayından geçmek zorunda. Kural, şirketin 21 Ekim'de duyurduğu kullanım politikası güncellemesinde; partnerlerden OpenAI düzeyinde güvenlik önlemi, ihlal soruşturması ve ortak yaptırım bekleniyor. Onay ölçütleri ve onay alamayan servislerin mevcut kullanıcılarına ne olacağı duyuruda yer almıyor. Semafor'a göre en bilinen örnek OpenRouter; kural, Çinli laboratuvarların kimliği gizleyen aracılar üzerinden ABD modellerini damıttığı (distillation) suçlamalarının ardından geliyor."
+            "Model router'ları ve AI gateway'leri gibi OpenAI modellerine doğrudan erişim veren servisler, 20 Kasım'dan itibaren bu erişimi sunmadan önce OpenAI'ın incelemesinden ve onayından geçmek zorunda. Kural, şirketin 21 Ekim'de duyurduğu kullanım politikası güncellemesinde; partnerlerden OpenAI düzeyinde güvenlik önlemi, ihlal soruşturması ve ortak yaptırım bekleniyor. Onay ölçütleri ve onay alamayan servislerin mevcut kullanıcılarına ne olacağı duyuruda yer almıyor. Semafor'a göre en bilinen örnek OpenRouter; kural, Çinli laboratuvarların kimliği gizleyen aracılar üzerinden ABD modellerine distillation uyguladığı suçlamalarının ardından geliyor."
           ],
           "sources": [
             {
@@ -209,7 +209,7 @@
         {
           "size": 6,
           "kicker": "Ürün · Anthropic",
-          "headline": "Claude'un bilgisayar kullanımı Team ve Enterprise'da beta",
+          "headline": "Claude'un computer use özelliği Team ve Enterprise'da beta",
           "paragraphs": [
             "Claude'un ekranı görüp kullanıcının izin verdiği masaüstü uygulamalarında çalıştığı computer use özelliği, 20 Kasım'da Team ve Enterprise planlarında beta olarak kademeli açılmaya başladı. Özellik varsayılan olarak kapalı; organizasyon sahibi Capabilities ayarından açıyor. Yöneticiler engelleme ya da izin listesiyle uygulamaları sınırlayabiliyor, ama listeler Claude in Chrome'u, Claude Code'u, web sitelerini ve sanal makinelerdeki uygulamaları kapsamıyor. Belge, Claude ile uygulamalar arasında sandbox olmadığını ve ekrandaki bir e-postanın istenmeyen eylemlere yol açabileceğini yazıyor; bağlı klasör sınırları da computer use'a uygulanmıyor. HIPAA-ready, CMEK, FERPA ya da K-12 ayarlı ve Claude Code için ZDR kullanan organizasyonlar özelliği açamıyor."
           ],
@@ -247,7 +247,7 @@
         {
           "size": 6,
           "kicker": "Güvenlik · Apache Solr",
-          "alert": true,
+          "alert": false,
           "headline": "Apache Solr'da iki yetki açığı: 9.11 ve 10.1'e yükseltin",
           "paragraphs": [
             "Apache Solr'da düşük yetkili kullanıcıların yetkisinin üstünde işlem yapmasına izin veren iki açık 22 Kasım'da duyuruldu; düzeltmeler 9.11.0 ve 10.1.0'da. CVE-2026-86312 (CVSS 8,8) 9.0.0'dan beri `/admin/ping` endpoint'ini etkiliyor: kural tabanlı yetkilendirmede yalnızca health izni olan bir istemci daha yüksek yetki isteyen işleri tetikleyebiliyor; `bin/solr` CLI'ın örnek yapılandırması bu endpoint'i kimlik doğrulamasız bırakıyor. CVE-2026-53672 (6,5), Basic Auth kullanan cluster'larda zk-read izni olan kullanıcının parola hash'lerini içeren `security.json`'ı okumasına izin veriyor; açık 8.11.1'den beri var ve 8.x hattı için düzeltme yok. Yükseltemeyenler `/admin/ping`'i güvenilir bir role bağlamalı, zk-read'i yalnızca güvenilen yöneticilere vermeli."
@@ -301,7 +301,7 @@
           "size": 4,
           "kicker": "Aktif istismar · MONAI Label",
           "alert": true,
-          "headline": "AI agent'ları MONAI Label'da sıfırıncı gün bulup root aldı",
+          "headline": "AI agent'ları MONAI Label'da zero-day bulup root aldı",
           "paragraphs": [
             "Amazon Threat Intelligence'ın orta güvenle Çin bağlantılı saydığı bir operatörün açık kaynaklı Cairn agent'ları, MONAI Label'da kimlik doğrulamasız bir path traversal açığı (CVE-2026-133968, 9,8) buldu. Agent'lar bununla bir üniversite sunucusunda root yetkisiyle shell açtı. Etkilenen sürümler 0.8.5 ve öncesi; kimlik doğrulama varsayılan olarak kapalı ve PyPI'de yamalı sürüm yok. Sunucuyu güvenilmeyen ağlardan ayırın ve `MONAI_LABEL_AUTH_ENABLE=True` ile kimlik doğrulamayı açın. ANNOTATOR rolü de açığı kullanmaya yettiği için bu rolü güvenilmeyenlere vermeyin; beklenmeyen Python başlangıç dosyalarına bakın."
           ],

@@ -36,7 +36,7 @@
     "headline": "Z.ai'ın 750 milyar parametreli GLM-5.4'ü çıktı: benchmark yok, API sonra",
     "deck": "Model şimdilik yalnızca GLM Coding Plan, ZCode ve Z.ai Chat'te. Token fiyatı ve ağırlıklar için tarih yok; Z.ai 750 milyarlık model için hiçbir ölçüm yayımlamadı.",
     "paragraphs": [
-      "Çinli Z.ai'ın yeni amiral gemisi GLM-5.4, şirketin ilk loop transformer modeli: ağırlıkları paylaşan bir katman grubunu birden çok kez çalıştırarak parametre sayısını artırmadan ağı derinleştiriyor. Modelde 27 ile 54 arasındaki 28 katman her token için iki kez çalışıyor; iki geçiş aynı KV cache'i kullanıyor. Z.ai modeli GLM-5'in temel modelinden yeniden eğitti ve 2-3 trilyon parametreli modellerle aynı düzeyde olduğunu söylüyor.",
+      "Çinli Z.ai'ın yeni amiral gemisi GLM-5.4, şirketin ilk loop transformer modeli: ağırlıkları paylaşan bir katman grubunu birden çok kez çalıştırarak parametre sayısını artırmadan ağı derinleştiriyor. Modelde 27 ile 54 arasındaki 28 katman her token için iki kez çalışıyor; iki geçiş aynı KV cache'i kullanıyor. Z.ai modeli GLM-5'in base modelinden yeniden eğitti ve 2-3 trilyon parametreli modellerle aynı düzeyde olduğunu söylüyor.",
       "Bu iddiayı destekleyen bir sonuç yok: şirket 750 milyarlık model için benchmark yayımlamadı, bağımsız bir ölçüm de henüz yok. Paylaşılan tek kontrollü deney 30 milyar parametreli bir test modeli; loop'lu sürüm AIME25'te 19,2'den 30,4'e çıktı. Bu modelin eğitim hesabı yaklaşık %10 fazla olduğu için kazancın tamamı mimariye bağlanamıyor. Z.ai'ın kendi saydığı zayıflık, modelin uzun reasoning aşamalarında takılıp kalması.",
       "GLM-5.4 şimdilik GLM Coding Plan aboneliğinde, ZCode'da ve Z.ai Chat'te; normal API erişimi ve token fiyatı sonra gelecek. Simon Willison, Coding Plan anahtarının OpenAI uyumlu Responses API endpoint'inde de çalıştığını ve modele böyle eriştiğini yazıyor. Ürettiği çıktıları GLM-5.3'ünkilere yakın bulduğunu da ekliyor. Ağırlıklar ek güvenlik testlerinden sonra açılacak, tarih verilmedi.",
       "Xenospectrum'un derlemesine göre ZCode'da bağlam 1 milyon token; eski V1 planları dışında GLM-5.3'e göre 1,5 kat kullanım hakkı tanındığı bildiriliyor. Z.ai, üretim hızının yoğun saatlerde saniyede 70-80, sakin saatlerde 200 token olduğunu söylüyor. Şirket çok daha büyük bir modelin de yakında geleceğini duyurdu, ayrıntı vermedi."
@@ -286,7 +286,7 @@
           "kicker": "OpenJDK · JDK 28",
           "headline": "JEP 545 JDK 28'de: ZGC heap hazırlığını başlangıçtan çıkarıyor",
           "paragraphs": [
-            "ZGC, JDK 28'de heap belleğini uygulamanın başlangıç yolunda değil, eşzamanlı çalışan worker thread'lerde hazırlayacak; JEP 545 entegre edildi. Linux 6.1 ve üstünde küçük sayfalar çalışma sırasında büyük sayfalara yükseltiliyor. InfoQ'nun aktardığı Spring PetClinic ölçümünde warmup 80 saniyeden 10 saniyeye indi, ama bu ölçüm varsayılan olarak kapalı JEP 546 açıkken alındı: `-XX:+ZAdaptiveHeapSizing` olmadan aynı kazanç beklenmemeli. Büyük başlangıç heap'ine göre ayarlanmış uygulamalar yeniden ayar isteyebilir. JDK 28 3 Aralık'ta Rampdown Phase One'a giriyor."
+            "ZGC, JDK 28'de heap belleğini uygulamanın başlangıç yolunda değil, eşzamanlı çalışan worker thread'lerde hazırlayacak; JEP 545 entegre edildi. Linux 6.1 ve üstünde küçük sayfalar çalışma sırasında büyük sayfalara yükseltiliyor. InfoQ'nun aktardığı Spring PetClinic ölçümünde warm-up 80 saniyeden 10 saniyeye indi, ama bu ölçüm varsayılan olarak kapalı JEP 546 açıkken alındı: `-XX:+ZAdaptiveHeapSizing` olmadan aynı kazanç beklenmemeli. Büyük başlangıç heap'ine göre ayarlanmış uygulamalar yeniden ayar isteyebilir. JDK 28 3 Aralık'ta Rampdown Phase One'a giriyor."
           ],
           "sources": [
             {
@@ -306,7 +306,7 @@
         {
           "size": 6,
           "kicker": "Güvenlik · Apache Jena",
-          "alert": true,
+          "alert": false,
           "headline": "Jena Fuseki 6.3.0, yönetim kısıtını aşan kritik açığı kapattı",
           "paragraphs": [
             "Apache Jena'nın SPARQL sorgu sunucusu Fuseki'nin 6.2.0 ve önceki sürümlerinde iki açık 23 Kasım'da duyuruldu; düzeltme 6.3.0'da. Kritik olarak işaretlenen CVE-2026-124324'te SPARQL `SERVICE` işlemleri, yalnızca localhost'tan yapılması gereken yönetim işlemlerine konan kısıtı aşabiliyor. Önemli olarak işaretlenen CVE-2026-86156'da SPARQL Update istekleri dosya kısıtlarını aşıp sunucudaki yerel verileri okuyabiliyor. Duyurular geçici çözüm vermiyor; Fuseki sürümünüz 6.2.0 ya da daha eskiyse 6.3.0'a yükseltin."
@@ -413,10 +413,10 @@
     "when": "Rutin değişikliklerin (metin, bağımlılık, yapılandırma) onay beklemesi ekibi yavaşlatıyorsa işe yarar. Yalnızca yorum alan bir AI incelemesi kullanıyorsanız bu adımlara gerek yok; onay hâlâ insandadır.",
     "steps": [
       "Önce gözlem modunda çalıştırın. Claude Ship belgeleri politikayı gözlem modunda (`mode: observe`) başlatmayı öneriyor: check bu modda kuralların ne karar vereceğini gösteriyor ama hiçbir şeyi onaylamıyor. Kararları reviewer'larınızın kararlarıyla karşılaştırın; örtüşmedikçe enforce etmeyin. Belgeler gözlem modunun da faturalandığını hatırlatıyor.",
-      "Her path için yazar olmayan bir insan isteyin. Anthropic'in belgelerine göre `seats: 1` kuralını PR'ın yazarı tek başına doldurabiliyor, bot'ları kabul eden bir liste de insan onayı olmadan geçebiliyor. Kök politikaya, yazarları `\"!pr/authors\"` ile dışarıda bırakan bir insan koltuğu koyun. Agent'ların kullandığı makine kullanıcılarını da `\"!login\"` ile dışarıda bırakın, çünkü insan sayılıyorlar.",
+      "Her path için yazar olmayan bir insan isteyin. Anthropic'in belgelerine göre `seats: 1` kuralını PR'ın yazarı tek başına doldurabiliyor, bot'ları kabul eden bir liste de insan onayı olmadan geçebiliyor. Kök politikaya, yazarları `\"!pr/authors\"` ile dışarıda bırakan bir insan seat'i koyun. Agent'ların kullandığı makine kullanıcılarını da `\"!login\"` ile dışarıda bırakın, çünkü insan sayılıyorlar.",
       "İnceleme kurallarının kendisini koruyun. Politika dosyası, `CODEOWNERS` ve `REVIEW.md` Approvals'ta yerleşik olarak korunuyor, ama belgeler `.github/`, `AGENTS.md`, `CLAUDE.md`, `.mcp.json` ve `.claude/` dizininin geri kalanı için ayrı kural yazmanızı istiyor. GitHub'ın belgeleri de `CODEOWNERS` dosyasına bir sahip atayarak dosyanın kendisini korumayı öneriyor.",
       "Yeni commit gelince eski onayı düşürün. GitHub'da Copilot'un onayı yeni commit push edildiğinde otomatik olarak geri alınıyor. Claude'un onayı ise bir dismiss isteğine bağlı ve GitHub bu isteği reddedebiliyor. Anthropic bu yüzden “Dismiss stale pull request approvals” ya da “Require approval of the most recent reviewable push” ayarını açmayı öneriyor.",
-      "Auto-merge ve merge queue kullanan repolarda insan koltuğunu zorunlu tutun. Belgelere göre insan onayı istemeyen bir politika, bu özelliklerle birlikte değişikliği kimse dokunmadan merge ettirebiliyor. Varsayılan branch'e doğrudan push da check'ten geçmiyor; GitHub'da pull request'i zorunlu yapın."
+      "Auto-merge ve merge queue kullanan repolarda insan seat'ini zorunlu tutun. Belgelere göre insan onayı istemeyen bir politika, bu özelliklerle birlikte değişikliği kimse dokunmadan merge ettirebiliyor. Varsayılan branch'e doğrudan push da check'ten geçmiyor; GitHub'da pull request'i zorunlu yapın."
     ],
     "example": {
       "label": "Örnek .claude/approvals.yml: her değişikliğe yazar dışı bir insan",
@@ -525,7 +525,7 @@
   "briefs": [
     {
       "tag": "Takip · Güvenlik",
-      "text": "CISA, saldırganların agent'larının sıfırıncı gün olarak bulduğu MONAI Label path traversal açığını (CVE-2026-133968) 23 Kasım'da KEV'e ekledi; yamalı sürüm 0.8.6 artık PyPI'de olduğundan 0.8.5 ve öncesini kullananlar yükseltmeli.",
+      "text": "CISA, saldırganların agent'larının zero-day olarak bulduğu MONAI Label path traversal açığını (CVE-2026-133968) 23 Kasım'da KEV'e ekledi; yamalı sürüm 0.8.6 artık PyPI'de olduğundan 0.8.5 ve öncesini kullananlar yükseltmeli.",
       "url": "#2026-11-23-guvenlik-1"
     },
     {

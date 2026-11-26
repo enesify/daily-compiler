@@ -4,7 +4,7 @@ Okuyucu Türk yazılımcı. Ölçüt, terimin sözlük karşılığı değil, bi
 
 Türkçe ek İngilizce terime kesme işaretiyle gelir: secret'lar, branch'te, endpoint'i, event adları.
 
-Şirket, ürün, özellik, plan, rol ve ayar adları kaynaktaki gibi yazılır, çevrilmez: 1Password'de Vault, GitHub'da Organization ve Member, Cloudflare'de Search for Agents. Gerekirse ilk geçtiği yerde parantez içinde kısaca açıklanır.
+Şirket, ürün, özellik, plan, rol ve ayar adları kaynaktaki gibi yazılır, çevrilmez: 1Password'de Vault, GitHub'da Organization ve Member, Cloudflare'de Search for Agents; GitHub'da custom repository roles, private vulnerability reporting, larger runners, Dependabot alerts. Gerekirse ilk geçtiği yerde parantez içinde kısaca açıklanır.
 
 ## İngilizce kalır
 

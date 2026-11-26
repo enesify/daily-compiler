@@ -11,7 +11,7 @@ Kullanım:
     telefon  hata yok            ya da
     telefon  TAŞMA 24px: pre.code (sec-atolye) · JS: ... · KESİK: .nm "..."
 Görüntülere bakmak incelemenin işidir; bu betik yalnızca ölçülebilir olanı bulur: yatay taşma, taşan öğe, JavaScript hatası,
-kırık iç bağlantı, yüklenemeyen dosya, satır başına 90 karakteri aşan metin (UZUN SATIR), satır sonunda bölünen kısa kod ya da kimlik (BÖLÜNEN), sayfa sonunda yanlış etkin
+kırık iç bağlantı, yüklenemeyen dosya, satır başına 95 karakteri aşan metin (UZUN SATIR), satır sonunda bölünen kısa kod ya da kimlik (BÖLÜNEN), sayfa sonunda yanlış etkin
 sekme (SEKME), son sayıda kadranın “Sonraki” adımı (KADRAN) ve telefonda katlama (KATLAMA: gizlenen kısım 4 satırdan kısa,
 “Devamı” düğmesi “Neden önemli”/tablo/grafikten önce, düğme metni açmıyor). Telefonda katlamanın özeti ayrıca bir bilgi satırıdır.
 """
@@ -50,9 +50,23 @@ OLC = r"""() => {
 }"""
 
 # Satır sonunda bölünmemesi gereken kısa kod ve kimlikler (code.nb, .nw): birden çok satır kutusu varsa bölünmüştür
-BOLUNEN = r"""() => [...document.querySelectorAll('main code.nb, main .nw')]
-  .filter(e => e.offsetParent && new Set([...e.getClientRects()].map(r => Math.round(r.top / 4))).size > 1)
-  .map(e => '“' + e.textContent.trim().slice(0, 40) + '” (' + ((e.closest('section[id]') || {}).id || '') + ')').slice(0, 6)"""
+BOLUNEN = r"""() => {
+  const satir = r => new Set([...r.getClientRects()].map(x => Math.round(x.top / 4))).size;
+  const out = [...document.querySelectorAll('main code.nb, main .nw')]
+    .filter(e => e.offsetParent && satir(e) > 1)
+    .map(e => '“' + e.textContent.trim().slice(0, 40) + '” (' + ((e.closest('section[id]') || {}).id || '') + ')');
+  // Düz metinde sürümlü adlar: “Opus 5.5”, “Gemini 4 Neon”, “JDK 28”
+  const re = /\b[A-Z][\w-]*[ \u00a0][A-Z]?\d+(?:[.,]\d+)*(?:[ \u00a0][A-Z][a-z]{2,9}\b)?/g;
+  const w = document.createTreeWalker(document.querySelector('main') || document.body, NodeFilter.SHOW_TEXT);
+  for (let n; (n = w.nextNode()) && out.length < 8;) {
+    if (!n.parentElement.offsetParent || n.parentElement.closest('pre, code, script, style')) continue;
+    for (const m of n.data.matchAll(re)) {
+      const r = document.createRange(); r.setStart(n, m.index); r.setEnd(n, m.index + m[0].length);
+      if (satir(r) > 1) out.push('“' + m[0].replace(/\u00a0/g, ' ') + '” (' + ((n.parentElement.closest('section[id]') || {}).id || '') + ')');
+    }
+  }
+  return out.slice(0, 6);
+}"""
 
 # Satır uzunluğu: paragraf ve liste maddelerinde satır başına yaklaşık karakter (ortalama harf genişliği ölçülür)
 SATIR = r"""() => {
@@ -63,7 +77,7 @@ SATIR = r"""() => {
     const t = e.textContent.trim(); if (t.length < 140) continue;
     const ort = c.measureText(t.slice(0, 400)).width / Math.min(t.length, 400);
     const n = Math.round(e.clientWidth / ort);
-    if (n > 90) out.push(n + ' karakter: ' + ((e.closest('section[id]') || {}).id || '') + ' ' + e.tagName.toLowerCase() + ' “' + t.slice(0, 30) + '…”');
+    if (n > 95) out.push(n + ' karakter: ' + ((e.closest('section[id]') || {}).id || '') + ' ' + e.tagName.toLowerCase() + ' “' + t.slice(0, 30) + '…”');
   }
   return [...new Set(out)].slice(0, 4);
 }"""

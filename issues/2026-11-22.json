@@ -21,7 +21,7 @@
     },
     {
       "date": "2026-12-08",
-      "text": "Dependabot, hareketsiz repolarda uyarıları duraklatıyor",
+      "text": "Dependabot, hareketsiz repolarda alert'leri duraklatıyor",
       "url": "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories"
     },
     {
@@ -271,7 +271,7 @@
           "kicker": "Takip · Java4Shell",
           "headline": "Quarkus 3.27'nin varsayılan UBI 9 imajı Java4Shell'e yamasız",
           "paragraphs": [
-            "Quarkus 3.27'nin varsayılan olarak kullandığı Red Hat'in UBI 9 `1.23` Java runtime container imajları, OpenJDK'nın Base64 çözücüsündeki CVE-2026-114938 için düzeltilmedi ve düzeltilmeyecek. Quarkus ekibi 20 Kasım'da güncellediği yazıda `1.24` imajlarına geçmeyi öneriyor. Quarkus'un kendisi değil JDK etkileniyor; GraalVM dağıtımı Mandrel ile derlenen native executable'lar güvende. Var olan imajlar eski JDK'yı taşıdığı için imajı `--pull` ile yeniden üretip dağıtmak gerekiyor. Geçici çözüm `JAVA_OPTS_APPEND` içine `-XX:-UseBASE64Intrinsics` eklemek; `jcmd <pid> VM.flags -all` çıktısında bayrağın `false` olduğu görülmeli."
+            "Quarkus 3.27'nin varsayılan olarak kullandığı Red Hat'in UBI 9 `1.23` Java runtime container imajları, OpenJDK'nın Base64 çözücüsündeki CVE-2026-114938 için düzeltilmedi ve düzeltilmeyecek. Quarkus ekibi 20 Kasım'da güncellediği yazıda `1.24` imajlarına geçmeyi öneriyor. Quarkus'un kendisi değil JDK etkileniyor; GraalVM dağıtımı Mandrel ile derlenen native executable'lar güvende. Var olan imajlar eski JDK'yı taşıdığı için imajı `--pull` ile yeniden üretip dağıtmak gerekiyor. Geçici çözüm `JAVA_OPTS_APPEND` içine `-XX:-UseBASE64Intrinsics` eklemek; `jcmd <pid> VM.flags -all` çıktısında flag'in `false` olduğu görülmeli."
           ],
           "sources": [
             {

@@ -35,6 +35,14 @@ Her birinde sor:
 - Türetilmiş her rakamı (yüzde fark, oran, kat, “yaklaşık X ucuz”) girdilerinden kendin yeniden hesapla. Haberdeki benchmark değerleri `data/modeller.json` ile aynı mı; değilse metin ayar ya da sürüm farkını söylüyor mu?
 - Linkler açılıyor mu, asıl kaynak mı? Takvim'deki `ref` tarihin geçtiği habere, `url` tarihin yazdığı kaynağa mı işaret ediyor? Önceki sayılara atıf yapılan yerde iç link var mı?
 
+### Her haberde üç soru
+
+Doğruladığın her haber için bu üç soruyu ayrı ayrı sor ve cevabı “evet” olanı bulgu yaz; bu üçü son haftalarda kural açık olduğu halde en sık kaçan hatalar:
+
+1. Metinde kaynakta yazmayan bir ayrıntı, yöntem, sayı ya da nitelendirme var mı (“mantıklı” diye eklenmiş olanlar dahil)?
+2. Güvenlik haberinde etkilenen, yaması olmayan ya da düzeltilmiş sürümlerden kaynakta yazdığı halde metne girmeyen var mı?
+3. Editoryal alanlarda (why, Editörün önerileri, Atölye adımları) haber metninde ya da kaynakta olmayan yeni bir olgu var mı?
+
 ### Eksik bilgi
 
 Okuyucu “ne değişti, beni etkiliyor mu, ne yapmalıyım, ne zamana kadar” sorularının cevabını alıyor mu? Özellikle:
@@ -45,6 +53,7 @@ Okuyucu “ne değişti, beni etkiliyor mu, ne yapmalıyım, ne zamana kadar” 
 
 ### Etiket ve eşit muamele
 
+- Kırmızı (`alert`) yalnızca aktif istismar, zehirlenmiş paket ya da kimlik doğrulamasız RCE haberinde mi?
 - Eksik İddia ya da Şirket beyanı etiketi; İddia haberinde kesin kipte başlık; başlığa girmiş şirket iddiası.
 - Tek ve ikincil kaynağa dayanan bölüm haberi.
 - Anthropic ve Claude haberlerine farklı ölçüt; karşılaştırmada bir modelin (Claude dahil) rakam yerine sıfatla geçilmesi.
