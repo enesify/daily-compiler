@@ -636,3 +636,7 @@ main p:not(.src),main li,.lead p.deck{max-width:62ch}
 .at-steps li::before{content:counter(at,decimal-leading-zero);justify-self:start;font-family:var(--f-mono);font-size:12px;font-weight:500;line-height:1;color:var(--accent);background:var(--paper);border:1px solid var(--accent);border-radius:3px;padding:4px 4px 3px;position:relative;z-index:1;align-self:start;margin-top:3px}
 .at-steps li:not(:last-child)::after{content:"";position:absolute;left:12px;top:24px;bottom:0;width:1px;background:var(--rule)}
 .at-steps li:last-child{padding-bottom:0}
+/* Editörün önerileri: numaralar Atölye'deki gibi kod yazısıyla, küçük çerçeveli */
+aside.box ol{list-style:none;padding-left:0;counter-reset:not}
+aside.box ol>li{counter-increment:not;display:grid;grid-template-columns:36px minmax(0,1fr);align-items:start}
+aside.box ol>li::before{content:counter(not,decimal-leading-zero);justify-self:start;font-family:var(--f-mono);font-size:12px;font-weight:500;line-height:1;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:4px 4px 3px;margin-top:3px}

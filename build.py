@@ -847,7 +847,7 @@ def render_issue(ctx, cur):
         if L.get("box"):
             B = L["box"]
             box = (f'<aside class="box"><span class="kicker">{caps_rich("Editörün önerileri")}</span>'
-                   '<ol>' + "".join(f"<li>{rich(t)}</li>" for t in B.get("items") or []) + "</ol>"
+                   '<ol>' + "".join(f"<li><span>{rich(t)}</span></li>" for t in B.get("items") or []) + "</ol>"
                    + "</aside>")
         # Manşet grafiği dar ekranda metnin altında, geniş ekranda sağ sütunda durur: iki kopya basılır, biri CSS ile gizlenir
         lead_chart = chart(L.get("chart")) or table(L.get("table"))
