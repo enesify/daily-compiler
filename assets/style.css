@@ -514,11 +514,11 @@ footer .ft-nav{margin:0}
 .skip:focus{top:12px;outline:2px solid var(--accent);outline-offset:2px}
 @media (hover:hover){.skip:hover{color:var(--paper)}}
 /* Hareket azaltıldığında iç atıf hedefi parlamak yerine çerçeveyle gösterilir */
-@media (prefers-reduced-motion:reduce){article:target,#a-manset:target{outline:2px solid var(--accent);outline-offset:8px}}
+@media (prefers-reduced-motion:reduce){article:target,#a-manset:target,.briefs p:target{outline:2px solid var(--accent);outline-offset:8px}}
 /* Telefonda küçük denetimlerin dokunma alanı 44 px: görünüm değişmez, görünmez alan büyür */
 @media (pointer:coarse){
-  .theme,.dial-step,.more,.en-top,.dial-meta a,.at-copy,.dial-back,.nw>a,.mdl-go{position:relative}
-  .theme::after,.dial-step::after,.more::after,.en-top::after,.dial-meta a::after,.at-copy::after,.nw>a::after,.mdl-go::after{content:"";position:absolute;left:50%;top:50%;width:max(100%,44px);height:max(100%,44px);transform:translate(-50%,-50%)}
+  .theme,.dial-step,.more,.en-top,.dial-meta a,.at-copy,.dial-back,.nw>a,.mdl-go,.nf-go a{position:relative}
+  .theme::after,.dial-step::after,.more::after,.en-top::after,.dial-meta a::after,.at-copy::after,.dial-back::after,.nw>a::after,.mdl-go::after,.nf-go a::after{content:"";position:absolute;left:50%;top:50%;width:max(100%,44px);height:max(100%,44px);transform:translate(-50%,-50%)}
   /* ARŞİV ile tema düğmesi yan yana: ARŞİV yalnızca dikeyde büyür, alanlar çakışmaz */
   .dial-meta a::after{width:100%}
 }
@@ -627,3 +627,5 @@ details.src-more[open]>summary{display:none}
 
 /* Okunur satır uzunluğu: metin hiçbir ekranda ~80 karakteri geçmez (yatay telefon ve tablet dahil) */
 main p:not(.src),main li,.lead p.deck{max-width:62ch}
+/* Tek sütunda kaynak satırı ve repo kartı da metin sütunundan geniş olmaz */
+@media (max-width:900px){main .src,.repo{max-width:62ch}}

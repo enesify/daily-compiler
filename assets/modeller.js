@@ -26,7 +26,7 @@
   KEYS.forEach(function (k) { MAX[k] = Math.max.apply(0, M.map(function (m) { return m[k] || 0; })); });
   var pct = function (k, v) { return (v / MAX[k] * 100).toFixed(2) + "%"; };   // çubuklar sıfırdan başlar
   var AY = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
-  var dp = D.updated.split("-"), DATE = (+dp[2]) + " " + AY[+dp[1] - 1] + " " + dp[0];
+  var dp = D.updated.split("-"), DATE = (+dp[2]) + "\u00a0" + AY[+dp[1] - 1] + " " + dp[0];
   function caption(k) {
     var s = D.sources[MET[k].kaynak], cap = $("mdl-cap");
     cap.textContent = MET[k].ad + ", " + (MET[k].iyi === "yuksek" ? "yüksekten düşüğe" : "düşükten yükseğe") + " · Kaynak: ";

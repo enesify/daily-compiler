@@ -31,15 +31,15 @@ def sentences(text):
 
 
 def items(d):
-    """(çapa, kicker, başlık, metin) dörtlüleri. Kısa haberlerin ve repoların çapası yoktur (None): iç atıf sayıya verilir."""
+    """(çapa, kicker, başlık, metin) dörtlüleri. Kısa haberlerin çapası kisa-<sıra>; repoların çapası yoktur (None): iç atıf sayıya verilir."""
     L = d.get("lead") or {}
     if L.get("headline"):
         yield "manset", L.get("kicker"), L["headline"], " ".join([L.get("deck") or ""] + (L.get("paragraphs") or []))
     for s in d.get("sections") or []:
         for i, a in enumerate(s.get("articles") or []):
             yield art_id(s, i, a), a.get("kicker"), a.get("headline") or "", " ".join(a.get("paragraphs") or [])
-    for b in d.get("briefs") or []:
-        yield None, f"Kısa · {b.get('tag')}", (b.get("text") or "")[:110], b.get("text") or ""
+    for i, b in enumerate(d.get("briefs") or []):
+        yield f"kisa-{i + 1}", f"Kısa · {b.get('tag')}", (b.get("text") or "")[:110], b.get("text") or ""
     for r in (d.get("repos") or {}).get("items") or []:
         yield None, "Repo", r.get("name") or "", r.get("why") or ""
 

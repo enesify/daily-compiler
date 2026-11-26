@@ -8,7 +8,7 @@ Türkçe ek İngilizce terime kesme işaretiyle gelir: secret'lar, branch'te, en
 
 ## İngilizce kalır
 
-secret, token, runtime, event, branch, merge, pull request, commit, workflow, pipeline, endpoint, backend, frontend, control plane, data plane, framework, adapter, plugin, extension (ürün adı olarak: Copilot Extensions, VS Code extension), hook, skill, harness, sandbox, breaking change, deprecated, release candidate, heap dump, thread dump, allocation, garbage collector (GC), transcript (agent ya da sohbet dökümü), log, loglama, trace, rollout, checkpoint, alignment, speech-to-speech, read-your-writes, fine-tuning, inference, context window, prompt, benchmark, trust store, keystore, container, cluster (altyapıda), load balancer, rate limit, feature flag, stealth (şirket için), redaksiyon (redaction), handshake, header (HTTP ve protokol başlığı), script, stateless, stateful, full precision, judge (LLM judge, judge model), CTF (capture the flag), distillation, chunking (chunk'lara ayırmak), embedding, vault (parola yöneticisinde), sampling, warm-up, recursive self-improvement, medyan, reasoning (reasoning seviyesi, reasoning metni), pretraining, registry, code golf.
+secret, token, runtime, event, branch, merge, pull request, commit, workflow, pipeline, endpoint, backend, frontend, control plane, data plane, framework, adapter, plugin, extension (ürün adı olarak: Copilot Extensions, VS Code extension), hook, skill, harness, sandbox, breaking change, deprecated, release candidate, heap dump, thread dump, allocation, garbage collector (GC), transcript (agent ya da sohbet dökümü), log, loglama, trace, rollout, checkpoint, alignment, speech-to-speech, read-your-writes, fine-tuning, inference, context window, prompt, benchmark, trust store, keystore, container, cluster (altyapıda), load balancer, rate limit, feature flag, stealth (şirket için), redaksiyon (redaction), handshake, header (HTTP ve protokol başlığı), script, stateless, stateful, full precision, judge (LLM judge, judge model), CTF (capture the flag), distillation, chunking (chunk'lara ayırmak), embedding, vault (parola yöneticisinde), sampling, warm-up, recursive self-improvement, medyan, reasoning (reasoning seviyesi, reasoning metni), pretraining, registry, code golf, computer use, zero-day, frontier model, base model, flag (komut satırı, JVM), polling, backtracking, slow path, foreign key, window function, seat.
 
 ## Türkçesi yerleşik, Türkçe yazılır
 
@@ -23,7 +23,7 @@ Sol sütundaki kalıp `tools/kontrol.py` tarafından uyarı olarak yakalanır. B
 | `\bsır(lar|rı|ları|ların|rını|ra|lara)?\b` | secret |
 | `\bçalışma zamanı(nı|nın|na|nda)?\b` | runtime |
 | `\bolay ad(ı|ları)\b` | event adı |
-| `\bdal(da|dan|ı|ın|lar|larda|lara|ları|ında)\b` | branch |
+| `\bdal(da|dan|ı|ın|lar|larda|lara|ları|ında|larında)\b` | branch |
 | `\bbirleştirme(si|leri|ler)\b` | merge (pull request için) |
 | `\biş akış(ı|ları|larının|larını|larında)\b` | workflow |
 | `\buç nokta(sı|lar|ları|sının)?\b` | endpoint |
@@ -50,7 +50,7 @@ Sol sütundaki kalıp `tools/kontrol.py` tarafından uyarı olarak yakalanır. B
 | `\btam hassasiyet\w*` | full precision |
 | `\bhakem(i|den|lendi|le)?\b|\bhakem model\w*` | judge, judge model |
 | `\bbayrak yakala\w*` | CTF (capture the flag) |
-| `\bdamıtma\w*` | distillation |
+| `\bdamıt\w*` | distillation |
 | `\bparçalama hatt\w*|\bparçalayıp\b` | chunking, chunk'lara ayırıp |
 | `\bortanca\w*` | medyan |
 | `\bısınma koşu\w*` | warm-up koşusu |
@@ -61,3 +61,22 @@ Sol sütundaki kalıp `tools/kontrol.py` tarafından uyarı olarak yakalanır. B
 | `\bkayıt defter\w*` | registry |
 | `\beklenti(si|ye|ler|leri|nin)?\b` | plugin ya da extension |
 | `\bkod golf\w*` | code golf |
+| `\bön kimlik\w*` | kimlik doğrulamasız (pre-auth) |
+| `\börnekl(iyor|eyip|eyen|enen|enir)\w*` | nesnesini oluşturmak (instantiate) |
+| `\bbilgisayar kullanım\w*` | computer use |
+| `\bsıfırıncı gün\w*` | zero-day |
+| `\böncü model\w*` | frontier model |
+| `\b(temel|taban) model\w*` | base model |
+| `\bbayra(k|ğı|ğın|ğını|kları|ğıyla)\b` | flag |
+| `\byoklama(dan|sı|yı)?\b` | polling |
+| `\bgeri izleme\w*` | backtracking |
+| `\byavaş yol(a|u|da|dan)\b` | slow path |
+| `\byabancı anahtar\w*` | foreign key |
+| `\bpencere fonksiyon\w*` | window function |
+| `\bkendi yazdığını okuma\w*` | read-your-writes |
+| `\bbellek görüntü\w*` | heap dump, memory snapshot |
+| `\bgörüntü kule\w*` | vision tower |
+| `\bkoltu(k|ğu|ğunu|kları)\b` | seat |
+| `\bwarmup\b` | warm-up |
+| `\bcache zehirle\w*` | önbellek zehirlemesi |
+| `\bdosya(sı|sının)? başlığ\w*` | header |

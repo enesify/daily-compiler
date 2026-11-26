@@ -2,7 +2,7 @@
 
 Bu dosya gazetenin yazım ve seçim kurallarıdır. Yazar da editör de buna göre çalışır; yazar bu dosyayı değiştirmez.
 
-Kurallar çatıştığında öncelik sırası: **doğruluk**, **okuyucu için önem**, **dil**, **biçim**. Uzunluk, sayı, ızgara ve alan kurallarının çoğunu `tools/kontrol.py` denetler; bunların sayıları 7. bölümdeki tabloda toplu olarak durur.
+Kurallar çatıştığında öncelik sırası: **doğruluk**, **okuyucu için önem**, **dil**, **biçim**. Ölçülebilir kurallar 7. bölümdedir.
 
 ## 1. Okuyucu
 
@@ -24,9 +24,8 @@ Gazete herkese açıktır. Metinde belirli bir kişiye, şirkete ya da ekibe hit
 
 ## 3. Araştırma
 
-- **Pencere:** son 24 saat, en fazla 48 saat; Pazartesi sayılarında 72 saat (Cuma sabahından itibaren). Java okuma yazıları ve Takip haberleri bu sınırın dışındadır.
-- **Arama:** her bölüm için ayrı arama; toplam 15-25 WebSearch (25 üst sınır), en az üçte biri yapay zekâ için ve farklı açılardan (model, araştırma, benchmark, agent, düzenleme); Güvenlik için 2-3 arama yeter. Haber azsa bölümü kısa tut.
-- **Paralel:** birbirinden bağımsız aramaları ve sayfa okumalarını aynı anda gönder.
+- **Pencere:** son 24 saat, en fazla 48 saat; Pazartesi sayılarında 72 saat (Cuma sabahından itibaren). Pencere birincil kaynağın tarihiyle ölçülür (sürüm notu, etiket, duyuru), toplayıcıda ya da Hacker News'te görüldüğü günle değil. Java okuma yazıları ve Takip haberleri bu sınırın dışındadır.
+- **Arama:** her bölüm için ayrı arama; toplam 15-25 WebSearch (25 üst sınır), en az üçte biri yapay zekâ için ve farklı açılardan (model, araştırma, benchmark, agent, düzenleme); Güvenlik için 2-3 arama yeter.
 - **Okuma:** asıl kaynakları WebFetch ile oku. İki denemede açılmayan kaynağı bırak, aynı bilgiyi veren başka bir birincil kaynak ara; bot korumasını aşmaya çalışma.
 - **Tekrar:** son 3 sayıda geçen haberi tekrar etme. Gerçek bir yeni gelişme varsa onu yaz ve önceki habere iç atıf ver.
 - **Arşiv:** özet yalnızca son 3 sayıyı gösterir. Bir konunun daha önce işlenip işlenmediğini `python3 tools/ara.py "<şirket ya da konu>"` ile bütün arşivde ara; çıktıdaki adres iç atıfta aynen kullanılır. Daha eski sayıda işlenmiş bir konu da yeni bir gelişme olmadan tekrar yazılmaz.
@@ -66,7 +65,7 @@ Pencere içinde haber yoksa bunu gizleme ve dolgu koyma: son 7 günde yayımlanm
 
 **Öne Çıkan GitHub Repoları.** GitHub trending, trendshift.io gibi trending listelerinin sıralamasından; “Featured” ya da sponsorlu alanlardan değil.
 
-- Her repo için iki cümle: ne olduğu ve neden şimdi gündemde olduğu. Neden yükseldiği görünmeyen, yıllardır bilinen projeleri liste dolsun diye seçme; 6 iyi repo 8 vasat repodan iyidir.
+- Her repo için iki cümle: ne olduğu ve neden şimdi gündemde olduğu. “Neden şimdi” bir olaydır (yeni sürüm, duyuru, bir haberde anılma); trending sırası ve yıldız sayısı değildir. Olayı bulunamayan repoyu seçme; 6 iyi repo 8 vasat repodan iyidir.
 - Aynı kuruluştan en fazla 1 repo. Son 7 günde yer almış repo (aynı kuruluşun benzer adlı reposu dahil) tekrar girmez; liste özet çıktısında. Trending listelerinde bir JVM reposu (Java, Kotlin, Scala, Groovy) varsa en az biri girer. Telif açısından şüpheli projeleri (ticari oyun emülatörleri, recomp) seçme.
 - `stars` mümkünse repo sayfasındaki güncel değer, kaynaktaki hassasiyette: tam sayı “1.932”, yuvarlanmış “13,4 bin”; `starsValue` aynı değerin sayısı (13400). `lang` yalnızca kaynakta açıkça görüldüyse; `meta` = “Dil · Kategori” (dil yoksa yalnızca kategori).
 
@@ -98,7 +97,7 @@ Türkçe yaz; yerleşik karşılığı olmayan teknik terimler İngilizce kalır
 - **İri rakam** (`stat`, isteğe bağlı). Yalnızca büyük haberde, grafik yoksa; haberin ana olgusu olan ve kaynakta yazan tek rakam ya da aralık. Uygun rakam yoksa koyma.
 - **Tablo** (`table`, isteğe bağlı). Grafiğin tek boyutu yetmediğinde: birkaç öğenin (model, sürüm, dağıtım) birkaç ölçütte karşılaştırması ya da yama durumu (dağıtım, düzeltilmiş sürüm). 2-6 satır, 2-5 sütun; ilk sütun öğenin adı. Değerler kaynakta yazdığı gibi; boş hücre “–”. Yorum, renk ve sıralama iddiası yok; bir haberde grafik ya da tablodan yalnızca biri.
 - **Grafik** (`chart`, isteğe bağlı). Yalnızca haberin ana iddiasını tek bakışta gösteren bir karşılaştırma: aynı şeyin önce ve sonrası, aynı ölçütte rakipler ya da sürümler, aynı görevin iki koşulu. Çubukların boyu arasındaki fark haberin söylediği şeyin kendisi değilse koyma; farklı türden şeyleri ve yan rakamları çizme. Değerler kaynakta yazmalı ve aynı birimde olmalı; tahmin ya da türetme yok. Şirketin kendi ölçümüyse `note`'ta belirt. Haberin ana öznesi olan tek çubuğa `highlight`. Negatif değişimde `value` mutlak değer, `display` “−%5,5”.
-- **İç atıf.** Önceki bir sayıdaki habere atıfta kaynak listesine `{"label": "Dünkü sayı: <kısa başlık>", "url": "#YYYY-MM-DD-<çapa>"}` ekle (dünkü değilse “7 Kasım sayısı: …”). Metinde “dünkü sayıda andığımız” gibi bir atıf varsa iç link zorunlu. Kısa Kısa'da `url` aynı biçimde iç link olabilir.
+- **İç atıf.** Önceki bir sayıdaki habere atıfta kaynak listesine `{"label": "Dünkü sayı: <kısa başlık>", "url": "#YYYY-MM-DD-<çapa>"}` ekle (dünkü değilse “7 Kasım sayısı: …”). Metinde “dünkü sayıda andığımız” gibi bir atıf varsa iç link zorunlu. Kısa haberin çapası `kisa-<sıra>`; Takip kısasında `url` yeni olgunun kaynağı, önceki habere atıf `ref`.
 
 ## 7. Ölçüler
 
@@ -137,7 +136,7 @@ Alan adları ve biçim `kurallar/ornek.json` dosyasındadır; oradaki metinler v
 - `sections[]`: `{id, title, subtitle?, patch?, articles[]}`; haber: `{size: 4|6|8, big?, kicker, alert?, pill?, headline, stat?, paragraphs[], why?, chart?, table?, sources[]}`; `patch[{text, ref?, url?}]`. Bölüm `subtitle`'ı sayfada basılmaz, yazmak zorunlu değildir. `patch` yalnızca Güvenlik'te: `[{text, url}]`.
 - `repos`: `{subtitle, items[{name, url, stars, starsValue, lang?, cat, why, meta}], sources[]}`.
 - `atolye`: `{konu, kicker, title, intro, when, steps[], example{label, lang, code}, pitfall, sources[]}`; `konu` konu bankasındaki kimlik ya da `"haber"`.
-- `briefs[]`: `{tag, text, url}`.
+- `briefs[]`: `{tag, text, url, ref?}`.
 - İsteğe bağlı: `calendar[{date, text, ref?, url?}]`, `corrections[{date, ref, text}]`. `figures` artık yazılmaz.
 - `stat`: `{"n": "%65-80", "l": "rakamın neyi ölçtüğü"}`. `chart`: `{"title": "Ölçü ve birim", "note"?: "...", "items": [{"label", "value": sayı >= 0, "display": "%48,5", "highlight"?: true}]}`. `table`: `{"title": "Ne karşılaştırılıyor", "cols": ["Model", "SWE-bench", "Fiyat ($/M)"], "rows": [["GPT-6.2", "%71,2", "2,50"], {"cells": ["…"], "highlight": true}], "note"?: "..."}`.
 

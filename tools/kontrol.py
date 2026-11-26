@@ -179,6 +179,7 @@ def main():
         for s in o.get("sections") or []:
             for i, art in enumerate(s.get("articles") or []):
                 a.add(str(art.get("id") or f"{s.get('id') or 'bolum'}-{i + 1}"))
+        a.update(f"kisa-{i + 1}" for i in range(len(o.get("briefs") or [])))
         dates[o["date"]] = a
         prev[o["date"]] = o
 
@@ -264,7 +265,8 @@ def main():
                 elif len(m["text"]) > 110:
                     E(f"{sid}.patch[{i}]: {len(m['text'])} karakter (en fazla 110)")
                 if m.get("ref"):
-                    if str(m["ref"]) not in anchors:
+                    kisa = {f"kisa-{j + 1}" for j in range(len(d.get("briefs") or []))}
+                    if str(m["ref"]) not in anchors and str(m["ref"]) not in kisa:
                         E(f"{sid}.patch[{i}]: ref {m['ref']!r} bu sayıda yok")
                 elif not re.match(r"^https://", m.get("url") or ""):
                     E(f"{sid}.patch[{i}]: url https ile başlamalı (ya da bu sayıdaki habere ref)")
@@ -377,6 +379,11 @@ def main():
             code = (ex or {}).get("code") or ""
             if code.count("\n") + 1 > 25:
                 E(f"{w}: örnek {code.count(chr(10)) + 1} satır (en fazla 25)")
+            # Masaüstünde örnek kutusu yaklaşık 55 karakter; düzyazı (Markdown, prompt) kendiliğinden kırılır
+            if (ex.get("lang") or "").lower() not in ("markdown", "md", "text", "txt", "prompt", ""):
+                long = [i + 1 for i, l in enumerate(code.split("\n")) if len(l) > 55]
+                if long:
+                    W(f"{w}: örnekte 55 karakteri aşan {len(long)} satır (satır {', '.join(map(str, long[:5]))}); masaüstünde kırılır")
             if re.search(r"(rm -rf /|--force\b|push -f\b|DROP (TABLE|DATABASE)|(api[_-]?key|password|secret)\s*[:=]\s*['\"]?\w{6,})", code, re.I):
                 E(f"{w}: örnekte zararlı komut ya da gizli bilgiye benzeyen ifade var")
         else:
@@ -533,6 +540,10 @@ def main():
             check_ref_link(f"briefs[{i}]", u, dates)
         elif not re.match(r"^https?://", u):
             E(f"briefs[{i}]: geçersiz adres: {u!r}")
+        if b.get("ref"):
+            check_ref_link(f"briefs[{i}].ref", b["ref"], dates)
+        elif re.match(r"\s*Takip\b", b.get("tag") or "") and not u.startswith("#"):
+            W(f"briefs[{i}]: Takip kısasında önceki habere iç atıf yok (ref: \"#YYYY-MM-DD-<çapa>\")")
         if len(sentences(b.get("text"))) > 3:
             W(f"briefs[{i}]: {len(sentences(b.get('text')))} cümle (tek-iki cümle beklenir)")
 

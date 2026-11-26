@@ -121,6 +121,8 @@ def keep_ids(h):
     tireden sonra rakam gelen model ve ürün adları (“GPT-” | “6.2”, “Ling-3.2-” | “air”). Türkçe eki de birlikte tutulur."""
     ek = r"(?:’[a-zçğıöşü]+)?"
     h = re.sub(r"\b((?:CVE-\d{4}-\d{4,}|GHSA(?:-[0-9a-z]{4}){3})" + ek + ")", r'<span class="nw">\1</span>', h)
+    # Boşlukla ayrılan sürüm: ad ile numara bir arada (“Opus 5.5”, “Kimi K3”, “JDK 28”)
+    h = re.sub(r"(?<![\w&#])([A-Z][\w\-]*) (?=[A-Z]?\d+(?:[.,]\d+)*(?![\w\-]))", "\\1\u00a0", h)
     return re.sub(r"(?<![\w>/.\-])((?=[\w.]*[A-Za-z])[\w.]+-\d[\w.\-]*" + ek + r")(?![\w\-])",
                   lambda m: m.group(1) if len(m.group(1)) > 26 else f'<span class="nw">{m.group(1)}</span>', h)
 
@@ -307,7 +309,7 @@ def models_sources(D, keys=None):
 
 def models_updated(D):
     d = d_of(D["updated"])
-    return f"{d.day} {MONTHS_LONG[d.month - 1]} {d.year}"
+    return f"{d.day}\u00a0{MONTHS_LONG[d.month - 1]} {d.year}"
 
 
 def models_caption(D, k):
@@ -674,11 +676,11 @@ def masthead(ctx, cur=None, title=""):
 
 
 def footer(ctx):
-    """Altbilgi: solda küçük yazı logosu (ana sayfaya gider), sağda yayın ritmi ve sabit bağlantılar."""
+    """Altbilgi: solda küçük yazı logosu (ana sayfaya gider), sağda sabit bağlantılar (yayın ritmi başlıkta yazıyor)."""
     links = [("arsiv.html", "Arşiv")] + ([("benchmark.html", "Benchmark")] if ctx.models else []) + [("feed.xml", "RSS"), ("hakkinda.html", "Hakkında")]
     nav = " · ".join(f'<a href="{esc(ctx.href(h))}">{t}</a>' for h, t in links)
     return (f'<footer><a class="ft-logo" href="{esc(ctx.href("index.html"))}">{logo("full")}</a>'
-            f'<p class="ft-nav"><span class="ft-r">Her sabah yayımlanır</span> · {nav}</p></footer>')
+            f'<p class="ft-nav">{nav}</p></footer>')
 
 
 def art_404():
@@ -883,12 +885,15 @@ def render_issue(ctx, cur):
     briefs = cur.get("briefs") or []
     if briefs:
         ps = []
-        for b in briefs:
+        for i, b in enumerate(briefs):
             u = b.get("url") or ""
+            head = f'<p id="a-kisa-{i + 1}"><b>{caps_rich(prov_split(b.get("tag"))[1])}{prov_split(b.get("tag"))[0]}</b>'
             if u.startswith("#"):
-                ps.append(f'<p><b>{caps_rich(prov_split(b.get("tag"))[1])}{prov_split(b.get("tag"))[0]}</b>{rich(b.get("text"))} {ref_link(ctx, "önceki sayı", u)}</p>')
+                ps.append(f'{head}{rich(b.get("text"))} {ref_link(ctx, "önceki sayı", u)}</p>')
             else:
-                ps.append(f'<p><b>{caps_rich(prov_split(b.get("tag"))[1])}{prov_split(b.get("tag"))[0]}</b>{with_ext(b.get("text"), u)}</p>')
+                # Takip kısası: dış kaynak metinde, önceki habere iç atıf ref ile
+                ref = f' {ref_link(ctx, "önceki sayı", b["ref"])}' if b.get("ref") else ""
+                ps.append(f'{head}{with_ext(b.get("text"), u)}{ref}</p>')
         out.append(f'<section class="sec" id="sec-kisa"><div class="sec-h"><h2>Kısa Kısa</h2></div><div class="briefs">{"".join(ps)}</div></section>')
     out.append(models_band(ctx))
     out.append(corrections_block(ctx, cur))
@@ -1039,9 +1044,9 @@ def archive_search_data(ctx):
             for i, a in enumerate(s.get("articles") or []):
                 if a.get("headline"):
                     hs.append([art_id(s, i, a), plain(a.get("headline"))])
-        for b in it.get("briefs") or []:
+        for i, b in enumerate(it.get("briefs") or []):
             if b.get("text"):
-                hs.append(["", plain(b.get("text"))])
+                hs.append([f"kisa-{i + 1}", plain(b.get("text"))])
         for r in (it.get("repos") or {}).get("items") or []:
             hs.append(["sec-repolar", r.get("name") or ""])
         months.setdefault(it["date"][:7], []).append({"h": issue_path(it["date"]), "a": hs})

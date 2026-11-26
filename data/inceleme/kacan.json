@@ -90,6 +90,78 @@
       "sorun": "Büyük harfli etiketlerde İngilizce şirket adları Türkçe İ ile basıldı (MİTEL).",
       "neden": "olcum-yok",
       "cozum": "build.py: arşivde küçük harfle geçmeyen sözcük özel ad sayılıyor."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "2026-11-20…26",
+      "bulan": "haftalik",
+      "kategori": "terim",
+      "sorun": "Son yedi sayıda 21 çeviri kaldı: sıfırıncı gün, bilgisayar kullanımı (computer use), öncü/temel/taban model, bayrak (flag), yoklama (polling), geri izleme, yavaş yol, yabancı anahtar, koltuk (seat), damıttığı gibi.",
+      "neden": "kural-yok",
+      "cozum": "TERIMLER.md: 19 yeni kalıp ve İngilizce kalan terimler listesi genişledi; damıtma kalıbı fiil çekimlerini de yakalıyor."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "2026-11-24…26",
+      "bulan": "haftalik",
+      "kategori": "tasarim",
+      "sorun": "Boşlukla ayrılan sürümlü adlar satır sonunda bölünüyordu (“Opus | 5.5”, “Kimi | K3”, “Gemini 4 | Neon”); ekran.py yalnızca tireli adları ölçüyor.",
+      "neden": "olcum-yok",
+      "cozum": "build.py keep_ids(): büyük harfli ad ile ardından gelen sürüm numarası arasına bölünmez boşluk."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "site",
+      "bulan": "haftalik",
+      "kategori": "tasarim",
+      "sorun": "Arşiv, Hakkında, Benchmark ve 404'te “Bugünkü sayı” geri bağlantısının ve 404 bağlantılarının telefonda dokunma alanı 12-19 px'ti.",
+      "neden": "kapsam-disi",
+      "cozum": "style.css: .dial-back ve .nf-go a 44 px dokunma alanı listesine eklendi."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "2026-11-20…26",
+      "bulan": "haftalik",
+      "kategori": "tasarim",
+      "sorun": "Kırmızı (alert) etiket Güvenlik'in neredeyse bütün haberlerinde, eylem beklemeyen olay haberlerinde de kullanılıyor; KURALLAR'da alert'in ölçütü yok.",
+      "neden": "kural-yok",
+      "cozum": "Onay bekleyen öneri: alert yalnızca Acil önlemler ölçütünü karşılayan habere (haftalık rapor)."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "2026-11-26",
+      "bulan": "haftalik",
+      "kategori": "tasarim",
+      "sorun": "Acil önlemler'deki Juniper maddesi aynı sayıda Kısa Kısa'da yazılan açığa değil CISA'ya gidiyordu; kısa haberlerin çapası yoktu.",
+      "neden": "kural-yok",
+      "cozum": "Kısa haberlere kisa-<sıra> çapası; patch ve Takip kısaları ref ile bağlanabiliyor (build.py, kontrol.py, KURALLAR.md)."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "2026-11-18…26",
+      "bulan": "haftalik",
+      "kategori": "kaynak",
+      "sorun": "Takip kısalarında önceki habere iç atıf yoktu (5 sayıda bulgu); briefs tek url alıyordu.",
+      "neden": "kural-yok",
+      "cozum": "briefs[].ref alanı; kontrol.py ref'siz Takip kısasını UYARI ile yakalıyor."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "site",
+      "bulan": "haftalik",
+      "kategori": "tasarim",
+      "sorun": "Altbilgi “Her sabah yayımlanır” diyerek başlıktaki yayın ritmini tekrarlıyordu; Benchmark tarihinde gün ile ay satır sonunda ayrılıyordu.",
+      "neden": "kapsam-disi",
+      "cozum": "Altbilgiden tekrar çıktı; build.py ve modeller.js tarihte bölünmez boşluk."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "site",
+      "bulan": "haftalik",
+      "kategori": "tasarim",
+      "sorun": "Tablet ve yatay telefonda kaynak satırı ve repo kartı metin sütunundan genişti (yıldız sayısı karttan kopuk).",
+      "neden": "olcum-yok",
+      "cozum": "style.css: tek sütunda .src ve .repo 62ch ile sınırlandı."
     }
   ]
 }
