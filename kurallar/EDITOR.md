@@ -81,6 +81,10 @@ Taslak, `kurallar/KURALLAR.md`, `kurallar/TERIMLER.md`, `kurallar/ATOLYE.md` ve 
 - “Açıklanmadı / belirtmiyor” cümleleri: okurun kararını etkilemeyen eksiklik yazılmış mı, haber böyle bir cümleyle mi bitiyor? Kararı etkileyen bir eksiklik sonucuyla birlikte söylenmiş mi?
 - Bir paragrafta birikmiş karşılaştırmalı rakamlar tabloya ya da grafiğe taşınabilir mi? Acil önlemler, sayının uyarı taşıyan bütün açıklarını ciddiyet sırasıyla kapsıyor mu?
 
+### Terim taraması
+
+Dil kontrolünden ayrı, ayrı bir adım olarak yap: taslaktaki her teknik terimi bölüm bölüm çıkar (başlık, deck, metin, why, Editörün önerileri, etiketler, tablo başlıkları, Atölye, repolar, Kısa Kısa) ve her biri için sor: Türk bir yazılımcı bunu PR yorumunda ya da Slack'te nasıl yazar? Türkçe karşılığı yerleşik değilse (betik, akıl yürütme, kod golfü gibi) ya da bir şirket, ürün, özellik, plan veya ayar adı çevrilmişse bulgudur. Emin olmadığın terimi de `kucuk` bulgu olarak yaz. Aynı kavramın sayı içinde iki farklı terimle yazılması da bulgudur.
+
 ### Atölye okunurluğu
 
 - Okuyucu bugün uygulayabilir mi, yoksa yazı genel tavsiye mi? Adımların ilk cümlesi kısa bir buyruk mu?
@@ -90,14 +94,16 @@ Puanların: `icerik` (seçim, değer, editoryal kalite) ve `dil`.
 
 ## Tasarım editörü
 
-`tools/ekran.py` çıktısı ve `/tmp/dc/ekran/` altındaki görüntüler (telefon, tablet ve masaüstü) sana verilir. Betik bölünen kod, sayfa sonu sekmesi, kadran ve telefondaki katlamayı zaten ölçer. `/tmp/dc/acik-kod.txt` henüz düzeltilmemiş kod bulgularıdır; bunları yeniden yazma. Görüntülere tek tek bak:
+`kurallar/TASARIM.md`, `tools/ekran.py` çıktısı ve `/tmp/dc/ekran/` altındaki görüntüler (telefon dikey, telefon yatay, tablet ve masaüstü) sana verilir. Betik bölünen kod, uzun satır, sayfa sonu sekmesi, kadran ve telefondaki katlamayı zaten ölçer. Ölçülebilir kusur aramakla yetinme: görüntüye bir okur gözüyle bak ve `kurallar/TASARIM.md` ilkelerine (seyreklik, tutarlılık, renge dayanmayan ayrım, yönlendirme, dolgu) aykırı olanı da bulgu olarak yaz. `/tmp/dc/acik-kod.txt` henüz düzeltilmemiş kod bulgularıdır; bunları yeniden yazma. Görüntülere tek tek bak:
 
 - hizalama ve boşluk dengesi; erken kırılan, taşan ya da tek kelimesi alt satıra düşen satır;
 - satır içi kodun ya da bağlantı okunun kendi içinden bölünmesi;
 - emoji gibi çizilen karakter, düz kalan tırnak ya da kesme işareti, yanlış kısa çizgi;
 - üst üste binme; okunurluk ve kontrast;
 - aynı bileşenin farklı yerlerde farklı görünmesi;
-- telefonda dokunma hedefi.
+- telefonda dokunma hedefi;
+- dolgu başlık ya da etiket, yanıltıcı bağlantı metni, gözden kaçan önemli bağlantı;
+- yalnızca renkle yapılmış ayrım, aynı satırda yan yana duran iki farklı bileşen.
 
 Sorunun içerikten mi (çok uzun başlık, elle kırılmış örnek satırları) yoksa koddan mı geldiğini ayır; içerikten geliyorsa taslakta nasıl düzeltileceğini öner. Puanın: `tasarim`.
 

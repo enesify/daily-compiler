@@ -1,0 +1,95 @@
+{
+  "aciklama": "Günlük editörlerin kaçırıp kullanıcının, harici incelemenin ya da haftalık görevin bulduğu sorunlar. Editörlerin iyileşmesinin ölçüsü.",
+  "kayitlar": [
+    {
+      "tarih": "2026-11-22",
+      "sayi": "site",
+      "bulan": "kullanici",
+      "kategori": "tasarim",
+      "sorun": "Benchmark bandındaki 'Bütün modeller ve ölçütler' bağlantısı kaynak satırının altında kalıyor, gözden kaçıyor.",
+      "neden": "kural-yok",
+      "cozum": "TASARIM.md: önemli bağlantı kapanış işaretinin altında kalmaz; bant 'Sıralamanın devamı · dört ölçüt' bağlantısıyla yeniden düzenlendi."
+    },
+    {
+      "tarih": "2026-11-22",
+      "sayi": "site",
+      "bulan": "kullanici",
+      "kategori": "tasarim",
+      "sorun": "İDDİA ve ŞİRKET BEYANI etiketleri çerçeveli, konu etiketi çerçevesiz; aynı satırda iki farklı bileşen.",
+      "neden": "kural-yok",
+      "cozum": "TASARIM.md: seyreklik ve tutarlılık; etiketler italik nota çevrildi."
+    },
+    {
+      "tarih": "2026-11-22",
+      "sayi": "site",
+      "bulan": "kullanici",
+      "kategori": "tasarim",
+      "sorun": "Kaynak etiketlerinin ayrımı yalnızca renge ve ince işarete dayanıyordu.",
+      "neden": "kural-yok",
+      "cozum": "TASARIM.md: ayrım renge dayanmaz, gri tonlamada okunur."
+    },
+    {
+      "tarih": "2026-11-22",
+      "sayi": "site",
+      "bulan": "harici",
+      "kategori": "tasarim",
+      "sorun": "Her sayfanın altbilgisi tek editörlü eski süreci anlatıyordu.",
+      "neden": "kapsam-disi",
+      "cozum": "Altbilgi sadeleşti; site geneli haftalık incelemenin kapsamında."
+    },
+    {
+      "tarih": "2026-11-23",
+      "sayi": "site",
+      "bulan": "harici",
+      "kategori": "tasarim",
+      "sorun": "Bulunamayan adreslerde sunucunun varsayılan 404 sayfası çıkıyordu.",
+      "neden": "kapsam-disi",
+      "cozum": "404.html eklendi; site geneli haftalık incelemenin kapsamında."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "2026-11-25",
+      "bulan": "kullanici",
+      "kategori": "tasarim",
+      "sorun": "Editörün önerileri kutusunda dolgu başlık: 'Bugün yapılacaklar'.",
+      "neden": "kural-yok",
+      "cozum": "Kutu başlıksız; TASARIM.md: dolgu başlık ve etiket yazılmaz."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "2026-11-25",
+      "bulan": "kullanici",
+      "kategori": "tasarim",
+      "sorun": "Acil önlemler listesi telefon yatayda metin sütunundan geniş, alttaki habere yapışık.",
+      "neden": "ekran-yok",
+      "cozum": "ekran.py yatay telefon görünümü ve UZUN SATIR ölçümü eklendi; liste ve metin 62ch ile sınırlandı."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "2026-11-25",
+      "bulan": "kullanici",
+      "kategori": "terim",
+      "sorun": "El sıkışma, başlık (header), durumsuz, betik, tam hassasiyet, hakem gibi çeviriler yayımlandı.",
+      "neden": "kural-yok",
+      "cozum": "TERIMLER.md genişledi; okur editörüne terim taraması adımı eklendi."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "2026-11-26",
+      "bulan": "kullanici",
+      "kategori": "terim",
+      "sorun": "Bayrak yakalama, parçalama, Kasa, ortanca, damıtma, kod golfü gibi çeviriler yayımlandı.",
+      "neden": "dikkat",
+      "cozum": "TERIMLER.md genişledi; okur editörüne terim taraması adımı eklendi."
+    },
+    {
+      "tarih": "2026-11-26",
+      "sayi": "2026-11-26",
+      "bulan": "kullanici",
+      "kategori": "tasarim",
+      "sorun": "Büyük harfli etiketlerde İngilizce şirket adları Türkçe İ ile basıldı (MİTEL).",
+      "neden": "olcum-yok",
+      "cozum": "build.py: arşivde küçük harfle geçmeyen sözcük özel ad sayılıyor."
+    }
+  ]
+}

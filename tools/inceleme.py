@@ -5,6 +5,7 @@ Kullanım:
     python3 tools/inceleme.py data/inceleme/2026-11-18.json   kaydı denetler, bildirim satırını yazar (sorun varsa çıkış kodu 1)
     python3 tools/inceleme.py --ozet 14                       son 14 günün kayıtlarını özetler (haftalık kural analizi için)
     python3 tools/inceleme.py --acik                          açık kod bulgularını listeler
+    python3 tools/inceleme.py --kacan 14                      günlük editörlerin kaçırdığı sorunları özetler (kacan.json)
 
 Kod bulgusu (kok “kod”, durum “oneri”): sabah oturumu kodu değiştiremediği için kayıtta kalır. Düzelten oturum bulguya
 "kapandi": "YYYY-MM-DD · <commit ya da kısa not>" alanını ekler; o zamana dek bulgu açık sayılır ve bildirim satırında görünür.
@@ -67,7 +68,7 @@ def denetle(d, yol):
 def acik_kod():
     """Bütün kayıtlarda kapanmamış kod bulguları: [(tarih, bulgu)]."""
     out = []
-    for f in sorted(glob.glob(os.path.join(DIR, "*.json"))):
+    for f in sorted(glob.glob(os.path.join(DIR, "2*.json"))):
         try:
             d = json.load(open(f, encoding="utf-8"))
         except (ValueError, OSError):
@@ -97,7 +98,7 @@ def satir(d):
 def ozet(gun):
     son = dt.date.today() - dt.timedelta(days=gun)
     kay = []
-    for f in sorted(glob.glob(os.path.join(DIR, "*.json"))):
+    for f in sorted(glob.glob(os.path.join(DIR, "2*.json"))):
         try:
             d = json.load(open(f, encoding="utf-8"))
             if dt.date.fromisoformat(d["tarih"]) > son:
@@ -126,7 +127,38 @@ def ozet(gun):
                 print(f"      {t} {b.get('konum')}: {str(b.get('sorun'))[:110]}  [kural: {str(b.get('kural') or '')[:60]}]")
 
 
+KACAN = os.path.join(DIR, "kacan.json")
+NEDEN = ("kural-yok", "ekran-yok", "olcum-yok", "dikkat", "kapsam-disi")
+BULAN = ("kullanici", "harici", "haftalik")
+
+
+def kacan(gun):
+    """Günlük editörlerin kaçırdığı sorunlar: neden ve kategoriye göre sayılar, son kayıtlar."""
+    try:
+        lst = json.load(open(KACAN, encoding="utf-8"))["kayitlar"]
+    except (OSError, ValueError, KeyError):
+        print("kacan.json okunamadı")
+        return 1
+    hata = [f"{i}: {k}" for i, r in enumerate(lst) for k, izin in (("neden", NEDEN), ("bulan", BULAN))
+            if r.get(k) not in izin]
+    for h in hata:
+        print("HATA  kacan.json " + h)
+    son = dt.date.today() - dt.timedelta(days=gun)
+    lst = [r for r in lst if dt.date.fromisoformat(r["tarih"]) > son]
+    print(f"Son {gun} gün · {len(lst)} kaçan sorun")
+    for alan in ("neden", "kategori", "bulan"):
+        say = defaultdict(int)
+        for r in lst:
+            say[r.get(alan)] += 1
+        print(f"  {alan:9} " + " · ".join(f"{k} {n}" for k, n in sorted(say.items(), key=lambda x: -x[1])))
+    for r in lst[-8:]:
+        print(f"  {r['tarih']} [{r['kategori']}/{r['neden']}] {r['sorun'][:110]}")
+    return 1 if hata else 0
+
+
 def main():
+    if len(sys.argv) == 3 and sys.argv[1] == "--kacan":
+        return kacan(int(sys.argv[2]))
     if sys.argv[1:] == ["--acik"]:
         lst = acik_kod()
         print(f"{len(lst)} açık kod bulgusu" + (":" if lst else ""))

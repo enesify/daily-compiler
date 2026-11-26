@@ -11,7 +11,7 @@ Kullanım:
     telefon  hata yok            ya da
     telefon  TAŞMA 24px: pre.code (sec-atolye) · JS: ... · KESİK: .nm "..."
 Görüntülere bakmak incelemenin işidir; bu betik yalnızca ölçülebilir olanı bulur: yatay taşma, taşan öğe, JavaScript hatası,
-kırık iç bağlantı, yüklenemeyen dosya, satır sonunda bölünen kısa kod ya da kimlik (BÖLÜNEN), sayfa sonunda yanlış etkin
+kırık iç bağlantı, yüklenemeyen dosya, satır başına 90 karakteri aşan metin (UZUN SATIR), satır sonunda bölünen kısa kod ya da kimlik (BÖLÜNEN), sayfa sonunda yanlış etkin
 sekme (SEKME), son sayıda kadranın “Sonraki” adımı (KADRAN) ve telefonda katlama (KATLAMA: gizlenen kısım 4 satırdan kısa,
 “Devamı” düğmesi “Neden önemli”/tablo/grafikten önce, düğme metni açmıyor). Telefonda katlamanın özeti ayrıca bir bilgi satırıdır.
 """
@@ -26,6 +26,7 @@ import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EKRANLAR = (("telefon", dict(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True, device_scale_factor=2)),
+            ("yatay", dict(viewport={"width": 844, "height": 390}, is_mobile=True, has_touch=True, device_scale_factor=2)),
             ("tablet", dict(viewport={"width": 820, "height": 1180}, device_scale_factor=1)),
             ("masaustu", dict(viewport={"width": 1440, "height": 900}, device_scale_factor=1)))
 
@@ -52,6 +53,20 @@ OLC = r"""() => {
 BOLUNEN = r"""() => [...document.querySelectorAll('main code.nb, main .nw')]
   .filter(e => e.offsetParent && new Set([...e.getClientRects()].map(r => Math.round(r.top / 4))).size > 1)
   .map(e => '“' + e.textContent.trim().slice(0, 40) + '” (' + ((e.closest('section[id]') || {}).id || '') + ')').slice(0, 6)"""
+
+# Satır uzunluğu: paragraf ve liste maddelerinde satır başına yaklaşık karakter (ortalama harf genişliği ölçülür)
+SATIR = r"""() => {
+  const c = document.createElement('canvas').getContext('2d'), out = [];
+  for (const e of document.querySelectorAll('main p, main li')) {
+    if (!e.offsetParent || e.matches('.src') || e.closest('pre, figure, nav, .dial')) continue;
+    const s = getComputedStyle(e); c.font = s.fontStyle + ' ' + s.fontWeight + ' ' + s.fontSize + ' ' + s.fontFamily;
+    const t = e.textContent.trim(); if (t.length < 140) continue;
+    const ort = c.measureText(t.slice(0, 400)).width / Math.min(t.length, 400);
+    const n = Math.round(e.clientWidth / ort);
+    if (n > 90) out.push(n + ' karakter: ' + ((e.closest('section[id]') || {}).id || '') + ' ' + e.tagName.toLowerCase() + ' “' + t.slice(0, 30) + '…”');
+  }
+  return [...new Set(out)].slice(0, 4);
+}"""
 
 # Telefonda katlama: her katlı haber açılıp kapatılır; görünen ve gizlenen kısım satır olarak ölçülür
 KATLAMA = r"""async () => {
@@ -144,6 +159,7 @@ async def main(a):
                 await pg.evaluate("document.querySelectorAll('.rest').forEach(e => e.classList.remove('rest'))")
                 o = await pg.evaluate(OLC)
                 bolunen = await pg.evaluate(BOLUNEN)
+                satir = await pg.evaluate(SATIR)
                 # Görüntü yalnızca günden güne değişen bölümlerden alınır (başlık ve Benchmark bandı sabit bileşen)
                 secs = ["section.lead", "section.cal-list"] + [f"#{i}" for i in await pg.evaluate(
                     "[...document.querySelectorAll('main section.sec[id]')].map(s => s.id)") if i != "sec-benchmark"]
@@ -165,6 +181,8 @@ async def main(a):
                     parca.append("KIRIK İÇ BAĞLANTI: " + ", ".join(o["kirik"][:5]))
                 if bolunen:
                     parca.append("BÖLÜNEN: " + ", ".join(bolunen))
+                if satir:
+                    parca.append("UZUN SATIR: " + "; ".join(satir))
                 if sekme:
                     parca.append("SEKME: sayfa sonunda " + sekme)
                 if kadran:
