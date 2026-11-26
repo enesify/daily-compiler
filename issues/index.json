@@ -1,5 +1,10 @@
 [
  {
+  "date": "2026-11-26",
+  "number": 24,
+  "headline": "Copilot code review 30 Aralık'tan itibaren organizasyona faturalanıyor"
+ },
+ {
   "date": "2026-11-25",
   "number": 23,
   "headline": "MCP sunucuları Claude'a skill sunabiliyor; Tasks ve Elicitation GA"

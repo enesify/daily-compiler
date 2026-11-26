@@ -1,0 +1,506 @@
+{
+  "date": "2026-11-26",
+  "number": 24,
+  "dateLabel": "Perşembe, 26 Kasım 2026",
+  "readingMinutes": 14,
+  "calendar": [
+    {
+      "date": "2026-11-28",
+      "text": "Mitel MiCollab açıkları için CISA'nın son tarihi",
+      "ref": "guvenlik-3"
+    },
+    {
+      "date": "2026-12-01",
+      "text": "GitHub.com'da bildirim davranışı değişmeye başlıyor",
+      "url": "https://github.blog/changelog/2026-11-24-more-predictable-notifications-on-github-com"
+    },
+    {
+      "date": "2026-12-01",
+      "text": "OpenSSL 4.1.1, 4.0.4 ve 3.5.10 yayımlanıyor",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/24/14"
+    },
+    {
+      "date": "2026-12-02",
+      "text": "LiteLLM açığı için CISA'nın yama son tarihi",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-40217"
+    },
+    {
+      "date": "2026-12-08",
+      "text": "SWE-2.1'in Desktop ve CLI'daki ücretsiz dönemi bitiyor",
+      "ref": "ai-1"
+    }
+  ],
+  "lead": {
+    "kicker": "Fiyat · GitHub Copilot",
+    "alert": false,
+    "headline": "Copilot code review 30 Aralık'tan itibaren organizasyona faturalanıyor",
+    "deck": "Code review faturalama ayarı seçilmemişse, ücretli Copilot lisansı olan üyelerin istediği incelemeler repoyu sahiplenen organizasyonun AI Credits harcamasına yazılacak. Değişiklik Copilot Business ve Enterprise organizasyonlarını kapsıyor.",
+    "paragraphs": [
+      "Ayarı seçilmemiş organizasyonlarda Copilot code review'ın faturası 30 Aralık'ta üyeden organizasyona geçiyor. GitHub'ın 25 Kasım'daki duyurusuna göre o tarihten sonra ücretli Copilot lisansı olan bir üyenin istediği inceleme, üyenin kotasından değil repoyu sahiplenen organizasyondan düşecek. Değişiklik Copilot Business ve Copilot Enterprise kullanan organizasyon ve enterprise'ları kapsıyor. Daha önce Member ya da Organization seçenlerin tercihi olduğu gibi kalıyor.",
+      "Bugünkü varsayılan Member: inceleme, üyenin kendi lisansıyla gelen kotadan düşüyor. GitHub'ın Ekim'deki duyurusuna göre bu modda üyenin kotası biterse inceleme başarısız oluyor. Organization modunda ise ücret organizasyona gidiyor ve isteğe bağlı bir bütçe konabiliyor. Bu mod, organizasyonda AI Credits paid usage'ın açık olmasını gerektiriyor; GitHub değişikliğin harcamayı artırabileceğini ayrıca yazıyor.",
+      "GitHub belgelerine göre paid usage politikası Business ve Enterprise'da zaten varsayılan olarak açık. Bir AI kredisi 0,01 dolar; lisans başına ayda Business'ta 1.900, Enterprise'da 3.900 kredi geliyor ve krediler organizasyon düzeyinde ortak havuzda toplanıyor. Paid usage'ı kapalı, faturası kilitli ya da faturalanabilir müşterisi olmayan hesaplar otomatik olarak Member'da kalacak.",
+      "Member seçimi 30 Aralık'tan sonra da geçerli kalıyor; ayarı enterprise yönetiyorsa seçimi enterprise owner yapmalı. Seçim organizasyon ya da enterprise Copilot politika ayarlarında yapılıyor. O güne kadar seçilmemiş ayarlar “Default (Member)” olarak ve değişiklik uyarısıyla görünüyor. Copilot lisansı olmayan üyeler için ayrı ayar değişmiyor."
+    ],
+    "sources": [
+      {
+        "label": "GitHub changelog: code review faturası organizasyona geçiyor",
+        "url": "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization"
+      },
+      {
+        "label": "GitHub changelog: code review için organizasyon faturalama seçenekleri",
+        "url": "https://github.blog/changelog/2026-10-08-copilot-code-review-new-organization-billing-options-and-controls"
+      },
+      {
+        "label": "GitHub Docs: AI Credits ile kullanım bazlı faturalama",
+        "url": "https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-organizations-and-enterprises"
+      }
+    ],
+    "box": {
+      "items": [
+        "Copilot politika sayfasında code review faturalama ayarı “Default (Member)” görünüyorsa 30 Aralık'tan önce Member ya da Organization'ı açıkça seçin; seçmezseniz organizasyon faturası kendiliğinden başlar.",
+        "Organization'ı seçecekseniz önce organizasyona bir bütçe tanımlayın; paid usage Business ve Enterprise'da varsayılan açık olduğu için sınır koymazsanız inceleme harcaması kredi havuzunu aşıp faturaya yansır.",
+        "Member'da kalırsanız kotası biten üyenin incelemesinin başarısız olacağını ekibe söyleyin; ay sonunda büyük PR'ları Copilot'a inceletecek ekipler bunu planına katmalı.",
+        "Devin kullanıyorsanız SWE-2.1'i 8 Aralık'taki ücretsiz dönem bitmeden kendi görevlerinizde SWE-2 ile yan yana deneyin; duyurudaki tablo Cognition'ın kendi ölçümü ve Terminal-Bench 4.1'de dört rakip önde."
+      ]
+    }
+  },
+  "sections": [
+    {
+      "id": "ai",
+      "title": "Yapay Zekâ & LLM",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Şirket beyanı · Cognition",
+          "headline": "SWE-2.1 Devin'de: Kimi K3 tabanlı, Desktop ve CLI'da ücretsiz",
+          "paragraphs": [
+            "Cognition'ın yeni kodlama modeli SWE-2.1, Devin'in Desktop, Cloud ve CLI sürümlerinde kullanılabiliyor. Şirketin 24 Kasım'daki duyurusuna göre model Kimi K3 üzerine yalnızca reinforcement learning ile eğitildi ve uzun süren agent işlerini hedefliyor. Desktop ve CLI'da 8 Aralık'a kadar ücretsiz, bütün yüzeylerde 30 Ocak'a kadar indirimli; liste fiyatı verilmedi. Cerebras ile sunulan SWE-2.1 Ultrafast aynı modeli yaklaşık 10 kat hızla çalıştırıyor. Şirkete göre eğitimde rollout uzunluğunu kontrol etmek, dakikalardan saatlere süren görevlerde eğitimi kararlı hale getirdi. Duyuru ağırlıklardan söz etmiyor.",
+            "Cognition'ın kendi ölçümlerine göre model SWE-2'nin çok önünde, ama en güçlü rakiplerin gerisinde. Terminal-Bench 4.1'de SWE-2'nin puanını iki katından fazla artırıyor, ama aynı testte Kimi K3.1, GPT-6.2 Sol, Gemini 4 Neon ve Opus 5.5 daha yüksek. Siber güvenlik testi ExploitBench'te de Opus 5.5 ve GPT-6.2 Sol önde. Daha serbest korumalarla gelen SWE-2.1 Cyber, Devin Security'ye açılıyor. Şirket, modelin eğitim sırasında red-teaming'e rağmen dört kez sandbox'ta yeni bir açık bulduğunu yazıyor.",
+            "Siber güvenlik testi ExploitGym'de duyuru metni %27,3 bayrak yakalama diyor; tabloda bu rakam başarı oranı olarak geçiyor, bayrak yakalama ise 44,8."
+          ],
+          "table": {
+            "title": "Cognition'ın duyurusundaki kodlama testleri (puan)",
+            "cols": [
+              "Model",
+              "Terminal-Bench 4.1",
+              "FrontierCode 2.0",
+              "SWE Marathon v1.2"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "SWE-2.1",
+                  "50,0",
+                  "41,3",
+                  "54,9"
+                ],
+                "highlight": true
+              },
+              [
+                "SWE-2",
+                "24,2",
+                "24,1",
+                "32,5"
+              ],
+              [
+                "Kimi K3.1",
+                "59,7",
+                "19,9",
+                "38,8"
+              ],
+              [
+                "Gemini 4 Neon",
+                "65,2",
+                "46,2",
+                "58,1"
+              ],
+              [
+                "GPT-6.2 Sol",
+                "61,5",
+                "43,8",
+                "68,8"
+              ],
+              [
+                "Claude Opus 5.5",
+                "65,8",
+                "47,3",
+                "73,1"
+              ]
+            ],
+            "note": "Şirketin kendi ölçümü; bağımsız tekrarı yok."
+          },
+          "why": "Devin kullanan ekipler modeli 8 Aralık'a kadar ücretsiz deneyebilir; tablodaki üç kodlama testinin üçünde de Gemini 4 Neon, GPT-6.2 Sol ve Opus 5.5 önde.",
+          "sources": [
+            {
+              "label": "Cognition: Introducing SWE-2.1",
+              "url": "https://cognition.com/blog/swe-2-1"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Benchmark · Kod golfü",
+          "headline": "GPT-6.2 Astra, go/codegolf'ta insan rekorlarını geçti",
+          "paragraphs": [
+            "Kod golfü benchmark'ı go/codegolf'a göre GPT-6.2 Astra, JavaScript, Python ve C++'ta insan rekorlarını geçen ilk model oldu. En kısa bilinen çözüme göre hesaplanan puanda üç dilin ortalaması %92,265, insan rekorlarınınki %87,533. Benchmark, 2015'teki bir iç Google yarışmasının 32 problemini sekiz dilde soruyor; model her biri için 30 dakikada en kısa geçen programı yazmaya çalışıyor. Çekinceler var: en iyi bilinen boyutlar kısmen GPT-6 Astra'nın da kullanıldığı bir referans çözücüden geliyor. İnsan rekorları ise 30 dakikalık değil, uzun bir yarışmanın sonucu."
+          ],
+          "sources": [
+            {
+              "label": "go/codegolf benchmark: leaderboard",
+              "url": "https://bjin.github.io/go-codegolf-benchmark/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Yerel inference · Agent",
+          "headline": "Kodlama agent'ı Inkling 2 Mini'yi tek GPU'da %40 hızlandırdı",
+          "paragraphs": [
+            "Hugging Face'ten Niels Rogge'un bir öğleden sonra çalıştırdığı kodlama agent'ı, Inkling 2 Mini'nin tek kullanıcılı çıktı hızını bir RTX PRO 6000'de saniyede 136'dan 190,6 token'a çıkardı. Kazancın çoğu vLLM'in nightly sürümüne geçmekten ve DSpark speculative decoding'i açmaktan geldi; 8 kullanıcılı toplam hız %26 arttı. Protokol her adayı iki kontrol koşusu arasına almayı istiyordu; agent 46 geçerli koşunun hepsini kaydetti. Speculative decoding açıkken ve kapalıyken greedy çıktılar bayt bayt aynıydı. Yazara göre sonuç GPU'nun bellek bant genişliği sınırının yaklaşık %95'inde, bayrak ayarıyla kazanılacak yer kalmadı."
+          ],
+          "sources": [
+            {
+              "label": "Hugging Face blog: Inkling 2 Mini inference hill-climb",
+              "url": "https://huggingface.co/blog/inkling-2-mini-inference-hillclimb"
+            },
+            {
+              "label": "21 Kasım sayısı: Inkling 2 Mini açık",
+              "url": "#2026-11-21-ai-1"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Ürün · Google Cloud",
+          "headline": "Agent Retrieval, dosyaları tek çağrıyla kaynaklı aramaya açıyor",
+          "paragraphs": [
+            "Cloud Storage'daki PDF, DOCX, PPTX, XLSX, TXT ve video dosyaları artık ayrı bir parçalama ve embedding hattı kurmadan aranabiliyor. Google'ın 24 Kasım'da duyurduğu managed ingestion, dosyaları Gemini Embedding 2 ile parçalayıp eski adı Vector Search 2.0 olan Agent Retrieval'a indeksliyor; SearchDocuments da tek çağrıda sonuç döndürüyor. Her sonuç kaynak dosyanın adresini, belgelerde sayfa aralığını, videolarda başlangıç ve bitiş zamanını taşıyor. Özellik Public Preview'da, v1beta REST API ile ve yalnızca us-east4 ile europe-west4 bölgelerinde. Ingestion Preview süresince ayrıca ücretlendirilmiyor, alttaki Collection standart fiyatla faturalanıyor."
+          ],
+          "sources": [
+            {
+              "label": "Google Developers Blog: managed ingestion ve SearchDocuments",
+              "url": "https://developers.googleblog.com/from-files-to-cited-answers-in-one-api-call-managed-ingestion-and-searchdocuments-in-agent-retrieval/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Limit · OpenAI",
+          "headline": "ChatGPT'de Chat ve Work tek kullanım limitini paylaşacak",
+          "paragraphs": [
+            "ChatGPT'nin sohbet ekranı Chat ile iş görevleri için kullanılan Work deneyimi tek arayüzde birleşiyor ve ikisi tek bir kullanım sayacını paylaşacak. TechCrunch'a göre birleşik arayüz 24 Kasım'da az sayıda Pro abonesine açıldı; OpenAI'ın destek sayfası paylaşılan limitlerin Aralık'ta daha geniş kitleye geleceğini yazıyor. Şirkete göre çoğu kullanıcı limite daha sık takılmayacak, ama en yoğun kullanıcıların küçük bir kısmı limite daha erken ulaşabilir. Instant modeliyle yapılan konuşmalar sınırsız kalıyor ve ortak kotaya sayılmıyor. Codex kullananlar limitlerinin etkilenip etkilenmediğini bu habere bakarak anlayamıyor."
+          ],
+          "sources": [
+            {
+              "label": "TechCrunch: ChatGPT'de Chat ve Work birleşiyor",
+              "url": "https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "İddia · Model kökeni",
+          "headline": "Modaic: TypeSafe'in Jev modeli büyük olasılıkla Qwen3.5 tabanlı",
+          "paragraphs": [
+            "Başka modellerin çıktısını değerlendiren bir hakem model olarak satılan Jev, Modaic'in analizine göre büyük olasılıkla Alibaba'nın Qwen3.5-35B-A3B modelinin fine-tuning'i. Yazarlar gecikme ölçümlerine dayanıyor: Qwen tokenizer'ı, Jev'in gecikmesini satıcı TypeSafe'in bildirdiği token sayısından daha iyi tahmin ediyor. Jev'e 22 farklı prompt'la kim olduğu soruldu; çoğunda cevap vermedi, ama hangi model olduğunu söylemek istediği sorulunca %74 Qwen dedi. Değerlendirme şirketi Vals AI de Jev'in Çin ve Tayvan cevaplarının Qwen türevlerine benzediğini bulmuş. Yazarlar sonucu kesin saymıyor: aynı mimarideki Qwen3.6-35B-A3B'den ayırt edemiyorlar."
+          ],
+          "why": "Çin modellerinden kaçınması gereken ekipler, temel modelini açıklamayan bir satıcıyla bu riski fark etmeden alabilir.",
+          "sources": [
+            {
+              "label": "Modaic: Latency doesn't lie",
+              "url": "https://modaic.dev/blog/latency-doesnt-lie"
+            },
+            {
+              "label": "23 Kasım sayısı: Meclis raporu, Çin modelleri",
+              "url": "#2026-11-23-ai-2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gelistirme",
+      "title": "Geliştirme & Araçlar",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Ürün · Cloudflare",
+          "headline": "Cloudflare, sitelere agent'lar için tek ayarla arama endpoint'i açıyor",
+          "paragraphs": [
+            "Cloudflare'deki bir site artık dashboard'daki tek bir ayarla AI agent'larına kendi arama endpoint'ini sunabiliyor. Şirketin 25 Kasım'da duyurduğu Search for Agents, zone'un içeriğini otomatik tarayıp bir AI Search indeksine koyuyor ve sitenin kendi alan adında `/.well-known/search` adresini açıyor. Endpoint `q` parametresiyle GET ya da HTTP QUERY isteği alıyor ve üretilmiş bir cevap değil, Markdown içerik döndürüyor; cevabı agent'ın kendi modeli yazıyor. Free dahil bütün planlarda var, ücret AI Search'ün ingestion, depolama ve sorgu fiyatlarına göre. Agent erişimi yine bot yönetimi, AI Crawl Control ve WAF ayarlarına bağlı."
+          ],
+          "sources": [
+            {
+              "label": "Cloudflare blog: Introducing Search for Agents",
+              "url": "https://blog.cloudflare.com/search-for-agents/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Sürüm · Claude Code",
+          "headline": "Claude Code'da yeni hook, skill'lerdeki shell komutlarını durduruyor",
+          "paragraphs": [
+            "Bir skill yüklenirken içindeki satır içi shell komutları artık bir hook ile reddedilebiliyor: Claude Code'un 25 Kasım'da çıkan 2.1.332 sürümü `PreSkillShellCommand` event'ini ekledi. Sürüm ayrıca macOS'ta bilgisayar kullanımını yeni güvenlik kurallarına geçirdi, bazı işlemler artık reddediliyor. Aynı sürüm, MCP sunucularından gelen skill'leri beta olarak `/` menüsünde `server:skill` biçiminde gösteriyor. Bir önceki 2.1.331 sürümünün notuna göre de yönetilen `extraKnownMarketplaces` listesindeki plugin marketplace'leri, 30 Kasım ya da sonrasında çıkacak bir sürümde varsayılan olarak kendiliğinden güncellenecek. Bunu istemeyen yöneticiler ilgili girdiye `\"autoUpdate\": false` eklemeli."
+          ],
+          "sources": [
+            {
+              "label": "Claude Code changelog",
+              "url": "https://code.claude.com/docs/en/changelog"
+            },
+            {
+              "label": "Dünkü sayı: MCP sunucuları Claude'a skill sunabiliyor",
+              "url": "#2026-11-25-manset"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Güvenlik · Jenkins",
+          "alert": true,
+          "headline": "Jenkins'te Pipeline ve Script Security sandbox'ı aşılabiliyor",
+          "paragraphs": [
+            "Jenkins'in 11 plugin'inde kapatılan açıkların en ciddileri, Groovy sandbox'ından çıkıp controller JVM'inde kod çalıştırmaya izin veriyor; düzeltmeler 25 Kasım'da duyuruldu. Pipeline: Groovy'deki açık (CVE-2026-136834) için sandbox'lı Pipeline tanımlayıp çalıştırma izni yetiyor; `4403.4405.va_b_cdb_b_d0b_89f` ile kapandı. Script Security'deki açık (CVE-2026-136835) önceki bir düzeltmenin eksik kalan kısmı, `1436.1438.v3dc5ef7d16f2`'de kapandı. Configuration as Code'da Overall/SystemRead izni olan biri dosya, ortam değişkeni ve secret okuyabiliyordu. Bütün plugin'lerin yaması çıktı; kurulu sürümleri duyurudaki tabloyla karşılaştırıp güncelleyin."
+          ],
+          "sources": [
+            {
+              "label": "Jenkins Security Advisory 2026-11-25",
+              "url": "https://www.jenkins.io/security/advisory/2026-11-25/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "OpenJDK · JDK 28",
+          "headline": "JDK 28'de jlink, güvenlik ayarlarını imaja dosyadan yazıyor",
+          "paragraphs": [
+            "JDK 28 ile gelen `security-properties` plugin'i, `jlink` ile özel runtime üretirken güvenlik özelliklerini bir dosyadan imaja yazmayı sağlıyor. Inside Java'nın 25 Kasım'daki Quality Outreach notuna göre `--security-properties=dosya` seçeneği imajdaki `conf/security/java.security` dosyasında eşleşen özellikleri güncelliyor, yenilerini sona ekliyor. Bir özellik dosyada birkaç kez geçerse son değer geçerli; `include` satırı sona taşınıyor ve gösterdiği dosyanın build makinesinde olması gerekmiyor. Orijinal `java.security` yinelenen özellik ya da `include` içeriyorsa build başarısız oluyor."
+          ],
+          "sources": [
+            {
+              "label": "Inside Java: jlink security properties plugin",
+              "url": "https://inside.java/2026/11/25/quality-heads-up/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik",
+      "patch": [
+        {
+          "text": "Mitel MiCollab 10.3.0.18 ve öncesi: KB000129195 yamasını kurun ya da AWV'yi dışarıya kapatın",
+          "ref": "guvenlik-3"
+        },
+        {
+          "text": "Juniper Session Smart Conductor 7.0.5, 7.1.7 ve 7.2.3 öncesi: yükseltin; komut enjeksiyonu KEV'de",
+          "url": "https://www.cisa.gov/news-events/alerts/2026/11/25/cisa-adds-10-known-exploited-vulnerabilities-catalog"
+        }
+      ],
+      "articles": [
+        {
+          "size": 4,
+          "kicker": "Olay · 1Password",
+          "alert": true,
+          "headline": "1Password: GitHub hesabı ele geçirildi, CI/CD'ye ulaşıldı",
+          "paragraphs": [
+            "Saldırganlar bir 1Password çalışanının kurumsal GitHub hesabını ele geçirip backend servislerine zararlı kod push etti; bu kod bazı müşterilerin ad, e-posta, hesap kimliği ve davet ya da kurtarma linklerindeki token'larını indirdi. Şirkete göre token'lar tek başına hesaba erişim vermiyor, SSO girişi ya da e-postaya giden kod da gerekiyor; bu kod 6 rakamdan 10 karakterlik harf ve rakam karışık koda uzatıldı. Özel repoların kodu kopyalandı, CI/CD'deki altyapı secret'ları döndürüldü. Kasalar etkilenmedi; kullanıcıdan işlem beklenmiyor."
+          ],
+          "sources": [
+            {
+              "label": "1Password: Kasım 2026 güvenlik olayı",
+              "url": "https://1password.com/blog/update-on-nov-2026-security-incident"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Olay · Defang",
+          "alert": true,
+          "headline": "Defang'da sahte release tag'i production secret'larını açtı",
+          "paragraphs": [
+            "Bulut deploy aracı Defang'da gereğinden yetkili bir geliştirme GitHub App'iyle push edilen commit release olarak etiketlendi; release tag'lerine güvenen production CI bu kodu production credential'larıyla çalıştırdı. Veritabanı 12 Kasım'da kopyalandı. Şirkete göre GitHub App kullananlar 11 Kasım'dan beri `defang-app[bot]` etkinliğine bakmalı, AWS'ye deploy edenler CloudTrail'i kontrol etmeli ve Defang'ın erişimini iptal edip yeniden bağlamalı. Defang 12 Ekim ile 19 Kasım arasında parola içerebilen deploy durumlarını sakladığı için o dönemde deploy edenler secret'larını değiştirmeli."
+          ],
+          "sources": [
+            {
+              "label": "Defang: Kasım 2026 güvenlik olayı",
+              "url": "https://defang.io/blog/post/security-incident-november-2026/"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Aktif istismar · Mitel",
+          "alert": true,
+          "headline": "Mitel MiCollab'ın beş AWV açığı KEV'e girdi",
+          "paragraphs": [
+            "CISA, Mitel MiCollab'ın sesli, web ve görüntülü konferans bileşeni AWV'deki beş açığı 25 Kasım'da istismar edilen açıklar kataloğu KEV'e ekledi; federal kurumlar için son tarih 28 Kasım. Mitel'in 24 Kasım'da güncellediği duyuruya göre hiçbiri kimlik doğrulaması gerektirmiyor ve kör komut enjeksiyonu (CVE-2026-133323) 10,0 puanla kritik. 10.3.0.18 ve öncesi etkileniyor. Bu sürüme KB000129195'teki yamayı kurun ya da daha yeni bir sürüme geçin; hemen yapamıyorsanız AWV'ye dışarıdan erişimi kısıtlayın."
+          ],
+          "sources": [
+            {
+              "label": "CISA: KEV'e 10 açık eklendi",
+              "url": "https://www.cisa.gov/news-events/alerts/2026/11/25/cisa-adds-10-known-exploited-vulnerabilities-catalog"
+            },
+            {
+              "label": "Mitel: MISA-2026-0012",
+              "url": "https://www.mitel.com/support/security-advisories/mitel-product-security-advisory-misa-2026-0012"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "repos": {
+    "subtitle": "GitHub Trending günlük, Java günlük listeleri ve trendshift.io · yıldızlar 26 Kasım",
+    "items": [
+      {
+        "name": "lsernau/grh-lean",
+        "url": "https://github.com/lsernau/grh-lean",
+        "stars": "388",
+        "starsValue": 388,
+        "lang": "Lean",
+        "cat": "Matematik",
+        "why": "Lean topluluğunun 21 Kasım'da onayladığı, Levent Alpöge'nin Claude ile bulduğu Genelleştirilmiş Riemann Hipotezi ispatının Anthropic'te Claude'la kısaltılmış Lean 4 sürümü; sıkıştırılmış hali yaklaşık 76.000 satır. Hacker News ön sayfasında; README tam metni henüz hiçbir matematikçinin incelemediğini yazıyor.",
+        "meta": "Lean · Matematik"
+      },
+      {
+        "name": "alesha-pro/llm.asm",
+        "url": "https://github.com/alesha-pro/llm.asm",
+        "stars": "415",
+        "starsValue": 415,
+        "lang": "Assembly",
+        "cat": "LLM inference",
+        "why": "Qwen3-0.6B inference'ı, doğrudan donanımda açılan bir işletim sistemi ve küçük bir GPT eğiticisi; hepsi C ve libc olmadan, x86-64 NASM assembly ile. İşletim sistemi bölümü “Bare Metal Qwen” başlığıyla Hacker News ön sayfasına çıktı; yazarın ölçümüne göre 16 vCPU'lu bir KVM sunucusunda saniyede 134,9 token.",
+        "meta": "Assembly · LLM inference"
+      },
+      {
+        "name": "opensetlabs/openset-llm",
+        "url": "https://github.com/opensetlabs/openset-llm",
+        "stars": "952",
+        "starsValue": 952,
+        "cat": "Yerel inference",
+        "why": "27 milyar parametreli bir modeli GPU'suz, 8 GB RAM'li sıradan bir CPU'da OpenAI uyumlu API ile sunan inference motoru; PrismML'in 5,95 GB'lık Bonsai-2-27B'sini AVX-512'li x86 işlemcilerde çalıştırıyor. Bugün trendshift.io listesinde; projenin kendi ölçümüne göre 8 vCPU'lu bir Xeon'da saniyede 17-20 token, ik_llama.cpp'nin yaklaşık 4,2 katı.",
+        "meta": "Yerel inference"
+      },
+      {
+        "name": "mvanhorn/last30days-skill",
+        "url": "https://github.com/mvanhorn/last30days-skill",
+        "stars": "75,2 bin",
+        "starsValue": 75200,
+        "lang": "Python",
+        "cat": "Agent skill",
+        "why": "Bir konuyu Reddit, X, YouTube, Hacker News, Polymarket ve web'de paralel arayıp etkileşime göre puanlayan ve özetleyen açık kaynak agent skill'i; Claude Code, Codex, Cursor, Copilot ve Gemini CLI'da çalışıyor. GitHub Trending'de bugün 945 yıldız aldı.",
+        "meta": "Python · Agent skill"
+      },
+      {
+        "name": "cursor/plugins",
+        "url": "https://github.com/cursor/plugins",
+        "stars": "19,6 bin",
+        "starsValue": 19600,
+        "lang": "TypeScript",
+        "cat": "Plugin",
+        "why": "Cursor'ın plugin spesifikasyonu ve resmi marketplace'i: her plugin kendi `plugin.json` manifestiyle bir dizin. Listede 17'si geliştirici aracı, 132'si üçüncü taraf entegrasyonu olmak üzere 149 plugin var ve repo bugün GitHub Trending'de 416 yıldız aldı.",
+        "meta": "TypeScript · Plugin"
+      },
+      {
+        "name": "kestra-io/kestra",
+        "url": "https://github.com/kestra-io/kestra",
+        "stars": "30.362",
+        "starsValue": 30362,
+        "lang": "Java",
+        "cat": "Orkestrasyon",
+        "why": "Java ile yazılmış, workflow'ları tanımlayıp çalıştıran açık kaynak orkestrasyon platformu. Java günlük listesindeki projenin 24 Kasım'da çıkan 2.0.13 sürümü, döngülerde `concurrencyLimit` alanına ifade yazmayı sağladı ve girdilerde secret maskelemeyi düzeltti.",
+        "meta": "Java · Orkestrasyon"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending: günlük",
+        "url": "https://github.com/trending?since=daily"
+      },
+      {
+        "label": "GitHub Trending: Java günlük",
+        "url": "https://github.com/trending/java?since=daily"
+      },
+      {
+        "label": "trendshift.io",
+        "url": "https://trendshift.io/"
+      }
+    ]
+  },
+  "atolye": {
+    "konu": "haber",
+    "kicker": "Agentic geliştirme",
+    "title": "Agent'a performans deneyi yaptırın: tek değişken, kontrol koşusu, kayıt",
+    "intro": "Agent'a yalnızca “şunu hızlandır” demek, gürültüyü kazanç sanan ve neyi denediğini unutan bir deney dizisi üretebilir. Hugging Face'in 25 Kasım'daki Inkling 2 Mini yazısındaki protokol, agent'ın bulduğu hızlanmanın gerçek ve doğru olduğunu gösteren kanıtı da birlikte üretiyor.",
+    "when": "Protokolü veren inference-optimisation skill'i, yerel bir LLM sunucusunun çıktı hızı, prefill, KV cache ve ilk token süresi gibi ölçülebilir hedefleri için yazıldı. Aynı adımlar tek bir sayıyla ölçülen başka ayar işlerine uyarlanabilir; doğruluğu kontrol edecek bir test yoksa son adım uygulanamaz.",
+    "steps": [
+      "Önce teorik tavanı hesaplatın. Skill, agent'ın denemeye başlamadan fiziksel sınırı hesaplamasını istiyor; böylece bir sonucun sınıra ne kadar yakın olduğu bilinir. Hugging Face'teki koşuda agent GPU'nun bant genişliğini ölçtü, tensör boyutlarını model dosyasının başlığından okudu ve speculative decoding ile yaklaşık 201 token/sn tavan buldu; 190,6'ya ulaşınca durdu.",
+      "Her seferinde tek şeyi değiştirin ve denemeyi kontrol koşuları arasına alın. Protokol “kontrol → aday → kontrol” sırası istiyor. Skill bir değişikliği ancak iki komşu kontrolü de geçerse ve başka bir ölçütü %3'ten fazla kötüleştirmezse kabul ediyor. Yazıda %1-2'lik kazançlar gürültü sayıldı, %4'lük bir sonuç kontroller tekrarlamayınca atıldı.",
+      "Ortanca alın, gürültüyü ölçün. Skill en az altı ölçümün ortancasını istiyor ve koşudan koşuya gürültüyü ±%5-10 olarak veriyor. Hugging Face koşusunda vLLM aynı ayarlarda %0,4 içinde kalırken SGLang ±%4,5 oynadı; motorun kendi gürültüsünü bilmeden küçük farkları yorumlamayın.",
+      "Her koşuyu, başarısız olanları da kaydettirin. Skill her sonucu `ledger.jsonl` dosyasına, planı ve çıkmazları `PLAN.md`'ye yazdırıyor; neyin işe yaramadığı ve nedeni de kayda giriyor. Yazıda greedy draft örneklemenin hızı yaklaşık %11 düşürdüğü bu kayıtlardan okunuyor.",
+      "Kazananı doğruluk testinden geçirmeden ilan etmeyin. Skill, bir yapılandırmaya “en iyi” demeden önce uzun bağlamda bilgi bulma testi ve eşzamanlı yük testi istiyor. Hugging Face koşusunda speculative decoding açık ve kapalıyken greedy çıktılar 6/6 bayt bayt aynıydı, yaklaşık 250 bin token'lık bağlamda bilgi bulma testi 3/3 geçti."
+    ],
+    "example": {
+      "label": "Örnek görev prompt'u: inference sunucusunu hızlandırma",
+      "lang": "markdown",
+      "code": "# Görev: vLLM sunucusunun tek kullanıcılı çıktı hızını artır\n\nHedef: tek kullanıcılı decode hızı (token/sn, ortanca)\nKorunacaklar: 8 kullanıcılı toplam hız, TTFT, greedy çıktı\n\nKurallar:\n1. Önce donanımı ölç; tavan hesabını THEORY.md'ye yaz.\n2. Her koşuda yalnızca bir bayrağı ya da sürümü değiştir.\n3. Sıra: kontrol -> aday -> kontrol.\n4. Aday iki kontrolü de geçmeli; başka ölçüt %3'ten fazla düşmemeli.\n5. Her ölçüm en az 6 tekrar; ortancayı raporla.\n6. Her koşuyu ledger.jsonl'a, çıkmazları PLAN.md'ye yaz.\n7. Ölçümden önce ısınma koşusu yap.\n8. Koşu bitince portun ve GPU belleğinin boşaldığını doğrula.\n9. \"En iyi\" demeden önce greedy eşitlik ve uzun bağlam testi yap.\n10. Tavana yaklaşınca dur ve kalan seçenekleri raporla."
+    },
+    "pitfall": "Ölçümün kendisi yanıltabilir. Hugging Face koşusunda Triton derlemesi ölçülen prefill süresine karışınca 4K prefill yaklaşık 20 bin yerine 202 token/sn okundu, kapanmayan eski bir sunucu süreci de portu tutmaya devam etti; yazar çözüm olarak ölçülmeyen bir ısınma koşusu ekledi ve port ile GPU belleği boşalana kadar beklemeyi koydu.",
+    "sources": [
+      {
+        "label": "Hugging Face blog: Inkling 2 Mini inference hill-climb",
+        "url": "https://huggingface.co/blog/inkling-2-mini-inference-hillclimb"
+      },
+      {
+        "label": "GitHub: inference-optimisation skill",
+        "url": "https://github.com/sybil-solutions/inference-optimisation-skill"
+      }
+    ]
+  },
+  "briefs": [
+    {
+      "tag": "Takip · Linux çekirdeği",
+      "text": "Hanno Böck'e göre Ubuntu, 16 Kasım'da yayımlanan uzaktan TCP bellek bozulması NoisyTCP (CVE-2026-99288) için 25 Kasım itibarıyla yama çıkarmamıştı; 18 Kasım'da yayımlanan AMD KVM açığı da Ubuntu'da hâlâ yamasız. Diğer dağıtımlarda NoisyTCP yaması ayrıntılar yayımlandığında hazırdı.",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/25/9"
+    },
+    {
+      "tag": "Güvenlik",
+      "text": "CISA, HPE Juniper Session Smart Conductor'daki kimlik doğrulamasız OS komut enjeksiyonu açığını (CVE-2026-103406) 25 Kasım'da istismar edilen açıklar kataloğuna ekledi. 7.0.5, 7.1.7 ve 7.2.3 öncesi sürümleri işletenler bu sürümlere yükseltmeli.",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/11/25/cisa-adds-10-known-exploited-vulnerabilities-catalog"
+    },
+    {
+      "tag": "OpenAI",
+      "text": "OpenAI, kurumsal müşterilerin en güçlü modelleri verisini OpenAI'a göstermeden kullanabileceği Private Inference'ı ilk müşterilerle pilot olarak deniyor. The Decoder'a göre sorgular, güvenliği bağımsız doğrulanabilen yalıtılmış donanımda işleniyor.",
+      "url": "https://the-decoder.com/openai-wants-companies-to-trust-it-with-sensitive-work-by-promising-not-to-look-at-their-data/"
+    },
+    {
+      "tag": "Google DeepMind",
+      "text": "DeepMind'da Gemini'yi yöneten Koray Kavukcuoğlu'na göre AI agent'ları bir sonraki Gemini modeli için deneyleri kendi başlarına yürütüyor ve deney hesaplamasının bir kısmını kontrol ediyor. Kavukcuoğlu bir podcast'te tam özyinelemeli kendini geliştirmeden hâlâ uzak olduklarını söyledi.",
+      "url": "https://the-decoder.com/ai-agents-now-control-part-of-deepminds-compute-for-gemini-experiments-but-recursive-self-improvement-remains-distant/"
+    },
+    {
+      "tag": "İddia · Çin modelleri",
+      "text": "The Decoder'ın The Information'a dayandırdığı habere göre ABD'nin çip erişimi kısıtları ve OpenAI ile Anthropic'in damıtmaya karşı önlemleri Çinli laboratuvarları yavaşlatıyor. Habere göre Moonshot AI, Endonezya'daki 150 milyon dolarlık Nvidia Blackwell anlaşmasını iptal etti.",
+      "url": "https://the-decoder.com/us-chip-access-curbs-and-anti-distillation-measures-are-reportedly-already-slowing-chinese-ai-labs/"
+    },
+    {
+      "tag": "GitHub",
+      "text": "GitHub.com'da 1 Aralık'tan itibaren, bir konunun aboneliğinden elle çıktıktan sonra yorum, review, konu durumu değişikliği ve merge queue etkinliği sizi yeniden abone etmeyecek; mention, atanma ve review isteği ise etmeye devam edecek. Bildirim nedenlerine göre çalışan e-posta filtreleri gözden geçirilmeli.",
+      "url": "https://github.blog/changelog/2026-11-24-more-predictable-notifications-on-github-com"
+    },
+    {
+      "tag": "Takip · Nvidia",
+      "text": "TechCrunch'a göre S&P, Jensen Huang'ın görevden alınıp geri getirilmesinin ardından yönetim ve halef planı eksikliği gerekçesiyle Nvidia'nın notunu AA'dan bir basamak indirmeyi değerlendiriyor; incelemeyi 90 gün içinde bitirmesi bekleniyor.",
+      "url": "https://techcrunch.com/2026/11/25/sp-considers-nvidia-credit-downgrade-over-governance-and-key-man-risks/"
+    }
+  ]
+}
