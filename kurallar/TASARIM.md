@@ -12,6 +12,7 @@ The Daily Compiler bir gazete: sakin, editoryal, tipografiyle konuşan bir sayfa
 
 - Vurgu (çerçeve, zemin, renk, kalın) yalnızca seyrek öğede kullanılır; her haberde tekrarlanan bileşen sade kalır. Her habere uygulanan bir vurgu uyarının etkisini yok eder.
 - Aynı türde bilgi her yerde aynı bileşenle gösterilir. Aynı satırda iki farklı bileşen (ör. kutulu ve kutusuz etiket) yan yana durmaz.
+- Numaralı listeler (Editörün önerileri, Atölye adımları) aynı numara bileşenini kullanır: kod yazısıyla, ince petrol çerçeveli “01”. Yeni bir numaralı liste de bunu kullanır.
 - Yeni bir öğe gerekmeden önce sitede aynı işi yapan bir kalıp aranır (“Devamı”, sayfa sonu gezinmesi, kaynak satırı).
 
 ## Ayrım ve erişilebilirlik
