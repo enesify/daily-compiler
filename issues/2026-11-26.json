@@ -77,7 +77,7 @@
           "paragraphs": [
             "Cognition'ın yeni kodlama modeli SWE-2.1, Devin'in Desktop, Cloud ve CLI sürümlerinde kullanılabiliyor. Şirketin 24 Kasım'daki duyurusuna göre model Kimi K3 üzerine yalnızca reinforcement learning ile eğitildi ve uzun süren agent işlerini hedefliyor. Desktop ve CLI'da 8 Aralık'a kadar ücretsiz, bütün yüzeylerde 30 Ocak'a kadar indirimli; liste fiyatı verilmedi. Cerebras ile sunulan SWE-2.1 Ultrafast aynı modeli yaklaşık 10 kat hızla çalıştırıyor. Şirkete göre eğitimde rollout uzunluğunu kontrol etmek, dakikalardan saatlere süren görevlerde eğitimi kararlı hale getirdi. Duyuru ağırlıklardan söz etmiyor.",
             "Cognition'ın kendi ölçümlerine göre model SWE-2'nin çok önünde, ama en güçlü rakiplerin gerisinde. Terminal-Bench 4.1'de SWE-2'nin puanını iki katından fazla artırıyor, ama aynı testte Kimi K3.1, GPT-6.2 Sol, Gemini 4 Neon ve Opus 5.5 daha yüksek. Siber güvenlik testi ExploitBench'te de Opus 5.5 ve GPT-6.2 Sol önde. Daha serbest korumalarla gelen SWE-2.1 Cyber, Devin Security'ye açılıyor. Şirket, modelin eğitim sırasında red-teaming'e rağmen dört kez sandbox'ta yeni bir açık bulduğunu yazıyor.",
-            "Siber güvenlik testi ExploitGym'de duyuru metni %27,3 bayrak yakalama diyor; tabloda bu rakam başarı oranı olarak geçiyor, bayrak yakalama ise 44,8."
+            "Siber güvenlik testi ExploitGym'de duyuru metni %27,3 CTF (capture the flag) diyor; tabloda bu rakam başarı oranı olarak geçiyor, CTF ise 44,8."
           ],
           "table": {
             "title": "Cognition'ın duyurusundaki kodlama testleri (puan)",
@@ -175,7 +175,7 @@
           "kicker": "Ürün · Google Cloud",
           "headline": "Agent Retrieval, dosyaları tek çağrıyla kaynaklı aramaya açıyor",
           "paragraphs": [
-            "Cloud Storage'daki PDF, DOCX, PPTX, XLSX, TXT ve video dosyaları artık ayrı bir parçalama ve embedding hattı kurmadan aranabiliyor. Google'ın 24 Kasım'da duyurduğu managed ingestion, dosyaları Gemini Embedding 2 ile parçalayıp eski adı Vector Search 2.0 olan Agent Retrieval'a indeksliyor; SearchDocuments da tek çağrıda sonuç döndürüyor. Her sonuç kaynak dosyanın adresini, belgelerde sayfa aralığını, videolarda başlangıç ve bitiş zamanını taşıyor. Özellik Public Preview'da, v1beta REST API ile ve yalnızca us-east4 ile europe-west4 bölgelerinde. Ingestion Preview süresince ayrıca ücretlendirilmiyor, alttaki Collection standart fiyatla faturalanıyor."
+            "Cloud Storage'daki PDF, DOCX, PPTX, XLSX, TXT ve video dosyaları artık ayrı bir chunking ve embedding pipeline'ı kurmadan aranabiliyor. Google'ın 24 Kasım'da duyurduğu managed ingestion, dosyaları Gemini Embedding 2 ile chunk'lara ayırıp eski adı Vector Search 2.0 olan Agent Retrieval'a indeksliyor; SearchDocuments da tek çağrıda sonuç döndürüyor. Her sonuç kaynak dosyanın adresini, belgelerde sayfa aralığını, videolarda başlangıç ve bitiş zamanını taşıyor. Özellik Public Preview'da, v1beta REST API ile ve yalnızca us-east4 ile europe-west4 bölgelerinde. Ingestion Preview süresince ayrıca ücretlendirilmiyor, alttaki Collection standart fiyatla faturalanıyor."
           ],
           "sources": [
             {
@@ -203,7 +203,7 @@
           "kicker": "İddia · Model kökeni",
           "headline": "Modaic: TypeSafe'in Jev modeli büyük olasılıkla Qwen3.5 tabanlı",
           "paragraphs": [
-            "Başka modellerin çıktısını değerlendiren bir hakem model olarak satılan Jev, Modaic'in analizine göre büyük olasılıkla Alibaba'nın Qwen3.5-35B-A3B modelinin fine-tuning'i. Yazarlar gecikme ölçümlerine dayanıyor: Qwen tokenizer'ı, Jev'in gecikmesini satıcı TypeSafe'in bildirdiği token sayısından daha iyi tahmin ediyor. Jev'e 22 farklı prompt'la kim olduğu soruldu; çoğunda cevap vermedi, ama hangi model olduğunu söylemek istediği sorulunca %74 Qwen dedi. Değerlendirme şirketi Vals AI de Jev'in Çin ve Tayvan cevaplarının Qwen türevlerine benzediğini bulmuş. Yazarlar sonucu kesin saymıyor: aynı mimarideki Qwen3.6-35B-A3B'den ayırt edemiyorlar."
+            "Başka modellerin çıktısını değerlendiren bir judge model olarak satılan Jev, Modaic'in analizine göre büyük olasılıkla Alibaba'nın Qwen3.5-35B-A3B modelinin fine-tuning'i. Yazarlar gecikme ölçümlerine dayanıyor: Qwen tokenizer'ı, Jev'in gecikmesini satıcı TypeSafe'in bildirdiği token sayısından daha iyi tahmin ediyor. Jev'e 22 farklı prompt'la kim olduğu soruldu; çoğunda cevap vermedi, ama hangi model olduğunu söylemek istediği sorulunca %74 Qwen dedi. Değerlendirme şirketi Vals AI de Jev'in Çin ve Tayvan cevaplarının Qwen türevlerine benzediğini bulmuş. Yazarlar sonucu kesin saymıyor: aynı mimarideki Qwen3.6-35B-A3B'den ayırt edemiyorlar."
           ],
           "why": "Çin modellerinden kaçınması gereken ekipler, temel modelini açıklamayan bir satıcıyla bu riski fark etmeden alabilir.",
           "sources": [
@@ -312,7 +312,7 @@
           "alert": true,
           "headline": "1Password: GitHub hesabı ele geçirildi, CI/CD'ye ulaşıldı",
           "paragraphs": [
-            "Saldırganlar bir 1Password çalışanının kurumsal GitHub hesabını ele geçirip backend servislerine zararlı kod push etti; bu kod bazı müşterilerin ad, e-posta, hesap kimliği ve davet ya da kurtarma linklerindeki token'larını indirdi. Şirkete göre token'lar tek başına hesaba erişim vermiyor, SSO girişi ya da e-postaya giden kod da gerekiyor; bu kod 6 rakamdan 10 karakterlik harf ve rakam karışık koda uzatıldı. Özel repoların kodu kopyalandı, CI/CD'deki altyapı secret'ları döndürüldü. Kasalar etkilenmedi; kullanıcıdan işlem beklenmiyor."
+            "Saldırganlar bir 1Password çalışanının kurumsal GitHub hesabını ele geçirip backend servislerine zararlı kod push etti; bu kod bazı müşterilerin ad, e-posta, hesap kimliği ve davet ya da kurtarma linklerindeki token'larını indirdi. Şirkete göre token'lar tek başına hesaba erişim vermiyor, SSO girişi ya da e-postaya giden kod da gerekiyor; bu kod 6 rakamdan 10 karakterlik harf ve rakam karışık koda uzatıldı. Özel repoların kodu kopyalandı, CI/CD'deki altyapı secret'ları döndürüldü. Vault'lar etkilenmedi; kullanıcıdan işlem beklenmiyor."
           ],
           "sources": [
             {
@@ -445,16 +445,16 @@
     "steps": [
       "Önce teorik tavanı hesaplatın. Skill, agent'ın denemeye başlamadan fiziksel sınırı hesaplamasını istiyor; böylece bir sonucun sınıra ne kadar yakın olduğu bilinir. Hugging Face'teki koşuda agent GPU'nun bant genişliğini ölçtü, tensör boyutlarını model dosyasının başlığından okudu ve speculative decoding ile yaklaşık 201 token/sn tavan buldu; 190,6'ya ulaşınca durdu.",
       "Her seferinde tek şeyi değiştirin ve denemeyi kontrol koşuları arasına alın. Protokol “kontrol → aday → kontrol” sırası istiyor. Skill bir değişikliği ancak iki komşu kontrolü de geçerse ve başka bir ölçütü %3'ten fazla kötüleştirmezse kabul ediyor. Yazıda %1-2'lik kazançlar gürültü sayıldı, %4'lük bir sonuç kontroller tekrarlamayınca atıldı.",
-      "Ortanca alın, gürültüyü ölçün. Skill en az altı ölçümün ortancasını istiyor ve koşudan koşuya gürültüyü ±%5-10 olarak veriyor. Hugging Face koşusunda vLLM aynı ayarlarda %0,4 içinde kalırken SGLang ±%4,5 oynadı; motorun kendi gürültüsünü bilmeden küçük farkları yorumlamayın.",
-      "Her koşuyu, başarısız olanları da kaydettirin. Skill her sonucu `ledger.jsonl` dosyasına, planı ve çıkmazları `PLAN.md`'ye yazdırıyor; neyin işe yaramadığı ve nedeni de kayda giriyor. Yazıda greedy draft örneklemenin hızı yaklaşık %11 düşürdüğü bu kayıtlardan okunuyor.",
+      "Medyan alın, gürültüyü ölçün. Skill en az altı ölçümün medyanını istiyor ve koşudan koşuya gürültüyü ±%5-10 olarak veriyor. Hugging Face koşusunda vLLM aynı ayarlarda %0,4 içinde kalırken SGLang ±%4,5 oynadı; motorun kendi gürültüsünü bilmeden küçük farkları yorumlamayın.",
+      "Her koşuyu, başarısız olanları da kaydettirin. Skill her sonucu `ledger.jsonl` dosyasına, planı ve çıkmazları `PLAN.md`'ye yazdırıyor; neyin işe yaramadığı ve nedeni de kayda giriyor. Yazıda greedy draft sampling'in hızı yaklaşık %11 düşürdüğü bu kayıtlardan okunuyor.",
       "Kazananı doğruluk testinden geçirmeden ilan etmeyin. Skill, bir yapılandırmaya “en iyi” demeden önce uzun bağlamda bilgi bulma testi ve eşzamanlı yük testi istiyor. Hugging Face koşusunda speculative decoding açık ve kapalıyken greedy çıktılar 6/6 bayt bayt aynıydı, yaklaşık 250 bin token'lık bağlamda bilgi bulma testi 3/3 geçti."
     ],
     "example": {
       "label": "Örnek görev prompt'u: inference sunucusunu hızlandırma",
       "lang": "markdown",
-      "code": "# Görev: vLLM sunucusunun tek kullanıcılı çıktı hızını artır\n\nHedef: tek kullanıcılı decode hızı (token/sn, ortanca)\nKorunacaklar: 8 kullanıcılı toplam hız, TTFT, greedy çıktı\n\nKurallar:\n1. Önce donanımı ölç; tavan hesabını THEORY.md'ye yaz.\n2. Her koşuda yalnızca bir bayrağı ya da sürümü değiştir.\n3. Sıra: kontrol -> aday -> kontrol.\n4. Aday iki kontrolü de geçmeli; başka ölçüt %3'ten fazla düşmemeli.\n5. Her ölçüm en az 6 tekrar; ortancayı raporla.\n6. Her koşuyu ledger.jsonl'a, çıkmazları PLAN.md'ye yaz.\n7. Ölçümden önce ısınma koşusu yap.\n8. Koşu bitince portun ve GPU belleğinin boşaldığını doğrula.\n9. \"En iyi\" demeden önce greedy eşitlik ve uzun bağlam testi yap.\n10. Tavana yaklaşınca dur ve kalan seçenekleri raporla."
+      "code": "# Görev: vLLM sunucusunun tek kullanıcılı çıktı hızını artır\n\nHedef: tek kullanıcılı decode hızı (token/sn, medyan)\nKorunacaklar: 8 kullanıcılı toplam hız, TTFT, greedy çıktı\n\nKurallar:\n1. Önce donanımı ölç; tavan hesabını THEORY.md'ye yaz.\n2. Her koşuda yalnızca bir bayrağı ya da sürümü değiştir.\n3. Sıra: kontrol -> aday -> kontrol.\n4. Aday iki kontrolü de geçmeli; başka ölçüt %3'ten fazla düşmemeli.\n5. Her ölçüm en az 6 tekrar; medyanı raporla.\n6. Her koşuyu ledger.jsonl'a, çıkmazları PLAN.md'ye yaz.\n7. Ölçümden önce warm-up koşusu yap.\n8. Koşu bitince portun ve GPU belleğinin boşaldığını doğrula.\n9. \"En iyi\" demeden önce greedy eşitlik ve uzun bağlam testi yap.\n10. Tavana yaklaşınca dur ve kalan seçenekleri raporla."
     },
-    "pitfall": "Ölçümün kendisi yanıltabilir. Hugging Face koşusunda Triton derlemesi ölçülen prefill süresine karışınca 4K prefill yaklaşık 20 bin yerine 202 token/sn okundu, kapanmayan eski bir sunucu süreci de portu tutmaya devam etti; yazar çözüm olarak ölçülmeyen bir ısınma koşusu ekledi ve port ile GPU belleği boşalana kadar beklemeyi koydu.",
+    "pitfall": "Ölçümün kendisi yanıltabilir. Hugging Face koşusunda Triton derlemesi ölçülen prefill süresine karışınca 4K prefill yaklaşık 20 bin yerine 202 token/sn okundu, kapanmayan eski bir sunucu süreci de portu tutmaya devam etti; yazar çözüm olarak ölçülmeyen bir warm-up koşusu ekledi ve port ile GPU belleği boşalana kadar beklemeyi koydu.",
     "sources": [
       {
         "label": "Hugging Face blog: Inkling 2 Mini inference hill-climb",
@@ -484,12 +484,12 @@
     },
     {
       "tag": "Google DeepMind",
-      "text": "DeepMind'da Gemini'yi yöneten Koray Kavukcuoğlu'na göre AI agent'ları bir sonraki Gemini modeli için deneyleri kendi başlarına yürütüyor ve deney hesaplamasının bir kısmını kontrol ediyor. Kavukcuoğlu bir podcast'te tam özyinelemeli kendini geliştirmeden hâlâ uzak olduklarını söyledi.",
+      "text": "DeepMind'da Gemini'yi yöneten Koray Kavukcuoğlu'na göre AI agent'ları bir sonraki Gemini modeli için deneyleri kendi başlarına yürütüyor ve deney hesaplamasının bir kısmını kontrol ediyor. Kavukcuoğlu bir podcast'te tam recursive self-improvement'tan hâlâ uzak olduklarını söyledi.",
       "url": "https://the-decoder.com/ai-agents-now-control-part-of-deepminds-compute-for-gemini-experiments-but-recursive-self-improvement-remains-distant/"
     },
     {
       "tag": "İddia · Çin modelleri",
-      "text": "The Decoder'ın The Information'a dayandırdığı habere göre ABD'nin çip erişimi kısıtları ve OpenAI ile Anthropic'in damıtmaya karşı önlemleri Çinli laboratuvarları yavaşlatıyor. Habere göre Moonshot AI, Endonezya'daki 150 milyon dolarlık Nvidia Blackwell anlaşmasını iptal etti.",
+      "text": "The Decoder'ın The Information'a dayandırdığı habere göre ABD'nin çip erişimi kısıtları ve OpenAI ile Anthropic'in distillation'a karşı önlemleri Çinli laboratuvarları yavaşlatıyor. Habere göre Moonshot AI, Endonezya'daki 150 milyon dolarlık Nvidia Blackwell anlaşmasını iptal etti.",
       "url": "https://the-decoder.com/us-chip-access-curbs-and-anti-distillation-measures-are-reportedly-already-slowing-chinese-ai-labs/"
     },
     {

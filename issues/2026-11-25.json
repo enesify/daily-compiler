@@ -34,11 +34,11 @@
     "kicker": "Protokol · MCP",
     "alert": false,
     "headline": "MCP sunucuları Claude'a skill sunabiliyor; Tasks ve Elicitation GA",
-    "deck": "Skills over MCP, Claude ve Claude Code'da Pro, Max ve Ultra'da varsayılan açık public beta; Team'de yöneticinin açması gerekiyor, Enterprise'a henüz gelmedi. MCP belgelerine göre Skills ve Tasks, protokolün durumsuz 2026-07-28 revizyonuna dayanıyor.",
+    "deck": "Skills over MCP, Claude ve Claude Code'da Pro, Max ve Ultra'da varsayılan açık public beta; Team'de yöneticinin açması gerekiyor, Enterprise'a henüz gelmedi. MCP belgelerine göre Skills ve Tasks, protokolün stateless 2026-07-28 revizyonuna dayanıyor.",
     "paragraphs": [
       "Bir MCP sunucusu artık araçlarının yanında skill de yayımlayabiliyor: bir `SKILL.md` dosyası ve ona eşlik eden belgelerle uzun, çok adımlı işler için talimat. Anthropic'in 24 Kasım'daki duyurusuna göre Claude bir skill'i yalnızca gerektiğinde yüklüyor ve skill sunucuyla birlikte güncelleniyor. Shopify, HubSpot ve Atlassian'ın skill'leri canlı, Carta'nınki yolda.",
       "Aynı duyuruda iki özellik genel kullanıma açıldı. Tasks, sunucunun uzun bir işlemi ya da tam bir agent döngüsünü arka planda çalıştırmasına izin veriyor; Claude bu sırada çalışmaya devam ediyor. Elicitation ise sunucunun çağrının ortasında durup kullanıcıdan form ya da link ile bilgi istemesini sağlıyor. İkisi Pro, Max ve Ultra'da açık, Team ve Enterprise'a yayılıyor. PDF, tablo ve görselleri bağlama sokmadan sunucuya gönderecek File Uploads için “yakında” deniyor, tarih yok.",
-      "Asıl iş sunucu tarafında. MCP'nin Skills belgesindeki örnekler 2026-07-28 ve sonraki revizyonu kullanıyor ve sunucunun skill desteğini `server/discover` ile bildirmesini istiyor; Tasks da bu revizyonda ayrı bir eklentiye taşındı. Temmuz'da çıkan revizyon `initialize` el sıkışmasını ve `Mcp-Session-Id` başlığını kaldırdı, sunucunun başlattığı `elicitation/create` isteğinin yerine çok turlu istekleri koydu. TypeScript, Python, Go ve C# SDK'ları yeni sürümü destekliyor, Rust SDK'sında destek beta.",
+      "Asıl iş sunucu tarafında. MCP'nin Skills belgesindeki örnekler 2026-07-28 ve sonraki revizyonu kullanıyor ve sunucunun skill desteğini `server/discover` ile bildirmesini istiyor; Tasks da bu revizyonda ayrı bir eklentiye taşındı. Temmuz'da çıkan revizyon `initialize` handshake'ini ve `Mcp-Session-Id` header'ını kaldırdı, sunucunun başlattığı `elicitation/create` isteğinin yerine çok turlu istekleri koydu. TypeScript, Python, Go ve C# SDK'ları yeni sürümü destekliyor, Rust SDK'sında destek beta.",
       "MCP'nin Skills belgesi istemcilerin skill içeriğini güvenilmez girdi saymasını istiyor. Onay, dosyaların SHA-256 hash'lerinden oluşan manifeste bağlanıyor; bir dosya değişince ya da eklenince onay düşüyor. Skill'in `allowed-tools` gibi izin vermesi de ayrı onay gerektiriyor. Belge, SDK ve istemci desteğinin hâlâ yazıldığını not ediyor; bu yüzden aynı skill'in Claude dışındaki istemcilerde çalışacağını varsaymak için erken."
     ],
     "sources": [
@@ -58,7 +58,7 @@
     "box": {
       "title": "Bugün yapılacaklar",
       "items": [
-        "MCP sunucunuz 2026-07-28 revizyonunda değilse Skills ve Tasks'tan önce geçişi planlayın; ilk iş `initialize` el sıkışmasına ve `Mcp-Session-Id` başlığına dayanan kodu bulun.",
+        "MCP sunucunuz 2026-07-28 revizyonunda değilse Skills ve Tasks'tan önce geçişi planlayın; ilk iş `initialize` handshake'ine ve `Mcp-Session-Id` header'ına dayanan kodu bulun.",
         "Agent'a e-posta, takvim ya da fatura işi veriyorsanız en pahalı modeli seçmeden önce ucuzunu kendi görevlerinizde deneyin; ShellBench'te ilk üç model arasındaki fark 1,1 puan, koşu başına maliyet ise ~0,19 $ ile ~1,10 $ arasında.",
         "Drupal sitelerini 10.6.22, 11.3.22 ya da 11.4.13'e yükseltin; hemen yapamıyorsanız `install.php`'yi Drupal'ın talimatıyla güvenceye alın, açık 19 Kasım'dan beri istismar ediliyor.",
         "Spring AI 2.1'de para transferi gibi geri alınamayan araçlara `requiresConfirmation = true` ekleyin; duraklayan cevabı son kullanıcının değiştiremeyeceği bir depoda saklayın."
@@ -78,7 +78,7 @@
           "paragraphs": [
             "En iyi modeller bile kısa ve dağınık gündelik işlerin yaklaşık onda dördünü tamamlayamıyor. OpenClaw Foundation'ın Parsewave, Hugging Face, Red Hat ve UC Berkeley ile hazırladığı ShellBench, 10 milyondan fazla anonim agent etkileşiminden çıkarılan 100 görevi 12 model ve 5 harness'ta 53.100 kez koşturdu. İstekler kısa (medyan 43 kelime), çalışma alanları kalabalık: e-posta, takvim, tablo, fiş ve PDF'lerden oluşan medyan 188 dosya.",
             "Tutarlılık daha zayıf: lider GPT-6 Astra görevlerin %75,1'ini üç denemenin en az birinde, %48,8'ini üçünde de bitirdi. Koşuların %15,7'si en az bir güvenlik ölçütünü geçemedi; bütün doğruluk ölçütlerini geçen koşularda bu oran %9,9. Harness seçimi model seçiminden az etkiliyor: aynı harness içinde modeller arasındaki fark medyan 45,7 puan, model sabitken harness'lar arasındaki fark 6,2 puan. Beş harness'ın ortalamaları birbirine 2,4 puan kadar yakın; en düşüğü Claude Code.",
-            "Sınırlar da var: makale henüz yayımlanmadı ve her koşu bir kez hakemlendi, bu yüzden denemeler arasındaki farkın bir kısmı hakemden gelebilir. Testi hazırlayan vakfın kendi harness'ı OpenClaw da karşılaştırmada. TechCrunch'a göre şirketlerin kendi kişisel agent'ları Meta Muse, OpenAI Dots ve Claude Duet kendi harness'larında denenmedi."
+            "Sınırlar da var: makale henüz yayımlanmadı ve her koşu bir kez judge modelle puanlandı, bu yüzden denemeler arasındaki farkın bir kısmı judge modelden gelebilir. Testi hazırlayan vakfın kendi harness'ı OpenClaw da karşılaştırmada. TechCrunch'a göre şirketlerin kendi kişisel agent'ları Meta Muse, OpenAI Dots ve Claude Duet kendi harness'larında denenmedi."
           ],
           "why": "Agent'a e-posta, takvim ya da fatura işi veren ekipler için tek koşunun başarısı yetmiyor; üç denemede de geçme oranı yarının altında.",
           "table": {
@@ -110,7 +110,7 @@
                 "~0,05 $"
               ]
             ],
-            "note": "Maliyet kayıtlı token kullanımından tahmin, hakem maliyeti hariç. Diğer sekiz modelin rakamı yazıda yok."
+            "note": "Maliyet kayıtlı token kullanımından tahmin, judge maliyeti hariç. Diğer sekiz modelin rakamı yazıda yok."
           },
           "sources": [
             {
@@ -128,7 +128,7 @@
           "kicker": "Şirket beyanı · Agent güvenliği",
           "headline": "Google: niyet kontrolü AgentDojo saldırısını %0,9'a indirdi",
           "paragraphs": [
-            "Google'a göre agent'ın her araç çağrısını kullanıcının isteğiyle karşılaştıran Semantic governance policies, prompt injection testi AgentDojo'da saldırı başarısını %48,7'den %0,9'a indirdi. Araç çağrısı gerektiren 929 saldırının hiçbiri geçmedi; kalan başarılar yalnızca agent'ın metin cevabını değiştiren saldırılar. Kontrolü bir LLM hakemi yapıyor ve saldırılar ona göre uyarlanmadı; Google, NIST CAISI'nin red team saldırılarıyla başka bir agent'ta başarıyı %11'den %81'e çıkardığını hatırlatıyor. Özellik Gemini platformunda, Agent Gateway arkasındaki agent'lar için Preview'da."
+            "Google'a göre agent'ın her araç çağrısını kullanıcının isteğiyle karşılaştıran Semantic governance policies, prompt injection testi AgentDojo'da saldırı başarısını %48,7'den %0,9'a indirdi. Araç çağrısı gerektiren 929 saldırının hiçbiri geçmedi; kalan başarılar yalnızca agent'ın metin cevabını değiştiren saldırılar. Kontrolü bir LLM judge yapıyor ve saldırılar ona göre uyarlanmadı; Google, NIST CAISI'nin red team saldırılarıyla başka bir agent'ta başarıyı %11'den %81'e çıkardığını hatırlatıyor. Özellik Gemini platformunda, Agent Gateway arkasındaki agent'lar için Preview'da."
           ],
           "sources": [
             {
@@ -142,7 +142,7 @@
           "kicker": "Şirket beyanı · Açık model",
           "headline": "PrismML: 5,9 GB'lık Bonsai 2.5 27B, SWE-bench'te tabana yaklaştı",
           "paragraphs": [
-            "PrismML'e göre Qwen3.8 27B'nin ternary sürümü Bonsai 2.5 27B yaklaşık 5,9 GB'a sığıyor. Kodlama testlerinde tam hassasiyetli taban modele önceki sürümden çok daha fazla yaklaşıyor, terminal görevlerinde fark sürüyor. Ternary, ağırlıkları üç değere indiren bir sıkıştırma. Agentic kodlama ve çok adımlı araç kullanımı için ayarlanan model 24 Kasım'da Apache 2.0 lisansıyla Hugging Face'te yayımlandı. Şirket RTX 4090'da saniyede 204 token üretim hızı veriyor; model llama.cpp ile NVIDIA ve Intel GPU'larda, MLX ile Mac ve iPhone'da çalışıyor."
+            "PrismML'e göre Qwen3.8 27B'nin ternary sürümü Bonsai 2.5 27B yaklaşık 5,9 GB'a sığıyor. Kodlama testlerinde full precision taban modele önceki sürümden çok daha fazla yaklaşıyor, terminal görevlerinde fark sürüyor. Ternary, ağırlıkları üç değere indiren bir sıkıştırma. Agentic kodlama ve çok adımlı araç kullanımı için ayarlanan model 24 Kasım'da Apache 2.0 lisansıyla Hugging Face'te yayımlandı. Şirket RTX 4090'da saniyede 204 token üretim hızı veriyor; model llama.cpp ile NVIDIA ve Intel GPU'larda, MLX ile Mac ve iPhone'da çalışıyor."
           ],
           "sources": [
             {
@@ -163,7 +163,7 @@
             ],
             "rows": [
               [
-                "Qwen3.8 27B (tam hassasiyet)",
+                "Qwen3.8 27B (full precision)",
                 "80,6",
                 "70,8"
               ],
@@ -303,9 +303,9 @@
           "size": 4,
           "kicker": "Aktif istismar · Drupal",
           "alert": true,
-          "headline": "Drupal'ın kurulum betiğindeki RCE açığı istismar ediliyor",
+          "headline": "Drupal'ın kurulum script'indeki RCE açığı istismar ediliyor",
           "paragraphs": [
-            "Drupal core'un `install.php` betiği belirli koşullarda kimlik doğrulaması olmadan siteyi yeniden kurdurup ele geçirmeye izin veriyor (CVE-2026-132165). Drupal'a göre yalnızca yaygın olmayan modül yapılandırmaları istismar edilebiliyor, ama açığın 19 Kasım'dan beri canlı sitelerde istismar edildiği raporunu aldı. CISA da 24 Kasım'da açığı KEV'e ekledi. 10.6.22, 11.3.22 ve 11.4.13 öncesi etkileniyor; 11.2 ve 10.5 ile öncesi yama almıyor. Yükseltin; hemen yapamıyorsanız `install.php`'yi Drupal'ın talimatıyla güvenceye alın."
+            "Drupal core'un `install.php` script'i belirli koşullarda kimlik doğrulaması olmadan siteyi yeniden kurdurup ele geçirmeye izin veriyor (CVE-2026-132165). Drupal'a göre yalnızca yaygın olmayan modül yapılandırmaları istismar edilebiliyor, ama açığın 19 Kasım'dan beri canlı sitelerde istismar edildiği raporunu aldı. CISA da 24 Kasım'da açığı KEV'e ekledi. 10.6.22, 11.3.22 ve 11.4.13 öncesi etkileniyor; 11.2 ve 10.5 ile öncesi yama almıyor. Yükseltin; hemen yapamıyorsanız `install.php`'yi Drupal'ın talimatıyla güvenceye alın."
           ],
           "sources": [
             {
@@ -416,7 +416,7 @@
         "starsValue": 2500,
         "lang": "Go",
         "cat": "CLI",
-        "why": "Kodlama agent'larının ve shell betiklerinin Gemini modellerini çağırıp medya üretmesi, dosya analiz etmesi ve yönetilen agent başlatması için tek bir Go binary'si; `--dry-run` ağa çıkmadan isteği gösteriyor. Beta aşamasında, sürümler arası breaking change olabildiği için CI'da sürüm sabitlemesi öneriliyor; trendshift.io listesinde yükseliyor.",
+        "why": "Kodlama agent'larının ve shell script'lerinin Gemini modellerini çağırıp medya üretmesi, dosya analiz etmesi ve yönetilen agent başlatması için tek bir Go binary'si; `--dry-run` ağa çıkmadan isteği gösteriyor. Beta aşamasında, sürümler arası breaking change olabildiği için CI'da sürüm sabitlemesi öneriliyor; trendshift.io listesinde yükseliyor.",
         "meta": "Go · CLI"
       },
       {
@@ -486,7 +486,7 @@
     },
     {
       "tag": "GitHub",
-      "text": "GitHub'ın ayrıntılı, AI ve premium istek kullanım raporlarına 1 Aralık'tan itibaren `user_id` sütunu ekleniyor ve sonraki sütunlar bir sağa kayıyor. Sütunları sırayla okuyan betikler başlık adına geçmeli.",
+      "text": "GitHub'ın ayrıntılı, AI ve premium istek kullanım raporlarına 1 Aralık'tan itibaren `user_id` sütunu ekleniyor ve sonraki sütunlar bir sağa kayıyor. Sütunları sırayla okuyan script'ler sütun adına geçmeli.",
       "url": "https://github.blog/changelog/2026-11-23-usage-reports-will-include-a-user-id-column-starting-december-1"
     },
     {

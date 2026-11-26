@@ -73,7 +73,7 @@ Taslak, `kurallar/KURALLAR.md`, `kurallar/TERIMLER.md`, `kurallar/ATOLYE.md` ve 
 
 ### Dil ve editoryal alanlar
 
-- Haber cümlesi gibi yazılmış yorum; düz çeviri, aynı olgunun iki kez söylenmesi, dolgu cümlesi, terim tutarsızlığı, `kurallar/TERIMLER.md` sözlüğüne aykırı terim (yazılımcının İngilizce kullandığı bir terimin Türkçeleştirilmesi ya da yerleşik Türkçesi olanın İngilizce bırakılması), açıklanmamış ya da yanlış açıklanmış jargon, alanın yanlış terimi; metinde belirli bir kişiye ya da şirkete hitap.
+- Haber cümlesi gibi yazılmış yorum; düz çeviri, aynı olgunun iki kez söylenmesi, dolgu cümlesi, terim tutarsızlığı, `kurallar/TERIMLER.md` sözlüğüne aykırı terim (yazılımcının İngilizce kullandığı bir terimin Türkçeleştirilmesi ya da yerleşik Türkçesi olanın İngilizce bırakılması), açıklanmamış ya da yanlış açıklanmış jargon, alanın yanlış terimi; sözlükte olmasa da yazılımcının İngilizce kullandığı bir terimin Türkçe karşılıkla yazılması (betik, el sıkışma, damıtma, ortanca gibi) ve şirket, ürün ya da özellik adının çevrilmesi. Terim bulgusunda doğru terimi ve sözlüğe eklenmesi gerekip gerekmediğini yaz; metinde belirli bir kişiye ya da şirkete hitap.
 - Editörün önerilerinde genel ya da önceki sayılardan tekrar eden madde; metinde olmayan yeni bir olgu getiren madde.
 - why satırında abartı, haberdeki olgulara dayanmayan çıkarım ya da şirket açıklamasının tekrarı.
 - Repolarda ikinci cümle “neden şimdi”yi söylüyor mu, `lang` kaynakta görülmüş mü.

@@ -4,9 +4,11 @@ Okuyucu Türk yazılımcı. Ölçüt, terimin sözlük karşılığı değil, bi
 
 Türkçe ek İngilizce terime kesme işaretiyle gelir: secret'lar, branch'te, endpoint'i, event adları.
 
+Şirket, ürün, özellik, plan, rol ve ayar adları kaynaktaki gibi yazılır, çevrilmez: 1Password'de Vault, GitHub'da Organization ve Member, Cloudflare'de Search for Agents. Gerekirse ilk geçtiği yerde parantez içinde kısaca açıklanır.
+
 ## İngilizce kalır
 
-secret, token, runtime, event, branch, merge, pull request, commit, workflow, pipeline, endpoint, backend, frontend, control plane, data plane, framework, adapter, plugin, extension (ürün adı olarak: Copilot Extensions, VS Code extension), hook, skill, harness, sandbox, breaking change, deprecated, release candidate, heap dump, thread dump, allocation, garbage collector (GC), transcript (agent ya da sohbet dökümü), log, loglama, trace, rollout, checkpoint, alignment, speech-to-speech, read-your-writes, fine-tuning, inference, context window, prompt, benchmark, trust store, keystore, container, cluster (altyapıda), load balancer, rate limit, feature flag, stealth (şirket için), redaksiyon (redaction).
+secret, token, runtime, event, branch, merge, pull request, commit, workflow, pipeline, endpoint, backend, frontend, control plane, data plane, framework, adapter, plugin, extension (ürün adı olarak: Copilot Extensions, VS Code extension), hook, skill, harness, sandbox, breaking change, deprecated, release candidate, heap dump, thread dump, allocation, garbage collector (GC), transcript (agent ya da sohbet dökümü), log, loglama, trace, rollout, checkpoint, alignment, speech-to-speech, read-your-writes, fine-tuning, inference, context window, prompt, benchmark, trust store, keystore, container, cluster (altyapıda), load balancer, rate limit, feature flag, stealth (şirket için), redaksiyon (redaction), handshake, header (HTTP ve protokol başlığı), script, stateless, stateful, full precision, judge (LLM judge, judge model), CTF (capture the flag), distillation, chunking (chunk'lara ayırmak), embedding, vault (parola yöneticisinde), sampling, warm-up, recursive self-improvement, medyan.
 
 ## Türkçesi yerleşik, Türkçe yazılır
 
@@ -42,3 +44,14 @@ Sol sütundaki kalıp `tools/kontrol.py` tarafından uyarı olarak yakalanır. B
 | `\bistem(ler|i|leri)?\b` | prompt |
 | `\bince ayar\w*` | fine-tuning |
 | `\bçıkarım (maliyet|hız|sunucu)\w*` | inference maliyeti, hızı, sunucusu |
+| `\bel sıkışma\w*` | handshake |
+| `\bbetik\w*|\bbetiğ\w*` | script |
+| `\bdurumsuz\b` | stateless |
+| `\btam hassasiyet\w*` | full precision |
+| `\bhakem(i|den|lendi|le)?\b|\bhakem model\w*` | judge, judge model |
+| `\bbayrak yakala\w*` | CTF (capture the flag) |
+| `\bdamıtma\w*` | distillation |
+| `\bparçalama hatt\w*|\bparçalayıp\b` | chunking, chunk'lara ayırıp |
+| `\bortanca\w*` | medyan |
+| `\bısınma koşu\w*` | warm-up koşusu |
+| `\bözyinelemeli kendini geliştir\w*` | recursive self-improvement |

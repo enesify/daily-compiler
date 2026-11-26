@@ -124,7 +124,7 @@ EN = set(("spring java maven linux firefox openai github gitlab copilot kimi gem
           "nebius iren nscale pierre conductor cognition devin cursor windsurf antigravity bedrock agentcore azure aws "
           "vertex lambda tpu tpus inference coding agentic big tech high speed highspeed claude-code ai-native ci cd devops "
           "sonar sonarqube jacoco surefire figma eclipse skill skills anthropic combinator microsoft local first cisco "
-          "zig vim plugin runtime ansible inside candidate assistant multi link retrieval nvidia signal "
+          "enterprise validator zig vim plugin runtime ansible inside candidate assistant multi link retrieval nvidia signal "
           "driven change insight insights pi vite vitest prisma sqlite ollama mini lite fine tuning edition engine engines it "
           "artificial analysis intelligence index cursorbench benchmark benchmarks leaderboard hydrogen gpt fable boot agents claude cursor codex windsurf junie aider").split())
 
@@ -147,9 +147,56 @@ def word_up(w):
     return (base.upper() if en else tr_upper(base)) + tr_upper(suf)
 
 
+# Büyük harfle başlayan Türkçe özel adlar (Türkçeye özgü harf taşımadıkları için ayrıca tanınır)
+TR_PROPER = set("hindistan brezilya filistin arjantin nijerya vietnam singapur finlandiya irlanda italya kolombiya "
+                "malezya tayvan endonezya almanya avrupa amerika asya afrika kanada".split())
+
+
+_LOWER = None
+
+
+def lower_words():
+    """Arşivin düz metninde küçük harfle geçen sözcükler: Türkçe ya da cins ad oldukları kabul edilir."""
+    global _LOWER
+    if _LOWER is None:
+        _LOWER = set()
+        for f in glob.glob(os.path.join(ROOT, "issues", "*.json")):
+            try:
+                txt = open(f, encoding="utf-8").read()
+            except OSError:
+                continue
+            txt = re.sub(r"`[^`]*`|https?://\S+|\"[a-z_]+\":", " ", txt)
+            _LOWER.update(re.findall(r"(?<![\w`./@-])([a-zçğıöşü][\wçğıöşüâîû]*)", txt))
+        _LOWER = sorted(_LOWER)
+    return _LOWER
+
+
+def seen_lower(w):
+    """w ya da aynı gövdeyle başlayan bir sözcük (piyasa → piyasalar) arşivde küçük harfle geçiyor mu?"""
+    import bisect
+    words = lower_words()
+    stem = w[:max(4, len(w) - 3)]
+    i = bisect.bisect_left(words, stem)
+    return i < len(words) and words[i].startswith(stem)
+
+
 def caps(s):
+    """Büyük harfe çevirir. Büyük harfle başlayan, Türkçeye özgü harf taşımayan ve arşivde hiç küçük harfle geçmeyen
+    sözcük özel ad sayılır (Mitel, Ladybird) ve noktasız I ile yazılır; Türkçe özel adlar TR_PROPER'dadır."""
     toks = re.split(r"(\s+|[&·/()–—,:;+\-])", zeka(str(s or "")))
-    return "".join(word_up(t) if t and not t.isspace() else t for t in toks)
+    out = []
+    for t in toks:
+        if not t or t.isspace() or not re.search(r"\w", t):
+            out.append(t)
+            continue
+        base = re.split(r"['’]", t, maxsplit=1)[0]
+        low = base.lower()
+        if (base[:1].isupper() and "i" in base and not re.search(r"[çğıöşüİÇĞÖŞÜ]", base)
+                and low not in TR_PROPER and not seen_lower(low) and not low.endswith("ji")):
+            out.append(base.upper() + tr_upper(t[len(base):]))
+        else:
+            out.append(word_up(t))
+    return "".join(out)
 
 
 def caps_rich(text):
