@@ -361,7 +361,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "build.py: keep_ids yalnızca CVE/GHSA'yı koruyor; GPT-6.2, Ling-3.2-air gibi tireli model adları satır sonunda bölünüyor.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-26 · keep_ids: tireden sonra rakam gelen adlar tek parça (GPT-6.2, Ling-3.2-air)"
     },
     {
       "id": "b30",
@@ -373,7 +374,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "tools/ekran.py: katlı haber açılmadan ölçüm yapılıyor olabilir; telefonda .nw içindeki CVE kimliği bölünüyor ama BÖLÜNEN raporlanmıyor.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-26 · keep_ids: CVE kimliği Türkçe ekiyle tek parça"
     },
     {
       "id": "b31",

@@ -78,7 +78,7 @@
           "paragraphs": [
             "Yerelde çalışabilen yeni bir açık kodlama modeli var: Thinking Machines Lab'in Inkling 2 Mini'si 26,4 milyar parametreli bir MoE, token başına 3,4 milyarı çalışıyor. Ağırlıklar 20 Kasım'da Hugging Face'e Apache 2.0 lisansı ve ayrı bir kabul edilebilir kullanım politikasıyla yüklendi. Checkpoint yaklaşık 20 GB; model kartı tek bir DGX Spark ya da 32 GB ve üzeri belleği olan Apple silicon öneriyor. Bağlam 1 milyon token; Ollama, llama.cpp için GGUF, vLLM ve SGLang desteği ilk günden var.",
             "Modelin farkı döngü: orta katman blokları her token için üç kez çalışıyor. Şirketin ölçümünde SWE-bench Verified'da (yalnızca bash) %79,2 alıyor, Terminal-Bench ve HLE'de Qwen3.8-27B ile başa baş. Bağımsız ölçüm yapan Artificial Analysis'in zekâ endeksinde puanı 20; benzer açık modellerin medyanı 10. Sitenin listelediği API fiyatı milyon girdi token'ı için 0,15, çıktı için 0,50 dolar.",
-            "Model kartı sınırları açıkça yazıyor. Kod hata ayıklarken uzun akıl yürütme döngülerine girebiliyor; çıktı token'ı ve agent turu sınırı öneriliyor. Ayrıntılı araç talimatlarında daha az güvenilir: onay almadan yıkıcı eylem yapabiliyor ve sonucu yanlış bildirebiliyor. Olgu bilgisi Inkling 2 Small'dan zayıf, İngilizce dışındaki çıktı kalitesi düşük."
+            "Model kartı sınırları açıkça yazıyor. Kod hata ayıklarken uzun reasoning döngülerine girebiliyor; çıktı token'ı ve agent turu sınırı öneriliyor. Ayrıntılı araç talimatlarında daha az güvenilir: onay almadan yıkıcı eylem yapabiliyor ve sonucu yanlış bildirebiliyor. Olgu bilgisi Inkling 2 Small'dan zayıf, İngilizce dışındaki çıktı kalitesi düşük."
           ],
           "why": "32 GB bellekli bir makinede kod agent'ı denemek isteyen ekiplere bulut maliyeti olmadan bir seçenek; ama araç izinleri dar tutulmalı.",
           "table": {
@@ -317,7 +317,7 @@
           "kicker": "Sürüm · Claude Code",
           "headline": "Claude Code 2.1.330: `claude -p` dolu diskte 1 ile çıkıyor",
           "paragraphs": [
-            "Betikte ve CI'da `claude -p` kullananlar için bir düzeltme: çıktı dolu diskteki bir dosyaya yazılırken komut mesajsız 0 koduyla çıkıyordu, 20 Kasım'da çıkan 2.1.330'da hata basıp 1 ile çıkıyor. Sürüm notuna göre dolu bir NFS export'u yine fark edilmeyebilir. Çok uzun konuşmalarda compaction'dan sonra dakikalarca süren donma giderildi. Aynı anda kaydeden süreçlerde ayarların kaybolması ve `ExitWorktree`'nin başka oturumun worktree'sini silmesi de düzeltildi. Grafik çizen yeni yerleşik `easel` mod'u Pro ve Max planlarında macOS ve Linux'ta geldi; otomatik grafikler `/config`'den kapatılabiliyor."
+            "Script'lerde ve CI'da `claude -p` kullananlar için bir düzeltme: çıktı dolu diskteki bir dosyaya yazılırken komut mesajsız 0 koduyla çıkıyordu, 20 Kasım'da çıkan 2.1.330'da hata basıp 1 ile çıkıyor. Sürüm notuna göre dolu bir NFS export'u yine fark edilmeyebilir. Çok uzun konuşmalarda compaction'dan sonra dakikalarca süren donma giderildi. Aynı anda kaydeden süreçlerde ayarların kaybolması ve `ExitWorktree`'nin başka oturumun worktree'sini silmesi de düzeltildi. Grafik çizen yeni yerleşik `easel` mod'u Pro ve Max planlarında macOS ve Linux'ta geldi; otomatik grafikler `/config`'den kapatılabiliyor."
           ],
           "sources": [
             {
@@ -544,7 +544,7 @@
         "starsValue": 61500,
         "lang": "Python",
         "cat": "Agent araçları",
-        "why": "Masaüstü ve web yazılımları için AI agent'larının GUI otomasyonu olmadan kullanabileceği komut satırı arayüzleri üretiyor; topluluk CLI'larını CLI-Hub kayıt defterinde topluyor. Bugün günlük listede 773 yıldız aldı.",
+        "why": "Masaüstü ve web yazılımları için AI agent'larının GUI otomasyonu olmadan kullanabileceği komut satırı arayüzleri üretiyor; topluluk CLI'larını CLI-Hub registry'sinde topluyor. Bugün günlük listede 773 yıldız aldı.",
         "meta": "Python · Agent araçları"
       },
       {

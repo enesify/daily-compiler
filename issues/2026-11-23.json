@@ -38,7 +38,7 @@
     "paragraphs": [
       "En güçlü modeller, insan uzmanın yaklaşık 40 saatte bitirdiği görevlerin yarısını başarıyor. METR'in birleşik ölçümünde bu %50 başarı ufku GPT-6 Astra için 40, Opus 5.5 için 39 saat. Tahminler çok belirsiz; tablodaki güven aralıkları yüzlerce, hatta binlerce saate uzanıyor.",
       "METR'e göre naif bir ekstrapolasyon, ölçülebilen en uzun 200 saatlik görevlere Temmuz 2027 civarında ulaşılacağını gösteriyor. Katılımcıların haftalarca optimizasyon yaptığı Al Zimmermann programlama yarışmalarında Fable 5.1, Opus 5.5 ve GPT-6 Astra insan katılımcılar arasında medyanda 96-98. yüzdelikte. Uzun bir optimizasyon görevinde ise insan hâlâ önde: NanoGPT hızlandırmasında en iyi agent 48 saatte %15,7 kazanç sağladı; METR'in olağandışı güçlü bulduğu, AI destekli ve yaklaşık 60 saatlik insan rekoru %41.",
-      "Zayıf taraf yargı. Hızlı ve deneysel geri bildirimi olmayan işlerde modeller uzmanların gerisinde kalıyor. Hakem olarak kullanılan modeller de benzer güçteki ya da daha güçlü modellerin işini fazla beğeniyor. Opus 5.5, GPT-6 Astra'nın çıktılarını insan puanlayıcıdan 0-1 ölçeğinde yaklaşık 0,2 puan yüksek değerlendirdi. Reinforcement learning ortamı olarak kurulması pahalı görevlerde de görev ufku belirgin biçimde kısalıyor.",
+      "Zayıf taraf yargı. Hızlı ve deneysel geri bildirimi olmayan işlerde modeller uzmanların gerisinde kalıyor. Judge olarak kullanılan modeller de benzer güçteki ya da daha güçlü modellerin işini fazla beğeniyor. Opus 5.5, GPT-6 Astra'nın çıktılarını insan puanlayıcıdan 0-1 ölçeğinde yaklaşık 0,2 puan yüksek değerlendirdi. Reinforcement learning ortamı olarak kurulması pahalı görevlerde de görev ufku belirgin biçimde kısalıyor.",
       "Raporun kendi çekinceleri büyük. Görevlerin insan süresi çoğunlukla araştırmacı tahmini; yalnızca %9'u doğrudan insan denemelerinden geliyor. Alternatif süre tahminleriyle ufuk iki model için de 29-32 saate iniyor. Reward hacking yaygındı; bu koşulara sıfır verildi. Modeller token bütçelerini de çoğu zaman tam kullanmıyor, yani yetenekleri olduğundan düşük ölçülmüş olabilir. METR, tek tek şirketlerin modellerinde görülen hızlanma eğilimlerini de güvenilir saymıyor."
     ],
     "sources": [
@@ -53,9 +53,9 @@
     ],
     "box": {
       "kicker": "Pratik çıkarım",
-      "title": "Agent'a devretmeden ve hakem modele güvenmeden önce",
+      "title": "Agent'a devretmeden ve judge modele güvenmeden önce",
       "items": [
-        "Aynı ya da daha güçlü bir modelin çıktısını puanlayan LLM hakemini insan etiketleriyle karşılaştırmadan ölçeklemeyin; METR'de Opus 5.5, Astra'nın işini yaklaşık 0,2 puan fazla beğendi. Bu sayının Atölye'si eval setini adım adım anlatıyor.",
+        "Aynı ya da daha güçlü bir modelin çıktısını puanlayan LLM judge'ı insan etiketleriyle karşılaştırmadan ölçeklemeyin; METR'de Opus 5.5, Astra'nın işini yaklaşık 0,2 puan fazla beğendi. Bu sayının Atölye'si eval setini adım adım anlatıyor.",
         "Agent'a önce test, derleme ya da benchmark gibi hızlı ve otomatik geri bildirimi olan işleri verin; METR'e göre modeller geri bildirimsiz, yargı gerektiren işlerde uzmanların gerisinde.",
         "Agent'ın puanı ya da test sonucu birden iyileştiyse kabul etmeden önce reward hacking'e bakın; METR bu tür koşulları yaygın buldu ve sıfır puan verdi.",
         "Ekip planında “agent 40 saatlik iş yapar” gibi tek bir rakama dayanmayın; Astra'nın ufkunun güven aralığı 13 ile 2.645 saat arasında."
@@ -95,8 +95,8 @@
           "kicker": "Politika · OpenAI",
           "headline": "OpenAI, perplexity'ye dayalı ortak geliştirme sınırları önerdi",
           "paragraphs": [
-            "Yapay zekâ laboratuvarları, bir modelin sonraki token'ı ne kadar iyi tahmin ettiğini ölçen perplexity değerine göre ortak sınırlar koyabilir. OpenAI'ın baş bilimcisi Jakub Pachocki 22 Kasım'daki yazısında bunu önerdi ve ilk adım olarak şirketin ön eğitim ilerlemesini gösteren iç ölçümlerini yayımladı. Öneriye göre geliştiriciler, somut bir kilometre taşına ulaşılana kadar belirlenen eşiği aşmamayı taahhüt edecek. Yazıdaki örnek, modelin akıl yürütme metnini izleyen bugünkü chain-of-thought denetiminin yerini alacak bir yöntemin geliştirilmesi.",
-            "Pachocki ayrıca öncü modellerin ilk kullanımdan önce ortak normlarla değerlendirilmesini ve güvenlik gerekçelerinin red team ile sınanmasını istiyor. Ardışık sınırlar için de ortak bir çerçeve öneriyor. Ön eğitimde ani ilerlemelerin 2027 gibi erken bir tarihte gelebileceğini, AI'ın alignment ve izleme işlerine yardımının bu hıza yetişmeyeceğini yazıyor.",
+            "Yapay zekâ laboratuvarları, bir modelin sonraki token'ı ne kadar iyi tahmin ettiğini ölçen perplexity değerine göre ortak sınırlar koyabilir. OpenAI'ın baş bilimcisi Jakub Pachocki 22 Kasım'daki yazısında bunu önerdi ve ilk adım olarak şirketin pretraining ilerlemesini gösteren iç ölçümlerini yayımladı. Öneriye göre geliştiriciler, somut bir kilometre taşına ulaşılana kadar belirlenen eşiği aşmamayı taahhüt edecek. Yazıdaki örnek, modelin reasoning metnini izleyen bugünkü chain-of-thought denetiminin yerini alacak bir yöntemin geliştirilmesi.",
+            "Pachocki ayrıca öncü modellerin ilk kullanımdan önce ortak normlarla değerlendirilmesini ve güvenlik gerekçelerinin red team ile sınanmasını istiyor. Ardışık sınırlar için de ortak bir çerçeve öneriyor. Pretraining'de ani ilerlemelerin 2027 gibi erken bir tarihte gelebileceğini, AI'ın alignment ve izleme işlerine yardımının bu hıza yetişmeyeceğini yazıyor.",
             "Yazar ölçünün sınırlılıklarını da sayıyor. Laboratuvarlar farklı veri setleri ve eğitim karışımları kullandığı için karşılaştırma zor; perplexity gerçek görevleri doğrudan ölçmüyor ve chain-of-thought'tan gelen kazanımları göstermiyor. Verinin ulaşılabilecek en düşük kaybı da bilinmiyor; Pachocki'ye göre bu tabana yaklaştıkça küçük görünen iyileşmeler büyük yetenek sıçramaları anlamına gelebilir."
           ],
           "table": {
@@ -115,7 +115,7 @@
               [
                 "GPT-4",
                 "~0,91",
-                "Verimli chain-of-thought akıl yürütme"
+                "Verimli chain-of-thought reasoning"
               ],
               [
                 "Güncel modeller",
@@ -359,23 +359,23 @@
   "atolye": {
     "konu": "mimari-eval",
     "kicker": "Mimari ve tasarım",
-    "title": "LLM özelliği için eval seti: üretim verisi, net ölçüt, kalibre hakem",
-    "intro": "Prompt'u, modeli ya da akıl yürütme ayarını değiştirdiğinizde neyin bozulduğunu sezgiyle değil bir test setiyle görmek, LLM özelliğini güvenle geliştirmenin yolu. Bu yazı küçük bir eval seti kurmayı ve LLM hakemini insan etiketleriyle kalibre etmeyi adım adım anlatıyor.",
-    "when": "Çıktısı tek doğru cevaba indirgenemeyen ve sık değişen özelliklerde (özet, destek cevabı, sınıflandırma) işe yarar. Çıktı tam eşleşmeyle ya da birim testle doğrulanabiliyorsa hakem modele gerek yok; kod tabanlı kontrol yeter.",
+    "title": "LLM özelliği için eval seti: üretim verisi, net ölçüt, kalibre judge",
+    "intro": "Prompt'u, modeli ya da reasoning ayarını değiştirdiğinizde neyin bozulduğunu sezgiyle değil bir test setiyle görmek, LLM özelliğini güvenle geliştirmenin yolu. Bu yazı küçük bir eval seti kurmayı ve LLM judge'ı insan etiketleriyle kalibre etmeyi adım adım anlatıyor.",
+    "when": "Çıktısı tek doğru cevaba indirgenemeyen ve sık değişen özelliklerde (özet, destek cevabı, sınıflandırma) işe yarar. Çıktı tam eşleşmeyle ya da birim testle doğrulanabiliyorsa judge modele gerek yok; kod tabanlı kontrol yeter.",
     "steps": [
       "Başarı ölçütünü sayıyla yazın. Anthropic'in belgeleri “iyi performans” gibi hedefler yerine belirli ve ölçülebilir ölçütler öneriyor; güvenlik için örneği, 10.000 denemede toksisite nedeniyle işaretlenen çıktının %0,1'in altında kalması. Doğruluğun yanında ton, bağlamı kullanma, gecikme ve fiyatı ayrı boyutlar olarak ölçün.",
       "Veriyi üretimden toplayın. OpenAI'ın değerlendirme rehberi, veri setinin üretim trafiğine benzemesini ve geliştirme sırasında her şeyin loglanmasını öneriyor; bu loglar eval vakalarının kaynağı oluyor. Tipik vakaların yanına uç durumları (yazım hatası, birden çok niyet içeren istek, uzun konuşma, sistem ve kullanıcı prompt'u çatışması) ve saldırgan girdileri ekleyin.",
-      "Mümkünse kodla puanlayın. Anthropic, otomatik puanlanan büyük bir setin elle puanlanan küçük bir setten genellikle daha iyi olduğunu yazıyor. Tam eşleşme, embedding benzerliği ya da ROUGE-L gibi kod tabanlı kontrolleri hakem modelden önce deneyin.",
-      "Hakem modele dar bir görev verin. OpenAI açık uçlu puan yerine ikili karşılaştırma ya da geçti/kaldı öneriyor; hakemden puandan önce gerekçe yazmasını isteyin, cevap sırası ve uzunluğu yanlılığını izleyin. Anthropic de puanlanan modelden farklı bir hakem kullanmayı, ölçeğin uçlarını tanımlamayı ve çıktıyı yalnızca bir sayı ya da evet/hayır ile sınırlamayı öneriyor.",
-      "Hakemi insan etiketleriyle kalibre edin. OpenAI, hakemi ancak insan etiketleriyle tutarlı biçimde uyuştuğunda ölçeklemeyi öneriyor. Güçlü modellerde de bu adım gerekli: METR'in 20 Kasım raporunda Opus 5.5, GPT-6 Astra'nın işlerini insan puanlayıcıdan 0-1 ölçeğinde yaklaşık 0,2 puan yüksek değerlendirdi.",
+      "Mümkünse kodla puanlayın. Anthropic, otomatik puanlanan büyük bir setin elle puanlanan küçük bir setten genellikle daha iyi olduğunu yazıyor. Tam eşleşme, embedding benzerliği ya da ROUGE-L gibi kod tabanlı kontrolleri judge modelden önce deneyin.",
+      "Judge modele dar bir görev verin. OpenAI açık uçlu puan yerine ikili karşılaştırma ya da geçti/kaldı öneriyor; judge'dan puandan önce gerekçe yazmasını isteyin, cevap sırası ve uzunluğu yanlılığını izleyin. Anthropic de puanlanan modelden farklı bir judge kullanmayı, ölçeğin uçlarını tanımlamayı ve çıktıyı yalnızca bir sayı ya da evet/hayır ile sınırlamayı öneriyor.",
+      "Judge'ı insan etiketleriyle kalibre edin. OpenAI, judge'ı ancak insan etiketleriyle tutarlı biçimde uyuştuğunda ölçeklemeyi öneriyor. Güçlü modellerde de bu adım gerekli: METR'in 20 Kasım raporunda Opus 5.5, GPT-6 Astra'nın işlerini insan puanlayıcıdan 0-1 ölçeğinde yaklaşık 0,2 puan yüksek değerlendirdi.",
       "Her değişiklikte çalıştırın ve seti büyütün. OpenAI eval'lerin her değişiklikte koşmasını, üretimde yeni davranışların izlenmesini ve yeni hatalarla logların sete eklenmesini öneriyor."
     ],
     "example": {
-      "label": "Örnek: ikili karşılaştırma hakemi ve insanla uyum oranı",
+      "label": "Örnek: ikili karşılaştırma judge'ı ve insanla uyum oranı",
       "lang": "python",
       "code": "JUDGE = \"\"\"İki destek cevabını karşılaştır.\nÖlçüt: Politikaya uygun ve eksiksiz mi?\n<soru>{question}</soru>\n<politika>{policy}</politika>\n<cevap_A>{a}</cevap_A>\n<cevap_B>{b}</cevap_B>\nÖnce iki cümle gerekçe yaz; son satıra\nyalnızca A, B ya da BERABERE yaz.\"\"\"\n\ndef ask(m, case, a, b):  # m: model çağrısı\n    p = JUDGE.format(question=case[\"question\"],\n        policy=case[\"policy\"], a=a, b=b)\n    return m(p).strip().splitlines()[-1]\n\ndef judge(m, case):\n    # Sıra etkisini görmek için iki sırayla sor\n    one = ask(m, case, case[\"a\"], case[\"b\"])\n    two = ask(m, case, case[\"b\"], case[\"a\"])\n    two = {\"A\": \"B\", \"B\": \"A\"}.get(two, two)\n    return one if one == two else \"BERABERE\"\n\ndef agreement(m, cases, labels):\n    hits = sum(judge(m, c) == h\n               for c, h in zip(cases, labels))\n    return hits / len(cases)  # eşiği ekip seçer"
     },
-    "pitfall": "Hakemi kalibre etmeden ölçeklemek en sık hata: OpenAI'ın rehberi hakemin uzun cevapları kayırabileceği ve cevap sırasından etkilenebileceği uyarısını yapıyor. Ayrıca OpenAI'ın barındırılan Evals platformu 31 Ekim'den beri salt okunur ve 30 Kasım'da kapanıyor.",
+    "pitfall": "Judge'ı kalibre etmeden ölçeklemek en sık hata: OpenAI'ın rehberi judge'ın uzun cevapları kayırabileceği ve cevap sırasından etkilenebileceği uyarısını yapıyor. Ayrıca OpenAI'ın barındırılan Evals platformu 31 Ekim'den beri salt okunur ve 30 Kasım'da kapanıyor.",
     "sources": [
       {
         "label": "OpenAI: değerlendirme rehberi",

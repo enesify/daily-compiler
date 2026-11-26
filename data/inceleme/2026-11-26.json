@@ -337,7 +337,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "build.py kesme işareti kuralı + ve - sonrasını kapsamıyor.",
-      "not": "'AA-'ya' metinden çıktı; 'C++'ta' kaldı."
+      "not": "'AA-'ya' metinden çıktı; 'C++'ta' kaldı.",
+      "kapandi": "2026-11-26 · typo: + ve - sonrası kesme işareti tipografik"
     },
     {
       "id": "b28",
@@ -373,7 +374,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "build.py gün sayısıyla ay adı arasına bölünmez boşluk koymuyor.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-26 · typo: gün ile ay adı arasında bölünmeyen boşluk"
     }
   ]
 }

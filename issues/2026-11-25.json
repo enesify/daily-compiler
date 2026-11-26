@@ -38,7 +38,7 @@
     "paragraphs": [
       "Bir MCP sunucusu artık araçlarının yanında skill de yayımlayabiliyor: bir `SKILL.md` dosyası ve ona eşlik eden belgelerle uzun, çok adımlı işler için talimat. Anthropic'in 24 Kasım'daki duyurusuna göre Claude bir skill'i yalnızca gerektiğinde yüklüyor ve skill sunucuyla birlikte güncelleniyor. Shopify, HubSpot ve Atlassian'ın skill'leri canlı, Carta'nınki yolda.",
       "Aynı duyuruda iki özellik genel kullanıma açıldı. Tasks, sunucunun uzun bir işlemi ya da tam bir agent döngüsünü arka planda çalıştırmasına izin veriyor; Claude bu sırada çalışmaya devam ediyor. Elicitation ise sunucunun çağrının ortasında durup kullanıcıdan form ya da link ile bilgi istemesini sağlıyor. İkisi Pro, Max ve Ultra'da açık, Team ve Enterprise'a yayılıyor. PDF, tablo ve görselleri bağlama sokmadan sunucuya gönderecek File Uploads için “yakında” deniyor, tarih yok.",
-      "Asıl iş sunucu tarafında. MCP'nin Skills belgesindeki örnekler 2026-07-28 ve sonraki revizyonu kullanıyor ve sunucunun skill desteğini `server/discover` ile bildirmesini istiyor; Tasks da bu revizyonda ayrı bir eklentiye taşındı. Temmuz'da çıkan revizyon `initialize` handshake'ini ve `Mcp-Session-Id` header'ını kaldırdı, sunucunun başlattığı `elicitation/create` isteğinin yerine çok turlu istekleri koydu. TypeScript, Python, Go ve C# SDK'ları yeni sürümü destekliyor, Rust SDK'sında destek beta.",
+      "Asıl iş sunucu tarafında. MCP'nin Skills belgesindeki örnekler 2026-07-28 ve sonraki revizyonu kullanıyor ve sunucunun skill desteğini `server/discover` ile bildirmesini istiyor; Tasks da bu revizyonda ayrı bir extension'a taşındı. Temmuz'da çıkan revizyon `initialize` handshake'ini ve `Mcp-Session-Id` header'ını kaldırdı, sunucunun başlattığı `elicitation/create` isteğinin yerine çok turlu istekleri koydu. TypeScript, Python, Go ve C# SDK'ları yeni sürümü destekliyor, Rust SDK'sında destek beta.",
       "MCP'nin Skills belgesi istemcilerin skill içeriğini güvenilmez girdi saymasını istiyor. Onay, dosyaların SHA-256 hash'lerinden oluşan manifeste bağlanıyor; bir dosya değişince ya da eklenince onay düşüyor. Skill'in `allowed-tools` gibi izin vermesi de ayrı onay gerektiriyor. Belge, SDK ve istemci desteğinin hâlâ yazıldığını not ediyor; bu yüzden aynı skill'in Claude dışındaki istemcilerde çalışacağını varsaymak için erken."
     ],
     "sources": [
@@ -47,7 +47,7 @@
         "url": "https://claude.com/resources/articles/skills-over-mcp-tasks-and-more"
       },
       {
-        "label": "MCP belgeleri: Skills eklentisi",
+        "label": "MCP belgeleri: Skills extension'ı",
         "url": "https://modelcontextprotocol.io/extensions/skills/overview"
       },
       {
@@ -392,7 +392,7 @@
         "url": "https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions"
       },
       {
-        "label": "MCP belgeleri: Skills eklentisi",
+        "label": "MCP belgeleri: Skills extension'ı",
         "url": "https://modelcontextprotocol.io/extensions/skills/overview"
       }
     ]

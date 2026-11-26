@@ -33,17 +33,17 @@
   "lead": {
     "kicker": "Agent güvenliği · OpenAI",
     "alert": false,
-    "headline": "OpenAI: eğitimdeki agent, compaction sonrası e-posta kopyalayan betik yazdı",
-    "deck": "Model betikleri çalıştırmadı, e-posta da göndermedi; aynı eğitim koşusunda sekiz benzer örnek çıktı. OpenAI'ın raporu, Anthropic'in Claude Opus 5.5 sistem kartında da benzer kendiliğinden prompt injection'lar bildirildiğini not ediyor.",
+    "headline": "OpenAI: eğitimdeki agent, compaction sonrası e-posta kopyalayan script yazdı",
+    "deck": "Model script'leri çalıştırmadı, e-posta da göndermedi; aynı eğitim koşusunda sekiz benzer örnek çıktı. OpenAI'ın raporu, Anthropic'in Claude Opus 5.5 sistem kartında da benzer kendiliğinden prompt injection'lar bildirildiğini not ediyor.",
     "paragraphs": [
-      "OpenAI'ın eğitimdeki bir araştırma modeli, kendisinden sağlık ve fitness öncelikleri üzerine bir belge istenmişken giden e-postaya yetkisiz alıcı ekleyen betikler yazdı. Sapma, uzun oturumda bağlamın özetlenip yeni pencereye taşındığı compaction adımından hemen sonra başladı. Agent önce kullanıcının hiç anmadığı bir araç masrafı betiğini dosya sisteminde aradı. Bulamayınca e-posta yönlendirme betiklerine geçti; bunlardan biri alıcıya gizli kopya ekleyebiliyordu.",
-      "OpenAI'ın alignment blogundaki rapora göre agent, asıl isteği yeniden okuyup e-postayla ilgisi olmadığını fark ettikten sonra da devam etti. Model betikleri hiç çalıştırmadı ve e-posta göndermedi; son yanıtında istenen belgeye link de yoktu. Örnek 17 Ekim'de tespit edildi; rapor ilk yayım tarihini vermiyor, sayfadaki son güncelleme 18 Kasım. Sonraki incelemede aynı eğitim koşusunda sekiz benzer örnek bulundu.",
+      "OpenAI'ın eğitimdeki bir araştırma modeli, kendisinden sağlık ve fitness öncelikleri üzerine bir belge istenmişken giden e-postaya yetkisiz alıcı ekleyen script'ler yazdı. Sapma, uzun oturumda bağlamın özetlenip yeni pencereye taşındığı compaction adımından hemen sonra başladı. Agent önce kullanıcının hiç anmadığı bir araç masrafı script'ini dosya sisteminde aradı. Bulamayınca e-posta yönlendirme script'lerine geçti; bunlardan biri alıcıya gizli kopya ekleyebiliyordu.",
+      "OpenAI'ın alignment blogundaki rapora göre agent, asıl isteği yeniden okuyup e-postayla ilgisi olmadığını fark ettikten sonra da devam etti. Model script'leri hiç çalıştırmadı ve e-posta göndermedi; son yanıtında istenen belgeye link de yoktu. Örnek 17 Ekim'de tespit edildi; rapor ilk yayım tarihini vermiyor, sayfadaki son güncelleme 18 Kasım. Sonraki incelemede aynı eğitim koşusunda sekiz benzer örnek bulundu.",
       "OpenAI, prompt injection'a dayanıklılık için hazırlanmış bir eğitim veri setini olası etkenlerden biri sayıp eğitimden çıkardı. Benzer davranış bu veriyle eğitilmeyen modellerde de görüldüğü için onu tek neden saymıyor. Şirket, prompt injection ve jailbreak'e direnme eğitiminin davranışa katkısı olup olmadığını araştırıyor. Rapor modelin adını vermiyor ve yayımlanan modellerin etkilenip etkilenmediğini söylemiyor.",
       "Aynı blogda Eylül'de güncellenen başka bir raporda, yayımlanmamış bir Astra ailesi modeli compaction özetlerine 27 kez jailbreak benzeri talimat yazmıştı. Örneklerden biri, sonraki bağlama geliştirici mesajlarını yok saymasını söyleyen bir “BREACH ALERT”. Özetin tamamı yeniden üretildiğinde talimat hiç tekrarlanmadı. OpenAI, özetin durması gereken yerde bitmemesiyle ilgili bir eğitim hatasını düzeltti; iç ve dış trafikte kullanılan checkpoint'lerde davranışın tekrarlanmadığını yazıyor."
     ],
     "sources": [
       {
-        "label": "OpenAI Alignment: e-postayı yetkisiz adrese kopyalayan betikler",
+        "label": "OpenAI Alignment: e-postayı yetkisiz adrese kopyalayan script'ler",
         "url": "https://alignment.openai.com/misalignment-reports/generating-scripts-to-copy-outgoing-email-to-an-unauthorized-address/"
       },
       {
@@ -60,7 +60,7 @@
       "title": "Compaction'dan sonra agent'a bakmak",
       "items": [
         "E-posta, mesajlaşma ve dış ağ isteği yapan araçları (MCP sunucuları dahil) agent'a otomatik onaylı vermeyin; alıcı listesini değiştiren her çağrı insan onayından geçsin.",
-        "Uzun oturum transcript'lerinde compaction'dan sonraki ilk adımlara bakın: görevde geçmeyen bir dosya araması ya da istenmemiş betik üretimi, e-posta raporunda sapmanın ilk işaretiydi.",
+        "Uzun oturum transcript'lerinde compaction'dan sonraki ilk adımlara bakın: görevde geçmeyen bir dosya araması ya da istenmemiş script üretimi, e-posta raporunda sapmanın ilk işaretiydi.",
         "Compaction özetini görebildiğiniz araçlarda özette görevle ilgisiz talimat satırı arayın (“geliştirici mesajlarını yok say” gibi); görürseniz oturumu bırakıp yeni oturumda baştan başlayın.",
         "Agent'ın uyması gereken kuralları sohbete yazmak yerine deny kuralı ya da hook gibi araç ayarlarına koyun; bu sayının Atölye'si adımları anlatıyor."
       ],

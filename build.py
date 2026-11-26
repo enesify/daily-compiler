@@ -71,6 +71,8 @@ def typo(text):
     s = zeka(str(text or ""))
     s = re.sub(r"(?<=[\w)”])'(?=\w)", "’", s)
     s = re.sub(r"(?<=\ws)'(?=\s)", "’", s)   # İngilizce çoğul iyelik: Agents' Last Exam
+    s = re.sub(r"(?<=[+\-])'(?=[a-zçğıöşü])", "’", s)   # C++’ta, AA-’ya
+    s = re.sub(r"\b(\d{1,2}) (?=(?:Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)\b)", "\\1\u00a0", s)   # 8 Aralık: gün ile ay ayrılmasın
     s = re.sub(r"\b(Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)-(?=(Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)\b)",
                lambda m: f"{m.group(1)}{WJ}–{WJ}", s)   # ay aralığı: Kasım–Aralık
     # Sayı aralığı; paket sürümleri (3.6-4+deb12u3, 1.2-3~bpo) aralık sayılmaz
@@ -97,15 +99,30 @@ def num3(n):
 def code_html(p):
     """Satır içi kod. Boşluksuz ve kısa kod (bayrak, sürüm, dosya adı) satır sonunda kendi tiresinden bölünmesin diye
     tek parça kalır (okur `-XX:-UseBASE64Intrinsics` bayrağını eksik kopyalamasın); uzun kod dar ekranda taşmasın diye bölünebilir."""
-    if len(p) <= 32 and not re.search(r"\s", p):
+    if len(p) <= 32 and (not re.search(r"\s", p) or len(p) <= 28):
         return f'<code class="nb">{esc(p)}</code>'
     # Uzun kod dar ekranda bölünmek zorunda: harfin ortasından değil, . _ / : = sonrasından bölünsün
     return "<code>" + re.sub(r"([._/:=])(?=\w)", r"\1<wbr>", esc(p)) + "</code>"
 
 
+def repo_name(n):
+    """owner/repo: yalnızca / sonrasında bölünür, adın tirelerinden değil."""
+    return "/<wbr>".join(f'<span class="nw">{esc(x)}</span>' for x in str(n or "").split("/"))
+
+
+def ref_label(label):
+    """İç atıf: ↩ simgesi ilk sözcükle birlikte kalsın, satır sonunda tek başına kalmasın."""
+    t = esc(plain(label)).split(" ", 1)
+    return f'<span class="nw"><i class="xi xr" aria-hidden="true"></i>{t[0]}</span>' + (" " + t[1] if len(t) > 1 else "")
+
+
 def keep_ids(h):
-    """CVE ve GHSA kimlikleri satır sonunda ilk tireden bölünmesin (“(CVE-” | “2026-76466”)."""
-    return re.sub(r"\b((?:CVE-\d{4}-\d{4,})|(?:GHSA(?:-[0-9a-z]{4}){3}))\b", r'<span class="nw">\1</span>', h)
+    """Kimlikler ve sürümlü adlar satır sonunda tireden bölünmesin: CVE/GHSA kimlikleri (“(CVE-” | “2026-76466”),
+    tireden sonra rakam gelen model ve ürün adları (“GPT-” | “6.2”, “Ling-3.2-” | “air”). Türkçe eki de birlikte tutulur."""
+    ek = r"(?:’[a-zçğıöşü]+)?"
+    h = re.sub(r"\b((?:CVE-\d{4}-\d{4,}|GHSA(?:-[0-9a-z]{4}){3})" + ek + ")", r'<span class="nw">\1</span>', h)
+    return re.sub(r"(?<![\w>/.\-])((?=[\w.]*[A-Za-z])[\w.]+-\d[\w.\-]*" + ek + r")(?![\w\-])",
+                  lambda m: m.group(1) if len(m.group(1)) > 26 else f'<span class="nw">{m.group(1)}</span>', h)
 
 
 def rich(text):
@@ -348,7 +365,7 @@ def ref_link(ctx, label, url):
         return f'<span class="ref-gone" title="Bu sayı bulunamadı">{esc(label)}</span>'
     date, anchor = m.group(1), m.group(2)
     h = ctx.href(issue_path(date)) + (f"#a-{anchor}" if anchor else "")
-    return f'<a class="ref" href="{esc(h)}" title="{esc(short_date(date))} sayısındaki habere git"><i class="xi xr" aria-hidden="true"></i>{esc(plain(label))}</a>'
+    return f'<a class="ref" href="{esc(h)}" title="{esc(short_date(date))} sayısındaki habere git">{ref_label(label)}</a>'
 
 
 def ext_link(label, url):
@@ -854,8 +871,8 @@ def render_issue(ctx, cur):
     if R and R.get("items"):
         cards = []
         for r in R["items"]:
-            name = (f'<a class="name" href="{esc(r.get("url"))}" target="_blank" rel="noopener">{esc(r.get("name"))}</a>'
-                    if re.match(r"^https?://", r.get("url") or "") else f'<span class="name">{esc(r.get("name"))}</span>')
+            name = (f'<a class="name" href="{esc(r.get("url"))}" target="_blank" rel="noopener">{repo_name(r.get("name"))}</a>'
+                    if re.match(r"^https?://", r.get("url") or "") else f'<span class="name">{repo_name(r.get("name"))}</span>')
             meta = r.get("meta") or " · ".join(x for x in [r.get("lang"), r.get("cat")] if x)
             cards.append(f'<div class="repo">{name}<span class="stars">{"★ " + esc(stars_label(r)) if r.get("stars") else ""}</span>'
                          f'<p class="desc">{rich(r.get("why"))}</p>' + (f'<span class="meta">{caps_rich(meta)}</span>' if meta else "") + "</div>")

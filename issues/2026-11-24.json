@@ -37,7 +37,7 @@
     "deck": "Model şimdilik yalnızca GLM Coding Plan, ZCode ve Z.ai Chat'te. Token fiyatı ve ağırlıklar için tarih yok; Z.ai 750 milyarlık model için hiçbir ölçüm yayımlamadı.",
     "paragraphs": [
       "Çinli Z.ai'ın yeni amiral gemisi GLM-5.4, şirketin ilk loop transformer modeli: ağırlıkları paylaşan bir katman grubunu birden çok kez çalıştırarak parametre sayısını artırmadan ağı derinleştiriyor. Modelde 27 ile 54 arasındaki 28 katman her token için iki kez çalışıyor; iki geçiş aynı KV cache'i kullanıyor. Z.ai modeli GLM-5'in temel modelinden yeniden eğitti ve 2-3 trilyon parametreli modellerle aynı düzeyde olduğunu söylüyor.",
-      "Bu iddiayı destekleyen bir sonuç yok: şirket 750 milyarlık model için benchmark yayımlamadı, bağımsız bir ölçüm de henüz yok. Paylaşılan tek kontrollü deney 30 milyar parametreli bir test modeli; loop'lu sürüm AIME25'te 19,2'den 30,4'e çıktı. Bu modelin eğitim hesabı yaklaşık %10 fazla olduğu için kazancın tamamı mimariye bağlanamıyor. Z.ai'ın kendi saydığı zayıflık, modelin uzun akıl yürütme aşamalarında takılıp kalması.",
+      "Bu iddiayı destekleyen bir sonuç yok: şirket 750 milyarlık model için benchmark yayımlamadı, bağımsız bir ölçüm de henüz yok. Paylaşılan tek kontrollü deney 30 milyar parametreli bir test modeli; loop'lu sürüm AIME25'te 19,2'den 30,4'e çıktı. Bu modelin eğitim hesabı yaklaşık %10 fazla olduğu için kazancın tamamı mimariye bağlanamıyor. Z.ai'ın kendi saydığı zayıflık, modelin uzun reasoning aşamalarında takılıp kalması.",
       "GLM-5.4 şimdilik GLM Coding Plan aboneliğinde, ZCode'da ve Z.ai Chat'te; normal API erişimi ve token fiyatı sonra gelecek. Simon Willison, Coding Plan anahtarının OpenAI uyumlu Responses API endpoint'inde de çalıştığını ve modele böyle eriştiğini yazıyor. Ürettiği çıktıları GLM-5.3'ünkilere yakın bulduğunu da ekliyor. Ağırlıklar ek güvenlik testlerinden sonra açılacak, tarih verilmedi.",
       "Xenospectrum'un derlemesine göre ZCode'da bağlam 1 milyon token; eski V1 planları dışında GLM-5.3'e göre 1,5 kat kullanım hakkı tanındığı bildiriliyor. Z.ai, üretim hızının yoğun saatlerde saniyede 70-80, sakin saatlerde 200 token olduğunu söylüyor. Şirket çok daha büyük bir modelin de yakında geleceğini duyurdu, ayrıntı vermedi."
     ],
@@ -367,7 +367,7 @@
           "alert": true,
           "headline": "N-able Mail Assure'daki SSRF açığı KEV'de",
           "paragraphs": [
-            "N-able'ın e-posta güvenlik servisi Mail Assure ve SpamExperts'te yüksek yetkili bir API kullanıcısı, LDAP senkronizasyonunun bağlantı kontrolüyle sunucuyu istediği iç adreslere bağlatabiliyordu (CVE-2026-134624, 9,3). CISA açığı 23 Kasım'da KEV'e ekledi. N-able, barındırdığı bir sunucuya yetkisiz erişildiğini ama müşteri verisinin ele geçirildiğine dair kanıt bulmadığını açıkladı. Hosted Cloud zaten yamalı; N-able'ın iptal ettiği API ve OAuth token'larını kullanan betiklere yeni kimlik bilgisi girin. Local Cloud'da sunucuların build 20261121.1943'te olduğunu doğrulayın."
+            "N-able'ın e-posta güvenlik servisi Mail Assure ve SpamExperts'te yüksek yetkili bir API kullanıcısı, LDAP senkronizasyonunun bağlantı kontrolüyle sunucuyu istediği iç adreslere bağlatabiliyordu (CVE-2026-134624, 9,3). CISA açığı 23 Kasım'da KEV'e ekledi. N-able, barındırdığı bir sunucuya yetkisiz erişildiğini ama müşteri verisinin ele geçirildiğine dair kanıt bulmadığını açıkladı. Hosted Cloud zaten yamalı; N-able'ın iptal ettiği API ve OAuth token'larını kullanan script'lere yeni kimlik bilgisi girin. Local Cloud'da sunucuların build 20261121.1943'te olduğunu doğrulayın."
           ],
           "sources": [
             {
@@ -463,7 +463,7 @@
         "starsValue": 69600,
         "lang": "Python",
         "cat": "LLM eğitimi",
-        "why": "64 milyon parametreli bir dil modelini ön eğitimden SFT, DPO ve agentic RL'e kadar saf PyTorch ile sıfırdan eğitmeyi gösteren proje; README'ye göre tek RTX 3090'da ön eğitim ve SFT birlikte yaklaşık 2,3 saat sürüyor. Nisan'da Qwen3 mimarisine uyumlu minimind-3 ve agentic RL betiği eklendi; bugün günlük listenin üst sıralarında.",
+        "why": "64 milyon parametreli bir dil modelini pretraining'den SFT, DPO ve agentic RL'e kadar saf PyTorch ile sıfırdan eğitmeyi gösteren proje; README'ye göre tek RTX 3090'da pretraining ve SFT birlikte yaklaşık 2,3 saat sürüyor. Nisan'da Qwen3 mimarisine uyumlu minimind-3 ve agentic RL script'i eklendi; bugün günlük listenin üst sıralarında.",
         "meta": "Python · LLM eğitimi"
       },
       {

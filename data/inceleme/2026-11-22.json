@@ -529,7 +529,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "build.py code_html() boşluk içeren kısa kodu bölünebilir yapıyor; tools/ekran.py yalnızca code.nb ve .nw öğelerine bakıyor.",
-      "not": "Atölye'deki iki ayar boşluksuz kodla yeniden yazıldı; java-1'deki jcmd komutu içerikle düzeltilemiyor."
+      "not": "Atölye'deki iki ayar boşluksuz kodla yeniden yazıldı; java-1'deki jcmd komutu içerikle düzeltilemiyor.",
+      "kapandi": "2026-11-26 · code_html: 28 karaktere kadar boşluklu kod da tek parça"
     },
     {
       "id": "b44",
@@ -541,7 +542,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "Kaynak satırı ve repo adı kırılması build.py/CSS kaynaklı.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-26 · ref_label: ↩ simgesi ilk sözcükle nowrap"
     },
     {
       "id": "b45",
@@ -553,7 +555,8 @@
       "durum": "oneri",
       "kok": "kod",
       "kural": "Kaynak satırı ve repo adı kırılması build.py/CSS kaynaklı.",
-      "not": ""
+      "not": "",
+      "kapandi": "2026-11-26 · repo_name: yalnızca / sonrasında bölünür"
     },
     {
       "id": "b46",

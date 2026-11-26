@@ -72,11 +72,11 @@
           "size": 8,
           "big": true,
           "kicker": "API · OpenAI",
-          "headline": "GPT-6.2'de konuşma geçmişini düzenlemek önceki akıl yürütmeyi siliyor",
+          "headline": "GPT-6.2'de konuşma geçmişini düzenlemek önceki reasoning'i siliyor",
           "paragraphs": [
-            "Konuşma geçmişini düzenleyen uygulamalar GPT-6.2 Astra ve Sol'da daha zayıf cevap alıp daha çok token harcayabilir. OpenAI'ın yeni model rehberine göre Responses API, geçmişteki bir mesaj değiştirildiğinde önceki akıl yürütme öğelerini atıyor. Aynısı bazı model geçişlerinde (sürüm düşürme dahil) ve son kullanıcı ya da kuruluş değiştiğinde de oluyor. Rehber, bu durumda cevap kalitesinin düşebileceğini ve modelin önceki işi yeniden yaparken daha çok token harcayabileceğini yazıyor. Akıl yürütmeyi korumak için konuşmanın başı (prefix) değişmeden kalmalı.",
-            "Değişikliğin arkasında damıtma (distillation) saldırılarına karşı önlemler var. OpenAI'ın 20 Kasım tarihli yazısına göre korumalı akıl yürütme artık onu üreten geçmişe bağlı; eski model aileleri onu okuyamıyor ve çıktı sınıflandırıcıları araç çağrısı argümanlarını da denetliyor. Şirketin kendi red team testlerinde önceki istekten akıl yürütme çıkarma saldırılarının başarısı GPT-6 Astra'da %54,0 iken GPT-6.2 Astra'da %0,2'ye indi.",
-            "Rehberde geçiş notları da var. Yeni entegrasyonlar `medium` akıl yürütme seviyesiyle başlamalı, `none` ya da `minimal` kullananlar `low`'a geçmeli; `temperature` ve `top_p` artık gönderilmemeli. Kodlama şablonu, istenmedikçe ya da belirli bir gerilemeyi yakalamak gerekmedikçe yeni test yazılmamasını öneriyor."
+            "Konuşma geçmişini düzenleyen uygulamalar GPT-6.2 Astra ve Sol'da daha zayıf cevap alıp daha çok token harcayabilir. OpenAI'ın yeni model rehberine göre Responses API, geçmişteki bir mesaj değiştirildiğinde önceki reasoning öğelerini atıyor. Aynısı bazı model geçişlerinde (sürüm düşürme dahil) ve son kullanıcı ya da kuruluş değiştiğinde de oluyor. Rehber, bu durumda cevap kalitesinin düşebileceğini ve modelin önceki işi yeniden yaparken daha çok token harcayabileceğini yazıyor. Reasoning'i korumak için konuşmanın başı (prefix) değişmeden kalmalı.",
+            "Değişikliğin arkasında distillation saldırılarına karşı önlemler var. OpenAI'ın 20 Kasım tarihli yazısına göre korumalı reasoning artık onu üreten geçmişe bağlı; eski model aileleri onu okuyamıyor ve çıktı sınıflandırıcıları araç çağrısı argümanlarını da denetliyor. Şirketin kendi red team testlerinde önceki istekten reasoning çıkarma saldırılarının başarısı GPT-6 Astra'da %54,0 iken GPT-6.2 Astra'da %0,2'ye indi.",
+            "Rehberde geçiş notları da var. Yeni entegrasyonlar `medium` reasoning seviyesiyle başlamalı, `none` ya da `minimal` kullananlar `low`'a geçmeli; `temperature` ve `top_p` artık gönderilmemeli. Kodlama şablonu, istenmedikçe ya da belirli bir gerilemeyi yakalamak gerekmedikçe yeni test yazılmamasını öneriyor."
           ],
           "why": "Geçmişi kırpan, düzenleyen ya da daha eski bir modele düşen agent'lar GPT-6.2'de daha zayıf ve daha pahalı çalışabilir.",
           "sources": [
@@ -145,7 +145,7 @@
           "kicker": "Şirket beyanı · Benchmark",
           "headline": "OpenAI: GPT-6.2 Astra, tıbbi kimya testinde puanın %84,5'ini aldı",
           "paragraphs": [
-            "OpenAI'ın yayımladığı MedChemBench, 117 makale ve patentten çıkarılan 99 problemle modellerin tıbbi kimya akıl yürütmesini ölçüyor: molekül yapısını yeniden kurma, bileşik sıralama ve özellik tahmini. Şirketin sonuçlarında xhigh ayarında GPT-6.2 Astra puanın %84,5'ini, GPT-6 Astra %83,3'ünü aldı; yani yeni sürümün kazancı yaklaşık 1 puan. Tabloda başka şirketlerin modelleri yok. GPT-6 Astra molekül yapısını kurmada %95,4'e ulaşırken bileşik seçiminde ve sayısal tahminde yaklaşık yarıda kaldı. OpenAI, sonuçların ilaç keşfi yeteneği göstermediğini ve kaynakların eğitim verisinde olmuş olabileceğini yazıyor."
+            "OpenAI'ın yayımladığı MedChemBench, 117 makale ve patentten çıkarılan 99 problemle modellerin tıbbi kimyada reasoning yeteneğini ölçüyor: molekül yapısını yeniden kurma, bileşik sıralama ve özellik tahmini. Şirketin sonuçlarında xhigh ayarında GPT-6.2 Astra puanın %84,5'ini, GPT-6 Astra %83,3'ünü aldı; yani yeni sürümün kazancı yaklaşık 1 puan. Tabloda başka şirketlerin modelleri yok. GPT-6 Astra molekül yapısını kurmada %95,4'e ulaşırken bileşik seçiminde ve sayısal tahminde yaklaşık yarıda kaldı. OpenAI, sonuçların ilaç keşfi yeteneği göstermediğini ve kaynakların eğitim verisinde olmuş olabileceğini yazıyor."
           ],
           "sources": [
             {
@@ -457,9 +457,9 @@
         "stars": "9.935",
         "starsValue": 9935,
         "lang": "TypeScript",
-        "cat": "Agent becerileri",
+        "cat": "Agent skill'leri",
         "why": "Kodlama agent'larına modern web API'leri ve tarayıcı uyumluluğu verisi veren skill seti; Chrome, Edge, Firefox ve MDN ekipleri yönetiyor, `legacy-scan` komutu kod tabanındaki eski kalıpları buluyor. Bu hafta 4.400 yıldız aldı.",
-        "meta": "TypeScript · Agent becerileri"
+        "meta": "TypeScript · Agent skill'leri"
       },
       {
         "name": "alibaba/open-code-review",

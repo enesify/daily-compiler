@@ -8,7 +8,7 @@ Türkçe ek İngilizce terime kesme işaretiyle gelir: secret'lar, branch'te, en
 
 ## İngilizce kalır
 
-secret, token, runtime, event, branch, merge, pull request, commit, workflow, pipeline, endpoint, backend, frontend, control plane, data plane, framework, adapter, plugin, extension (ürün adı olarak: Copilot Extensions, VS Code extension), hook, skill, harness, sandbox, breaking change, deprecated, release candidate, heap dump, thread dump, allocation, garbage collector (GC), transcript (agent ya da sohbet dökümü), log, loglama, trace, rollout, checkpoint, alignment, speech-to-speech, read-your-writes, fine-tuning, inference, context window, prompt, benchmark, trust store, keystore, container, cluster (altyapıda), load balancer, rate limit, feature flag, stealth (şirket için), redaksiyon (redaction), handshake, header (HTTP ve protokol başlığı), script, stateless, stateful, full precision, judge (LLM judge, judge model), CTF (capture the flag), distillation, chunking (chunk'lara ayırmak), embedding, vault (parola yöneticisinde), sampling, warm-up, recursive self-improvement, medyan.
+secret, token, runtime, event, branch, merge, pull request, commit, workflow, pipeline, endpoint, backend, frontend, control plane, data plane, framework, adapter, plugin, extension (ürün adı olarak: Copilot Extensions, VS Code extension), hook, skill, harness, sandbox, breaking change, deprecated, release candidate, heap dump, thread dump, allocation, garbage collector (GC), transcript (agent ya da sohbet dökümü), log, loglama, trace, rollout, checkpoint, alignment, speech-to-speech, read-your-writes, fine-tuning, inference, context window, prompt, benchmark, trust store, keystore, container, cluster (altyapıda), load balancer, rate limit, feature flag, stealth (şirket için), redaksiyon (redaction), handshake, header (HTTP ve protokol başlığı), script, stateless, stateful, full precision, judge (LLM judge, judge model), CTF (capture the flag), distillation, chunking (chunk'lara ayırmak), embedding, vault (parola yöneticisinde), sampling, warm-up, recursive self-improvement, medyan, reasoning (reasoning seviyesi, reasoning metni), pretraining, registry.
 
 ## Türkçesi yerleşik, Türkçe yazılır
 
@@ -55,3 +55,8 @@ Sol sütundaki kalıp `tools/kontrol.py` tarafından uyarı olarak yakalanır. B
 | `\bortanca\w*` | medyan |
 | `\bısınma koşu\w*` | warm-up koşusu |
 | `\bözyinelemeli kendini geliştir\w*` | recursive self-improvement |
+| `\bakıl yürüt\w*` | reasoning |
+| `\bön eğitim\w*` | pretraining |
+| `\bbeceri(ler|leri|si)?\b` | skill |
+| `\bkayıt defter\w*` | registry |
+| `\beklenti(si|ye|ler|leri|nin)?\b` | plugin ya da extension |
