@@ -629,3 +629,10 @@ details.src-more[open]>summary{display:none}
 main p:not(.src),main li,.lead p.deck{max-width:62ch}
 /* Tek sütunda kaynak satırı ve repo kartı da metin sütunundan geniş olmaz */
 @media (max-width:900px){main .src,.repo{max-width:62ch}}
+
+/* Atölye: adım numaraları kod yazısıyla, küçük çerçeveli istasyonlar; adımları ince bir hat bağlar */
+.at-steps{gap:0}
+.at-steps li{grid-template-columns:40px minmax(0,1fr);position:relative;padding-bottom:16px}
+.at-steps li::before{content:counter(at,decimal-leading-zero);justify-self:start;font-family:var(--f-mono);font-size:12px;font-weight:500;line-height:1;color:var(--accent);background:var(--paper);border:1px solid var(--accent);border-radius:3px;padding:4px 4px 3px;position:relative;z-index:1;align-self:start;margin-top:3px}
+.at-steps li:not(:last-child)::after{content:"";position:absolute;left:12px;top:24px;bottom:0;width:1px;background:var(--rule)}
+.at-steps li:last-child{padding-bottom:0}
