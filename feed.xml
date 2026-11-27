@@ -5,8 +5,16 @@
 <link href="https://dailycompiler.com/"/>
 <link rel="self" type="application/atom+xml" href="https://dailycompiler.com/feed.xml"/>
 <id>https://dailycompiler.com/</id>
-<updated>2026-11-26T07:11:00+03:00</updated>
+<updated>2026-11-27T07:11:00+03:00</updated>
 <author><name>The Daily Compiler</name></author>
+<entry>
+<title>Workspace verisine erişen AI agent’ları için MCP zorunlu oluyor</title>
+<link href="https://dailycompiler.com/sayi/2026-11-27.html"/>
+<id>https://dailycompiler.com/sayi/2026-11-27.html</id>
+<updated>2026-11-27T07:11:00+03:00</updated>
+<summary>Sayı 025 · Cuma, 27 Kasım 2026 · Gmail, Drive, Calendar ve beş Workspace ürünü için MCP sunucuları GA. REST API’yi doğrudan çağıran agent’lar 1 Şubat 2027’den itibaren ücretsiz Standard kotayla sınırlanıyor; Scaled tier’da Gmail, Calendar ve Drive MCP kullanımı 1 Nisan’da ilk istekten ücretlenmeye başlıyor.</summary>
+<content type="html">&lt;p&gt;Gmail, Drive, Calendar ve beş Workspace ürünü için MCP sunucuları GA. REST API’yi doğrudan çağıran agent’lar 1 Şubat 2027’den itibaren ücretsiz Standard kotayla sınırlanıyor; Scaled tier’da Gmail, Calendar ve Drive MCP kullanımı 1 Nisan’da ilk istekten ücretlenmeye başlıyor.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-27.html#a-manset"&gt;Workspace verisine erişen AI agent’ları için MCP zorunlu oluyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-27.html#a-ai-1"&gt;Anthropic: agent’larla Rust’a taşınan Messages API’de CPU %70 düştü&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-27.html#a-ai-2"&gt;Araştırma: üç OpenRouter sağlayıcısı ByteDance’e bağlı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-27.html#a-ai-3"&gt;Nemotron 3.5 Parse: belge ayrıştırma modelinin eğitim verisi de açık&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-27.html#a-ai-4"&gt;GPT-6.2 Astra’da kullanım limiti %40 daha hızlı doluyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-27.html#a-ai-5"&gt;Magnitude, GPU’ya sığmayan MoE modellerini SSD’den besliyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-27.html#a-ai-6"&gt;llama.cpp’nin AMD performansı artık her hafta ölçülüyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-27.html#a-java-1"&gt;Apache Shiro 3.0.2, Active Directory’de boş kullanıcı açığını kapattı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-27.html#a-java-2"&gt;Spring AI’da karar modelleri guardrail ve judge olarak çalışabiliyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-27.html#a-guvenlik-1"&gt;Xen Orchestra açığına CVE atandı, CISA KEV’e ekledi&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-27.html#a-guvenlik-2"&gt;Airflow’da TaskFlow decorator’ları şablon enjeksiyonuna açık&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-27.html#a-guvenlik-3"&gt;Microsoft: Salt Typhoon ve Onyx Sleet ARTEX kullanıyor&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+</entry>
 <entry>
 <title>Copilot code review 30 Aralık’tan itibaren organizasyona faturalanıyor</title>
 <link href="https://dailycompiler.com/sayi/2026-11-26.html"/>

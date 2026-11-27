@@ -1,0 +1,442 @@
+{
+  "date": "2026-11-27",
+  "number": 25,
+  "dateLabel": "Cuma, 27 Kasım 2026",
+  "readingMinutes": 13,
+  "calendar": [
+    {
+      "date": "2026-12-01",
+      "text": "Gemini 4 Carbon API fiyatı iki katına çıkıyor",
+      "url": "https://aistudio.google.com/docs/pricing"
+    },
+    {
+      "date": "2026-12-01",
+      "text": "OpenSSL 4.1.1, 4.0.4 ve 3.5.10 yayımlanıyor",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/24/14"
+    },
+    {
+      "date": "2026-12-03",
+      "text": "JDK 28 Rampdown Phase One'a giriyor",
+      "url": "https://openjdk.org/projects/jdk/28/"
+    },
+    {
+      "date": "2026-12-14",
+      "text": "GitHub Copilot'tan altı model kaldırılıyor",
+      "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december"
+    }
+  ],
+  "lead": {
+    "kicker": "Politika · Google Workspace",
+    "alert": false,
+    "headline": "Workspace verisine erişen AI agent'ları için MCP zorunlu oluyor",
+    "deck": "Gmail, Drive, Calendar ve beş Workspace ürünü için MCP sunucuları GA. REST API'yi doğrudan çağıran agent'lar 1 Şubat 2027'den itibaren ücretsiz Standard kotayla sınırlanıyor; Scaled tier'da Gmail, Calendar ve Drive MCP kullanımı 1 Nisan'da ilk istekten ücretlenmeye başlıyor.",
+    "paragraphs": [
+      "Google Workspace verisine erişen AI agent'ları REST API yerine Google'ın MCP sunucularını ya da Workspace CLI'ı kullanmak zorunda kalacak. Kural, 24 Kasım'da yayımlanan Workspace AI Tools Addendum'da; teknik uygulama 1 Şubat 2027'de başlıyor. Gmail, Drive, Docs, Sheets, Slides, Calendar, Chat ve Tasks için uzak MCP sunucuları 25 Kasım'da GA oldu. Sunucular izin ve veri kaybı önleme (DLP) kontrollerini uyguluyor, hassas eylemlerde insan onayı istiyor ve agent olarak işaretlenmemiş OAuth istemcilerini reddediyor.",
+      "Ücretsiz Standard tier, GA MCP sunucularında proje ve ürün başına günde 5.000 istek veriyor. Bazı araçlar birden çok istek sayılıyor: Gmail'de `search_threads` ve `list_drafts` 10 istek. Başarısız çağrılar da kotadan düşüyor. Şubat'tan itibaren REST API'yi doğrudan çağıran agent'lar Standard kotayla sınırlanıyor. Faturalama 1 Nisan'da başlıyor ve AI kullanmayan uygulamaları da ilgilendiriyor: Gmail, Calendar ve Drive'da yüksek limitle çalışan projeler o tarihe kadar Scaled tier'a geçmezse Standard limite iniyor. Scaled tier'da MCP kullanımı ilk istekten ücretleniyor ve geçiş kotayı kendiliğinden artırmıyor.",
+      "Ek sözleşme veri kullanımını da daraltıyor. Workspace verisi yalnızca kullanıcının onayladığı etkin görevler için işlenebiliyor ve bağlantı kesilince silinmeli; sözleşmenin “Google Technical Information” dediği teknik veriler 30 günden uzun saklanamıyor. Veriyle model eğitmek, fine-tuning, eval seti kurmak, distillation ve benzer bir Workspace ürünü geliştirmek yasak. Bir aracın agent olarak sınıflandırılmaktan kaçmasını sağlamak da yasaklar arasında; Google ihlal gördüğünde erişimi hemen kısıtlayabiliyor.",
+      "Bağımsız yayın Tech Stackups'a göre sunucular REST'in gerisinde: Drive'da dosya taşıma, yeniden adlandırma ve paylaşma, Calendar'da takvim oluşturma yok. Yayın, Gmail'de gönderme, cevaplama ve iletmenin partner erişimi istediğini yazıyor; Google'ın referans sayfası bu araçları listeliyor ama böyle bir şart anmıyor. Domain-wide delegation kullanan service account'lar ve Apps Script'in yerleşik OAuth istemcisi agent olarak işaretlenemiyor. Yayına göre Scaled tier'ın istek başına fiyatları da henüz yayımlanmadı."
+    ],
+    "sources": [
+      {
+        "label": "Google Cloud blog: Built for trust and control",
+        "url": "https://cloud.google.com/blog/products/identity-security/deploying-agents-safely-in-your-enterprise"
+      },
+      {
+        "label": "Google: Workspace tools safety and quotas",
+        "url": "https://developers.google.com/workspace/tools-safety"
+      },
+      {
+        "label": "Google: Gmail MCP kotaları",
+        "url": "https://developers.google.com/workspace/gmail/api/guides/quotas"
+      },
+      {
+        "label": "Tech Stackups: Google Workspace MCP ve agent kuralı",
+        "url": "https://techstackups.com/articles/google-workspace-ai-agents-mcp/"
+      }
+    ],
+    "box": {
+      "items": [
+        "Workspace'e bağlanan agent'larınızı listeleyin; REST API'yi doğrudan çağıranları 1 Şubat'tan önce MCP sunucularına ya da Workspace CLI'a taşıyın.",
+        "Her agent için OAuth istemcisinde “Use this client for an AI-powered agent” seçeneğini işaretleyin; service account ve Apps Script ile çalışan agent'lar için ayrı bir yol planlayın.",
+        "Gmail, Calendar ve Drive'da Standard'ın üstünde limitle çalışan projeleriniz varsa 1 Nisan'dan önce Scaled tier'a geçip ayrıca kota artırımı isteyin; geçmeyen projeler Standard limite iniyor.",
+        "Agent'ınız Workspace verisi saklıyorsa kullanıcı bağlantıyı kestiğinde bu veriyi silen bir adım ekleyin; ek sözleşme bunu şart koşuyor."
+      ]
+    }
+  },
+  "sections": [
+    {
+      "id": "ai",
+      "title": "Yapay Zekâ & LLM",
+      "articles": [
+        {
+          "size": 8,
+          "big": true,
+          "kicker": "Şirket beyanı · Anthropic",
+          "headline": "Anthropic: agent'larla Rust'a taşınan Messages API'de CPU %70 düştü",
+          "stat": {
+            "n": "%99,6",
+            "l": "Ağustosta üretim girdilerinde Python ve Rust sürümlerinin eşleşme oranı"
+          },
+          "paragraphs": [
+            "Anthropic'e göre Claude agent'ları, Claude Code ve Cowork'ün de kullandığı Messages API'yi Python'dan Rust'a taşıdı; istek başına CPU yaklaşık %70, bellek %80'den fazla azaldı. Eylülde iki hafta boyunca ölçülen Claude Code isteklerinde medyan ilk token süresi yaklaşık %20 kısaldı. Python'la 2023'te yazılan servisin trafiği 2024 başından bu sonbahara yaklaşık 1.800 kat büyümüştü. Rakamlar şirketin kendi ölçümü.",
+            "Çekirdek istek yolunun ilk sürümünü Claude yaklaşık bir haftada yazdı. Asıl süre doğrulamaya gitti, çünkü yazılı bir spec yoktu ve eski Python servisi referans alındı: iş nisandan eylüle sürdü ve kamu trafiği eylülde Rust'a geçti. Yazıya göre testler yetmedi. Nisanda Rust testlerin yaklaşık %98'ini geçiyordu, ama üretim girdilerinin yalnızca yaklaşık dörtte biri eski sürümle aynı sonucu veriyordu. Port edilen testlerde 100'den fazla zayıflatılmış assertion çıktı.",
+            "Şirkete göre doğrulayıcı çıktıların eşleşip eşleşmediğini söyleyebiliyor, ama düzeltmenin yayına uygun olup olmadığını söyleyemiyor; bu yüzden her düzeltme PR incelemesinden geçti. Bir mühendis, web aramasındaki bir geçici çözümü “throwaway code” diyerek reddetti. Ağustosta Rust koduna iki haftada 3.000'den fazla değişiklik girdi. Yöntemin adımları bugünkü Atölye'de."
+          ],
+          "why": "Agent'la büyük migrasyon planlayan ekipler için yazı, testlerin geçmesiyle üretimde aynı sonucu vermenin farklı şeyler olabileceğini rakamla gösteriyor.",
+          "sources": [
+            {
+              "label": "Anthropic: Migrating our Messages API to Rust",
+              "url": "https://www.anthropic.com/research/migrating-api-to-rust"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "İddia · OpenRouter",
+          "headline": "Araştırma: üç OpenRouter sağlayıcısı ByteDance'e bağlı",
+          "paragraphs": [
+            "OpenRouter'dan aldığı destekle çalışan bir araştırmacıya göre Novita, StreamLake ve Ant Digital, DeepSeek modellerine gelen isteklerin bir kısmını ByteDance'in Ark API'sine iletiyor. Kanıtlar arasında ByteDance IP'lerinden yapılan görsel indirmeleri, Ark biçiminde tool-call kimlikleri ve ByteDance'in hazır ret cevapları var. Novita ZDR (sıfır veri saklama) etiketini 20 Kasım'da, Ant Digital 22 Kasım'da kaybetti. Yazarın ulaştığı Novita ByteDance sorusuna net cevap vermedi ve bazı endpoint'lerini OpenRouter'dan kaldırdı. Ayrı bir olayda Novita, StreamLake ve AtlasCloud istekleri MiniMax'e ilettiklerini doğruladı. Yazara göre yönlendirmeler haber verilmeden değişebiliyor."
+          ],
+          "sources": [
+            {
+              "label": "kendell.dev: Ark wrappers",
+              "url": "https://kendell.dev/blog/arkwrapper/"
+            },
+            {
+              "label": "22 Kasım sayısı: OpenRouter 125 endpoint'i ZDR'den çıkardı",
+              "url": "#2026-11-22-manset"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Açık model · NVIDIA",
+          "headline": "Nemotron 3.5 Parse: belge ayrıştırma modelinin eğitim verisi de açık",
+          "paragraphs": [
+            "NVIDIA, sayfa görüntülerini okuma sırası, tablo, grafik ve bounding box'larla yapılandırılmış veriye çeviren 0,6 milyar parametreli Nemotron 3.5 Parse için eğitim verisi ve fine-tuning rehberi yayımladı. Açılan veri setleri milyonlarca sentetik grafik, HTML tablosu ve çok dilli sayfadan oluşuyor. Şirketin ölçümüne göre model tek H200'de 512 eşzamanlı istekte saniyede 13,48 sayfa işliyor. İsteğe bağlı DFlash2 speculative decoding ile bu rakam 20,44'e çıkıyor; Parse 2.0'ın aynı koşuldaki hızı 2,98'di. Yazı lisans belirtmediği için kullanım şartlarına model ve veri seti sayfalarından bakmak gerekiyor."
+          ],
+          "sources": [
+            {
+              "label": "Hugging Face blog: Building on Nemotron 3.5 Parse",
+              "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Limit · OpenAI",
+          "headline": "GPT-6.2 Astra'da kullanım limiti %40 daha hızlı doluyor",
+          "paragraphs": [
+            "GPT-6.2 Astra kotası artık bir önceki haftaya göre %40, GPT-6.2 Sol kotası %25 daha hızlı doluyor. The Decoder'ın aktardığına göre GPT-6.2'nin dağıtımındaki bir faturalama hatası kullanıcıların çoğuna yanlış indirim tanımıştı; düzeltmeyi Codex mühendisi Thibault Sottiaux duyurdu. Haber, değişikliğin ChatGPT ile Codex arasında nasıl dağıldığını ayırmıyor. Kotalar yine GPT-6 Astra ve GPT-6.1 Sol dönemine göre uzun sürüyor ve OpenAI aradaki farkı geriye dönük talep etmiyor. Go, Plus, Pro ve Business abonelerine ek bir limit sıfırlama hakkı veriliyor."
+          ],
+          "sources": [
+            {
+              "label": "The Decoder: GPT-6.2 Astra users now hit limits 40% faster",
+              "url": "https://the-decoder.com/gpt-6-2-astra-users-now-hit-limits-40-faster-after-openai-patched-a-pricing-error/"
+            },
+            {
+              "label": "Thibault Sottiaux, X",
+              "url": "https://x.com/thsottiaux/status/2125784147889393806"
+            },
+            {
+              "label": "Dünkü sayı: ChatGPT'de Chat ve Work tek limit",
+              "url": "#2026-11-26-ai-5"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Yerel inference · Açık kaynak",
+          "headline": "Magnitude, GPU'ya sığmayan MoE modellerini SSD'den besliyor",
+          "paragraphs": [
+            "Apache 2.0 lisanslı Magnitude, MoE modellerinin ağırlıklarını GPU, sistem belleği ve NVMe SSD arasında paylaştırarak bellekten büyük modelleri Mac ve PC'lerde çalıştırıyor. Paylaşılan katmanlar ve en sık kullanılan expert'ler GPU'da, sıklıkta ikinci kademedeki expert'ler RAM'de duruyor, kalanı SSD'den önceden yükleniyor; disk okuması gecikirse üretim yavaşlıyor. Projenin ölçümüne göre 24 GB'lık RTX 3090 ve 64 GB RAM'li bir makinede 66 GB'lık 2-bit Qwen 3.8 Flash Next saniyede 41 token üretiyor. Ölçüm 64K bağlamda, speculative decoding açıkken yapıldı ve prompt işleme süresini kapsamıyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub: magnitudedev/magnitude",
+              "url": "https://github.com/magnitudedev/magnitude"
+            },
+            {
+              "label": "The Neuron: Magnitude uses your SSD",
+              "url": "https://theneuron.ai/news/magnitude-uses-your-ssd-to-run-ai-models-bigger-than-your-memory/"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Yerel inference · AMD",
+          "headline": "llama.cpp'nin AMD performansı artık her hafta ölçülüyor",
+          "paragraphs": [
+            "ggml-org, llama.cpp'nin AMD Ryzen ve Radeon donanımındaki prompt işleme ve token üretim hızını sürümden sürüme izleyen bir pano açtı. Radeon 8060S ve Radeon AI Pro R9700S ölçümleri haftada bir, Flash Attention açık ve kapalı, her ayar için 10 tekrarla koşuyor. Model setinde Inkling 2 Mini, Qwen, Gemma, gpt-oss ve LFM var. Sonuçlar herkese açık bir Hugging Face bucket'ında. Aynı gün yayımlanan bir yazıya göre AMD'ye özel yamalar içeren `llama-cpp-rdna-boosts` fork'u, bir AMD R9700'de prompt işleme hızını saniyede yaklaşık 700'den 1.300 token'a çıkardı."
+          ],
+          "sources": [
+            {
+              "label": "Hugging Face blog: llama.cpp benchmark dashboard for AMD",
+              "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench"
+            },
+            {
+              "label": "devnull.land: AMD-specific llama.cpp",
+              "url": "https://devnull.land/amd-specific-llama-cpp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Güvenlik · Apache Shiro",
+          "headline": "Apache Shiro 3.0.2, Active Directory'de boş kullanıcı açığını kapattı",
+          "paragraphs": [
+            "Apache Shiro'nun `ActiveDirectoryRealm`'i `principalSuffix` ayarı olmadan kullanılıyorsa ve dizin sunucusu anonim bind'e izin veriyorsa, kimliği doğrulanmamış biri boş kullanıcı adıyla oturum açabiliyor. CVE-2026-137686, CVE-2014-0074'ün eksik düzeltmesinden doğuyor: boş kullanıcı adı ve parola hâlâ anonim LDAP bind olarak kabul ediliyordu. `org.apache.shiro:shiro-core` 3.0.1 ve önceki sürümler etkileniyor, düzeltme 3.0.2'de; CVSS 4.0 puanı 6,3. Hemen yükseltemeyenler realm'e `principalSuffix` ekleyebilir ya da dizinde anonim bind'i kapatabilir."
+          ],
+          "sources": [
+            {
+              "label": "oss-security: CVE-2026-137686 Apache Shiro",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/27/2"
+            },
+            {
+              "label": "15 Kasım sayısı: Apache Shiro'da sekiz CVE",
+              "url": "#2026-11-15-java-1"
+            }
+          ]
+        },
+        {
+          "size": 6,
+          "kicker": "Spring AI · Agent",
+          "headline": "Spring AI'da karar modelleri guardrail ve judge olarak çalışabiliyor",
+          "paragraphs": [
+            "Spring AI 2.1'in `DecisionModel` API'si, topluluk projesi Spring AI Decision Extensions 0.5.0 ile girdi ve çıktıları denetleyen guardrail'e ve cevap puanlayan judge'a dönüşebiliyor. Spring blogundaki yazıya göre `DecisionGuardrailAdvisor` olasılık 0,70'i aşınca eylemi uyguluyor, 0,35'i aşınca incelemeye gönderiyor. `DecisionJudge` hangi ölçütün tutmadığını söylüyor ama hatayı açıklamıyor. Yerel seçenek Ollama'daki `d1-omni:600m`; yazıya göre tek istekte üç soruyu medyan 29 ms'de cevaplıyor. Guardrail'ler araç argümanlarını ve araç sonuçlarını taramıyor; Extensions'ın API'si de değişebilir."
+          ],
+          "sources": [
+            {
+              "label": "Spring blog: Decision Models in Spring AI 2.1",
+              "url": "https://spring.io/blog/2026/11/26/spring-ai-decision-models-guardrails-judges"
+            },
+            {
+              "label": "10 Kasım sayısı: Spring AI 2.1.0-RC2 ve DecisionModel",
+              "url": "#2026-11-10-java-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik",
+      "patch": [
+        {
+          "text": "Xen Orchestra 6.9.2 ve 6.10.1 öncesi: yükseltin, arayüzü internetten kaldırın",
+          "ref": "guvenlik-1"
+        }
+      ],
+      "articles": [
+        {
+          "size": 4,
+          "kicker": "Takip · Aktif istismar",
+          "alert": true,
+          "headline": "Xen Orchestra açığına CVE atandı, CISA KEV'e ekledi",
+          "paragraphs": [
+            "Xen Orchestra'daki kimlik doğrulama atlatma açığı CVE-2026-133469 numarasını aldı ve CISA'nın istismar edilen açıklar kataloğuna 25 Kasım'da girdi. İçi boş JSON nesnesi taşıyan `authenticationToken` çerezi, saldırganı süresi dolmamış ilk token'ın sahibi olarak oturum açtırıyor. Xen Orchestra 6.9.2 ve 6.10.1 (xo-server 5.211.2 ve 5.213.1) öncesi ile Appliance etkileniyor. İstismar log bırakmadığı için Vates, HTTP trafiğinde `authenticationToken=j:{}` kalıbını ve XCP-ng'de `pivot2` adlı VM'i aramayı öneriyor."
+          ],
+          "sources": [
+            {
+              "label": "CISA: 10 açık KEV kataloğuna eklendi",
+              "url": "https://www.cisa.gov/news-events/alerts/2026/11/25/cisa-adds-10-known-exploited-vulnerabilities-catalog"
+            },
+            {
+              "label": "Vates: VSA-2026-062",
+              "url": "https://docs.vates.tech/security-advisories/advisories/2026/vates-sa-2026-062/"
+            },
+            {
+              "label": "11 Kasım sayısı: Xen Orchestra açığı istismarda",
+              "url": "#2026-11-11-guvenlik-2"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Güvenlik · Apache Airflow",
+          "headline": "Airflow'da TaskFlow decorator'ları şablon enjeksiyonuna açık",
+          "paragraphs": [
+            "Apache Airflow'un TaskFlow decorator'ları, task runner'ın işlediği Jinja şablonlarını bir kez daha işlediği için saldırganın verdiği değerler worker'da şablon olarak çalışabiliyor. Saldırgan böylece komut çalıştırabiliyor ve bağlantı parolalarını okuyabiliyor (CVE-2026-120353). Saldırganın DAG tetikleme yetkisi olmalı ya da DAG'ın decorator'a geçirdiği bir ticket ya da indirilen belge gibi bir metni kontrol etmeli. `@task.bash`, `@task.sql`, `@task.analytics`, `@task.kubernetes_cmd` ve common.ai decorator'ları etkileniyor. Standard 0.3.0, CNCF Kubernetes 10.5.0, Common SQL 1.32.0 ve Common AI 0.1.0'dan itibaren etkilenen provider'ların düzeltmesi sırasıyla 1.22.0, 11.0.0, 3.0.0 ve 1.2.0'da."
+          ],
+          "sources": [
+            {
+              "label": "oss-security: CVE-2026-120353 Apache Airflow",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/27/1"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Olay · Microsoft",
+          "headline": "Microsoft: Salt Typhoon ve Onyx Sleet ARTEX kullanıyor",
+          "paragraphs": [
+            "Microsoft'a göre aralarında Salt Typhoon, Crystal Typhoon ve Onyx Sleet'in de olduğu devlet destekli ve para peşindeki gruplar, AI destekli sızma testi framework'ü ARTEX'i kullanıyor. Bir vakada agent, GitHub'da bulunan bir client secret'tan Azure Key Vault verisine beş dakikada ulaştı. Microsoft'a göre ARTEX yeni teknik getirmiyor, bilinen araçları otomatik ve hızlı biçimde çalıştırıyor. Şirket kodda ve yapılandırma dosyalarında bulunan her secret'ı yenilemeyi, web sunucularının dışa bağlantısını kısıtlamayı ve `artex-enrich/*` ile `norma/*` user agent'larını aramayı öneriyor."
+          ],
+          "sources": [
+            {
+              "label": "Microsoft Security blog: ARTEX",
+              "url": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/"
+            },
+            {
+              "label": "The Record: Microsoft says Salt Typhoon using Artex",
+              "url": "https://therecord.media/microsoft-china-salt-typhoon-using-artex-ai-tool"
+            },
+            {
+              "label": "22 Kasım sayısı: OpenRouter ve ARTEX",
+              "url": "#2026-11-22-manset"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "repos": {
+    "subtitle": "GitHub Trending günlük, haftalık, Java, Python, TypeScript ve Rust günlük listeleri · yıldızlar 27 Kasım",
+    "items": [
+      {
+        "name": "anomalyco/opencode",
+        "url": "https://github.com/anomalyco/opencode",
+        "stars": "229.448",
+        "starsValue": 229448,
+        "lang": "TypeScript",
+        "cat": "Kodlama agent'ı",
+        "why": "Açık kaynak kodlama agent'ı. Yeni 2.4.2 sürümü 26 Kasım'da GPT-6.2 Sol, Astra ve `gpt-latest` takma adları için ayrı bir system prompt ekledi.",
+        "meta": "TypeScript · Kodlama agent'ı"
+      },
+      {
+        "name": "github/spec-kit",
+        "url": "https://github.com/github/spec-kit",
+        "stars": "151.737",
+        "starsValue": 151737,
+        "lang": "Python",
+        "cat": "Spec odaklı geliştirme",
+        "why": "GitHub'ın spesifikasyon odaklı geliştirme (SDD) araç takımı. Yeni 1.4.5 sürümü 25 Kasım'da script'lerde UTF-8'e geçti ve topluluk kataloğuna Task Consolidation extension'ını ekledi.",
+        "meta": "Python · Spec odaklı geliştirme"
+      },
+      {
+        "name": "earendil-works/pi",
+        "url": "https://github.com/earendil-works/pi",
+        "stars": "124.117",
+        "starsValue": 124117,
+        "lang": "TypeScript",
+        "cat": "Agent araç takımı",
+        "why": "Birleşik LLM API'si, agent döngüsü, TUI ve kodlama agent'ı CLI'ı sunan araç takımı. Yeni 1.6.1 sürümüyle 25 Kasım'dan beri GitHub Copilot'un `gpt-6-luna-decisions` karar modeli codemode'da `models.classify()` ile çağrılabiliyor.",
+        "meta": "TypeScript · Agent araç takımı"
+      },
+      {
+        "name": "colbymchenry/codegraph",
+        "url": "https://github.com/colbymchenry/codegraph",
+        "stars": "78.813",
+        "starsValue": 78813,
+        "lang": "TypeScript",
+        "cat": "Kod bilgi grafiği",
+        "why": "Kodlama agent'ları için yerelde çalışan, önceden indekslenmiş kod bilgi grafiği. Yeni 1.6.4 sürümü 20 Kasım'da paylaşılan bilgisayarlardaki bir güvenlik sorununu düzeltti; yükseltmeden sonra projelerin `codegraph index` ile yeniden indekslenmesi gerekiyor.",
+        "meta": "TypeScript · Kod bilgi grafiği"
+      },
+      {
+        "name": "t8y2/dbx",
+        "url": "https://github.com/t8y2/dbx",
+        "stars": "31.581",
+        "starsValue": 31581,
+        "lang": "Rust",
+        "cat": "Veritabanı istemcisi",
+        "why": "100'den fazla veritabanını destekleyen, yerleşik AI ve MCP sunucusu olan hafif veritabanı istemcisi. Yeni 0.6.75 sürümü 26 Kasım'da MySQL tablo yorumlarını düzenlemeyi getirdi ve sorgu zaman aşımını yalnızca okumalara uyguladı.",
+        "meta": "Rust · Veritabanı istemcisi"
+      },
+      {
+        "name": "DependencyTrack/dependency-track",
+        "url": "https://github.com/DependencyTrack/dependency-track",
+        "stars": "4.532",
+        "starsValue": 4532,
+        "lang": "Java",
+        "cat": "Tedarik zinciri",
+        "why": "Yazılım tedarik zinciri riskini bulup azaltmaya yarayan platform. Yeni 4.14.7 sürümü 18 Kasım'da HotSpot'un base64 intrinsic'lerini kapatarak CVE-2026-114938'i hafifletti; 5.2.2 ise parola değişince oturumları iptal ediyor.",
+        "meta": "Java · Tedarik zinciri"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending: günlük",
+        "url": "https://github.com/trending?since=daily"
+      },
+      {
+        "label": "GitHub Trending: haftalık",
+        "url": "https://github.com/trending?since=weekly"
+      },
+      {
+        "label": "GitHub Trending: Java günlük",
+        "url": "https://github.com/trending/java?since=daily"
+      },
+      {
+        "label": "GitHub Trending: Rust günlük",
+        "url": "https://github.com/trending/rust?since=daily"
+      }
+    ]
+  },
+  "atolye": {
+    "konu": "agent-migrasyon",
+    "kicker": "Agentic geliştirme",
+    "title": "Agent'la migrasyon: eski sistemi referans alın, farkı canlı trafikte arayın",
+    "intro": "Bir servisi agent'a başka bir dile taşıtırken testlerin geçmesi işin bittiğini göstermez. Anthropic'in 25 Kasım'da yayımladığı Messages API'nin Python'dan Rust'a taşınması yazısındaki yöntem, eski sistemi doğruluk ölçütü yapıyor ve farkları agent'ın düzeltebileceği biçimde raporluyor; yöntem belirli bir agent aracına bağlı değil.",
+    "when": "Davranışı yazılı bir spec'te tam tanımlanmamış, ama çalışan bir eski sürümü ve gerçek trafiği olan servislerde işe yarar. Eski ve yeni sürümü aynı girdiyle çalıştıramıyorsanız ya da deterministik olmayan bir adımın çıktısını iki tarafa aynen veremiyorsanız doğrudan uygulanamaz.",
+    "steps": [
+      "Eski sistemi referans yapın. Yazılı bir spec yoksa doğruluk ölçütü eski sürümün kendisidir: yeni sürüm aynı girdide aynı sonucu vermelidir. Anthropic'te Python API bu yüzden “oracle” olarak kullanıldı. Hangi farkın hata, hangisinin bilinçli değişiklik olduğuna agent değil, ekip karar verir.",
+      "Deterministik olmayan adımı bir kez çalıştırıp çıktısını iki tarafa verin. Model cevabı her seferinde değişebildiği için Anthropic modeli bir kez çalıştırdı ve çıktısını Rust sürümüne de verdi; böylece kalan adımların birebir eşleşmesi beklenebildi. Karşılaştırmayı yalnızca son sonuçta değil, isteği kabul ya da reddetme, ayarları çözümleme ve prompt'u parça parça kurma gibi ara adımlarda da yapın.",
+      "Farkın yerini ve şeklini kaydedin, içeriğini değil. Farkın çıktığı adımı, ilk farklı baytı, uzunlukları ve bir parmak izini loglamak, kullanıcı verisini kaydetmeden hatayı bulmaya yetti. Kayıtları düzenli aralıklarla gruplayın ve agent'a yalnızca yeni türdeki farkları iletin; Anthropic'te tek bir hata yüz binlerce benzer kayıt üretebiliyordu.",
+      "Agent'a hızlı bir iç döngü verin. Anthropic'in agent'ları sandbox'ta, bir saniyenin altında süren yerel kontroller ve sahte bir modelle çalıştı. Agent'tan farkı tetikleyen isteği kendisinin yazmasını, kodu iki sürüm eşleşene kadar düzeltmesini ve önce başarısız olup sonra geçen bir test eklemesini isteyin.",
+      "Düzeltmeleri kurala dönüştürün. Ekibin her düzeltmesini talimat dosyasına (Claude Code'da CLAUDE.md, diğer araçlarda AGENTS.md gibi), teste ya da lint'e çevirin. Anthropic, eski taraf değiştiğinde yeni tarafta da değişiklik isteyen bir merge kontrolüyle migrasyon sürerken iki kodun ayrışmasını önledi."
+    ],
+    "example": {
+      "label": "Örnek Python: farkın yalnızca şeklini kaydeden karşılaştırma",
+      "lang": "python",
+      "code": "import hashlib, json\n\ndef ilk_fark(a: bytes, b: bytes) -> int:\n    for i, (x, y) in enumerate(zip(a, b)):\n        if x != y:\n            return i\n    return min(len(a), len(b))\n\ndef fark_kaydi(adim, eski: bytes, yeni: bytes):\n    if eski == yeni:\n        return None\n    iz = hashlib.sha256(eski + yeni).hexdigest()\n    return {\"adim\": adim,\n            \"ilk_fark\": ilk_fark(eski, yeni),\n            \"uzunluk\": [len(eski), len(yeni)],\n            \"iz\": iz[:12]}\n\n# eski_cikti, yeni_cikti: aynı istek ve model\n# çıktısıyla iki sürümden toplanan ara adımlar\nfor adim in eski_cikti:\n    kayit = fark_kaydi(adim, eski_cikti[adim],\n                       yeni_cikti[adim])\n    if kayit:\n        print(json.dumps(kayit))"
+    },
+    "pitfall": "Testlerin geçmesini yeterli saymak. Anthropic'in yazısına göre port edilen testler Python koduna bağlıydı ve aralarında zayıflatılmış assertion'lar çıktı; agent'lar eşleşmenin en ucuz yolunu da bulabiliyor. Bu yüzden düzeltmeler insan incelemesinden geçti.",
+    "sources": [
+      {
+        "label": "Anthropic: Migrating our Messages API to Rust",
+        "url": "https://www.anthropic.com/research/migrating-api-to-rust"
+      }
+    ]
+  },
+  "briefs": [
+    {
+      "tag": "Takip · Nvidia",
+      "text": "The Decoder'ın Financial Times'a dayandırdığı habere göre Nvidia, Dell ve Supermicro gibi ortaklarına Malezya, Singapur, Tayland ve Endonezya'ya sunucu sevkiyatını durdurmalarını söyledi. Bulut sağlayıcılarının lisans başvurusu için 90 günü var; bankalar Singapurlu Aolani'ye yaklaşık 500 milyon dolarlık krediyi durdurdu.",
+      "url": "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls/",
+      "ref": "#2026-11-17-is-1"
+    },
+    {
+      "tag": "İddia · Çin modelleri",
+      "text": "The Decoder'ın Reuters'a dayandırdığı habere göre Z.ai'ın yaklaşık 3 trilyon parametreli GLM-5.5'i 2027'nin ilk çeyreğine, Moonshot'ın Kimi K4'ü 2027 ortasına kayabilir. Aynı habere göre Moonshot, Google ve Meta'nın son modelleriyle eğitim yapıyor (haber yöntemi belirtmiyor) ve Avrupa'da compute arıyor.",
+      "url": "https://the-decoder.com/after-openai-and-anthropic-shut-the-door-on-their-data-a-chinese-ai-developer-is-turning-to-google-and-meta-instead/",
+      "ref": "#2026-11-26-kisa-5"
+    },
+    {
+      "tag": "Güvenlik",
+      "text": "PowerDNS Authoritative Server'da on açık kapatıldı; çoğu çökmeye ve hizmet kesintisine yol açıyor, biri Views kullanan kurulumlarda önbellekten yanlış sonuç döndürebiliyor. Düzeltilmiş sürümler 4.9.19, 5.0.9 ve 5.1.6; DNS mesajlarını imzalayan TSIG'teki çökme açığı için geçici çözüm yok.",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/26/4"
+    },
+    {
+      "tag": "Güvenlik",
+      "text": "Exim 4.100.2, SMTP alımında header çözümlerken uzaktaki bir saldırganın ayrılan alanın dışına yazmasına izin veren orta önemdeki açığı kapattı; ardından root yetkisiyle bir expansion işlemi çalışıyor. Duyuru etkilenen sürümleri vermediği için Exim çalıştıran bütün sunucuları 4.100.2'ye yükseltmek gerekiyor.",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/26/5"
+    },
+    {
+      "tag": "Araştırma · Ai2",
+      "text": "Ai2'nin 17 ABD'li bilim insanıyla yaptığı görüşmelere göre araştırmacılar AI agent'larında yalnızca doğru cevabı değil, cevaba nasıl ulaşıldığını, neyin atlandığını ve hangi veriye erişildiğini de denetleyebilmek istiyor. Ai2 çalışmayı keşif amaçlı ve temsili olmayan bir örneklem olarak niteliyor.",
+      "url": "https://huggingface.co/blog/allenai/where-scientists-draw-the-line-on-ai-agents"
+    },
+    {
+      "tag": "Altyapı · SpaceX",
+      "text": "ABD Federal İletişim Komisyonu FCC, SpaceX'in yörüngede veri merkezi olarak çalışacak Starmind ağı için 1 milyona kadar uydu kurmasına izin verdi; The Decoder'a göre hedef 2040.",
+      "url": "https://the-decoder.com/fcc-clears-spacex-to-deploy-up-to-1-million-starmind-satellites-for-orbital-ai-data-centers-by-2040/"
+    }
+  ]
+}
