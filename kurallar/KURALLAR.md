@@ -74,7 +74,7 @@ Pencere içinde haber yoksa bunu gizleme ve dolgu koyma: son 7 günde yayımlanm
 
 **Kısa Kısa.** Tek-iki cümlelik haberler. Tek ve ikincil kaynağa dayanan bir gelişme ancak burada, “İddia” ile başlayarak yer alabilir. Yaygın bir hizmetin (bulut, GitHub, büyük model API'leri) saatler süren kesintisi en azından burada yer alır; link status sayfasındaki olay kaydına verilir. Tüketici ürünü, magazin ve dolgu haberi koyma.
 
-**Yer dağılımı.** 8 kolonluk büyük haberler okuyucunun işine en çok dokunan haberlere gider; genel piyasa ve finans haberleri ve küçük sürüm notları 4 kolonla yetinir. Bir şirket (ürünleriyle birlikte) manşet dışında en fazla 2 haber ve 1 kısa haberle yer alır; aynı günün duyurularını tek haberde birleştir. Başka bir haberde adının geçmesi ve repo listesi bu sınıra girmez.
+**Yer dağılımı.** 8 kolonluk büyük haberler okuyucunun işine en çok dokunan haberlere gider; genel piyasa ve finans haberleri ve küçük sürüm notları 4 kolonla yetinir. Bir şirketin aynı gündeki duyurularını tek haberde birleştir; şirket başına haber sınırı yoktur, önemli gelişme hangi şirketten gelirse gelsin yerini alır.
 
 ## 5. Haber dili
 

@@ -76,7 +76,7 @@ Taslak, `kurallar/KURALLAR.md`, `kurallar/TERIMLER.md`, `kurallar/ATOLYE.md` ve 
 
 ### Seçim ve önem
 
-- Manşet kurala uyuyor mu: AI/LLM, aynı şirket ya da ürün ailesi art arda ikinci kez değil, güvenlik temalı manşet art arda ikinci kez değil.
+- Manşet kurala uyuyor mu: yapay zekâ ya da yazılım geliştirme haberi, aynı şirket ya da ürün ailesi art arda ikinci kez değil. Şirket başına haber sınırı yoktur; bunu bulgu yazma.
 - Son 3 sayıyla tekrar (Takip haberleri hariç), pencere dışı haber.
 - Öncelik ve yer dağılımı: büyük haberler okuyucunun işine en çok dokunanlara mı gitmiş; Java & Spring'de JVM dışı haber ya da haber varken okuma yazısı; şirket ağırlığı ve bölüm dışı güvenlik sınırı.
 
