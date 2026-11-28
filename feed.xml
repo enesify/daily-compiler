@@ -5,8 +5,16 @@
 <link href="https://dailycompiler.com/"/>
 <link rel="self" type="application/atom+xml" href="https://dailycompiler.com/feed.xml"/>
 <id>https://dailycompiler.com/</id>
-<updated>2026-11-27T07:11:00+03:00</updated>
+<updated>2026-11-28T07:11:00+03:00</updated>
 <author><name>The Daily Compiler</name></author>
+<entry>
+<title>Hugging Face, agent ekibini birlikte eğitmek için TRL’ye açık tarif ekledi</title>
+<link href="https://dailycompiler.com/sayi/2026-11-28.html"/>
+<id>https://dailycompiler.com/sayi/2026-11-28.html</id>
+<updated>2026-11-28T07:11:00+03:00</updated>
+<summary>Sayı 026 · Cumartesi, 28 Kasım 2026 · Dört agent’lık küçük bir ekip ortak ödülle eğitildikçe daha çok problem çözüp daha az token harcadı. Yazının asıl uyarısı ölçümle ilgili: çok agent’lı bir sistemi eşit token bütçesiyle ve best-of-N tekrarlarıyla karşılaştırın.</summary>
+<content type="html">&lt;p&gt;Dört agent’lık küçük bir ekip ortak ödülle eğitildikçe daha çok problem çözüp daha az token harcadı. Yazının asıl uyarısı ölçümle ilgili: çok agent’lı bir sistemi eşit token bütçesiyle ve best-of-N tekrarlarıyla karşılaştırın.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-28.html#a-manset"&gt;Hugging Face, agent ekibini birlikte eğitmek için TRL’ye açık tarif ekledi&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-28.html#a-ai-1"&gt;Hugging Face: LTX-2.5 videosu Trainium3’te 23 saniyede&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-28.html#a-ai-2"&gt;Kioxia: GPU belleği SSD’yle petabayt ölçeğe genişletildi&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-28.html#a-ai-3"&gt;Zhejiang: ayrık logaritma koşullu olarak alt üstel zamanda&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-28.html#a-java-1"&gt;GeoServer’da kimlik doğrulamasız iki açık istismar ediliyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-28.html#a-java-2"&gt;LangChain4j 1.24.1, URL’deki medyayı artık kendisi indirmiyor&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-28.html#a-guvenlik-1"&gt;Drupal kurulum açığına ikinci yama: yarım kurulumlar açık&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-28.html#a-guvenlik-2"&gt;InfoHawk: skimmer kart verisini WebRTC üzerinden kaçırdı&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://dailycompiler.com/sayi/2026-11-28.html#a-guvenlik-3"&gt;ntfs-3g 2026.11.23, 30 açığı kapattı&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+</entry>
 <entry>
 <title>Workspace verisine erişen AI agent’ları için MCP zorunlu oluyor</title>
 <link href="https://dailycompiler.com/sayi/2026-11-27.html"/>

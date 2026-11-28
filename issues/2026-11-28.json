@@ -1,0 +1,423 @@
+{
+  "date": "2026-11-28",
+  "number": 26,
+  "dateLabel": "Cumartesi, 28 Kasım 2026",
+  "readingMinutes": 13,
+  "calendar": [
+    {
+      "date": "2026-11-30",
+      "text": "GeoServer açıkları için CISA'nın son tarihi",
+      "ref": "java-1"
+    },
+    {
+      "date": "2026-11-30",
+      "text": "Drupal kurulum açığı için CISA'nın son tarihi",
+      "ref": "guvenlik-1"
+    },
+    {
+      "date": "2026-12-01",
+      "text": "OpenSSL 4.1.1, 4.0.4 ve 3.5.10 yayımlanıyor",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/24/14"
+    },
+    {
+      "date": "2026-12-03",
+      "text": "JDK 28 Rampdown Phase One'a giriyor",
+      "url": "https://openjdk.org/projects/jdk/28/"
+    }
+  ],
+  "lead": {
+    "kicker": "Araştırma · Çok agent'lı sistemler",
+    "alert": false,
+    "headline": "Hugging Face, agent ekibini birlikte eğitmek için TRL'ye açık tarif ekledi",
+    "deck": "Dört agent'lık küçük bir ekip ortak ödülle eğitildikçe daha çok problem çözüp daha az token harcadı. Yazının asıl uyarısı ölçümle ilgili: çok agent'lı bir sistemi eşit token bütçesiyle ve best-of-N tekrarlarıyla karşılaştırın.",
+    "paragraphs": [
+      "Birlikte çalışan bir agent ekibini tek bir ortak ödülle eğitmenin tekrarlanabilir bir tarifi artık Hugging Face'in model eğitim kütüphanesi TRL'de, `async_grpo_s3_aggregation` örneği olarak duruyor. Hugging Face'in 26 Kasım'daki yazısına göre tarifin 50 eğitim adımlık sürümü iki H200 GPU'da yaklaşık beş saat sürüyor ve yaklaşık 50 dolar tutuyor. Görev, Kasım başında arXiv'e yüklenen s³ makalesindeki bilgi toplama problemi. Dört agent aynı Qwen3-0.6B modelini paylaşıyor, her birinde gizli bir tam sayı var ve ekip bu listeyi birleştirmek zorunda.",
+      "Ekibin ortak ödülü harcanan token arttıkça azalıyor. Yazarların sekiz H200'lü, 75 adımlık ana koşusunda eğitim başarısı ilk beş adımdaki yaklaşık %6,6'dan son beş adımda %82,3'e çıktı; deneme başına token yaklaşık 13 binden 8 bine indi. Eğitimde görülmemiş 32 problemin 26'sını 75. checkpoint çözdü. Tarifin 50 adımlık kısa sürümü aynı tür problemlerde %60,9'a ulaştı. Agent'lar daha az token harcarken birbirlerine daha sık mesaj gönderdi.",
+      "Yazının en genel dersi ölçümle ilgili; yazarlar başarı, token ve iletişimin birlikte okunmasını öneriyor. Agent sayısının çok olması, işbirliğinin işe yaradığını tek başına göstermiyor. Yazarlara göre çok agent'lı sistem tek denemeyle değil, eşit token bütçesiyle ve aynı görevi birkaç kez deneyip en iyisini seçen best-of-N ile karşılaştırılmalı; yoksa işbirliği yerine fazladan hesaplama ölçülmüş olabilir. Tablodaki karşılaştırmayı yazarlar, eğitim problemleri üzerinden yapılmış bir tahmin olarak niteliyor.",
+      "Sınırlar da belirgin: model 0,6 milyar parametreli, görev yapay bir bilgi toplama problemi ve rakamlar Hugging Face'in kendi koşularından. s³ makalesi daha geniş bir sonuç bildiriyor. Eşit eğitim ve inference bütçesinde, eğitimdekinin iki katı agent'la çalışan ekipler en güçlü baseline'ın çözdüğünün 25 katından fazla koordinasyon problemi çözüyor. Yazı, çok agent'lı sistemler dizisinin ilk bölümü."
+    ],
+    "table": {
+      "title": "Eğitilmemiş ve eğitilmiş ekip: başarı ve token",
+      "cols": [
+        "Ekip",
+        "Deneme",
+        "Başarı",
+        "Token"
+      ],
+      "rows": [
+        [
+          "Eğitilmemiş",
+          "8 denemenin en iyisi",
+          "%37,5",
+          "yaklaşık 103 bin"
+        ],
+        {
+          "cells": [
+            "Eğitilmiş",
+            "Tek deneme",
+            "%82,3",
+            "yaklaşık 8 bin"
+          ],
+          "highlight": true
+        }
+      ],
+      "note": "Hugging Face'in 75 adımlık ana koşusu; yazarlar karşılaştırmayı eğitim problemleri üzerinden yapılmış bir tahmin olarak niteliyor."
+    },
+    "sources": [
+      {
+        "label": "Hugging Face blog: Swarms, Flocks, Gangs",
+        "url": "https://huggingface.co/blog/training-swarms"
+      },
+      {
+        "label": "arXiv: s³, Simple Scaling of Swarms via Cooperative Multi-agent RL",
+        "url": "https://arxiv.org/abs/2611.08615"
+      }
+    ],
+    "box": {
+      "items": [
+        "Çok agent'lı bir akışı değerlendiriyorsanız tek agent'lı sürümle aynı token bütçesinde ve best-of-N tekrarlarıyla karşılaştırın; yalnızca tek denemeye karşı ölçülen fark fazladan hesaplamadan gelebilir.",
+        "Agent ekibi raporlarınıza başarı oranının yanına deneme başına token ve agent'lar arası mesaj sayısını ekleyin; Hugging Face'in koşusunda token düşerken mesaj sayısı arttı.",
+        "Tarifi denemek için TRL'deki örneği çalıştırın ve değerlendirmeyi eğitimde görülmemiş problemlerle yapın; Hugging Face'in koşusunda bu ayrım 32 problemlik ayrı bir setle yapıldı."
+      ]
+    }
+  },
+  "sections": [
+    {
+      "id": "ai",
+      "title": "Yapay Zekâ & LLM",
+      "articles": [
+        {
+          "size": 4,
+          "kicker": "Şirket beyanı · Video üretimi",
+          "headline": "Hugging Face: LTX-2.5 videosu Trainium3'te 23 saniyede",
+          "paragraphs": [
+            "Hugging Face'e göre Lightricks'in görüntü ve sesi birlikte üreten LTX-2.5 modeli, AWS'nin Trainium3 çipinde 10 saniyelik 2048×1024 sesli bir klibi 22-23 saniyede üretiyor. Ekip, bir aylığına ödünç verilen trn3.48xlarge instance'ının yarısını kullandı; ilk denemesi daha düşük çözünürlükte ve dört çekirdekte 5 dakika 20 saniye sürmüştü. Yazarlar sonucu, LTX'in çevrimiçi API'si için bildirilen 23,7 saniyelik 1080p süresiyle kıyaslıyor. Model yüklemesi yaklaşık 3 dakika sürüyor. Yazıda maliyet karşılaştırması yok; kod `dacorvo/video-generation` reposunda, diffusers'a gereken iki düzeltme henüz merge edilmedi."
+          ],
+          "sources": [
+            {
+              "label": "Hugging Face blog: Taking Trainium3 to the Track",
+              "url": "https://huggingface.co/blog/video-trainium3"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Şirket beyanı · Vektör arama",
+          "headline": "Kioxia: GPU belleği SSD'yle petabayt ölçeğe genişletildi",
+          "paragraphs": [
+            "NVMe SSD'leri küçük bloklarla erişerek GPU belleğinin uzantısı gibi kullanan NVIDIA kütüphanesi SCADA ile GPU belleği petabayt ölçeğe genişletilebiliyor; Kioxia'nın 26 Kasım'da duyurduğu kavram kanıtı bunu bir GB200 NVL72 rack'inde gösteriyor. Rack'in 18 sunucusuna sekizer, toplam 144 adet 7,68 TB'lık Kioxia XD8 SSD takıldı; ham kapasite yaklaşık 1,1 PB. Kioxia'ya göre mimari, 512 baytlık erişimlerle 2 trilyon vektörlük bir veritabanını işleme potansiyeli taşıyor. Hedef, büyük vektör veritabanları ve graph neural network'ler. Ticari ürün, fiyat ya da tarih açıklanmadı; şirketler fizibilite ve performansı değerlendirmeyi sürdürüyor."
+          ],
+          "sources": [
+            {
+              "label": "Kioxia: petabayt ölçekli GPU belleği kavram kanıtı",
+              "url": "https://www.kioxia.com/en-jp/business/news/2026/20261126-1.html"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "İddia · Kriptografi",
+          "headline": "Zhejiang: ayrık logaritma koşullu olarak alt üstel zamanda",
+          "paragraphs": [
+            "Zhejiang Üniversitesi'nden üç araştırmacının ön baskısı, ayrık logaritmayı rastgelelik kullanmadan, yani deterministik olarak alt üstel zamanda çözen bir algoritma öneriyor. Algoritma asal cisimlerde ve asal mertebeli eliptik eğrilerde çalışıyor. 27 Kasım'da IACR ePrint'te onaylanan çalışmanın sonucu koşullu: ön baskının OpenAI'a atfettiği ve bu çalışmada kanıtlanmayan bir Boolean tensor contraction yapısının doğru olduğunu varsayıyor. Yazarlara göre bilinen deterministik algoritmalar en kötü durumda yaklaşık √p işlem gerektiriyor. Diffie-Hellman ve ECDSA gibi şemalar bu problemin zorluğuna dayanıyor; ancak hakemli olmayan ön baskı pratik bir saldırı ya da kriptosistemlere etki iddia etmiyor."
+          ],
+          "sources": [
+            {
+              "label": "IACR ePrint 2026/3020",
+              "url": "https://eprint.iacr.org/2026/3020"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java & Spring",
+      "articles": [
+        {
+          "size": 6,
+          "kicker": "Aktif istismar · GeoServer",
+          "alert": true,
+          "headline": "GeoServer'da kimlik doğrulamasız iki açık istismar ediliyor",
+          "paragraphs": [
+            "Java tabanlı harita sunucusu GeoServer'daki iki açık istismar ediliyor; CISA ikisini 27 Kasım'da KEV'e ekledi. CVE-2026-129243'te `x/WFS` gibi önekli bir servis adı, servis güvenlik kurallarını rol kontrolü olmadan aşıyor. CVE-2026-120705, WFS 2.0'daki GetFeatureById sorgusunda XML enjeksiyonuyla dosya okumaya ve SSRF'e izin veriyor. CISA'ya göre açıklar üç başkasıyla zincirlenince kimlik doğrulamasız uzaktan kod çalıştırmaya varıyor. Üç sürüm hattının düzeltilmiş sürümleri tabloda. Hemen yükseltemiyorsanız anonim kullanıcılara WFS'i kapatın, proxy'de `service` parametresi `/` içeren istekleri engelleyin ve `wfs/query` klasörlerinde tanımadığınız stored query arayın."
+          ],
+          "why": "CISA'nın 30 Kasım tarihi ABD federal kurumlarını bağlıyor; zincir kimlik doğrulamasız kod çalıştırmaya vardığı için internete açık sunucular beklememeli.",
+          "sources": [
+            {
+              "label": "GeoServer advisory: GHSA-rv5g-g2r9-58rj",
+              "url": "https://github.com/geoserver/geoserver/security/advisories/GHSA-rv5g-g2r9-58rj"
+            },
+            {
+              "label": "GeoServer advisory: GHSA-39mw-5chv-jh47",
+              "url": "https://github.com/geoserver/geoserver/security/advisories/GHSA-39mw-5chv-jh47"
+            },
+            {
+              "label": "CISA KEV: CVE-2026-129243",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-129243"
+            }
+          ],
+          "table": {
+            "title": "GeoServer: etkilenen ve düzeltilmiş sürümler",
+            "cols": [
+              "Sürüm hattı",
+              "Etkilenen",
+              "Düzeltilmiş"
+            ],
+            "rows": [
+              [
+                "2.27",
+                "2.27.6 ve öncesi",
+                "2.27.7"
+              ],
+              [
+                "2.28",
+                "2.28.0-2.28.5",
+                "2.28.6"
+              ],
+              [
+                "3.0",
+                "3.0.0-3.0.1",
+                "3.0.2"
+              ]
+            ]
+          }
+        },
+        {
+          "size": 6,
+          "kicker": "Sürüm · LangChain4j",
+          "headline": "LangChain4j 1.24.1, URL'deki medyayı artık kendisi indirmiyor",
+          "paragraphs": [
+            "URL ile verilen görüntü ve PDF'ler LangChain4j'de artık indirilmeden doğrudan model sağlayıcısına gidiyor; 27 Kasım'da çıkan 1.24.1 ve 1.19.7 sürümleri üç breaking change getiriyor. Amazon Bedrock, Ollama ve Workers AI'ın görüntü düzenleme entegrasyonu, URL ile verilen medyada `UnsupportedFeatureException` atıyor; içerik dosyadan ya da bayttan oluşturulmalı. Apache Tika ve PDFBox parser'ları 10 milyon karakteri aşan belgede hata veriyor. `SqlFilterParser` 100'den fazla koşulu, 50 seviyeden derin iç içeliği ve `CASE` gibi yapıları reddediyor. Sürüm notunda CVE yok; sınırlar builder'lardan değiştirilebiliyor."
+          ],
+          "sources": [
+            {
+              "label": "GitHub: LangChain4j 1.24.1 sürüm notu",
+              "url": "https://github.com/langchain4j/langchain4j/releases/tag/1.24.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik",
+      "patch": [
+        {
+          "text": "Drupal core 10.6.23, 11.3.23 ve 11.4.14 öncesi: yükseltin, ardından `update.php`'yi çalıştırın",
+          "ref": "guvenlik-1"
+        },
+        {
+          "text": "GeoServer 2.27.6, 2.28.5, 3.0.1 ve öncesi: 2.27.7, 2.28.6 ya da 3.0.2'ye yükseltin",
+          "ref": "java-1"
+        }
+      ],
+      "articles": [
+        {
+          "size": 4,
+          "kicker": "Takip · Aktif istismar",
+          "alert": true,
+          "headline": "Drupal kurulum açığına ikinci yama: yarım kurulumlar açık",
+          "paragraphs": [
+            "SA-CORE-2026-017'deki yamalardan sonra yarım ya da olağan dışı kurulum durumunda kalan Drupal siteleri, production dahil, `install.php` üzerinden ele geçirilebiliyor (CVE-2026-136716). Drupal istismarı 25 Kasım'da bildirdi, CISA 27 Kasım'da KEV'e ekledi. Installer'ı güvenceye almış siteler etkilenmiyor. 10.6.23, 11.3.23 ya da 11.4.14'e geçip `update.php`'yi çalıştırın; 11.2 ve 10.5 ile öncesi yama almıyor. Loglarda user 1 hesabındaki beklenmedik değişikliklere bakın, e-postasını doğrulayın ve parolasını sıfırlamayı düşünün."
+          ],
+          "sources": [
+            {
+              "label": "Drupal: SA-CORE-2026-019",
+              "url": "https://www.drupal.org/sa-core-2026-019"
+            },
+            {
+              "label": "CISA KEV: CVE-2026-136716",
+              "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-136716"
+            },
+            {
+              "label": "25 Kasım sayısı: Drupal'ın kurulum script'indeki RCE açığı",
+              "url": "#2026-11-25-guvenlik-1"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Olay · Web skimming",
+          "headline": "InfoHawk: skimmer kart verisini WebRTC üzerinden kaçırdı",
+          "paragraphs": [
+            "InfoHawk'ın bulgusuna göre Lascana, Samsonite, American Tourister, Revolve ve FWRD'nin ödeme sayfalarına yerleştirilen bir skimmer, kart bilgilerini WebRTC veri kanalıyla gönderdi. Kod bir reklam pikseli, bir cookie banner yapılandırması ve bir CDN dosyası üzerinden geldi, yalnızca küçük ya da dokunmatik ekranlarda çalıştı. Script'ler 25 Kasım'a kadar kaldırıldı; etkilenen alışverişçi sayısı bilinmiyor. InfoHawk ödeme sayfalarında yalnızca kullanılan hostlara izin veren bir CSP `connect-src` kuralı, kart alanları için ayrı bir ödeme frame'i ve ödemenin telefon boyutunda test edilmesini öneriyor."
+          ],
+          "sources": [
+            {
+              "label": "InfoHawk: Black Friday WebRTC skimmer",
+              "url": "https://www.infohawk.com/news/2026-11-27-black-friday-webrtc-skimmer"
+            }
+          ]
+        },
+        {
+          "size": 4,
+          "kicker": "Yetki yükseltme · ntfs-3g",
+          "headline": "ntfs-3g 2026.11.23, 30 açığı kapattı",
+          "paragraphs": [
+            "NTFS disklerini Linux'ta okuyup yazmaya yarayan ntfs-3g'de 30 açık 2026.11.23 sürümüyle düzeltildi. Aralarında heap taşmaları, sınır dışı okumalar ve `ntfsclone`, `ntfsrecover`, `ntfscmp` gibi araçlarda MST fixup taşmaları var; 11'i yerel yetki yükseltme olarak tanımlanıyor. Tuxera açıkları toplu olarak orta ile yüksek önemde görüyor; CVE numaraları istendi. Duyuru giriş yolunu ayrıntılandırmıyor, açık başına bilgi Tuxera'nın GitHub advisory'lerinde. Paket yöneticinizde ntfs-3g kuruluysa dağıtımın güncellemesini uygulayın ya da 2026.11.23'e geçin."
+          ],
+          "sources": [
+            {
+              "label": "oss-security: ntfs-3g 2026.11.23 açıkları",
+              "url": "https://www.openwall.com/lists/oss-security/2026/11/27/12"
+            },
+            {
+              "label": "GitHub: ntfs-3g güvenlik advisory'leri",
+              "url": "https://github.com/tuxera/ntfs-3g/security"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "repos": {
+    "subtitle": "GitHub Trending günlük, haftalık, Java ve TypeScript listeleri · yıldızlar 28 Kasım",
+    "items": [
+      {
+        "name": "Tracer-Cloud/opensre",
+        "url": "https://github.com/Tracer-Cloud/opensre",
+        "stars": "16.172",
+        "starsValue": 16172,
+        "lang": "Python",
+        "cat": "SRE agent'ı",
+        "why": "CI/CD güvenilirliği için açık kaynak bir agent. Yeni sürümü (26 Kasım) dosya okuma, arama ve `apply_patch` düzenlemesini shell olmadan yapıyor; bir önceki sürüm Grafana, Datadog, PagerDuty ve AWS için hazır MCP ayarları getirdi.",
+        "meta": "Python · SRE agent'ı"
+      },
+      {
+        "name": "opensearch-project/OpenSearch",
+        "url": "https://github.com/opensearch-project/OpenSearch",
+        "stars": "14.083",
+        "starsValue": 14083,
+        "lang": "Java",
+        "cat": "Arama motoru",
+        "why": "Dağıtık, RESTful arama ve analiz motoru. Yeni 3.10.1 ve 2.19.8 sürümleri (24 Kasım) paketlenen JDK'yı güncelledi; 2.19.8 ayrıca ptrace ve süreç belleği erişim syscall'larını engelliyor, `min_hash` filtresine OOM'a karşı sınır koyuyor.",
+        "meta": "Java · Arama motoru"
+      },
+      {
+        "name": "mastra-ai/mastra",
+        "url": "https://github.com/mastra-ai/mastra",
+        "stars": "29.864",
+        "starsValue": 29864,
+        "lang": "TypeScript",
+        "cat": "Agent framework'ü",
+        "why": "AI uygulamaları ve agent'lar için bir TypeScript framework'ü. Yeni `@mastra/core` 1.86.0 (25 Kasım), dataset deneylerini yeniden deploy ya da worker çökmesinde takılmayan durable workflow'lar olarak çalıştırıyor; `get_process_output` artık `wait: true` kabul etmiyor.",
+        "meta": "TypeScript · Agent framework'ü"
+      },
+      {
+        "name": "nginx/nginx",
+        "url": "https://github.com/nginx/nginx",
+        "stars": "33.683",
+        "starsValue": 33683,
+        "lang": "C",
+        "cat": "Web sunucusu",
+        "why": "NGINX'in resmi açık kaynak reposu. Yeni 1.31.10 ve 1.30.8 sürümleri (23 Kasım), `ssl_early_data` kullanıldığında aşırı CPU tüketimine yol açan CVE-2026-132779'u düzeltti; 18 Kasım'daki 1.31.9 on CVE kapatmıştı.",
+        "meta": "C · Web sunucusu"
+      },
+      {
+        "name": "Fission-AI/OpenSpec",
+        "url": "https://github.com/Fission-AI/OpenSpec",
+        "stars": "75.900",
+        "starsValue": 75900,
+        "lang": "TypeScript",
+        "cat": "Spec odaklı geliştirme",
+        "why": "AI kodlama asistanları için spec odaklı geliştirme aracı. Yeni 2.2.0 sürümü (24 Kasım), düz dille yazılan isteği uygun OpenSpec skill'ine yönlendiren `/openspec` komutunu ekledi; yükseltme `openspec update` ile yapılıyor.",
+        "meta": "TypeScript · Spec odaklı geliştirme"
+      },
+      {
+        "name": "kajisho5/ffmpeg-skill",
+        "url": "https://github.com/kajisho5/ffmpeg-skill",
+        "stars": "11.955",
+        "starsValue": 11955,
+        "lang": "Python",
+        "cat": "Video düzenleme skill'i",
+        "why": "FFmpeg'i kodlama agent'ları için tipli araçlara saran, Agent Skill ve MCP sunucusu olarak çalışan yerel bir video düzenleme aracı. Yeni 4.22.4 sürümü (28 Kasım), altyazı ve zamanlama okuyucularında FFmpeg gibi yalnızca ASCII rakamları kabul ediyor.",
+        "meta": "Python · Video düzenleme skill'i"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Trending: günlük",
+        "url": "https://github.com/trending?since=daily"
+      },
+      {
+        "label": "GitHub Trending: haftalık",
+        "url": "https://github.com/trending?since=weekly"
+      },
+      {
+        "label": "GitHub Trending: Java günlük",
+        "url": "https://github.com/trending/java?since=daily"
+      },
+      {
+        "label": "GitHub Trending: TypeScript günlük",
+        "url": "https://github.com/trending/typescript?since=daily"
+      }
+    ]
+  },
+  "atolye": {
+    "konu": "arastirma-sql",
+    "kicker": "Araştırma ve analiz",
+    "title": "Doğal dilden SQL: metrikleri tanımlayın, doğrulanmış sorgularla ölçün",
+    "intro": "Bir veri agent'ı “geçen çeyreğin geliri” sorusunda hangi tabloyu, filtreyi ve gelir tanımını kullanacağını tahmin etmek zorunda kalırsa makul görünen ama yanlış bir sorgu yazabilir. Databricks'in doğal dilden SQL aracı Genie ile Snowflake'in semantic view belgeleri bu tahmini azaltmanın yolunu aynı yerde görüyor: iş tanımlarını modele bırakmamak ve sonucu kayıtlı sorularla ölçmek.",
+    "when": "Belirli bir kitle ve amaç için sınırlı sayıda tabloyu sorgulayan bir veri asistanı kurarken işe yarar; Databricks bir Genie agent'ını tek bir kitleye ve amaca odaklamayı öneriyor. Her şeyi soran tek bir genel asistan bu belgelerin önerdiği kurulum değil.",
+    "steps": [
+      "Kapsamı daraltın. Databricks işe beş ya da daha az tabloyla başlamayı ve her tablodaki sütunları sınırlamayı öneriyor; üst sınır 50 tablo, view ya da metric view. Daha fazlası gerekiyorsa ilgili tabloları önceden join edilmiş view'lara çevirin. Snowflake de semantic view tasarımına basit bir star schema ile başlamayı öneriyor.",
+      "İş terimlerini SQL ifadesi olarak tanımlayın. Databricks metrik, filtre ve boyut gibi terimleri düz metin yerine SQL ifadesiyle yazmayı öneriyor. Snowflake'in semantic view'ı mantıksal tabloları, ilişkileri, fact'leri, metrikleri ve boyutları veritabanında tanım olarak tutuyor; Snowflake'e göre bu, LLM reasoning'ini kural tabanlı tanımlarla birleştirerek doğruluğu artırıyor.",
+      "Sütunlara açıklama, eş anlamlı ve örnek değer ekleyin. Databricks'e göre tablo ve sütun açıklamalarının kalitesi Genie'nin doğruluğu için kritik; kafa karıştıran sütunları gizleyin, AI'ın ürettiği açıklamaları ancak sizin yazacağınızla örtüşüyorsa tutun. Snowflake'te kullanıcının yazabileceği eş anlamlılar `synonyms`, sık anılan değerler `sample_values` alanına giriyor; `is_enum: true` ile bu liste olası değerlerin tamamı sayılıyor.",
+      "Zor sorular için doğrulanmış sorgu yazın. Karmaşık, çok parçalı ya da belirsiz sorularda örnek SQL verin; Databricks bunun kullanıcı sorusunu doğrulanmış bir sorguyla eşleştirmeye yaradığını yazıyor. Snowflake'in `verified_queries` alanı her sorgu için onaylayanı (`verified_by`) ve tarihi (`verified_at`) de tutuyor.",
+      "Soruları benchmark'a çevirin. İlk kullanıcı siz olun: üretilen SQL'i okuyun, veri ya da jargon yanlış anlaşılmışsa sorguyu düzeltin ya da talimat ekleyin. Databricks gözden geçirilmiş soruları benchmark olarak kaydetmeyi ve aynı soruyu farklı biçimlerde sorarak doğruluğu sistemli ölçmeyi öneriyor."
+    ],
+    "example": {
+      "label": "Örnek semantic view: sipariş tablosu ve doğrulanmış sorgu",
+      "lang": "yaml",
+      "code": "name: satis_sv\ntables:\n  - name: siparisler\n    description: \"Tüm siparişler; tarihler UTC\"\n    synonyms: [\"satışlar\"]\n    base_table:\n      database: satis_db\n      schema: public\n      table: orders\n    dimensions:\n      - name: durum\n        expr: status\n        is_enum: true\n        sample_values: [\"tamamlandi\", \"iade\"]\n    facts:\n      - name: tutar\n        expr: total_price\nverified_queries:\n  - name: iade_tutari\n    question: \"İade edilen siparişlerin tutarı ne?\"\n    sql: |\n      SELECT SUM(tutar) FROM satis_sv\n      WHERE durum = 'iade'\n    verified_by: veri-ekibi"
+    },
+    "pitfall": "Talimatları çoğaltmak: Databricks'e göre çok fazla metin talimatı uzun konuşmalarda etkiyi azaltabiliyor. Belge ayrıca talimat türlerinin çelişmemesini istiyor; metin talimatı iki ondalığa yuvarla diyorsa örnek SQL de aynısını yapmalı.",
+    "sources": [
+      {
+        "label": "Databricks: Curate an effective Genie Agent",
+        "url": "https://docs.databricks.com/aws/en/genie/best-practices"
+      },
+      {
+        "label": "Snowflake: semantic view YAML belirtimi",
+        "url": "https://docs.snowflake.com/en/user-guide/views-semantic/semantic-view-yaml-spec"
+      },
+      {
+        "label": "Snowflake: semantic view'lara genel bakış",
+        "url": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst/semantic-model-spec"
+      }
+    ]
+  },
+  "briefs": [
+    {
+      "tag": "İddia · OpenAI",
+      "text": "The Decoder'ın The Information'a dayandırdığı habere göre OpenAI, iş verisiyle çalışan agent'ların daha az tahmin yürütmesi için gelir ve müşteri sayısı gibi metriklere tutarlı tanımlar veren “Athena” kod adlı bir semantic layer geliştiriyor. Platform erken aşamada; takvim ve fiyat paylaşılmadı.",
+      "url": "https://the-decoder.com/openai-is-building-athena-data-platform-to-cut-down-on-ai-agent-guesswork/"
+    },
+    {
+      "tag": "Güvenlik",
+      "text": "Açık kaynak e-devlet platformu DIGIT'in User ve Access Control servislerinde, kimlik doğrulaması olmadan rastgele SQL çalıştırmaya izin veren bir açık var (CVE-2026-136706). DIGIT Core v2.9 kullananlar v2.9.3'e yükseltmeli.",
+      "url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES01&VLCODE=CIVN-2026-0570"
+    },
+    {
+      "tag": "AWS",
+      "text": "Amazon Neptune'ün yeni Graph Sessions modu her agent'a ya da göreve ayrı bir graf veriyor: 4 ya da 8 s-NCU çalışma belleğiyle başlayan graf iki katına kadar büyüyor, 15 dakika boşta kalınca veriyi koruyarak sıfıra iniyor. Sorgular openCypher ile, ücret kullanılan bellek kadar.",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/amazon-neptune-graph-sessions-generally-available"
+    },
+    {
+      "tag": "İddia · ABD Hava Kuvvetleri",
+      "text": "The Decoder'ın Reuters'a dayandırdığı habere göre saldırganlar, ABD Hava Kuvvetleri'nin Microsoft, Amazon, Oracle ve Alphabet bulutlarını birleştiren Cloud One platformuna bir yazılım açığıyla girip control plane'e ulaştı. İhlal geçen ay fark edildi; veri çıkarılıp çıkarılmadığı bilinmiyor.",
+      "url": "https://the-decoder.com/hackers-breached-the-us-air-forces-flagship-cloud-one-platform-report-says/"
+    },
+    {
+      "tag": "İddia · SAP",
+      "text": "The Decoder'ın Bloomberg'e dayandırdığı habere göre SAP, AI odaklı yeniden yapılanmada en az 10.000 kişiyi, yani 110 binden fazla çalışanının yaklaşık %9'unu çıkarmaya hazırlanıyor; en çok ürün geliştirme, mühendislik ve satış etkilenecek. SAP yorum yapmadı.",
+      "url": "https://the-decoder.com/sap-plans-to-cut-at-least-10000-jobs-as-it-pivots-to-ai/"
+    },
+    {
+      "tag": "İddia · Nvidia",
+      "text": "The Decoder'ın Bloomberg'e dayandırdığı habere göre ABD'nin lisanssız ihracatını yasakladığı Nvidia Blackwell donanımı, Nvidia skandalında adı geçen Alice Huang'la bağlantılı bir Şanghay veri merkezinde ortaya çıktı: Çin'deki kredi belgelerinde bir GB300-NVL72 rack'i ve bir GB200 sunucusu görünüyor.",
+      "url": "https://the-decoder.com/banned-nvidia-blackwell-chips-turn-up-in-a-shanghai-data-center-linked-to-alice-huang-bloomberg-reports/"
+    }
+  ]
+}

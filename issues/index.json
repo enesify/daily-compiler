@@ -1,5 +1,10 @@
 [
  {
+  "date": "2026-11-28",
+  "number": 26,
+  "headline": "Hugging Face, agent ekibini birlikte eğitmek için TRL'ye açık tarif ekledi"
+ },
+ {
   "date": "2026-11-27",
   "number": 25,
   "headline": "Workspace verisine erişen AI agent'ları için MCP zorunlu oluyor"
