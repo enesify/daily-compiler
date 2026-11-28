@@ -647,5 +647,6 @@ aside.box ol>li::before{content:counter(not,decimal-leading-zero);justify-self:s
   .more::before{content:"";order:2;width:.8em;height:.8em;background:currentColor;-webkit-mask:var(--i-dn) center/contain no-repeat;mask:var(--i-dn) center/contain no-repeat}
   .more[aria-expanded="true"]::before{transform:rotate(180deg)}
   .clamp .body,.clamp .cols{position:relative}
+  .clamp>.src,.clamp .src{display:none}   /* kaynaklar haberle birlikte açılır */
   .clamp .body::after,.clamp .cols::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.6em;pointer-events:none;background:linear-gradient(color-mix(in srgb,var(--paper) 0%,transparent),var(--paper))}
 }
