@@ -19,7 +19,7 @@ import sys
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_NAME = "The Daily Compiler"
 TAGLINE_B = "Yazılım · Yapay Zekâ · LLM"
-TAGLINE = "Her sabah, son 24–48 saatin özeti"
+TAGLINE = "Her sabah derlenir"
 
 MONTHS = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"]
 MONTHS_LONG = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
