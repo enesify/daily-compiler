@@ -45,7 +45,7 @@ Gazete herkese açıktır. Metinde belirli bir kişiye, şirkete ya da ekibe hit
 
 **Şirketler & Altyapı** (`is`). Yatırımlar, birleşmeler, çipler, veri merkezleri. Bir yatırım ya da birleşme okura bir araç, altyapı ya da pazar kararı açısından bir şey söylemiyorsa Kısa Kısa'ya gider; 6-8 kolon almaz.
 
-**Geliştirme & Araçlar** (`gelistirme`). AI kodlama araçları, agent harness'ları, CLI'lar, dil ve framework haberleri.
+**Geliştirme & Araçlar** (`gelistirme`). AI kodlama araçları, agent harness'ları, CLI'lar, dil ve framework haberleri. Her sayıda bulunur; bu alandaki haberler Takvim'e ya da Kısa Kısa'ya dağıtılıp bölüm boş bırakılmaz. Pencere içinde gerçekten haber yoksa Java & Spring'deki gibi en fazla 1 “Okuma · Konu” yazısı konur.
 
 **Java & Spring** (`java`). Yalnızca JVM ekosistemi: JDK, Spring, Maven, Hibernate, Maven Central ve JVM bağımlılıklarını etkileyen tedarik zinciri haberleri. AI kütüphaneleri ancak Java/Kotlin API'si ise girer (LangChain4j ve Spring AI evet; Python LangChain Geliştirme & Araçlar'a gider). Önce şu kaynaklara bak, tek tek proje araması yapma; başka projeleri ancak bunlarda bir ipucu varsa ara:
 

@@ -220,6 +220,13 @@ def main():
         for i, a in enumerate(s.get("articles") or []):
             anchors[str(a.get("id") or f"{s.get('id') or 'bolum'}-{i + 1}")] = a
 
+    # Her sayıda bulunan bölümler (haber yoksa “Okuma · Konu” yazısı)
+    if (d.get("date") or "") >= "2026-11-29":
+        ids = {s.get("id") for s in secs if s.get("articles")}
+        for sid, ad in (("gelistirme", "Geliştirme & Araçlar"), ("java", "Java & Spring")):
+            if sid not in ids:
+                W(f"{ad} ({sid}) bölümü yok; her sayıda bulunur, pencere içinde haber yoksa “Okuma · Konu” yazısı konur")
+
     # Manşet
     if len(L.get("headline") or "") > 80:
         E(f"manşet başlığı {len(L['headline'])} karakter (en fazla 80)")
