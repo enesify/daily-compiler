@@ -496,8 +496,9 @@ footer .ft-nav{margin:0}
 .mdl-band .mdl-list .mbar{height:6px}
 .mdl-band .mdl-list .mbar i{border-radius:0 3px 3px 0}
 .mdl-band .mdl-list .val{font-size:15.5px}
-.mdl-go{display:inline-flex;align-items:baseline;margin-top:14px;font-family:var(--f-label);font-size:12.5px;font-weight:600;letter-spacing:.06em;color:var(--accent);text-decoration:none}
-.mdl-go .xi.xg{margin-left:.45em}
+.mdl-go{display:inline-flex;align-items:center;gap:.45em;margin-top:14px;padding:6px 12px;font-family:var(--f-label);font-size:14px;font-weight:600;letter-spacing:0;color:var(--accent);text-decoration:none;background:color-mix(in srgb,var(--accent) 9%,transparent);border-radius:3px}
+.mdl-go .xi.xg{margin-left:0;width:.8em;height:.8em}
+.mdl-go:hover{background:color-mix(in srgb,var(--accent) 14%,transparent)}
 @media (max-width:620px){
   .mdl-list .mrow{grid-template-columns:24px minmax(0,1fr) 70px 10px;grid-template-areas:"r n v c" ". b b b" "d d d d";row-gap:7px;column-gap:10px}
   .mdl-list.static .mrow,.mdl-band .mdl-list .mrow{grid-template-columns:22px minmax(0,1fr) 66px;grid-template-areas:"r n v" ". b b"}

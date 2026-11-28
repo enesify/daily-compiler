@@ -346,7 +346,7 @@ def models_band(ctx):
     return (f'<section class="sec mdl-band" id="sec-benchmark"><div class="sec-h"><h2>Benchmark</h2>'
             f'<p>{esc(D["metrics"][k]["ad"])} · {models_sources(D, [k])} · {esc(models_updated(D))}</p></div>'
             f'<div class="mdl-list static">{models_rows(D, k, 5, short=True)}</div>'
-            f'<a class="mdl-go" href="{bm}">{esc(caps("Sıralamanın devamı · " + sayi + " ölçüt"))}<i class="xi xg" aria-hidden="true"></i></a></section>')
+            f'<a class="mdl-go" href="{bm}">{esc("Sıralamanın devamı · " + sayi + " ölçüt")}<i class="xi xg" aria-hidden="true"></i></a></section>')
 
 
 def render_models(ctx):
